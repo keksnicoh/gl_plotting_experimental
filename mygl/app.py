@@ -36,7 +36,6 @@ class BasicGl():
 		print 'GLFW3: %s' %          glfw.GetVersionString()
 
 		glfw.SetKeyCallback(self.window, self.onKeyboard)
-
 		print "[OK] application is ready."
 
 	def initGlCoreProfile(self):
@@ -91,8 +90,11 @@ class BasicGl():
 			#	print_exc(exc_info()[0])
 			#	print colored("IO interrupted...","red", attrs=['reverse', 'blink'])
 		self.terminate()
+
 	def init_cycle(self):
 		glfw.PollEvents()
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+
 	def swap(self):
 		glfw.SwapBuffers(self.window)
 	def terminate(self):

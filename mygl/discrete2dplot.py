@@ -1,3 +1,7 @@
+"""
+pretty rough plotting class experiment
+@author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
+"""
 import app
 import util
 from OpenGL.GL import *
@@ -139,6 +143,7 @@ class Plotter():
 				math.sin(self.rot), math.cos(self.rot),  0.0, 0.0,
 				0.0,                0.0,                 0.0, 0.0,
 				0.0,                0.0,                 0.0, 0.0], dtype=numpy.float32)
+
 			glUniform3f(self.shader.uniformLocation('dot_color'), *self.dot_color)
 			glUniform1f(self.shader.uniformLocation('dot_alpha'), self.dot_alpha)
 			glUniform1f(self.shader.uniformLocation('dot_size'), self.dot_size)
