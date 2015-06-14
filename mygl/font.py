@@ -6,6 +6,7 @@ XXX optimize texture rendering...
 """
 import mygl.app
 from mygl.util import Shader
+from matricies import translation_matrix
 from OpenGL.GL import *
 import ImageFont
 import numpy
@@ -38,21 +39,17 @@ class GlFont():
     NEWLINE = '\n'
     SCALING = 400.0
     def __init__(self, text, font):
-
         self.font = font
-        self._texture_cache = {}
         self.color = [1.0, 1.0, 1.0, 1.0]
         self.shader = None
-        self.mat_modelview_f = lambda rel_xy, n, l: numpy.array([
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            rel_xy[0], rel_xy[1], 0, 1
-        ], dtype=numpy.float32)
+        self.length = None
         self._render_data = []
+        self._texture_cache = {}
         self._prepare_gl()
         self._is_prepared = False
-        self.length = None
+
+        """ local modelview matrix. """
+        self.mat_modelview_f = lambda rel_xy, n, l: translation_matrix(*rel_xy)
         self.set_text(text)
 
     def set_color(self, color):
