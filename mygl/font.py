@@ -10,15 +10,18 @@ from matricies import translation_matrix
 from OpenGL.GL import *
 import ImageFont
 import numpy
-
+import time
 VERTEX_SHADER = """
 #version 410
+uniform mat4 mat_projection;
+uniform mat4 mat_modelview;
+
 in vec2 vert;
 in vec2 vertTexCoord;
 out vec2 fragTexCoord;
-uniform mat4 mat_projection;
-uniform mat4 mat_modelview;
-void main() {
+
+void main()
+{
     fragTexCoord = vertTexCoord;
     gl_Position = mat_projection * mat_modelview * vec4(vert, 0.0, 1.0);
 }
@@ -26,12 +29,21 @@ void main() {
 
 FRAGMENT_SHADER = """
 #version 410
+
 uniform sampler2D tex;
-in vec2 fragTexCoord;
 uniform vec4 color;
+
+in vec2 fragTexCoord;
 out vec4 finalColor;
-void main() {
-    finalColor = color * texture(tex, fragTexCoord);
+
+void main()
+{
+
+
+    finalColor = texture(tex, fragTexCoord);
+    finalColor = color * finalColor;
+    finalColor = vec4(0,1,0,1);
+    return;
 }
 """
 
@@ -47,7 +59,6 @@ class GlFont():
         self._texture_cache = {}
         self._prepare_gl()
         self._is_prepared = False
-
         """ local modelview matrix. """
         self.mat_modelview_f = lambda rel_xy, n, l: translation_matrix(*rel_xy)
         self.set_text(text)
@@ -56,6 +67,7 @@ class GlFont():
         self.color = color
     def set_text(self, text):
         self.text = text
+        print('set new text')
         self._is_prepared = False
 
     def _prepare_gl(self):
@@ -69,6 +81,12 @@ class GlFont():
         shader.linkProgram()
         self.shader = shader
 
+        self._gl_uniforms = {}
+        # cache uniform locations (much faster)
+        self._gl_uniforms['tex'] = self._uloc('tex')
+        self._gl_uniforms['color'] = self._uloc('color')
+        self._gl_uniforms['mat_projection'] = self._uloc('mat_projection')
+        self._gl_uniforms['mat_modelview'] = self._uloc('mat_modelview')
         self.vao_id = glGenVertexArrays(1)
         self.vbo_id = glGenBuffers(2)
 
@@ -82,7 +100,7 @@ class GlFont():
 
         rel_xy = (0.0, 0.0)
         line_height_factor = 6.0/5.0
-        self._render_data = []
+        self._render_data = range(len(self.text))
         max_line_height = 0.0
         for n, char in enumerate(self.text):
             glyph = self.font.getmask(char)
@@ -106,7 +124,7 @@ class GlFont():
 
             # if there is a newline, skip to next line.
             if char == GlFont.NEWLINE:
-                self._render_data.append(GlFont.NEWLINE)
+                self._render_data[n] = GlFont.NEWLINE
                 rel_xy = (0.0, rel_xy[1]-max_line_height*line_height_factor)
                 continue
 
@@ -142,7 +160,7 @@ class GlFont():
             ID = self._create_texture(char, glyph, width, height, glyph_width, glyph_height)
 
             # assign texture id and rel_xy to render_data
-            self._render_data.append([ID, rel_xy])
+            self._render_data[n] = [ID, rel_xy]
             rel_xy = (rel_xy[0]+vert_size[0]+vert_offset[0], rel_xy[1])
             max_line_height = max(max_line_height, vert_size[1])
 
@@ -165,6 +183,8 @@ class GlFont():
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
         glBindVertexArray(0)
+
+
         self._is_prepared = True
 
     def _create_texture(self, char, glyph, width, height, glyph_width, glyph_height):
@@ -190,6 +210,7 @@ class GlFont():
                         tex2d += value*4
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex2d)
+            print('created 2dTxt {}: {} {}'.format(ID, width, height))
             self._texture_cache[char] = ID
 
         return self._texture_cache[char]
@@ -201,13 +222,16 @@ class GlFont():
         self.length = length
 
     def render(self, mat_projection=None):
+
         if not self._is_prepared:
             self.prepare()
+
         mat_projection = mat_projection if mat_projection is not None else numpy.identity(4)
         length = len(self._render_data) if self.length is None else self.length
         char = (0.0, 0.0)
-
         self.shader.useProgram()
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glActiveTexture(GL_TEXTURE1) # XXX disale texture later??
         glBindVertexArray(self.vao_id)
 
@@ -215,19 +239,23 @@ class GlFont():
         # you will get heavy performance issues. note that this
         # uniform assignments seem to kill your performance. try
         # to assign them as less as possible...
-        glUniform1i(self._uloc('tex'), 1)
-        glUniform4f(self._uloc('color'), *self.color)
-        glUniformMatrix4fv(self._uloc('mat_projection'), 1, GL_FALSE, mat_projection)
+        glUniform1i(self._gl_uniforms['tex'], 1)
+        glUniform4f(self._gl_uniforms['color'], *self.color)
+        glUniformMatrix4fv(self._gl_uniforms['mat_projection'], 1, GL_FALSE, mat_projection)
+
+
         for n, data in enumerate(self._render_data[0:length]):
             # newline
             if data == GlFont.NEWLINE: char = (0, char[1]+1); continue
             (gl_tex_id, rel_xy) = data
 
+            # this is fucking slow :(
             model_view_matrix = self.mat_modelview_f(rel_xy, *char)
-            glUniformMatrix4fv(self._uloc('mat_modelview'), 1, GL_FALSE, model_view_matrix)
+            glUniformMatrix4fv(self._gl_uniforms['mat_modelview'], 1, GL_FALSE, model_view_matrix)
 
             glBindTexture (GL_TEXTURE_2D, gl_tex_id)
             glDrawArrays(GL_TRIANGLES, n*6, 6)
+
             char = (char[0]+1, char[1])
 
         glBindVertexArray(0)

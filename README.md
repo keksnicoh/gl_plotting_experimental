@@ -1,1 +1,3 @@
-# gl_plotting_experimental
+ OpenGL plotting experiments
+ Nicolas Heimann
+ Jeese Hinrichsen

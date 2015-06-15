@@ -51,6 +51,7 @@ if __name__ == '__main__':
     gl_fps.prepare()
     fps_translation_left = translation_matrix(-1, 1)
     fps_translation_right = translation_matrix(0.5, 1)
+    second_render_translation = translation_matrix(.005, .005)
 
     # circle font
     ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/arial.ttf", 30)
@@ -74,6 +75,12 @@ if __name__ == '__main__':
         gl_font_arial.set_render_length(tick*2)
         gl_font_arial.render()
 
+        gl_font_arial.set_color([
+            math.pow(math.cos(1.0/2.0* (time.time()-start_time)),2),
+            math.pow(math.sin(math.pi * (time.time()-start_time)),2),
+            math.pow(math.cos(math.pi * (time.time()-start_time)),2),
+            .3+0.7*math.pow(math.sin(5* (time.time()-start_time)),2)])
+        gl_font_arial.render(mat_projection=second_render_translation)
         tick = (tick+1)%int(len(TEXT)/2)
 
         # render FPS counter in the upper left corner
@@ -83,3 +90,4 @@ if __name__ == '__main__':
         gl_fps.render(mat_projection=fps_translation_right)
         app.swap()
         gl_fps.tick()
+        print(gl_fps)
