@@ -38,11 +38,8 @@ out vec4 finalColor;
 
 void main()
 {
-
-
     finalColor = texture(tex, fragTexCoord);
-    finalColor = color * finalColor;
-    finalColor = vec4(0,1,0,1);
+    finalColor = color*finalColor;
     return;
 }
 """
@@ -65,9 +62,9 @@ class GlFont():
 
     def set_color(self, color):
         self.color = color
-    def set_text(self, text):
+    def set_text(self, text, x=0, y=0):
         self.text = text
-        print('set new text')
+        self.xy = (x,y)
         self._is_prepared = False
 
     def _prepare_gl(self):
@@ -90,7 +87,7 @@ class GlFont():
         self.vao_id = glGenVertexArrays(1)
         self.vbo_id = glGenBuffers(2)
 
-    def prepare(self):
+    def prepare(self,x=0,y=0):
         """
         prepares font rendering.
         this method is quiet expensive, avoid invokation as much as possible.
@@ -139,12 +136,12 @@ class GlFont():
             #    |   |
             #   (offset_x + size_x)
             vertex_data[n*12:(n+1)*12] = numpy.array([
-                vert_offset[0],              vert_offset[1],              #1 #left triangle
-                vert_offset[0],              vert_offset[1]-vert_size[1], #2
-                vert_offset[0]+vert_size[0], vert_offset[1]-vert_size[1], #3
-                vert_offset[0]+vert_size[0], vert_offset[1]-vert_size[1], #4 #right triangle
-                vert_offset[0]+vert_size[0], vert_offset[1],              #5
-                vert_offset[0],              vert_offset[1]               #6
+                x+vert_offset[0],              y+vert_offset[1],              #1 #left triangle
+                x+vert_offset[0],              y+vert_offset[1]-vert_size[1], #2
+                x+vert_offset[0]+vert_size[0], y+vert_offset[1]-vert_size[1], #3
+                x+vert_offset[0]+vert_size[0], y+vert_offset[1]-vert_size[1], #4 #right triangle
+                x+vert_offset[0]+vert_size[0], y+vert_offset[1],              #5
+                x+vert_offset[0],              y+vert_offset[1]               #6
             ], dtype=numpy.float32)
 
             # text coord data implies the coords in fragment shader
@@ -224,14 +221,14 @@ class GlFont():
     def render(self, mat_projection=None):
 
         if not self._is_prepared:
-            self.prepare()
+            self.prepare(*self.xy)
 
         mat_projection = mat_projection if mat_projection is not None else numpy.identity(4)
         length = len(self._render_data) if self.length is None else self.length
         char = (0.0, 0.0)
         self.shader.useProgram()
 
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glActiveTexture(GL_TEXTURE1) # XXX disale texture later??
         glBindVertexArray(self.vao_id)
 

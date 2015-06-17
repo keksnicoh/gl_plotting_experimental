@@ -90,9 +90,10 @@ class BasicGl():
 			#	print_exc(exc_info()[0])
 			#	print colored("IO interrupted...","red", attrs=['reverse', 'blink'])
 		self.terminate()
-
-	def init_cycle(self):
+	def glwf_cycle(self):
 		glfw.PollEvents()
+	def init_cycle(self):
+		self.glwf_cycle()
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 
 	def swap(self):
