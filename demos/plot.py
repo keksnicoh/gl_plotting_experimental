@@ -12,7 +12,7 @@ def bifurk(kernel, r_max = 8.0, r_min = 0.0, n = 100, x_n = 100, i_n = 100):
     bifurkationsdiagramm data
     XXX refactor me and make me fast!
     """
-    print('create init data with '+str((n+1)*x_n*i_n)+'entries')
+    print('create init data with '+str((n+1)*x_n*2)+'entries')
     data = numpy.zeros((n+1)*x_n*i_n)
     data_index = 0
     for r in [r_max*float(r)/n+r_min for r in range(0,n+1)]:
