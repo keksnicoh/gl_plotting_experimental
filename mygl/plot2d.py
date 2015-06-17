@@ -16,17 +16,19 @@ FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/f
 
 class Plot2d():
 
-    def __init__(self, data=[], axis=(1.0, 1.0), origin=(0.0,0.0)):
+    def __init__(self, data=[], meta=None, axis=(1.0, 1.0), origin=(0.0,0.0)):
         self.app = BasicGl()
 
         self.plot_translation = translation_matrix(-1, 1)
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 12)
         gl_font = GlFont('', ft)
         gl_font.color = [0.0, 0, 0, 1.0]
-        self.gl_plot = PlotPlane2d(data, gl_font)
+        self.gl_plot = PlotPlane2d(gl_font)
         self.gl_plot.i_axis = axis
         self.gl_plot.i_origin = origin
         self.gl_plot.i_axis_units = (axis[0]/10, axis[1]/10)
+        self.gl_plot.set_data(data)
+
         self.gl_plot.prepare()
         self._render = True
 
@@ -51,7 +53,7 @@ class PlotPlane2d():
     SHADER_PLANE = 'plane'
     SHADER_POINTS = 'points'
 
-    def __init__(self, data, gl_font):
+    def __init__(self, gl_font):
         self._gl_font = gl_font
 
         """ size of the main plane in outer plane coords """
@@ -77,13 +79,13 @@ class PlotPlane2d():
         self._plane_vbo = None
         self._plot_vao = None
         self._plot_vbo = None
-
-        self.set_data(data)
+        self._metadata = None
 
     def set_data(self, data):
         self._prepare_data = True
         self._data = data
-
+    def set_metadata(self, meta):
+        self._metadata = meta
     def prepare(self):
         self._init_shaders()
         self._prepare_scalings()
@@ -100,8 +102,8 @@ class PlotPlane2d():
 
         shader_points = util.Shader()
         shader_points.attachShader(GL_VERTEX_SHADER, POINT_VERTEX_SHADER)
-        shader_points.attachShader(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
         shader_points.attachShader(GL_GEOMETRY_SHADER, GEOMETRY_SHADER)
+        shader_points.attachShader(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
         shader_points.linkProgram()
 
         self.shaders = {
@@ -109,11 +111,13 @@ class PlotPlane2d():
             PlotPlane2d.SHADER_POINTS: shader_points
         }
 
+
         self._uniforms['mat_plane'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_plane')
         self._uniforms['mat_modelview'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_modelview')
-        self._uniforms['point_mat_plane'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_plane')
-        self._uniforms['point_mat_modelview'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_modelview')
-        self._uniforms['point_dot_size'] = self.shaders[self.SHADER_PLANE].uniformLocation('dot_size')
+        self._uniforms['point_dot_size'] = self.shaders[self.SHADER_POINTS].uniformLocation('dot_size')
+        self._uniforms['point_mat_plane'] = self.shaders[self.SHADER_POINTS].uniformLocation('mat_plane')
+        self._uniforms['point_mat_modelview'] = self.shaders[self.SHADER_POINTS].uniformLocation('mat_modelview')
+        self._uniforms['point_dot_color'] = self.shaders[self.SHADER_POINTS].uniformLocation('geometry_color')
 
     def _prepare_scalings(self):
         # specifies the count of units to be rendered
@@ -287,18 +291,40 @@ class PlotPlane2d():
         self._plot_vao = glGenVertexArrays(1)
         self._plot_vbo = glGenBuffers(2)
 
-        verticies = numpy.array(self._data, dtype=numpy.float32)
+        total_byte_count = 0
+        current_start = 0
+        for name in self._data:
+            self._data[name]['points'] = numpy.array(self._data[name]['points'], dtype=numpy.float32)
+            self._data[name]['length'] = len(self._data[name]['points'])/2
+            self._data[name]['start'] = current_start
+            self._data[name]['byte_start'] = total_byte_count
+            self._data[name]['byte_count'] = ArrayDatatype.arrayByteCount(self._data[name]['points'])
+            total_byte_count += self._data[name]['byte_count']
+            current_start += self._data[name]['length']
+
+            if not 'color' in self._data[name]:
+                self._data[name]['color'] = [.0, .0, .0, .1]
+            if not 'dot_size' in self._data[name]:
+                self._data[name]['dot_size'] = 0.002
+
         glBindVertexArray(self._plot_vao)
         glBindBuffer(GL_ARRAY_BUFFER, self._plot_vbo[0])
-        glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, total_byte_count, None, GL_STATIC_DRAW)
         glVertexAttribPointer(self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(0)
+
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindVertexArray(0)
 
+        for name in self._data:
+            glBindBuffer(GL_ARRAY_BUFFER, self._plot_vbo[0])
+            glBufferSubData(GL_ARRAY_BUFFER, self._data[name]['byte_start'], self._data[name]['byte_count'], self._data[name]['points']) ;
+            glBindBuffer(GL_ARRAY_BUFFER, 0)
+
+
+
+
         # set state
-        self._data_len = len(self._data)/2
-        self._data = None
         self._prepare_data = False
 
     def render(self, mat_modelview=None):
@@ -313,6 +339,7 @@ class PlotPlane2d():
 
         # draw plane
         self.shaders[self.SHADER_PLANE].useProgram()
+
         glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
         glUniformMatrix4fv(self._uniforms['mat_modelview'], 1, GL_FALSE, mat_modelview)
         glBindVertexArray(self._plane_vao)
@@ -323,10 +350,17 @@ class PlotPlane2d():
 
         # draw plot
         self.shaders[self.SHADER_POINTS].useProgram()
+
         glUniformMatrix4fv(self._uniforms['point_mat_plane'], 1, GL_FALSE, self._mat_plot)
         glUniformMatrix4fv(self._uniforms['point_mat_modelview'], 1, GL_FALSE, mat_modelview)
         glBindVertexArray(self._plot_vao)
-        glDrawArrays(0, 0, self._data_len)
+        for name in self._data:
+            dot_color = numpy.array(self._data[name]['color'], dtype=numpy.float32)
+            dot_size = numpy.array(self._data[name]['dot_size'], dtype=numpy.float32)
+            glUniform4f(self._uniforms['point_dot_color'], *dot_color)
+            glUniform1f(self._uniforms['point_dot_size'], dot_size)
+            glDrawArrays(GL_POINTS, self._data[name]['start'], self._data[name]['length'])
+
         glBindVertexArray(0)
         self.shaders[self.SHADER_POINTS].unuseProgram()
 
@@ -348,7 +382,9 @@ in vec4 vertex_color;
 out vec4 fragment_color;
 uniform mat4 mat_plane;
 uniform mat4 mat_modelview;
+uniform float dot_size;
 void main() {
+
     fragment_color = vertex_color;
     gl_Position = mat_modelview*mat_plane*vec4(vertex_position, 0.0, 1.0);
 }
@@ -361,13 +397,12 @@ POINT_VERTEX_SHADER = """
  */
 #version 410
 in vec2 vertex_position;
-out vec4 geometry_color;
-
 uniform mat4 mat_plane;
 uniform mat4 mat_modelview;
 void main() {
-    geometry_color = vec4(0.0, .6, 0.0, 1.0);
+
     gl_Position = mat_modelview*mat_plane*vec4(vertex_position, 0.0, 1.0);
+
 }
 """
 FRAGMENT_SHADER = """
@@ -383,6 +418,7 @@ void main()
     output_color = fragment_color;
 }
 """
+
 GEOMETRY_SHADER = """
 /**
  * renders a square around a given gl_Position.
@@ -393,26 +429,25 @@ GEOMETRY_SHADER = """
 layout (points) in;
 layout (triangle_strip) out;
 layout (max_vertices = 4) out;
-in vec4 geometry_color[1];
-out vec4 fragment_color;
-
+uniform vec4 geometry_color;
 uniform float dot_size;
+out vec4 fragment_color;
 void main(void)
 {
-    fragment_color = geometry_color[0];
-    gl_Position = gl_in[0].gl_Position + vec4(-0.002,-0.002, 0, 0) ;
+    fragment_color = geometry_color;
+    gl_Position = gl_in[0].gl_Position + vec4(-dot_size,-dot_size, 0, 0) ;
     EmitVertex();
 
-    fragment_color = geometry_color[0];
-    gl_Position = gl_in[0].gl_Position + vec4(-0.002,0.002, 0,0) ;
+    fragment_color = geometry_color;
+    gl_Position = gl_in[0].gl_Position + vec4(-dot_size,dot_size, 0,0) ;
     EmitVertex();
 
-    fragment_color = geometry_color[0];
-    gl_Position = gl_in[0].gl_Position + vec4(0.002,-0.002, 0,0) ;
+    fragment_color = geometry_color;
+    gl_Position = gl_in[0].gl_Position + vec4(dot_size,-dot_size, 0,0) ;
     EmitVertex();
 
-    fragment_color = geometry_color[0];
-    gl_Position = gl_in[0].gl_Position + vec4(0.002,0.002, 0,0) ;
+    fragment_color = geometry_color;
+    gl_Position = gl_in[0].gl_Position + vec4(dot_size,dot_size, 0,0) ;
     EmitVertex();
 
     EndPrimitive();
