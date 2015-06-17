@@ -52,6 +52,8 @@ class PlotPlane2d():
     SHADER_POINTS = 'points'
 
     def __init__(self, data, gl_font):
+        self._gl_font = gl_font
+
         """ size of the main plane in outer plane coords """
         self.o_wh = (2.0, 2.0)
         """ border sizes in outer plane coords """
@@ -69,9 +71,14 @@ class PlotPlane2d():
         self._unit_w = None
         self._scaling = None
         self._prepare_data = None
+        self._draw_plane_indicies = None
+        self._draw_line_indicies = None
+        self._plane_vao = None
+        self._plane_vbo = None
+        self._plot_vao = None
+        self._plot_vbo = None
 
         self.set_data(data)
-        self._gl_font = gl_font
 
     def set_data(self, data):
         self._prepare_data = True
@@ -109,13 +116,24 @@ class PlotPlane2d():
         self._uniforms['point_dot_size'] = self.shaders[self.SHADER_PLANE].uniformLocation('dot_size')
 
     def _prepare_scalings(self):
-        self._unit_count = (int(self.i_axis[0]/self.i_axis_units[0]), int(self.i_axis[1]/self.i_axis_units[1]))
-        self._unit_w = (self.o_wh[0]/self._unit_count[0], self.o_wh[1]/self._unit_count[1])
-        self._scaling = (1.0-(self.i_border[0]+self.i_border[2])/self.o_wh[0], 1.0-(self.i_border[1]+self.i_border[3])/self.o_wh[1])
+        # specifies the count of units to be rendered
+        self._unit_count = (
+            int(self.i_axis[0]/self.i_axis_units[0]),
+            int(self.i_axis[1]/self.i_axis_units[1])
+        )
+        # specifies the unit width in plane space
+        self._unit_w = (
+            self.o_wh[0]/self._unit_count[0],
+            self.o_wh[1]/self._unit_count[1]
+        )
+        # specifies the scaling S of a given vector from
+        # plane space in plot space
+        self._scaling = (
+            1.0-(self.i_border[0]+self.i_border[2])/self.o_wh[0],
+            1.0-(self.i_border[1]+self.i_border[3])/self.o_wh[1]
+        )
 
     def _prepare_plane(self):
-        self.vao_id = glGenVertexArrays(1)
-        self.vbo_id = glGenBuffers(2)
 
         verticies = [
                 # main plane - note that the mainplane is scaled so the mat_plane
@@ -188,17 +206,23 @@ class PlotPlane2d():
         self._draw_plane_indicies = (0, 12)
         self._draw_line_indicies = (12, 4+self._unit_count[0]*2+self._unit_count[1]*2)
 
+        # convert data into valid data format
         verticies = numpy.array(verticies, dtype=numpy.float32)
         colors = numpy.array(colors, dtype=numpy.float32)
-        glBindVertexArray(self.vao_id)
 
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo_id[0])
+        self._plane_vao = glGenVertexArrays(1)
+        self._plane_vbo = glGenBuffers(2)
+        glBindVertexArray(self._plane_vao)
+
+        # plane verticies
+        glBindBuffer(GL_ARRAY_BUFFER, self._plane_vbo[0])
         glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
         glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(0)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo_id[1])
+        # place vertex colors
+        glBindBuffer(GL_ARRAY_BUFFER, self._plane_vbo[1])
         glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(colors), colors, GL_STATIC_DRAW)
         glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(1)
@@ -260,12 +284,12 @@ class PlotPlane2d():
         if not self._prepare_data: return
 
         # create gl buffer with data
-        self.data_vao = glGenVertexArrays(1)
-        self.data_vbo = glGenBuffers(2)
+        self._plot_vao = glGenVertexArrays(1)
+        self._plot_vbo = glGenBuffers(2)
 
         verticies = numpy.array(self._data, dtype=numpy.float32)
-        glBindVertexArray(self.data_vao)
-        glBindBuffer(GL_ARRAY_BUFFER, self.data_vbo[0])
+        glBindVertexArray(self._plot_vao)
+        glBindBuffer(GL_ARRAY_BUFFER, self._plot_vbo[0])
         glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
         glVertexAttribPointer(self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(0)
@@ -278,21 +302,22 @@ class PlotPlane2d():
         self._prepare_data = False
 
     def render(self, mat_modelview=None):
+        """
+        renders the plane, plot and fonts.
+        """
+        if mat_modelview is None: mat_modelview = numpy.identity(4)
         self.prepare_data()
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        if mat_modelview is None:
-            mat_modelview = numpy.identity(4)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
         # draw plane
         self.shaders[self.SHADER_PLANE].useProgram()
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
         glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
         glUniformMatrix4fv(self._uniforms['mat_modelview'], 1, GL_FALSE, mat_modelview)
-        glBindVertexArray(self.vao_id)
-        glDrawArrays(GL_TRIANGLES,*self._draw_plane_indicies)
-        glDrawArrays(GL_LINES,*self._draw_line_indicies)
+        glBindVertexArray(self._plane_vao)
+        glDrawArrays(GL_TRIANGLES,*self._draw_plane_indicies) # draw planes
+        glDrawArrays(GL_LINES,*self._draw_line_indicies)      # draw lines
         glBindVertexArray(0)
         self.shaders[self.SHADER_PLANE].unuseProgram()
 
@@ -300,7 +325,7 @@ class PlotPlane2d():
         self.shaders[self.SHADER_POINTS].useProgram()
         glUniformMatrix4fv(self._uniforms['point_mat_plane'], 1, GL_FALSE, self._mat_plot)
         glUniformMatrix4fv(self._uniforms['point_mat_modelview'], 1, GL_FALSE, mat_modelview)
-        glBindVertexArray(self.data_vao)
+        glBindVertexArray(self._plot_vao)
         glDrawArrays(0, 0, self._data_len)
         glBindVertexArray(0)
         self.shaders[self.SHADER_POINTS].unuseProgram()
