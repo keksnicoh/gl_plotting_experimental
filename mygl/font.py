@@ -16,14 +16,14 @@ VERTEX_SHADER = """
 uniform mat4 mat_projection;
 uniform mat4 mat_modelview;
 
-in vec2 vert;
-in vec2 vertTexCoord;
+in vec2 vertex_position;
+in vec2 vertex_texcoord;
 out vec2 fragTexCoord;
 
 void main()
 {
-    fragTexCoord = vertTexCoord;
-    gl_Position = mat_projection * mat_modelview * vec4(vert, 0.0, 1.0);
+    fragTexCoord = vertex_texcoord;
+    gl_Position = mat_projection * mat_modelview * vec4(vertex_position, 0.0, 1.0);
 }
 """
 
@@ -169,13 +169,13 @@ class GlFont():
 
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo_id[0])
         glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(vertex_data), vertex_data, GL_STATIC_DRAW)
-        glVertexAttribPointer(self.shader.attributeLocation('vert'), 2, GL_FLOAT, GL_FALSE, 0, None)
+        glVertexAttribPointer(self.shader.attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(0)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo_id[1])
         glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(text_coord_data), text_coord_data, GL_STATIC_DRAW)
-        glVertexAttribPointer(self.shader.attributeLocation('vertTexCoord'), 2, GL_FLOAT, GL_FALSE, 0, None)
+        glVertexAttribPointer(self.shader.attributeLocation('vertex_texcoord'), 2, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(1)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
@@ -207,7 +207,6 @@ class GlFont():
                         tex2d += value*4
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex2d)
-            print('created 2dTxt {}: {} {}'.format(ID, width, height))
             self._texture_cache[char] = ID
 
         return self._texture_cache[char]

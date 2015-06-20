@@ -6,13 +6,14 @@ computer (2015) would render 20.000fps
 """
 
 from mygl.app import BasicGl
-from mygl.fps import GlFPS
+from mygl.objects.fps import GlFPS
+from OpenGL.GL import *
 import ImageFont, os
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/fonts'
 
 if __name__ == '__main__':
-    app = BasicGl()
-    ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 40)
+    app = BasicGl(200, 200, window_title='FPS Demo')
+    ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 80)
     gl_fps = GlFPS(ft)
     gl_fps.prepare()
 

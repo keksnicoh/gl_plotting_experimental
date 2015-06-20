@@ -2,8 +2,8 @@
 pretty rough plotting class experiment
 @author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
 """
-import app
-import util
+import mygl.app
+import mygl.util
 from OpenGL.GL import *
 import numpy
 from OpenGL.arrays import vbo
@@ -89,7 +89,7 @@ class Plotter():
 		self.width = 0.1
 		self.dot_color = numpy.array([0.7, 0.9, 0.7], dtype=numpy.float32)
 		self.rot = math.pi / 4
-		self.shader = util.Shader()
+		self.shader = mygl.util.Shader()
 		self.shader.attachShader(GL_VERTEX_SHADER, VERTEX_SHADER)
 		self.shader.attachShader(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
 		self.shader.attachShader(GL_GEOMETRY_SHADER, GEOMETRY_SHADER)

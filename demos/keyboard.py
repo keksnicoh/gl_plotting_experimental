@@ -6,7 +6,7 @@ computer (2015) would render 20.000fps
 """
 
 from mygl.app import BasicGl
-from mygl.fps import GlFPS
+from mygl.objects.fps import GlFPS
 from mygl.font import GlFont
 from mygl.matricies import *
 import ImageFont, os

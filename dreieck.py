@@ -1,5 +1,5 @@
 import mygl.app
-import mygl.discrete2dplot
+import mygl.dirtyroom.discrete2dplot
 from time import sleep
 import math, numpy
 import itertools
@@ -23,7 +23,7 @@ def main():
 	x_0 = 0.3
 
 	app = mygl.app.BasicGl()
-	plot = mygl.discrete2dplot.Plotter(app)
+	plot = mygl.dirtyroom.discrete2dplot.Plotter(app)
 	plot.set_data(list(itertools.islice(series_next(partial(kernel, a), x_0), 0, n)))
 
 	while app.active():
