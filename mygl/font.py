@@ -8,7 +8,7 @@ import mygl.app
 from mygl.util import Shader
 from matricies import translation_matrix
 from OpenGL.GL import *
-import ImageFont
+from PIL import ImageFont
 import numpy
 import time
 VERTEX_SHADER = """

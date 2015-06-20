@@ -4,7 +4,7 @@ pretty rough plotting class experiment
 """
 from OpenGL.GL import *
 import numpy
-import ImageFont
+from PIL import ImageFont
 import os
 
 from mygl import util
