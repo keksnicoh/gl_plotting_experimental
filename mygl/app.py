@@ -8,7 +8,7 @@ from sys import exc_info
 from traceback import print_exc
 from termcolor import colored
 from math import pi
-
+from termcolor import colored
 class BasicGl():
 	def __init__(self, width=600, height=600, window_title="no title"):
 		"""general window configuration"""
@@ -23,20 +23,32 @@ class BasicGl():
 		"""keyboard_active [I,...] contains all currently active keys"""
 		self.keyboardActive = []
 
-		print "* initialize application"
+		BasicGl._dbg("init GLFW", '...')
 		self.initGlfw()
-		print "- try to load OpenGL 4.1 core profile"
+		BasicGl._dbg("load {}".format(colored('OPENGL_CORE_PROFILE 4.10', 'red')), '...')
 		self.initGlCoreProfile()
 		self.initGlfwWindow()
 
-		print 'Vendor: %s' %         glGetString(GL_VENDOR)
-		print 'Opengl version: %s' % glGetString(GL_VERSION)
-		print 'GLSL Version: %s' %   glGetString(GL_SHADING_LANGUAGE_VERSION)
-		print 'Renderer: %s' %       glGetString(GL_RENDERER)
-		print 'GLFW3: %s' %          glfw.GetVersionString()
+		BasicGl._dbg('  + Vendor             {}'.format(colored(glGetString(GL_VENDOR), 'cyan')))
+		BasicGl._dbg('  + Opengl version     {}'.format(colored(glGetString(GL_VERSION), 'cyan')))
+		BasicGl._dbg('  + GLSL Version       {}'.format(colored(glGetString(GL_SHADING_LANGUAGE_VERSION), 'cyan')))
+		BasicGl._dbg('  + Renderer           {}'.format(colored(glGetString(GL_RENDERER), 'cyan')))
+		BasicGl._dbg('  + GLFW3              {}'.format(colored(glfw.GetVersionString(), 'cyan')))
+		BasicGl._dbg('GL_VIEWPORT         {}'.format(colored(glGetIntegerv(GL_VIEWPORT), 'blue')))
+		BasicGl._dbg('GL_MAX_TEXTURE_SIZE {}'.format(colored(glGetIntegerv(GL_MAX_TEXTURE_SIZE), 'blue')))
 
+		BasicGl._dbg("init keyboard and mouse", '...')
 		glfw.SetKeyCallback(self.window, self.onKeyboard)
-		print "[OK] application is ready."
+		BasicGl._dbg("application is ready to use.", 'OK')
+
+	@classmethod
+	def _dbg(cls, text, state=None):
+		if state is not None:
+			if state == 'OK': state = colored(state, 'green')
+			if state == 'FAIL': state = colored(state, 'red')
+			if state == '...': state = colored(state, 'yellow')
+			text = '[{}] {}'.format(state, text)
+		print(text)
 
 	def initGlCoreProfile(self):
 		"""setup opengl 4.1"""
@@ -44,6 +56,7 @@ class BasicGl():
 		glfw.WindowHint(glfw.CONTEXT_VERSION_MAJOR, 4)
 		glfw.WindowHint(glfw.CONTEXT_VERSION_MINOR, 1)
 		glfw.WindowHint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
+
 
 	def onKeyboard(self, win, key, scancode, action, mods):
 		if action == 0:
@@ -67,7 +80,6 @@ class BasicGl():
 		glfw.MakeContextCurrent(self.window)
 		#glfw.SetMouseButtonCallback(self.window, self.onMouse)
 		#glfw.SetKeyCallback(self.window, self.onKeyboard)
-
 	def active(self):
 		return not self.exit and not glfw.WindowShouldClose(self.window)
 	def run(self):
@@ -79,27 +91,27 @@ class BasicGl():
 
 			except:
 				print_exc(exc_info()[0])
-				print colored("try to shutdown...","yellow")
+				BasicGl._dbg(colored("try to shutdown...","yellow"))
 				self.terminate()
-				print colored("program terminated due an unkown error!","red")
+				BasicGl._dbg(colored("program terminated due an unkown error!","red"))
 				break;
 			#try:
 			#	self.keyboard(self)
 			#	self.mouseDrag(self)
 			#except:
 			#	print_exc(exc_info()[0])
-			#	print colored("IO interrupted...","red", attrs=['reverse', 'blink'])
+			#	BasicGl._dbg(colored("IO interrupted...","red", attrs=['reverse', 'blink']))
 		self.terminate()
 	def glwf_cycle(self):
 		glfw.PollEvents()
 	def init_cycle(self):
 		self.glwf_cycle()
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-
+		glBindTexture(GL_TEXTURE_2D, 0)
 	def swap(self):
 		glfw.SwapBuffers(self.window)
 	def terminate(self):
 		self.destruct(self)
-		print "shutdown opengl application with following settings"
+		BasicGl._dbg("shutdown opengl application with following settings")
 		glfw.DestroyWindow(self.window)
 		glfw.Terminate()

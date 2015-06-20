@@ -16,16 +16,17 @@ FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/f
 
 class Plot2d():
 
-    def __init__(self, data=[], meta=None, axis=(1.0, 1.0), origin=(0.0,0.0)):
-        self.app = BasicGl()
+    def __init__(self, data=[], meta=None, axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0), app=None, xy=(-1,1)):
+        self.app = BasicGl() if app is None else app
 
-        self.plot_translation = translation_matrix(-1, 1)
+        self.plot_translation = translation_matrix(*xy)
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 12)
         gl_font = GlFont('', ft)
         gl_font.color = [0.0, 0, 0, 1.0]
         self.gl_plot = PlotPlane2d(gl_font)
         self.gl_plot.i_axis = axis
         self.gl_plot.i_origin = origin
+        self.gl_plot.o_wh = size
         self.gl_plot.i_axis_units = (axis[0]/10, axis[1]/10)
         self.gl_plot.set_data(data)
 
@@ -95,22 +96,21 @@ class PlotPlane2d():
         self._prepare_data = True
 
     def _init_shaders(self):
-        shader_plane = util.Shader()
-        shader_plane.attachShader(GL_VERTEX_SHADER, VERTEX_SHADER)
-        shader_plane.attachShader(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
-        shader_plane.linkProgram()
 
-        shader_points = util.Shader()
-        shader_points.attachShader(GL_VERTEX_SHADER, POINT_VERTEX_SHADER)
-        shader_points.attachShader(GL_GEOMETRY_SHADER, GEOMETRY_SHADER)
-        shader_points.attachShader(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
-        shader_points.linkProgram()
 
         self.shaders = {
-            PlotPlane2d.SHADER_PLANE: shader_plane,
-            PlotPlane2d.SHADER_POINTS: shader_points
+            PlotPlane2d.SHADER_PLANE: util.Shader(
+                vertex=VERTEX_SHADER,
+                fragment=FRAGMENT_SHADER,
+                link=True
+            ),
+            PlotPlane2d.SHADER_POINTS: util.Shader(
+                vertex=POINT_VERTEX_SHADER,
+                geometry=GEOMETRY_SHADER,
+                fragment=FRAGMENT_SHADER,
+                link=True
+            ),
         }
-
 
         self._uniforms['mat_plane'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_plane')
         self._uniforms['mat_modelview'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_modelview')
@@ -214,25 +214,22 @@ class PlotPlane2d():
         verticies = numpy.array(verticies, dtype=numpy.float32)
         colors = numpy.array(colors, dtype=numpy.float32)
 
-        self._plane_vao = glGenVertexArrays(1)
-        self._plane_vbo = glGenBuffers(2)
-        glBindVertexArray(self._plane_vao)
+        self._plane_vao = util.VAO()
+        self._plane_vbo = util.VBO(2)
 
-        # plane verticies
-        glBindBuffer(GL_ARRAY_BUFFER, self._plane_vbo[0])
-        glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
-        glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(0)
-        glBindBuffer(GL_ARRAY_BUFFER, 0)
+        with self._plane_vao:
+            # plane verticies
+            with self._plane_vbo.get(0):
+                glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
+                glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
+                glEnableVertexAttribArray(0)
 
-        # place vertex colors
-        glBindBuffer(GL_ARRAY_BUFFER, self._plane_vbo[1])
-        glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(colors), colors, GL_STATIC_DRAW)
-        glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(1)
-        glBindBuffer(GL_ARRAY_BUFFER, 0)
+            # place vertex colors
+            with self._plane_vbo.get(1):
+                glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(colors), colors, GL_STATIC_DRAW)
+                glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
+                glEnableVertexAttribArray(1)
 
-        glBindVertexArray(0)
 
     def _prepare_outer_matrix(self):
         """
@@ -288,8 +285,8 @@ class PlotPlane2d():
         if not self._prepare_data: return
 
         # create gl buffer with data
-        self._plot_vao = glGenVertexArrays(1)
-        self._plot_vbo = glGenBuffers(2)
+        self._plot_vao = util.VAO()
+        self._plot_vbo = util.VBO()
 
         total_byte_count = 0
         current_start = 0
@@ -307,22 +304,17 @@ class PlotPlane2d():
             if not 'dot_size' in self._data[name]:
                 self._data[name]['dot_size'] = 0.002
 
-        glBindVertexArray(self._plot_vao)
-        glBindBuffer(GL_ARRAY_BUFFER, self._plot_vbo[0])
-        glBufferData(GL_ARRAY_BUFFER, total_byte_count, None, GL_STATIC_DRAW)
-        glVertexAttribPointer(self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(0)
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0)
-        glBindVertexArray(0)
+        with self._plot_vao:
+            with self._plot_vbo.get(0):
+                glBufferData(GL_ARRAY_BUFFER, total_byte_count, None, GL_STATIC_DRAW)
+                glVertexAttribPointer(self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
+                glEnableVertexAttribArray(0)
 
         for name in self._data:
-            glBindBuffer(GL_ARRAY_BUFFER, self._plot_vbo[0])
-            glBufferSubData(GL_ARRAY_BUFFER, self._data[name]['byte_start'], self._data[name]['byte_count'], self._data[name]['points']) ;
-            glBindBuffer(GL_ARRAY_BUFFER, 0)
-
-
-
+            self._plot_vbo.get(0).glBufferSubData(
+                self._data[name]['byte_start'],
+                self._data[name]['byte_count'],
+                self._data[name]['points'])
 
         # set state
         self._prepare_data = False
@@ -338,31 +330,24 @@ class PlotPlane2d():
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
         # draw plane
-        self.shaders[self.SHADER_PLANE].useProgram()
-
-        glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
-        glUniformMatrix4fv(self._uniforms['mat_modelview'], 1, GL_FALSE, mat_modelview)
-        glBindVertexArray(self._plane_vao)
-        glDrawArrays(GL_TRIANGLES,*self._draw_plane_indicies) # draw planes
-        glDrawArrays(GL_LINES,*self._draw_line_indicies)      # draw lines
-        glBindVertexArray(0)
-        self.shaders[self.SHADER_PLANE].unuseProgram()
+        with self.shaders[self.SHADER_PLANE]:
+            glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
+            glUniformMatrix4fv(self._uniforms['mat_modelview'], 1, GL_FALSE, mat_modelview)
+            with self._plane_vao:
+                glDrawArrays(GL_TRIANGLES,*self._draw_plane_indicies) # draw planes
+                glDrawArrays(GL_LINES,*self._draw_line_indicies)      # draw lines
 
         # draw plot
-        self.shaders[self.SHADER_POINTS].useProgram()
-
-        glUniformMatrix4fv(self._uniforms['point_mat_plane'], 1, GL_FALSE, self._mat_plot)
-        glUniformMatrix4fv(self._uniforms['point_mat_modelview'], 1, GL_FALSE, mat_modelview)
-        glBindVertexArray(self._plot_vao)
-        for name in self._data:
-            dot_color = numpy.array(self._data[name]['color'], dtype=numpy.float32)
-            dot_size = numpy.array(self._data[name]['dot_size'], dtype=numpy.float32)
-            glUniform4f(self._uniforms['point_dot_color'], *dot_color)
-            glUniform1f(self._uniforms['point_dot_size'], dot_size)
-            glDrawArrays(GL_POINTS, self._data[name]['start'], self._data[name]['length'])
-
-        glBindVertexArray(0)
-        self.shaders[self.SHADER_POINTS].unuseProgram()
+        with self.shaders[self.SHADER_POINTS]:
+            glUniformMatrix4fv(self._uniforms['point_mat_plane'], 1, GL_FALSE, self._mat_plot)
+            glUniformMatrix4fv(self._uniforms['point_mat_modelview'], 1, GL_FALSE, mat_modelview)
+            with self._plot_vao:
+                for name in self._data:
+                    dot_color = numpy.array(self._data[name]['color'], dtype=numpy.float32)
+                    dot_size = numpy.array(self._data[name]['dot_size'], dtype=numpy.float32)
+                    glUniform4f(self._uniforms['point_dot_color'], *dot_color)
+                    glUniform1f(self._uniforms['point_dot_size'], dot_size)
+                    glDrawArrays(GL_POINTS, self._data[name]['start'], self._data[name]['length'])
 
         # draw fonts
         for text in self._fonts:
