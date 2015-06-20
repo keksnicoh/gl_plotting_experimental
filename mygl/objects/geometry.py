@@ -28,10 +28,10 @@ class Rectangle(Object):
 
         vertex_position = numpy.array([
             0, 0, 0,
-            0, w, 0,
-            h, w, 0,
-            h, w, 0,
-            h, 0, 0,
+            0, h, 0,
+            w, h, 0,
+            w, h, 0,
+            w, 0, 0,
             0, 0, 0,
         ], dtype=numpy.float32)
 

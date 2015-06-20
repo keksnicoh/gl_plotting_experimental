@@ -40,7 +40,7 @@ class Framebuffer():
             glBindRenderbuffer(GL_RENDERBUFFER, 0)
             e = glCheckFramebufferStatus(GL_DRAW_FRAMEBUFFER);
             if e != GL_FRAMEBUFFER_COMPLETE:
-                raise Exception('GOT PROBLEMS'+e)
+                raise Exception('GOT PROBLEMS {}'.format(e))
     def gl_id(self):
         return self._gl_id
     def bind(self):
