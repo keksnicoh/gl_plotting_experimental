@@ -144,6 +144,8 @@ class Shader(object):
         with self:
             if type(value) == int or type(value) == long:
                 glUniform1i(self.uniformLocation(name), value)
+            elif type(value) == float:
+                glUniform1f(self.uniformLocation(name), value)
             elif len(value) == 4:
                 value = numpy.array(value, dtype=numpy.float32)
                 glUniform4f(self.uniformLocation(name), *value)

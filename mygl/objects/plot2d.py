@@ -354,4 +354,12 @@ class PlotPlane2d():
             self._gl_font.render(mat_projection=mat_modelview)
 
 
+    @classmethod
+    def init_cartesian_space(cls, n, w=1.0, h=1.0):
+        data = numpy.zeros(n*n*2)
+        for x in range(0, n):
+            for y in range(0, n):
+                data[2*n*x+2*y] = (float(x)/n -0.5)*w
+                data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
+        return data
 

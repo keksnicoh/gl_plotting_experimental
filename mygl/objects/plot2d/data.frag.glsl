@@ -14,5 +14,6 @@ vec4 point_color(vec2 value, vec4 fragment_color) {
 
 void main()
 {
+
     output_color = point_color(fragment_point_value, fragment_color);
 }
