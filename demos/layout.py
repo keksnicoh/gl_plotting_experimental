@@ -15,7 +15,7 @@ import ImageFont, os
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/fonts'
 
 if __name__ == '__main__':
-    app = BasicGl(window_title='frame demo. pres R to increase resolution')
+    app = BasicGl(window_title='framebuffer window layout demo')
     ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 120)
     gl_fps = GlFPS(ft)
     gl_fps.prepare()

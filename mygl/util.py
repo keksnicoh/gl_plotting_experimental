@@ -13,6 +13,9 @@ from OpenGL.GL import (glCompileShader, glShaderSource, glCreateProgram,
     glFramebufferRenderbuffer, glRenderbufferStorage, GL_FRAMEBUFFER,
     glCheckFramebufferStatus, GL_FRAMEBUFFER_COMPLETE, glDrawBuffer,
     glBindRenderbuffer, GL_DEPTH_COMPONENT, glUniform4f)
+
+from ctypes import c_ubyte
+from OpenGL.GL import *
 import numpy
 
 def gl_id(obj):
@@ -30,10 +33,12 @@ class Framebuffer():
 
         self._dt = depth_texture
         with self:
+
             glDrawBuffer(GL_COLOR_ATTACHMENT0)
             glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_id(color_texture), 0);
             glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_id(depth_texture), 0);
             rid = glGenRenderbuffers(1)
+
             glBindRenderbuffer(GL_RENDERBUFFER, rid)
             glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, w, h)
             glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rid)
@@ -60,11 +65,14 @@ class Texture2D():
         self._h = h
         if internalFormat is None:
             internalFormat = format
+
+        # crashes _sometimes_ when self._w * self._h > 888*888
         glBindTexture(GL_TEXTURE_2D, self._id);
-        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, self._w, self._h, 0, format, GL_UNSIGNED_BYTE,'');
+        glTexImage2D(GL_TEXTURE_2D, 0, format, self._w, self._h, 0, internalFormat, GL_UNSIGNED_BYTE, None);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
         glBindTexture(GL_TEXTURE_2D, 0);
+
     def gl_id(self):
         return self._id
 class VAO():

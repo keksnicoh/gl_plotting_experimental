@@ -3,7 +3,7 @@
    """
 
 from OpenGL.GL import *
-import cyglfw3 as glfw
+from glfw import *
 from sys import exc_info
 from traceback import print_exc
 from termcolor import colored
@@ -33,12 +33,12 @@ class BasicGl():
 		BasicGl._dbg('  + Opengl version     {}'.format(colored(glGetString(GL_VERSION), 'cyan')))
 		BasicGl._dbg('  + GLSL Version       {}'.format(colored(glGetString(GL_SHADING_LANGUAGE_VERSION), 'cyan')))
 		BasicGl._dbg('  + Renderer           {}'.format(colored(glGetString(GL_RENDERER), 'cyan')))
-		BasicGl._dbg('  + GLFW3              {}'.format(colored(glfw.GetVersionString(), 'cyan')))
+		BasicGl._dbg('  + GLFW3              {}'.format(colored(glfwGetVersion(), 'cyan')))
 		BasicGl._dbg('GL_VIEWPORT         {}'.format(colored(glGetIntegerv(GL_VIEWPORT), 'blue')))
 		BasicGl._dbg('GL_MAX_TEXTURE_SIZE {}'.format(colored(glGetIntegerv(GL_MAX_TEXTURE_SIZE), 'blue')))
 
 		BasicGl._dbg("init keyboard and mouse", '...')
-		glfw.SetKeyCallback(self.window, self.onKeyboard)
+		glfwSetKeyCallback(self.window, self.onKeyboard)
 		BasicGl._dbg("application is ready to use.", 'OK')
 
 	@classmethod
@@ -52,10 +52,10 @@ class BasicGl():
 
 	def initGlCoreProfile(self):
 		"""setup opengl 4.1"""
-		glfw.WindowHint(glfw.OPENGL_FORWARD_COMPAT, 1)
-		glfw.WindowHint(glfw.CONTEXT_VERSION_MAJOR, 4)
-		glfw.WindowHint(glfw.CONTEXT_VERSION_MINOR, 1)
-		glfw.WindowHint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1)
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4)
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1)
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
 
 
 	def onKeyboard(self, win, key, scancode, action, mods):
@@ -69,21 +69,21 @@ class BasicGl():
 
 	def initGlfw(self):
 		"""initialize glfw"""
-		if not glfw.Init():
+		if not glfwInit():
 			raise RuntimeError('glfw.Init() error')
 
 	def initGlfwWindow(self):
 		"""initialize glwf window and attach callbacks"""
-		self.window = glfw.CreateWindow(self.width,self.height,self.window_title)
+		self.window = glfwCreateWindow(self.width,self.height,self.window_title)
 		if not self.window:
 			raise RuntimeError('glfw.CreateWindow() error')
-		glfw.MakeContextCurrent(self.window)
+		glfwMakeContextCurrent(self.window)
 		#glfw.SetMouseButtonCallback(self.window, self.onMouse)
 		#glfw.SetKeyCallback(self.window, self.onKeyboard)
 	def active(self):
-		return not self.exit and not glfw.WindowShouldClose(self.window)
+		return not self.exit and not glfwWindowShouldClose(self.window)
 	def run(self):
-		while not self.exit and not glfw.WindowShouldClose(self.window):
+		while not self.exit and not glfwWindowShouldClose(self.window):
 			"""todo move to a better place..."""
 			try:
 				glfw.PollEvents()
@@ -103,15 +103,15 @@ class BasicGl():
 			#	BasicGl._dbg(colored("IO interrupted...","red", attrs=['reverse', 'blink']))
 		self.terminate()
 	def glwf_cycle(self):
-		glfw.PollEvents()
+		glfwPollEvents()
 	def init_cycle(self):
 		self.glwf_cycle()
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 		glBindTexture(GL_TEXTURE_2D, 0)
 	def swap(self):
-		glfw.SwapBuffers(self.window)
+		glfwSwapBuffers(self.window)
 	def terminate(self):
 		self.destruct(self)
 		BasicGl._dbg("shutdown opengl application with following settings")
-		glfw.DestroyWindow(self.window)
-		glfw.Terminate()
+		glfwDestroyWindow(self.window)
+		glfwTerminate()

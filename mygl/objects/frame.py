@@ -7,6 +7,7 @@ frame buffer classes
 from mygl.matricies import *
 from mygl.objects import geometry
 from mygl.util import *
+from mygl.matricies import *
 from OpenGL.GL import *
 
 class Layout():
@@ -86,7 +87,7 @@ class Window():
         self._framebuffer.unbind()
         glViewport(*self._old_viewport)
 
-    def render(self, mat_projection=None):
+    def render(self, mat_projection=None, mat_modelview=None):
         """ render  window """
         glActiveTexture(GL_TEXTURE0);
         glBindTexture (GL_TEXTURE_2D, self._color_tex.gl_id())
@@ -95,6 +96,8 @@ class Window():
 
         if mat_projection is not None:
             self.shader.uniform('mat_projection', mat_projection)
+        if mat_modelview is not None:
+            self.shader.uniform('mat_projection', mat_modelview)
 
         with self.shader:
             self._rectangle.render()
@@ -136,11 +139,12 @@ uniform vec4 color;
 
 in vec2 fragTexCoord;
 out vec4 finalColor;
-
+vec3 added_rgb;
 void main()
 {
     finalColor = texture(tex[0], fragTexCoord);
-    finalColor = mix(color, finalColor, .5);
+    added_rgb = finalColor.rgb + color.rgb;
+    finalColor = vec4(added_rgb, finalColor.w*color.w);
     return;
 }
 """

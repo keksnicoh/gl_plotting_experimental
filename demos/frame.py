@@ -14,14 +14,14 @@ import ImageFont, os
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/fonts'
 
 if __name__ == '__main__':
-    app = BasicGl(window_title='framebuffer window layout demo')
+    app = BasicGl(window_title='frame demo. pres R to increase resolution')
     ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 120)
     gl_fps = GlFPS(ft)
     gl_fps.prepare()
 
     resolution = 8
     window1 = Window(size=(1.0, 1.0), resolution=(resolution, resolution)) #bad resolution
-    window2 = Window(size=(0.5, 0.5), color=[.5, .5, 0, 1])
+    window2 = Window(size=(0.5, 0.5), color=[.1, .0, 0, 1])
 
     # translate window 2
     window2.shader.uniform('mat_modelview', translation_matrix(-.5, .5))
