@@ -6,7 +6,7 @@ from OpenGL.GL import *
 import numpy
 import ImageFont
 import os
-
+import math
 from mygl import util
 from mygl.matricies import *
 from mygl.font import GlFont
@@ -28,6 +28,14 @@ def create_plot_plane_2d(axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
     gl_plot.prepare()
     return gl_plot
 
+def cartesian_domain(n, w=1.0, h=1.0):
+    data = numpy.zeros(n*n*2)
+    for x in range(0, n):
+        for y in range(0, n):
+            data[2*n*x+2*y] = (float(x)/n -0.5)*w
+            data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
+    return data
+
 class PlotPlane2d():
     """
     renders a 2d plotting plane within a
@@ -35,7 +43,7 @@ class PlotPlane2d():
     """
     SHADER_PLANE = 'plane'
     SHADER_POINTS = 'points'
-
+    KERNEL_PLACEHOLDER = 'vec2 f(vec2 x){return vec2(x.x, 0);}'
     def __init__(self, gl_font):
         self._gl_font = gl_font
 
@@ -63,7 +71,8 @@ class PlotPlane2d():
         self._plot_vao = None
         self._plot_vbo = None
         self._metadata = None
-
+        self.buffer_configuration = None
+        self.init_point_buffer()
     def set_data(self, data):
         self._prepare_data = True
         self._data = data
@@ -151,12 +160,12 @@ class PlotPlane2d():
                 1.0, 1.0, 1.0, 1.0,
                 1.0, 1.0, 1.0, 1.0,
                 1.0, 1.0, 1.0, 1.0,
-                .9, .9, .9, 1.0, # plot box
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
+                .1, .1, .1, 1.0, # plot box
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
                 0.0, 0.0, 0.0, 1.0, #lines
                 0.0, 0.0, 0.0, 1.0,
                 0.0, 0.0, 0.0, 1.0,
@@ -233,8 +242,8 @@ class PlotPlane2d():
         tx = self.i_border[0]+self.o_wh[1]*self.i_origin[0]/self.i_axis[0]*self._scaling[0]
         ty = -self.i_border[1]-(self.o_wh[1]-self.o_wh[1]*self.i_origin[1]/self.i_axis[1])*self._scaling[1]
 
-        sx = self.o_wh[0]*self._scaling[0]/self.i_axis[0]
-        sy = self.o_wh[1]*self._scaling[1]/self.i_axis[1]
+        sx = (self.o_wh[0])*self._scaling[0]/self.i_axis[0]
+        sy = (self.o_wh[1])*self._scaling[1]/self.i_axis[1]
 
         self._mat_plot = numpy.array([
             sx, 0,  0, 0,
@@ -243,7 +252,7 @@ class PlotPlane2d():
             tx, ty, 0, 1
         ], dtype=numpy.float32)
 
-    def init_point_buffer(self, configurations):
+    def init_point_buffer(self, configurations={}):
         """
         initializes buffer configuration and allows
         to set uniform values for any given plot
@@ -270,51 +279,52 @@ class PlotPlane2d():
         # initialize vao/vbo
         vao, vbo = util.VAO(), util.VBO()
 
+        # put kernel function into vertex shader
+        vertex_shader = open(SHADER_DIR+'/data.vert.glsl').read()
+        vertex_shader_kernel = vertex_shader.replace(self.KERNEL_PLACEHOLDER, configuration['kernel'])
+        shader = util.Shader(
+            vertex=vertex_shader_kernel,
+            geometry=open(SHADER_DIR+'/data.geom.glsl').read(),
+            fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
+            link=True
+        )
+
         buffer_configuration = {
             'byte_count': configuration['length'] * 4,
-            'vertex_count': configuration['length'],
+            'vertex_count': configuration['length']/2,
             'point_base_color': configuration.get('point_base_color', [0,0,0.5,1]),
-            'point_size': configuration.get('point_size', 0.02),
-            'enable_z': configuration['enable_z'] if 'enable_z' in configuration else False,
-            'enable_w': configuration['enable_w'] if 'enable_w' in configuration else False,
+            'point_size': configuration.get('point_size', 1/math.sqrt(configuration['length']/2)),
             'vao': vao,
             'vbo': vbo,
-            'shader': util.Shader(
-                vertex=open(SHADER_DIR+'/data.vert.glsl').read(),
-                geometry=open(SHADER_DIR+'/data.geom.glsl').read(),
-                fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
-                link=True
-            )
+            'shader': shader
         }
 
-        with buffer_configuration['shader']:
-            dot_color = numpy.array(buffer_configuration['point_base_color'], dtype=numpy.float32)
-            dot_size = numpy.array(buffer_configuration['point_size'], dtype=numpy.float32)
-
-            # XXX CUSTOM SHADERS!!!
-            glUniformMatrix4fv(self._uniforms['point_mat_plane'], 1, GL_FALSE, self._mat_plot)
-            glUniform4f(self._uniforms['point_dot_color'], *dot_color)
-            glUniform1f(self._uniforms['point_dot_size'], dot_size)
-
-        # enable extra attributes
-        extra_attributes = 0
-        if buffer_configuration['enable_z']: extra_attributes += 1
-        if buffer_configuration['enable_w']: extra_attributes += 1
+        shader.uniform('mat_plane', self._mat_plot)
+        shader.uniform('geometry_color', buffer_configuration['point_base_color'])
+        shader.uniform('dot_size',  buffer_configuration['point_size'])
 
         # configure vbo
         with vbo.get(0):
             vertex_position = self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position')
             glBufferData(GL_ARRAY_BUFFER, buffer_configuration['byte_count'], None, GL_STATIC_DRAW)
             with vao:
-                glVertexAttribPointer(vertex_position, 2+extra_attributes, GL_FLOAT, GL_FALSE, 0, None)
+                glVertexAttribPointer(vertex_position, 2, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(0)
 
         return buffer_configuration
 
-    def submit_data(self, name, data, byte_start=0):
+    def create_plot(self, name, kernel, domain):
+        self.buffer_configuration[name] = self._init_plot_buffer({
+            'kernel': kernel,
+            'length': len(domain)
+        })
+        self.submit_domain(name, domain, 0)
+        return self.buffer_configuration[name]
+    def submit_domain(self, name, data, byte_start=0):
         """
-        submit data to vertex buffer object
+        submit submit_domain to vertex buffer object.
         """
+
         data = numpy.array(data, dtype=numpy.float32)
         byte_count = min(
             ArrayDatatype.arrayByteCount(data),
@@ -343,8 +353,7 @@ class PlotPlane2d():
         # draw plot
         for name, configuration in self.buffer_configuration.items():
             with configuration['shader']:
-                # XXX different shaders
-                glUniformMatrix4fv(self._uniforms['point_mat_modelview'], 1, GL_FALSE, mat_modelview)
+                configuration['shader'].uniform('mat_modelview', mat_modelview)
                 with configuration['vao']:
                     glDrawArrays(GL_POINTS, 0, configuration['vertex_count'])
 
@@ -354,12 +363,6 @@ class PlotPlane2d():
             self._gl_font.render(mat_projection=mat_modelview)
 
 
-    @classmethod
-    def init_cartesian_space(cls, n, w=1.0, h=1.0):
-        data = numpy.zeros(n*n*2)
-        for x in range(0, n):
-            for y in range(0, n):
-                data[2*n*x+2*y] = (float(x)/n -0.5)*w
-                data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
-        return data
+
+
 
