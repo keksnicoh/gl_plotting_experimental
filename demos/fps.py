@@ -8,7 +8,8 @@ computer (2015) would render 20.000fps
 from mygl.app import BasicGl
 from mygl.objects.fps import GlFPS
 from OpenGL.GL import *
-import ImageFont, os
+from PIL import ImageFont
+import os
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/fonts'
 
 if __name__ == '__main__':
