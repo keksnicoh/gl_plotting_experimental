@@ -280,7 +280,7 @@ class PlotPlane2d():
             'vbo': vbo,
             'shader': shader
         }
-        print(configuration['length']/2)
+
         # uniforms
         shader.uniform('mat_plane', self._mat_plot)
         shader.uniform('geometry_color', buffer_configuration['point_base_color'])
