@@ -1,21 +1,22 @@
 """
-pretty rough plotting class experiment
+vertex shader based 2d plot
 @author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
 """
 from OpenGL.GL import *
+from mygl import util
+from mygl.matricies import *
+from mygl.font import GlFont
+
 import numpy
 import ImageFont
 import os
 import math
-from mygl import util
-from mygl.matricies import *
-from mygl.font import GlFont
 
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../../resources/fonts'
 SHADER_DIR = os.path.dirname(os.path.abspath(__file__))+'/plot2d'
 
 def create_plot_plane_2d(axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
-
+    """ helber function to create PlotPlane2d """
     ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 12)
     gl_font = GlFont('', ft)
     gl_font.color = [0.0, 0, 0, 1.0]
@@ -41,8 +42,6 @@ class PlotPlane2d():
     renders a 2d plotting plane within a
     opengl render cycle
     """
-    SHADER_PLANE = 'plane'
-    SHADER_POINTS = 'points'
     KERNEL_PLACEHOLDER = 'vec2 f(vec2 x){return vec2(x.x, 0);}'
     def __init__(self, gl_font):
         self._gl_font = gl_font
@@ -63,52 +62,29 @@ class PlotPlane2d():
         self._unit_count = None
         self._unit_w = None
         self._scaling = None
-        self._prepare_data = None
         self._draw_plane_indicies = None
         self._draw_line_indicies = None
         self._plane_vao = None
         self._plane_vbo = None
-        self._plot_vao = None
-        self._plot_vbo = None
-        self._metadata = None
         self.buffer_configuration = None
+        self.plane_shader = None
         self.init_point_buffer()
-    def set_data(self, data):
-        self._prepare_data = True
-        self._data = data
-    def set_metadata(self, meta):
-        self._metadata = meta
+
     def prepare(self):
         self._init_shaders()
         self._prepare_scalings()
         self._prepare_outer_matrix()
         self._prepare_plot_matrix()
         self._prepare_plane()
-        self._prepare_data = True
 
     def _init_shaders(self):
-        self.shaders = {
-            PlotPlane2d.SHADER_PLANE: util.Shader(
-                vertex=open(SHADER_DIR+'/plane.vert.glsl').read(),
-                fragment=open(SHADER_DIR+'/plane.frag.glsl').read(),
-                link=True
-            ),
+        self.plane_shader = util.Shader(
+            vertex=open(SHADER_DIR+'/plane.vert.glsl').read(),
+            fragment=open(SHADER_DIR+'/plane.frag.glsl').read(),
+            link=True)
 
-            # XXX Todo custom shader
-            PlotPlane2d.SHADER_POINTS: util.Shader(
-                vertex=open(SHADER_DIR+'/data.vert.glsl').read(),
-                geometry=open(SHADER_DIR+'/data.geom.glsl').read(),
-                fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
-                link=True
-            ),
-        }
-
-        self._uniforms['mat_plane'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_plane')
-        self._uniforms['mat_modelview'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_modelview')
-        self._uniforms['point_dot_size'] = self.shaders[self.SHADER_POINTS].uniformLocation('dot_size')
-        self._uniforms['point_mat_plane'] = self.shaders[self.SHADER_POINTS].uniformLocation('mat_plane')
-        self._uniforms['point_mat_modelview'] = self.shaders[self.SHADER_POINTS].uniformLocation('mat_modelview')
-        self._uniforms['point_dot_color'] = self.shaders[self.SHADER_POINTS].uniformLocation('geometry_color')
+        self._uniforms['mat_plane'] = self.plane_shader.uniformLocation('mat_plane')
+        self._uniforms['mat_modelview'] = self.plane_shader.uniformLocation('mat_modelview')
 
     def _prepare_scalings(self):
         # specifies the count of units to be rendered
@@ -129,7 +105,7 @@ class PlotPlane2d():
         )
 
     def _prepare_plane(self):
-
+        """ XXX make me nice """
         verticies = [
                 # main plane - note that the mainplane is scaled so the mat_plane
                 # matrix will it transform to the correct coordinates
@@ -212,13 +188,13 @@ class PlotPlane2d():
             # plane verticies
             with self._plane_vbo.get(0):
                 glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
-                glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
+                glVertexAttribPointer(self.plane_shader.attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(0)
 
             # place vertex colors
             with self._plane_vbo.get(1):
                 glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(colors), colors, GL_STATIC_DRAW)
-                glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
+                glVertexAttribPointer(self.plane_shader.attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(1)
 
 
@@ -305,7 +281,7 @@ class PlotPlane2d():
 
         # configure vbo
         with vbo.get(0):
-            vertex_position = self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position')
+            vertex_position = shader.attributeLocation('vertex_position')
             glBufferData(GL_ARRAY_BUFFER, buffer_configuration['byte_count'], None, GL_STATIC_DRAW)
             with vao:
                 glVertexAttribPointer(vertex_position, 2, GL_FLOAT, GL_FALSE, 0, None)
@@ -314,17 +290,20 @@ class PlotPlane2d():
         return buffer_configuration
 
     def create_plot(self, name, kernel, domain):
+        """
+        creates a plot from kernel and domain
+        """
         self.buffer_configuration[name] = self._init_plot_buffer({
             'kernel': kernel,
             'length': len(domain)
         })
         self.submit_domain(name, domain, 0)
         return self.buffer_configuration[name]
+
     def submit_domain(self, name, data, byte_start=0):
         """
-        submit submit_domain to vertex buffer object.
+        submits the domain into vertex buffer
         """
-
         data = numpy.array(data, dtype=numpy.float32)
         byte_count = min(
             ArrayDatatype.arrayByteCount(data),
@@ -343,7 +322,7 @@ class PlotPlane2d():
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
         # draw plane
-        with self.shaders[self.SHADER_PLANE]:
+        with self.plane_shader:
             glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
             glUniformMatrix4fv(self._uniforms['mat_modelview'], 1, GL_FALSE, mat_modelview)
             with self._plane_vao:
