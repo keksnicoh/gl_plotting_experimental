@@ -14,7 +14,7 @@ uniform mat4 mat_modelview;
 uniform float time;
 vec4 kernel_result;
 int i;
-vec2 f(vec2 x){return vec2(x.x, 0);}
+vec4 f(vec4 x){return vec2(x.xy, 1, 0);}
 
 void main() {
 

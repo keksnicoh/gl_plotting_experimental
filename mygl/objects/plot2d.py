@@ -47,7 +47,7 @@ class PlotPlane2d():
     renders a 2d plotting plane within a
     opengl render cycle
     """
-    KERNEL_PLACEHOLDER = 'vec2 f(vec2 x){return vec2(x.x, 0);}'
+    KERNEL_PLACEHOLDER = 'vec4 f(vec4 x){return vec2(x.xy, 1, 0);}'
     def __init__(self, gl_font):
         self._gl_font = gl_font
 
