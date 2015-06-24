@@ -24,5 +24,5 @@ if __name__ == '__main__':
         return vec4(x.x, sin(x.x), 1,0);
     }
     """
-    #plotter_app(KERNEL, cartesian_domain(200, 3.0, 3.0))
-    plotter_app(KERNEL_SIN, x_axis_domain(500, 3.0))
+    plotter_app(KERNEL, cartesian_domain(200, 3.0, 3.0))
+    #plotter_app(KERNEL_SIN, x_axis_domain(20000, 3.0))

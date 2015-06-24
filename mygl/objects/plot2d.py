@@ -6,6 +6,7 @@ from OpenGL.GL import *
 from mygl import util
 from mygl.matricies import *
 from mygl.font import GlFont
+from functools import partial
 
 import numpy
 import ImageFont
@@ -41,7 +42,7 @@ def x_axis_domain(n, w=5.0):
     for x in range(0, n):
         data[2*x] = (float(x)/n -0.5)*w
         data[2*x+1] = 0
-    return (data, float)
+    return (data, partial(max, 0.002))
 class PlotPlane2d():
     """
     renders a 2d plotting plane within a
@@ -274,12 +275,12 @@ class PlotPlane2d():
             'byte_count': configuration['length'] * 4,
             'vertex_count': configuration['length']/2,
             'point_base_color': configuration.get('point_base_color', [0,0,0.5,1]),
-            'point_size': configuration.get('point_size', 1.0/norm(configuration['length']/2)),
+            'point_size': configuration.get('point_size', norm(2.0/configuration['length'])),
             'vao': vao,
             'vbo': vbo,
             'shader': shader
         }
-
+        print(configuration['length']/2)
         # uniforms
         shader.uniform('mat_plane', self._mat_plot)
         shader.uniform('geometry_color', buffer_configuration['point_base_color'])
