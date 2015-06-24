@@ -10,7 +10,7 @@ from mygl.matricies import *
 from mygl.util import *
 from time import time
 
-def plotter_app(kernel, domain, origin=(1.5,1.5), axis=(3.0,3.0)):
+def plotter_app(kernel, domain, origin=(0.5,0.5), axis=(2.0,2.0)):
     """ single 2d plot """
     app = BasicGl(window_title='Plot2d')
 

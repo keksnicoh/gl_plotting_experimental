@@ -12,4 +12,8 @@ vec4 f(vec4 x) {
     return vec4(x.xy, sin(x.x*x.x+x.y*x.y*time), is_in);
 }
 """
-plotter_app(KERNEL_SIN, cartesian_domain(1000, 3.0, 3.0))
+plotter_app(
+    KERNEL_SIN,
+    cartesian_domain(1000, 3.0, 3.0, origin=(1.5, 1.5)),
+    axis=(3.0,3.0),
+    origin=(1.5,1.5))

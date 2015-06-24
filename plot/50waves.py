@@ -16,4 +16,7 @@ vec4 f(vec4 x) {
 }
 """
 
-plotter_app(KERNEL, cartesian_domain(1000, 3.0, 3.0))
+plotter_app(KERNEL,
+    cartesian_domain(1000, 3.0, 3.0, origin=(1.5, 1.5)),
+    origin=(1.5, 1.5),
+    axis=(3.0, 3.0))
