@@ -9,7 +9,7 @@ vec4 f(vec4 x) {
         is_in = 1;
     }
 
-    return vec4(x.xy, sin(x.x*x.x+x.y*x.y), is_in);
+    return vec4(x.xy, sin(x.x*x.x+x.y*x.y*time), is_in);
 }
 """
 plotter_app(KERNEL_SIN, cartesian_domain(1000, 3.0, 3.0))
