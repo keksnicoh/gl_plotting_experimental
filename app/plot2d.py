@@ -4,7 +4,7 @@ plotter 2d application
 """
 
 from mygl.app import BasicGl
-from mygl.objects.plot2d import create_plot_plane_2d, cartesian_domain
+from mygl.objects.plot2d import create_plot_plane_2d, cartesian_domain, x_axis_domain
 from mygl.objects.frame import Window
 from mygl.matricies import *
 from mygl.util import *
@@ -34,3 +34,8 @@ def plotter_app(kernel, domain, origin=(1.5,1.5), axis=(3.0,3.0)):
         window.render(mat_modelview=move_origin_translation)
         app.swap()
 
+
+def simplified_plotter_app(kernel, details=5000, xRange=(0.0, 1.0), yRange=(0.0, 1.0)):
+    x_length = xRange[1] - xRange[0]
+    y_length = yRange[1] - yRange[0]
+    plotter_app(kernel, x_axis_domain(details, x_length, xRange[0]), origin=(-xRange[0], abs(yRange[0])), axis=(x_length,y_length))

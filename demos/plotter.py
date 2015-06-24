@@ -1,4 +1,5 @@
 from app.plot2d import plotter_app
+from app.plot2d import simplified_plotter_app
 from mygl.objects.plot2d import cartesian_domain, x_axis_domain
 
 if __name__ == '__main__':
@@ -37,13 +38,15 @@ if __name__ == '__main__':
             summe += log(abs(y));
         }
         x.y = 1.0;
-        return vec4(x.x, (1.0/iterations)*summe, 1,0);
+        return vec4(x.x, (1.0/iterations)*summe, 1,1);
     }
     """
 
     #plotter_app(KERNEL, cartesian_domain(200, 3.0, 3.0))
 
-    plotter_app(KERNEL_LJAPUNOW_EXP, x_axis_domain(5000, 4.0), origin=(0, 5), axis=(4.0,5.0))
+    simplified_plotter_app(KERNEL_LJAPUNOW_EXP, details=10000, xRange=(1.0, 4.0), yRange=(-4.0, 2.0))
+
+    #plotter_app(KERNEL_LJAPUNOW_EXP, x_axis_domain(5000, x_length, x[0]), origin=(-x[0], abs(y[0])), axis=(x_length,y_length))
 
     #plotter_app(KERNEL_LJAPUNOW_EXP, x_axis_domain(50000, 4.0), origin=(0, 1), axis=(4.0,2.0))
 

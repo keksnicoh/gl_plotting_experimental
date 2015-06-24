@@ -39,10 +39,13 @@ def cartesian_domain(n, w=1.0, h=1.0):
             data[2*n*x+2*y] = (float(x)/n -0.5)*w
             data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
     return (data, math.sqrt)
-def x_axis_domain(n, w=5.0):
+
+def x_axis_domain(n, w=5.0, x_0=0):
     data = numpy.zeros(n*2)
+    shift = x_0 / w
+
     for x in range(0, n):
-        data[2*x] = (float(x)/n -0.5)*w
+        data[2*x] = (float(x)/n + shift)*w
         data[2*x+1] = 0
     return (data, partial(max, 0.002))
 class PlotPlane2d():
