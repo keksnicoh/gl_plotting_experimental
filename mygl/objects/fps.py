@@ -3,8 +3,8 @@ simple gl object to render FPS
 @author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
 """
 
-from font import GlFont
-import ImageFont
+from mygl.font import GlFont
+from PIL import ImageFont
 import time
 import os
 class GlFPS():

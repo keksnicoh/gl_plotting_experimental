@@ -3,14 +3,16 @@ vertex shader based 2d plot
 @author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
 """
 from OpenGL.GL import *
+
+import numpy
+from PIL import ImageFont
+import os
+
 from mygl import util
 from mygl.matricies import *
 from mygl.font import GlFont
 from functools import partial
 
-import numpy
-import ImageFont
-import os
 import math
 
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../../resources/fonts'
@@ -349,8 +351,5 @@ class PlotPlane2d():
         for text in self._fonts:
             self._gl_font.set_text(text[0], text[1], text[2])
             self._gl_font.render(mat_projection=mat_modelview)
-
-
-
 
 

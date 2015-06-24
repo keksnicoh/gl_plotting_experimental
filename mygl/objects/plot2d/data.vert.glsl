@@ -17,7 +17,6 @@ int i;
 vec4 f(vec4 x){return vec2(x.xy, 1, 0);}
 
 void main() {
-
     kernel_result = f(vertex_position);
     geometry_point_value.xy = vec2(kernel_result.z, kernel_result.w);
     //vertex_position.y = 1.0;
