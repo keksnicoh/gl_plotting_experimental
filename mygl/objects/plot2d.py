@@ -357,9 +357,13 @@ class PlotPlane2d():
     @classmethod
     def init_cartesian_space(cls, n, w=1.0, h=1.0):
         data = numpy.zeros(n*n*2)
-        for x in range(0, n):
-            for y in range(0, n):
+        for x in xrange(n):
+            for y in xrange(n):
                 data[2*n*x+2*y] = (float(x)/n -0.5)*w
                 data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
         return data
+
+
+
+
 
