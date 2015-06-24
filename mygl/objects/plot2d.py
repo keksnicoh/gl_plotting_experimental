@@ -1,8 +1,9 @@
 """
-pretty rough plotting class experiment
+vertex shader based 2d plot
 @author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
 """
 from OpenGL.GL import *
+
 import numpy
 from PIL import ImageFont
 import os
@@ -11,11 +12,13 @@ from mygl import util
 from mygl.matricies import *
 from mygl.font import GlFont
 
+import math
+
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../../resources/fonts'
 SHADER_DIR = os.path.dirname(os.path.abspath(__file__))+'/plot2d'
 
 def create_plot_plane_2d(axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
-
+    """ helber function to create PlotPlane2d """
     ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 12)
     gl_font = GlFont('', ft)
     gl_font.color = [0.0, 0, 0, 1.0]
@@ -28,14 +31,20 @@ def create_plot_plane_2d(axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
     gl_plot.prepare()
     return gl_plot
 
+def cartesian_domain(n, w=1.0, h=1.0):
+    data = numpy.zeros(n*n*2)
+    for x in range(0, n):
+        for y in range(0, n):
+            data[2*n*x+2*y] = (float(x)/n -0.5)*w
+            data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
+    return data
+
 class PlotPlane2d():
     """
     renders a 2d plotting plane within a
     opengl render cycle
     """
-    SHADER_PLANE = 'plane'
-    SHADER_POINTS = 'points'
-
+    KERNEL_PLACEHOLDER = 'vec2 f(vec2 x){return vec2(x.x, 0);}'
     def __init__(self, gl_font):
         self._gl_font = gl_font
 
@@ -55,51 +64,29 @@ class PlotPlane2d():
         self._unit_count = None
         self._unit_w = None
         self._scaling = None
-        self._prepare_data = None
         self._draw_plane_indicies = None
         self._draw_line_indicies = None
         self._plane_vao = None
         self._plane_vbo = None
-        self._plot_vao = None
-        self._plot_vbo = None
-        self._metadata = None
+        self.buffer_configuration = None
+        self.plane_shader = None
+        self.init_point_buffer()
 
-    def set_data(self, data):
-        self._prepare_data = True
-        self._data = data
-    def set_metadata(self, meta):
-        self._metadata = meta
     def prepare(self):
         self._init_shaders()
         self._prepare_scalings()
         self._prepare_outer_matrix()
         self._prepare_plot_matrix()
         self._prepare_plane()
-        self._prepare_data = True
 
     def _init_shaders(self):
-        self.shaders = {
-            PlotPlane2d.SHADER_PLANE: util.Shader(
-                vertex=open(SHADER_DIR+'/plane.vert.glsl').read(),
-                fragment=open(SHADER_DIR+'/plane.frag.glsl').read(),
-                link=True
-            ),
+        self.plane_shader = util.Shader(
+            vertex=open(SHADER_DIR+'/plane.vert.glsl').read(),
+            fragment=open(SHADER_DIR+'/plane.frag.glsl').read(),
+            link=True)
 
-            # XXX Todo custom shader
-            PlotPlane2d.SHADER_POINTS: util.Shader(
-                vertex=open(SHADER_DIR+'/data.vert.glsl').read(),
-                geometry=open(SHADER_DIR+'/data.geom.glsl').read(),
-                fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
-                link=True
-            ),
-        }
-
-        self._uniforms['mat_plane'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_plane')
-        self._uniforms['mat_modelview'] = self.shaders[self.SHADER_PLANE].uniformLocation('mat_modelview')
-        self._uniforms['point_dot_size'] = self.shaders[self.SHADER_POINTS].uniformLocation('dot_size')
-        self._uniforms['point_mat_plane'] = self.shaders[self.SHADER_POINTS].uniformLocation('mat_plane')
-        self._uniforms['point_mat_modelview'] = self.shaders[self.SHADER_POINTS].uniformLocation('mat_modelview')
-        self._uniforms['point_dot_color'] = self.shaders[self.SHADER_POINTS].uniformLocation('geometry_color')
+        self._uniforms['mat_plane'] = self.plane_shader.uniformLocation('mat_plane')
+        self._uniforms['mat_modelview'] = self.plane_shader.uniformLocation('mat_modelview')
 
     def _prepare_scalings(self):
         # specifies the count of units to be rendered
@@ -120,7 +107,7 @@ class PlotPlane2d():
         )
 
     def _prepare_plane(self):
-
+        """ XXX make me nice """
         verticies = [
                 # main plane - note that the mainplane is scaled so the mat_plane
                 # matrix will it transform to the correct coordinates
@@ -151,12 +138,12 @@ class PlotPlane2d():
                 1.0, 1.0, 1.0, 1.0,
                 1.0, 1.0, 1.0, 1.0,
                 1.0, 1.0, 1.0, 1.0,
-                .9, .9, .9, 1.0, # plot box
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
-                .9, .9, .9, 1.0,
+                .1, .1, .1, 1.0, # plot box
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
+                .1, .1, .1, 1.0,
                 0.0, 0.0, 0.0, 1.0, #lines
                 0.0, 0.0, 0.0, 1.0,
                 0.0, 0.0, 0.0, 1.0,
@@ -203,13 +190,13 @@ class PlotPlane2d():
             # plane verticies
             with self._plane_vbo.get(0):
                 glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(verticies), verticies, GL_STATIC_DRAW)
-                glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
+                glVertexAttribPointer(self.plane_shader.attributeLocation('vertex_position'), 2, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(0)
 
             # place vertex colors
             with self._plane_vbo.get(1):
                 glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(colors), colors, GL_STATIC_DRAW)
-                glVertexAttribPointer(self.shaders[self.SHADER_PLANE].attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
+                glVertexAttribPointer(self.plane_shader.attributeLocation('vertex_color'), 4, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(1)
 
 
@@ -233,8 +220,8 @@ class PlotPlane2d():
         tx = self.i_border[0]+self.o_wh[1]*self.i_origin[0]/self.i_axis[0]*self._scaling[0]
         ty = -self.i_border[1]-(self.o_wh[1]-self.o_wh[1]*self.i_origin[1]/self.i_axis[1])*self._scaling[1]
 
-        sx = self.o_wh[0]*self._scaling[0]/self.i_axis[0]
-        sy = self.o_wh[1]*self._scaling[1]/self.i_axis[1]
+        sx = (self.o_wh[0])*self._scaling[0]/self.i_axis[0]
+        sy = (self.o_wh[1])*self._scaling[1]/self.i_axis[1]
 
         self._mat_plot = numpy.array([
             sx, 0,  0, 0,
@@ -243,7 +230,7 @@ class PlotPlane2d():
             tx, ty, 0, 1
         ], dtype=numpy.float32)
 
-    def init_point_buffer(self, configurations):
+    def init_point_buffer(self, configurations={}):
         """
         initializes buffer configuration and allows
         to set uniform values for any given plot
@@ -270,50 +257,54 @@ class PlotPlane2d():
         # initialize vao/vbo
         vao, vbo = util.VAO(), util.VBO()
 
+        # put kernel function into vertex shader
+        vertex_shader = open(SHADER_DIR+'/data.vert.glsl').read()
+        vertex_shader_kernel = vertex_shader.replace(self.KERNEL_PLACEHOLDER, configuration['kernel'])
+        shader = util.Shader(
+            vertex=vertex_shader_kernel,
+            geometry=open(SHADER_DIR+'/data.geom.glsl').read(),
+            fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
+            link=True
+        )
+
         buffer_configuration = {
             'byte_count': configuration['length'] * 4,
-            'vertex_count': configuration['length'],
+            'vertex_count': configuration['length']/2,
             'point_base_color': configuration.get('point_base_color', [0,0,0.5,1]),
-            'point_size': configuration.get('point_size', 0.02),
-            'enable_z': configuration['enable_z'] if 'enable_z' in configuration else False,
-            'enable_w': configuration['enable_w'] if 'enable_w' in configuration else False,
+            'point_size': configuration.get('point_size', 1/math.sqrt(configuration['length']/2)),
             'vao': vao,
             'vbo': vbo,
-            'shader': util.Shader(
-                vertex=open(SHADER_DIR+'/data.vert.glsl').read(),
-                geometry=open(SHADER_DIR+'/data.geom.glsl').read(),
-                fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
-                link=True
-            )
+            'shader': shader
         }
 
-        with buffer_configuration['shader']:
-            dot_color = numpy.array(buffer_configuration['point_base_color'], dtype=numpy.float32)
-            dot_size = numpy.array(buffer_configuration['point_size'], dtype=numpy.float32)
-
-            # XXX CUSTOM SHADERS!!!
-            glUniformMatrix4fv(self._uniforms['point_mat_plane'], 1, GL_FALSE, self._mat_plot)
-            glUniform4f(self._uniforms['point_dot_color'], *dot_color)
-            glUniform1f(self._uniforms['point_dot_size'], dot_size)
-
-        # enable extra attributes
-        extra_attributes = 0
-        if buffer_configuration['enable_z']: extra_attributes += 1
-        if buffer_configuration['enable_w']: extra_attributes += 1
+        shader.uniform('mat_plane', self._mat_plot)
+        shader.uniform('geometry_color', buffer_configuration['point_base_color'])
+        shader.uniform('dot_size',  buffer_configuration['point_size'])
 
         # configure vbo
         with vbo.get(0):
-            vertex_position = self.shaders[self.SHADER_POINTS].attributeLocation('vertex_position')
+            vertex_position = shader.attributeLocation('vertex_position')
             glBufferData(GL_ARRAY_BUFFER, buffer_configuration['byte_count'], None, GL_STATIC_DRAW)
             with vao:
-                glVertexAttribPointer(vertex_position, 2+extra_attributes, GL_FLOAT, GL_FALSE, 0, None)
+                glVertexAttribPointer(vertex_position, 2, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(0)
 
         return buffer_configuration
 
-    def submit_data(self, name, data, byte_start=0):
+    def create_plot(self, name, kernel, domain):
         """
-        submit data to vertex buffer object
+        creates a plot from kernel and domain
+        """
+        self.buffer_configuration[name] = self._init_plot_buffer({
+            'kernel': kernel,
+            'length': len(domain)
+        })
+        self.submit_domain(name, domain, 0)
+        return self.buffer_configuration[name]
+
+    def submit_domain(self, name, data, byte_start=0):
+        """
+        submits the domain into vertex buffer
         """
         data = numpy.array(data, dtype=numpy.float32)
         byte_count = min(
@@ -333,7 +324,7 @@ class PlotPlane2d():
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
         # draw plane
-        with self.shaders[self.SHADER_PLANE]:
+        with self.plane_shader:
             glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
             glUniformMatrix4fv(self._uniforms['mat_modelview'], 1, GL_FALSE, mat_modelview)
             with self._plane_vao:
@@ -343,8 +334,7 @@ class PlotPlane2d():
         # draw plot
         for name, configuration in self.buffer_configuration.items():
             with configuration['shader']:
-                # XXX different shaders
-                glUniformMatrix4fv(self._uniforms['point_mat_modelview'], 1, GL_FALSE, mat_modelview)
+                configuration['shader'].uniform('mat_modelview', mat_modelview)
                 with configuration['vao']:
                     glDrawArrays(GL_POINTS, 0, configuration['vertex_count'])
 
@@ -352,18 +342,5 @@ class PlotPlane2d():
         for text in self._fonts:
             self._gl_font.set_text(text[0], text[1], text[2])
             self._gl_font.render(mat_projection=mat_modelview)
-
-
-    @classmethod
-    def init_cartesian_space(cls, n, w=1.0, h=1.0):
-        data = numpy.zeros(n*n*2)
-        for x in xrange(n):
-            for y in xrange(n):
-                data[2*n*x+2*y] = (float(x)/n -0.5)*w
-                data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
-        return data
-
-
-
 
 
