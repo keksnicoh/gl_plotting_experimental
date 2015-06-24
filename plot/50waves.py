@@ -12,7 +12,7 @@ vec4 f(vec4 x) {
         ty = x.y - 0.1 + 0.001*i;
         c += sin(50*sqrt(tx*tx + ty*ty)-5*time);
     }
-    return vec4(x.xy, c / 7, vertex_position.w);
+    return vec4(x.xy, c / 7, 1);
 }
 """
 

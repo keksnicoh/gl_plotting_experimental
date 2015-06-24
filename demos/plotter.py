@@ -42,5 +42,5 @@ if __name__ == '__main__':
     """
 
     #plotter_app(KERNEL, cartesian_domain(200, 3.0, 3.0))
-    plotter_app(KERNEL_LJAPUNOW_EXP, x_axis_domain(50000, 5.0), origin=(1.5,1.5), axis=(5.0,3.0))
+    plotter_app(KERNEL_LJAPUNOW_EXP, x_axis_domain(50000, 4.0), origin=(0, 1), axis=(4.0,2.0))
     #plotter_app(KERNEL_SIN, x_axis_domain(100000, 3.0))
