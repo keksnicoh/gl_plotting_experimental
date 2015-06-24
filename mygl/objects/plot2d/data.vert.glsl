@@ -12,13 +12,15 @@ uniform float dot_size;
 uniform mat4 mat_plane;
 uniform mat4 mat_modelview;
 uniform float time;
+vec4 kernel_result;
 int i;
-vec2 f(vec2 x){return vec2(x.x, 0);}
+vec4 f(vec4 x){return vec2(x.xy, 1, 0);}
 
 void main() {
-    geometry_point_value = f(vertex_position.xy);
-
-    gl_Position = mat_plane*vec4(vertex_position.xy, 0.0, 1.0);
+    kernel_result = f(vertex_position);
+    geometry_point_value.xy = vec2(kernel_result.z, kernel_result.w);
+    //vertex_position.y = 1.0;
+    gl_Position = mat_plane*vec4(kernel_result.xy, 0.0, 1.0);
     gl_Position.x += dot_size;
     gl_Position.y += dot_size;
     gl_Position = mat_modelview*gl_Position;

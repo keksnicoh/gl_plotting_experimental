@@ -37,14 +37,19 @@ def cartesian_domain(n, w=1.0, h=1.0):
         for y in range(0, n):
             data[2*n*x+2*y] = (float(x)/n -0.5)*w
             data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
-    return data
-
+    return (data, math.sqrt)
+def x_axis_domain(n, w=5.0):
+    data = numpy.zeros(n*2)
+    for x in range(0, n):
+        data[2*x] = (float(x)/n -0.5)*w
+        data[2*x+1] = 0
+    return (data, float)
 class PlotPlane2d():
     """
     renders a 2d plotting plane within a
     opengl render cycle
     """
-    KERNEL_PLACEHOLDER = 'vec2 f(vec2 x){return vec2(x.x, 0);}'
+    KERNEL_PLACEHOLDER = 'vec4 f(vec4 x){return vec2(x.xy, 1, 0);}'
     def __init__(self, gl_font):
         self._gl_font = gl_font
 
@@ -138,12 +143,12 @@ class PlotPlane2d():
                 1.0, 1.0, 1.0, 1.0,
                 1.0, 1.0, 1.0, 1.0,
                 1.0, 1.0, 1.0, 1.0,
-                .1, .1, .1, 1.0, # plot box
-                .1, .1, .1, 1.0,
-                .1, .1, .1, 1.0,
-                .1, .1, .1, 1.0,
-                .1, .1, .1, 1.0,
-                .1, .1, .1, 1.0,
+                .9, .9, .9, 9.0, # plot box
+                .9, .9, .9, 9.0,
+                .9, .9, .9, 9.0,
+                .9, .9, .9, 9.0,
+                .9, .9, .9, 9.0,
+                .9, .9, .9, 9.0,
                 0.0, 0.0, 0.0, 1.0, #lines
                 0.0, 0.0, 0.0, 1.0,
                 0.0, 0.0, 0.0, 1.0,
@@ -266,17 +271,18 @@ class PlotPlane2d():
             fragment=open(SHADER_DIR+'/data.frag.glsl').read(),
             link=True
         )
-
+        norm = configuration.get('norm', float)
         buffer_configuration = {
             'byte_count': configuration['length'] * 4,
             'vertex_count': configuration['length']/2,
             'point_base_color': configuration.get('point_base_color', [0,0,0.5,1]),
-            'point_size': configuration.get('point_size', 1/math.sqrt(configuration['length']/2)),
+            'point_size': configuration.get('point_size', 1.0/norm(configuration['length']/2)),
             'vao': vao,
             'vbo': vbo,
             'shader': shader
         }
 
+        # uniforms
         shader.uniform('mat_plane', self._mat_plot)
         shader.uniform('geometry_color', buffer_configuration['point_base_color'])
         shader.uniform('dot_size',  buffer_configuration['point_size'])
@@ -295,9 +301,11 @@ class PlotPlane2d():
         """
         creates a plot from kernel and domain
         """
+        (domain, norm) = domain
         self.buffer_configuration[name] = self._init_plot_buffer({
             'kernel': kernel,
-            'length': len(domain)
+            'length': len(domain),
+            'norm': norm,
         })
         self.submit_domain(name, domain, 0)
         return self.buffer_configuration[name]
