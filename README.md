@@ -10,18 +10,16 @@ an animation of the bifurcation diagramm. in this image 16.000.000 (x,r) values 
 
 ![bifurkation von r*sin mit cos fit](/bifurk2.png)
 
-
-
-
-plotting numpy arrays with length 2000200 + 100000:
-![bifurkation von r*sin mit cos fit](/plot_bifurcation_sin_with_cos_fit.jpg)
-
-
 animated plot of 50 2d wave function aligned on a line axis in vertex shader (320000 buffer entries)
 
 ![bifurkation von r*sin mit cos fit](/waveplot.png)
 
 
+old and experiments
+-------------------
+
+plotting experiment: numpy arrays with length 2000200 + 100000
+![bifurkation von r*sin mit cos fit](/plot_bifurcation_sin_with_cos_fit.jpg)
 
 
 
