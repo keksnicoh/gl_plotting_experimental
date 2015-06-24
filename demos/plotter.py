@@ -21,8 +21,8 @@ if __name__ == '__main__':
     KERNEL_SIN = """
     vec4 f(vec4 x) {
         x.y = 1.0;
-        return vec4(x.x, sin(x.x), 1,0);
+        return vec4(x.x, sin(exp(-x.x*x.x)*time), 1,0);
     }
     """
-    plotter_app(KERNEL, cartesian_domain(200, 3.0, 3.0))
-    #plotter_app(KERNEL_SIN, x_axis_domain(20000, 3.0))
+    #plotter_app(KERNEL, cartesian_domain(1000, 3.0, 3.0))
+    plotter_app(KERNEL_SIN, x_axis_domain(100000, 3.0))
