@@ -8,7 +8,7 @@ currently its possible to plot a 1d/2d domain on a x-y cartesian space. here is 
 bifurcation animation of the logistic function. the plotter shows from iter_max=0 to iter_max=100
 an animation of the bifurcation diagramm. in this image 16.000.000 (x,r) values where rendered.
 
-![bifurkation von r*sin mit cos fit](/bifurk2.pmg)
+![bifurkation von r*sin mit cos fit](/bifurk2.png)
 
 
 
