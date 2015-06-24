@@ -32,12 +32,13 @@ def create_plot_plane_2d(axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
     gl_plot.prepare()
     return gl_plot
 
-def cartesian_domain(n, w=1.0, h=1.0):
+def cartesian_domain(n, w=1.0, h=1.0, origin=(0.5, 0.5)):
     data = numpy.zeros(n*n*2)
     for x in range(0, n):
         for y in range(0, n):
-            data[2*n*x+2*y] = (float(x)/n -0.5)*w
-            data[2*n*x+2*y+1] = (float(y)/n -0.5)*h
+            data[2*n*x+2*y] = (float(x)/n)*w - origin[0]
+            data[2*n*x+2*y+1] = (float(y)/n)*h - origin[1]/h
+
     return (data, math.sqrt)
 
 def x_axis_domain(n, w=5.0, x_0=0):
@@ -53,7 +54,7 @@ class PlotPlane2d():
     renders a 2d plotting plane within a
     opengl render cycle
     """
-    KERNEL_PLACEHOLDER = 'vec4 f(vec4 x){return vec2(x.xy, 1, 0);}'
+    KERNEL_PLACEHOLDER = 'vec4 f(vec4 x){return vec4(x.xy, 1, 1);}'
     def __init__(self, gl_font):
         self._gl_font = gl_font
 
@@ -267,8 +268,12 @@ class PlotPlane2d():
         vao, vbo = util.VAO(), util.VBO()
 
         # put kernel function into vertex shader
-        vertex_shader = open(SHADER_DIR+'/data.vert.glsl').read()
-        vertex_shader_kernel = vertex_shader.replace(self.KERNEL_PLACEHOLDER, configuration['kernel'])
+        vertex_shader_kernel = open(SHADER_DIR+'/data.vert.glsl').read()
+        if configuration['kernel'] is not None:
+            vertex_shader_kernel = vertex_shader_kernel.replace(
+                self.KERNEL_PLACEHOLDER,
+                configuration['kernel'])
+
         shader = util.Shader(
             vertex=vertex_shader_kernel,
             geometry=open(SHADER_DIR+'/data.geom.glsl').read(),

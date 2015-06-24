@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     KERNEL_LJAPUNOW_EXP = """
     vec4 f(vec4 x) {
-        int iterations = 1000;
+        int iterations = int(time*10);
         float x_0 = 0.3;
 
         float y = 0;

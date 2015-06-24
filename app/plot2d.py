@@ -14,7 +14,7 @@ def plotter_app(kernel, domain, origin=(1.5,1.5), axis=(3.0,3.0)):
     """ single 2d plot """
     app = BasicGl(window_title='Plot2d')
 
-    window = Window(size=(2,2), resolution=(2000, 2000)) # the maximum size seems to be a raise conditional problem
+    window = Window(size=(2,2), resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
     move_origin_translation = translation_matrix(-1, 1)
 
     plot = create_plot_plane_2d(origin=origin, axis=axis)
