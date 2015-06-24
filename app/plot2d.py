@@ -10,14 +10,14 @@ from mygl.matricies import *
 from mygl.util import *
 from time import time
 
-def plotter_app(kernel, domain):
+def plotter_app(kernel, domain, origin=(1.5,1.5), axis=(3.0,3.0)):
     """ single 2d plot """
     app = BasicGl(window_title='Plot2d')
 
     window = Window(size=(2,2), resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
     move_origin_translation = translation_matrix(-1, 1)
 
-    plot = create_plot_plane_2d(origin=(1.5,1.5), axis=(3.0,3.0))
+    plot = create_plot_plane_2d(origin=origin, axis=axis)
     plot.create_plot('main', kernel, domain)
 
     start_time = time()
