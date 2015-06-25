@@ -8,7 +8,7 @@ vec4 point_color(vec2 value, vec4 fragment_color) {
         fragment_color.x*value.x,
         fragment_color.y*value.x,
         fragment_color.z*value.x,
-        fragment_color.w
+        fragment_color.w*value.y
     );
 }
 
