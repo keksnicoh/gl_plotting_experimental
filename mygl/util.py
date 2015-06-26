@@ -87,12 +87,18 @@ class VBO():
         vbo = glGenBuffers(n)
         if n == 1: vbo = [vbo]
         self.vbo = [Buffer(gl_buffer_id) for gl_buffer_id in vbo]
-    def get(self, buffer_id):
+    def get(self, buffer_id=0):
         return self.vbo[buffer_id]
+    def __enter__(self):
+        return self.get().__enter__()
+    def __exit__(self, type, value, tb):
+        return self.get().__exit__(type, value, tb)
+
 class Buffer():
     def __init__(self, gl_buffer_id):
         self._is_binded = False
         self.id = gl_buffer_id
+
     def glBufferSubData(self, byte_start, byte_length, data):
         with self:
             glBufferSubData(GL_ARRAY_BUFFER, byte_start, byte_length, data)
@@ -151,7 +157,10 @@ class Shader(object):
                 glUniform4f(self.uniformLocation(name), *value)
             elif len(value) == 16:
                 glUniformMatrix4fv(self.uniformLocation(name), 1, GL_FALSE, value)
+            elif len(value) == 9:
+                glUniformMatrix3fv(self.uniformLocation(name), 1, GL_FALSE, value)
             else:
+                print(len(value))
                 raise Exception('not implemented')
     def linkProgram(self):
         glLinkProgram(self.program_id)

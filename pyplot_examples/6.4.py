@@ -58,7 +58,7 @@ class Duffing(object):
 	def calculation(self, awp, phasendiagramm=False):
 		(x, y) = awp
 		h = 0.001
-		t_f = 65
+		t_f = 200
 
 		def f_x(y_value):
 			return y_value
@@ -82,11 +82,11 @@ class Duffing(object):
 			self.plotScatter([(x_Data, y_Data)])
 		else:
 			self.plotScatter([(xrange(iterations), x_Data)])
-		
+
 
 
 if __name__ == '__main__':
-	app = Duffing(0.08, 1.0, 1.0, 0.2)
+	app = Duffing(0.08, 1.0, 1.0, 1.2)
 
 	afw = [
 		(0.21, 0.02),
@@ -97,7 +97,7 @@ if __name__ == '__main__':
 	]
 
 
-	app.calculation(afw[2], True)
+	app.calculation(afw[3], True)
 
 
 
