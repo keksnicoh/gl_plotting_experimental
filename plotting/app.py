@@ -3,7 +3,7 @@
 PlotterWindow
 @author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
 """
-from plotting import domain
+from plotting import domain, graph
 from plotting.plot2d import *
 from mygl.app import BasicGl
 from mygl.glfw import *
@@ -45,3 +45,18 @@ class PlotterWindow():
             self.app.swap()
 
 
+def axis_plot2d(*kernels):
+    """ starts a axis plot window """
+    colors = [
+        [0.0, 0.0, 0.0, 1],
+        [1.0, 0.0, 0.0, 1],
+        [0.0, 1.0, 0.0, 1],
+        [0.0, 0.0, 1.0, 1],
+    ]
+    window = PlotterWindow(axis=(2.0, 2.0), origin=(1.0, 1.0))
+    xaxis = domain.Axis(50000)
+    for i, kernel in enumerate(kernels):
+        fgraph = graph.Discrete2d(xaxis, kernel)
+        fgraph.set_colors(colors[i%3])
+        window.plotter.add_graph('main'+str(i), fgraph)
+    window.run()
