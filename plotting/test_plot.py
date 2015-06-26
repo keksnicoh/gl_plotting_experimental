@@ -11,7 +11,7 @@ KERNEL = """
 vec4 f(vec4 x) {
     float tx = x.x;
     float ty = x.y;
-    return vec4(x.xy, 1.0/0.7*sqrt(tx*tx+ty*ty), 1);
+    return vec4(x.xy, pow(sin(sqrt(tx*tx+ty*ty)),2), 1);
 }
 """
 
@@ -31,7 +31,7 @@ vec4 f(vec4 x) {
 }
 """
 
-axis = domain.Axis(20000)
+axis = domain.Axis(50000)
 cartesian = domain.Cartesian(100)
 # spawn fixed cartesian domains
 minmax_no_y_translation = domain.Cartesian(4, min_y = 0.5, max_y=0.8)
@@ -43,7 +43,7 @@ window = PlotterWindow(axis=(8.0, 8.0), origin=(2.0,4.0))
 
 # test some none coord mapping kernel
 window.plotter.add_graph('ball', graph.Discrete2d(cartesian, KERNEL))
-window.plotter.get_graph('ball').set_colors(color_min=[.2,0.7,1,1], color_max=[.1,.2,0.8,1])
+window.plotter.get_graph('ball').set_colors(color_min=[.4,0.2,1,1], color_max=[.1,.4,0.4,1])
 
 # check two cartesian domains with either fixed x or fixed y axis
 window.plotter.add_graph('translation_testy', graph.Discrete2d(minmax_no_y_translation)) # plot with identity kernel
