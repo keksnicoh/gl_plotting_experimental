@@ -6,6 +6,10 @@ PlotterWindow
 from plotting import domain
 from plotting.plot2d import *
 from mygl.app import BasicGl
+from mygl.glfw import *
+
+ORIGIN_TRANSLATION_INTENSITY = 0.05
+
 
 class PlotterWindow():
     """
@@ -19,6 +23,25 @@ class PlotterWindow():
         glClearColor(1,1,1,1)
         while self.app.active():
             self.app.init_cycle()
+            active_keyboard = self.app.keyboardActive
+
+            # origin translations
+            if GLFW_KEY_LEFT in active_keyboard or GLFW_KEY_A in active_keyboard:
+                self.plotter.translate_origin(ORIGIN_TRANSLATION_INTENSITY, 0.00)
+            if GLFW_KEY_RIGHT in active_keyboard or GLFW_KEY_D in active_keyboard:
+                self.plotter.translate_origin(-ORIGIN_TRANSLATION_INTENSITY, 0.00)
+            if GLFW_KEY_UP in active_keyboard or GLFW_KEY_W in active_keyboard:
+                self.plotter.translate_origin(0.00, -ORIGIN_TRANSLATION_INTENSITY)
+            if GLFW_KEY_DOWN in active_keyboard or GLFW_KEY_S in active_keyboard:
+                self.plotter.translate_origin(0.00, ORIGIN_TRANSLATION_INTENSITY)
+
+            # zooming
+            if GLFW_KEY_RIGHT_BRACKET in active_keyboard:
+                self.plotter.zoom(0.99)
+            if GLFW_KEY_SLASH in active_keyboard:
+                self.plotter.zoom(1.01)
 
             self.plotter.render()
             self.app.swap()
+
+

@@ -36,46 +36,23 @@ class Plotter():
         self.plot_rendered = False
     def add_graph(self, name, graph):
         self.gl_plot.create_plot(name, graph)
-
+    def translate_origin(self, tx, ty):
+        tx *= self.gl_plot.i_axis[0]
+        ty *= self.gl_plot.i_axis[1]
+        origin = self.gl_plot.i_origin
+        self.gl_plot.i_origin = (origin[0]+tx, origin[1]+ty)
+        self.gl_plot.prepare()
+    def zoom(self, zoom):
+        axis = self.gl_plot.i_axis
+        self.gl_plot.i_axis = (axis[0]*zoom, axis[1]*zoom)
+        self.gl_plot.i_axis_units = (self.gl_plot.i_axis[0]/10, self.gl_plot.i_axis[1]/10)
+        print(self.gl_plot.i_axis)
+        if self.gl_plot.i_axis != (0.0, 0.0):
+            self.gl_plot.prepare()
     def get_graph(self, name):
         return self.gl_plot.get_graph(name)
     def render(self):
         self.gl_plot.render(mat_modelview=self.move_origin_translation)
-
-def create_plot_plane_2d(axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
-    """ helber function to create PlotPlane2d """
-    ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 12)
-    gl_font = GlFont('', ft)
-    gl_font.color = [0.0, 0, 0, 1.0]
-    gl_plot = PlotPlane2d(gl_font)
-    gl_plot.i_axis = axis
-    gl_plot.i_origin = origin
-    gl_plot.o_wh = size
-    gl_plot.i_axis_units = (axis[0]/10, axis[1]/10)
-
-    gl_plot.prepare()
-    return gl_plot
-
-def cartesian_domain(n, w=1.0, h=1.0, origin=(0.0, 0.0)):
-    data = numpy.zeros(n*n*2)
-    shift_x = w/(2*n)
-    shift_y = h/(2*n)
-    for x in range(0, n):
-        for y in range(0, n):
-            data[2*n*x+2*y] = (float(x)/n)*w - origin[0] + shift_x
-            data[2*n*x+2*y+1] = (float(y)/n)*h - origin[1] + shift_y
-
-    return data
-
-def x_axis_domain(n, w=5.0, x_0=0):
-    data = numpy.zeros(n*2)
-    shift = x_0 / w
-
-    for x in range(0, n):
-        data[2*x] = (float(x)/n + shift)*w
-        data[2*x+1] = 0
-    return (data, partial(max, 0.002))
-
 
 
 class PlotPlane2d():
@@ -83,7 +60,6 @@ class PlotPlane2d():
     renders a 2d plotting plane within a
     opengl render cycle
     """
-
     def __init__(self, gl_font):
         self._gl_font = gl_font
 
@@ -118,6 +94,7 @@ class PlotPlane2d():
         self._prepare_plot_matrix()
         self._prepare_window_matrix()
         self._prepare_plane()
+        self.render_graphs = True
 
     def get_graph(self, name):
         return self.graphs[name]
@@ -142,14 +119,6 @@ class PlotPlane2d():
                 (self.o_wh[0]-self.i_border[0])/self._scaling[0], self.i_border[1]/self._scaling[1],
                 -self.i_border[0]/self._scaling[0], self.i_border[1]/self._scaling[1],
 
-                # coord plane
-              #  0, 0,
-              #  0, -self.o_wh[1],
-              #  self.o_wh[0], -self.o_wh[1],
-              #  self.o_wh[0], -self.o_wh[1],
-              #  self.o_wh[0], 0,
-              #  0, 0,
-
                 # axes
                 0, -self.o_wh[1], self.o_wh[0], -self.o_wh[1], #x
                 0, 0, 0, -self.o_wh[1], #y
@@ -162,12 +131,6 @@ class PlotPlane2d():
                 1.0, 1.0, 1.0, 0.0,
                 1.0, 1.0, 1.0, 0.0,
                 1.0, 1.0, 1.0, 0.0,
-             #   .0, .0, .0, 0.0, # plot box
-             #   .0, .0, .0, 0.0,
-             #   .0, .0, .0, 0.0,
-             #   .0, .0, .0, 0.0,
-             #   .0, .0, .0, 0.0,
-             #   .0, .0, .0, 0.0,
                 0.0, 0.0, 0.0, 1.0, #lines
                 0.0, 0.0, 0.0, 1.0,
                 0.0, 0.0, 0.0, 1.0,
@@ -183,7 +146,7 @@ class PlotPlane2d():
             colors += [0.0, 0.0, 0.0, 1.0]
             colors += [0.0, 0.0, 0.0, 1.0]
             self._fonts.append([
-                '{:.2f}'.format(u*(self.i_axis[0]/self._unit_count[0])-self.i_origin[0]),
+                '{:.3f}'.format(u*(self.i_axis[0]/self._unit_count[0])-self.i_origin[0]),
                 (self._unit_w[0]*u+self.i_border[0]-0.05)*self._scaling[0],
                 (-self.o_wh[1]+(self.i_border[3])*0.5)
             ])
@@ -195,7 +158,7 @@ class PlotPlane2d():
             colors += [0.0, 0.0, 0.0, 1.0]
             colors += [0.0, 0.0, 0.0, 1.0]
             self._fonts.append([
-                '{:.2f}'.format(self.i_axis[1]-u*self.i_axis[1]/self._unit_count[1]-self.i_origin[1]),
+                '{:.3f}'.format(self.i_axis[1]-u*self.i_axis[1]/self._unit_count[1]-self.i_origin[1]),
                 (0.025)*self._scaling[0],
                 (-(self._unit_w[1])*u-self.i_border[1]+0.01)*self._scaling[1]
             ])
@@ -240,7 +203,6 @@ class PlotPlane2d():
             1.0-(self.i_border[0]+self.i_border[2])/self.o_wh[0],
             1.0-(self.i_border[1]+self.i_border[3])/self.o_wh[1]
         )
-
 
     def _prepare_outer_matrix(self):
         """
@@ -294,7 +256,7 @@ class PlotPlane2d():
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
         if not self.render_first_time:
-
+            # skip the first time rendering
             if self.render_graphs:
                 with self.window:
                     # draw plot
@@ -305,8 +267,8 @@ class PlotPlane2d():
                         graph.shader.uniform('mat_domain', d_transform)
                         graph.render(self._mat_plot)
                 self.render_graphs = False
-
             self.window.render(self._mat_window)
+
         # draw plane
         with self.plane_shader:
             glUniformMatrix4fv(self._uniforms['mat_plane'], 1, GL_FALSE, self._mat_plane)
