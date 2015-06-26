@@ -1,0 +1,136 @@
+#-*- coding: utf-8 -*-
+"""
+graph rendering classes.
+@author Nicolas 'keksnicoh' Heimann <keksnicoh@googlemail.com>
+"""
+
+from mygl.util import *
+from OpenGL.GL import *
+import numpy
+import math
+
+class Domain():
+    """
+    a domain specifies the x,y values for each plotting point.
+    basically a domain provides a vbo so the plotter can create
+    a vao to render the points.
+    """
+    def __init__(self, length):
+        """ init """
+        self.vbo = None
+        self.length = length
+
+    def init_vbo(self, length):
+        """ initializes vbo by given length """
+        self.vbo = VBO()
+        with self.vbo:
+            glBufferData(GL_ARRAY_BUFFER, length*8, None, GL_STATIC_DRAW)
+            self.length = length
+
+    def push_data(self, data):
+        """ pushes data into vbo """
+        data = numpy.array(data, dtype=numpy.float32)
+        byte_count = min(ArrayDatatype.arrayByteCount(data), self.length*8)
+        self.get_vbo().get(0).glBufferSubData(0, byte_count, data)
+
+    def get_vbo(self):
+        """
+        returns a mygl.util.VBO instance
+        """
+        if self.vbo is None:
+            self.init_vbo(self.length)
+        return self.vbo
+
+    def transformation_matrix(self, axis, origin):
+        """
+        returns a 3x3 transformation/scaling matrix
+        for the domain. if return value is None, the
+        plotter should interpret this as identity matrix.
+        """
+        return None
+
+class Axis(Domain):
+    """
+    x-axis domain
+    """
+    def init_vbo(self, length):
+        """ initializes vbo by given length """
+        Domain.init_vbo(self, length)
+
+        data = numpy.zeros(length*2)
+        for x in range(0, length):
+            data[2*x] = (float(x)/length)
+            data[2*x+1] = 0.0
+        self.push_data(data)
+
+    def get_dot_size(self): return max(0.002, 1.0/self.length)
+    def transformation_matrix(self, axis, origin):
+        return numpy.array([
+            axis[0], 0,   0,
+            0, 0, 0,
+            -origin[0], 0,   1.0,
+        ], dtype=numpy.float32)
+
+class Cartesian(Domain):
+    def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0):
+        Domain.__init__(self, length)
+        self.min_y = min_y
+        self.max_y = max_y
+        self.min_x = min_x
+        self.max_x = max_x
+
+    """
+    cartesian space
+    """
+    def init_vbo(self, length, min_y=0.0, max_y=0.0, min_x=0.0, max_x=1.0):
+        """ initializes vbo by given length """
+        Domain.init_vbo(self, length*length)
+
+        # fill data
+        shift_x = 1.0/(2*length)
+        shift_y = 1.0/(2*length)
+        data = numpy.zeros(length*length*2)
+
+        delta_x = self.max_x - self.min_x
+        delta_y = self.max_y - self.min_y
+        for x in range(0, length):
+            for y in range(0, length):
+                data[2*length*x+2*y] = delta_x*(float(x)/length + shift_x) + self.min_x
+                data[2*length*x+2*y+1] = delta_y*(float(y)/length + shift_y) + self.min_y
+
+        self.push_data(data)
+
+    def get_dot_size(self): return 1.0/self.length
+    def transformation_matrix(self, axis, origin):
+        """
+        default transformation does transform x and y coordinates into
+        the current axis/origin configuration
+        """
+        return numpy.array([
+            axis[0], 0,   0,
+            0,   axis[1], 0,
+            -origin[0], -origin[1],   1.0,
+        ], dtype=numpy.float32)
+
+    def fixed_x_transformation(self, axis, origin):
+        """
+        transformation to fix x axis
+        """
+        return numpy.array([
+            1, 0, 0,
+            0, axis[1], 0,
+            0, -origin[1], 1,
+        ], dtype=numpy.float32)
+
+    def fixed_y_transformation(self, axis, origin):
+        """
+        transformation to fix y axis
+        """
+        return numpy.array([
+            axis[0], 0, 0,
+            0, 1, 0,
+            -origin[0], 0, 1,
+        ], dtype=numpy.float32)
+
+
+
