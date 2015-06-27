@@ -39,6 +39,10 @@ class Plotter():
     def translate_origin(self, tx, ty):
         tx *= self.gl_plot.i_axis[0]
         ty *= self.gl_plot.i_axis[1]
+
+        tx /= 600*self.gl_plot._scaling[0]
+        ty /= 600*self.gl_plot._scaling[1]
+
         origin = self.gl_plot.i_origin
         self.gl_plot.i_origin = (origin[0]+tx, origin[1]+ty)
         self.gl_plot.prepare()
@@ -46,7 +50,6 @@ class Plotter():
         axis = self.gl_plot.i_axis
         self.gl_plot.i_axis = (axis[0]*zoom, axis[1]*zoom)
         self.gl_plot.i_axis_units = (self.gl_plot.i_axis[0]/10, self.gl_plot.i_axis[1]/10)
-        print(self.gl_plot.i_axis)
         if self.gl_plot.i_axis != (0.0, 0.0):
             self.gl_plot.prepare()
     def get_graph(self, name):

@@ -59,14 +59,12 @@ class Discrete2d():
         initializes vao
         """
         if self.vao is None:
-            print('...initializing VAO')
             self.vao = util.VAO()
             with self.domain.get_vbo():
                 vertex_position = self.shader.attributeLocation('vertex_position')
                 with self.vao:
                     glVertexAttribPointer(vertex_position, 2, GL_FLOAT, GL_FALSE, 0, None)
                     glEnableVertexAttribArray(0)
-            print('...VAO initialized')
         return self.vao
 
     def set_colors(self, color_min=[0,0,0,1], color_max=[0,0,0,1]):

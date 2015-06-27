@@ -22,13 +22,14 @@ class BasicGl():
 		self.keyboardStack = []
 		"""keyboard_active [I,...] contains all currently active keys"""
 		self.keyboardActive = []
-
+		self.scrolled = 0.0
 		BasicGl._dbg("init GLFW", '...')
 		self.initGlfw()
 		BasicGl._dbg("load {}".format(colored('OPENGL_CORE_PROFILE 4.10', 'red')), '...')
 		self.initGlCoreProfile()
 		self.initGlfwWindow()
-
+		self.mouse_active = False
+		self.mouse_relative = [0,0]
 		BasicGl._dbg('  + Vendor             {}'.format(colored(glGetString(GL_VENDOR), 'cyan')))
 		BasicGl._dbg('  + Opengl version     {}'.format(colored(glGetString(GL_VERSION), 'cyan')))
 		BasicGl._dbg('  + GLSL Version       {}'.format(colored(glGetString(GL_SHADING_LANGUAGE_VERSION), 'cyan')))
@@ -76,14 +77,38 @@ class BasicGl():
 		"""initialize glfw"""
 		if not glfwInit():
 			raise RuntimeError('glfw.Init() error')
+	def scroll_callback(self, win, bla, scrolled):
+		self.scrolled = scrolled
 
+	def mouse_callback(self, win, button, action, mod):
+		if button == 0 and action == 1:
+			self.mouse_active = True
+			self.mouse_relative = self.getCursorRelative()
+		else:
+			self.mouse_active = False
+			self.mouse_relative = [0,0]
+
+	def get_mouse_drag(self):
+		if self.mouse_active:
+			current_drag = self.getCursorRelative()
+			old_drag = self.mouse_relative
+			self.mouse_relative = current_drag
+			return (old_drag[0]-current_drag[0], current_drag[1]-old_drag[1])
+
+
+	def getCursorRelative(self):
+		"""returns cursor position relative to window"""
+		wx,wy = glfwGetCursorPos(self.window)
+		cx,cy = glfwGetWindowPos(self.window)
+		return cx-wx,cy-wy
 	def initGlfwWindow(self):
 		"""initialize glwf window and attach callbacks"""
 		self.window = glfwCreateWindow(self.width,self.height,self.window_title)
 		if not self.window:
 			raise RuntimeError('glfw.CreateWindow() error')
 		glfwMakeContextCurrent(self.window)
-		#glfw.SetMouseButtonCallback(self.window, self.onMouse)
+		glfwSetScrollCallback(self.window, self.scroll_callback)
+		glfwSetMouseButtonCallback(self.window, self.mouse_callback)
 		#glfw.SetKeyCallback(self.window, self.onKeyboard)
 	def active(self):
 		return not self.exit and not glfwWindowShouldClose(self.window)
@@ -110,6 +135,7 @@ class BasicGl():
 	def glwf_cycle(self):
 		glfwPollEvents()
 	def init_cycle(self):
+		self.scrolled = 0.0
 		self.glwf_cycle()
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 		glBindTexture(GL_TEXTURE_2D, 0)
