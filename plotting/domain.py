@@ -9,6 +9,8 @@ from OpenGL.GL import *
 import numpy
 import math
 
+from opencl.OpenCLHandler import BaseCalculator
+
 class Domain():
     """
     a domain specifies the x,y values for each plotting point.
@@ -70,6 +72,30 @@ class Axis(Domain):
             0, 0, 0,
             -origin[0], 0,   1.0,
         ], dtype=numpy.float32)
+
+
+class DuffingDomain(Domain):
+    def __init__(self, kernel, length, time, lambd, epsilon, omega, beta, initial_conditions):
+        Domain.__init__(self, length)
+        self.kernel = kernel
+        self.time = numpy.int32(time)
+        self.lambd = numpy.float32(lambd)
+        self.epsilon = numpy.float32(epsilon)
+        self.omega = numpy.float32(omega)
+        self.beta = numpy.float32(beta)
+        self.initial_conditions = initial_conditions
+
+    def init_vbo(self, length):
+        Domain.init_vbo(self, length)
+
+        calculator = BaseCalculator(sharedGlContext=True)
+        awp = calculator.create2ComponentVektor(self.initial_conditions)
+
+        gl_buffer = calculator.getOpenGLBufferFromId(self.vbo.get(0).id)
+        
+        calculator.calculateGL(self.kernel, [awp, numpy.int32(length), self.time, self.lambd, self.beta, self.omega, self.epsilon], [gl_buffer], (1,))
+
+    def get_dot_size(self): return max(0.002, 1.0/self.length)
 
 class Cartesian(Domain):
     def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0):
