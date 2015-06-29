@@ -21,6 +21,9 @@ FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/f
 SHADER_DIR = os.path.dirname(os.path.abspath(__file__))+'/plot2d'
 
 class Plotter():
+    """
+    class to handle PlotPlane2d
+    """
     def __init__(self, axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
         self.move_origin_translation = translation_matrix(-1, 1)
         self.domains = {}
@@ -39,10 +42,8 @@ class Plotter():
     def translate_origin(self, tx, ty):
         tx *= self.gl_plot.i_axis[0]
         ty *= self.gl_plot.i_axis[1]
-
         tx /= 600*self.gl_plot._scaling[0]
         ty /= 600*self.gl_plot._scaling[1]
-
         origin = self.gl_plot.i_origin
         self.gl_plot.i_origin = (origin[0]+tx, origin[1]+ty)
         self.gl_plot.prepare()
