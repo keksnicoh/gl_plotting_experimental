@@ -10,10 +10,10 @@ from mygl.glfw import *
 
 ORIGIN_TRANSLATION_INTENSITY = 15
 
-
 class PlotterWindow():
     """
-    plotting window enables interaction
+    plotting window implements basic interaction
+    e.g. mouse, keyboard, scrolling, ...
     """
     def __init__(self, axis=(1.0, 1.0), origin=(0.0,0.0)):
         self.app = BasicGl(window_title='plot')

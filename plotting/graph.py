@@ -50,7 +50,7 @@ class Discrete2d():
 
         # configure default uniform values
         self.shader.uniform('color_min', [0,0,0,1])
-        self.shader.uniform('color_max', [1,1,1,1])
+        self.shader.uniform('color_max', [.5,.5,.5,1])
         self.shader.uniform('dot_size', dot_size)
         self.shader.uniform('mat_modelview', Discrete2d.MAT_MODELVIEW) # default matrix
 
