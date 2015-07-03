@@ -95,7 +95,7 @@ class PlotPlane2d():
         self.widgets = OrderedDict()
         self.graphs = OrderedDict()
         self.plane_shader = None
-        self.window = Window(size=(2,2), resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
+        self.window = Window(size=(2,2), color=[.9,.9,.9,1], resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
         self.render_graphs = True
         self.render_first_time = True
     def prepare(self):

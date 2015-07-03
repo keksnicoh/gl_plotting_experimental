@@ -83,5 +83,5 @@ OSZILATION_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
 window = PlotterWindow(axis=(10.0,10.0), origin=(5.0,5.0))
 duffing_domain = domain.DuffingDomain(PHASE_KERNEL, 500000, 300, 0.08, 1, 1, 1, (1,1))
-window.plotter.add_graph('duffing', graph.Discrete2d(duffing_domain))
+window.plotter.add_graph('duffing', graph.Line2d(duffing_domain))
 window.run()
