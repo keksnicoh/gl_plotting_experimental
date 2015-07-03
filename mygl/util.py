@@ -59,7 +59,7 @@ class Texture2D():
     """
     simple texture wrapper
     """
-    def __init__(self, w, h, format=GL_RGB, internalFormat=None):
+    def __init__(self, w, h, format=GL_RGBA, internalFormat=None):
         self._id = glGenTextures(1);
         self._w = w
         self._h = h

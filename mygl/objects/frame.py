@@ -60,7 +60,8 @@ class Window():
 
         self.shader.uniform('tex[0]', 0)
         self.shader.uniform('depth_tex', 1)
-        self.shader.uniform('color', color)
+        #self.shader.uniform('color', color)
+        self.color = color
 
         self._rectangle = geometry.Rectangle(*self.size)
         self._rectangle.link_attr_position(self.shader)
@@ -70,15 +71,21 @@ class Window():
         self._depth_tex = Texture2D(self.resolution[0], self.resolution[1], GL_DEPTH_COMPONENT)
         self._framebuffer = Framebuffer(self.resolution[0], self.resolution[1], self._color_tex, self._depth_tex)
 
+        self._old_clear_color = None
         self._old_viewport = None
 
     def __enter__(self): self.record()
     def __exit__(self, type, value, tb): self.stop()
 
+    def set_color(self, color):
+        self.color = color
+        self.shader.uniform('color', color)
     def record(self):
         """ start rendering to framebuffer """
         self._old_viewport = glGetIntegerv(GL_VIEWPORT)
+        self._old_clear_color = glGetFloatv(GL_COLOR_CLEAR_VALUE)
         self._framebuffer.bind()
+        glClearColor(*self.color)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         glViewport(0, 0, *self.resolution)
 
@@ -86,9 +93,10 @@ class Window():
         """ stop rendering to frame buffer """
         self._framebuffer.unbind()
         glViewport(*self._old_viewport)
-
+        glClearColor(*self._old_clear_color)
     def render(self, mat_projection=None, mat_modelview=None):
         """ render  window """
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture (GL_TEXTURE_2D, self._color_tex.gl_id())
         glActiveTexture(GL_TEXTURE1);
@@ -97,7 +105,7 @@ class Window():
         if mat_projection is not None:
             self.shader.uniform('mat_projection', mat_projection)
         if mat_modelview is not None:
-            self.shader.uniform('mat_projection', mat_modelview)
+            self.shader.uniform('mat_modelview', mat_modelview)
 
         with self.shader:
             self._rectangle.render()
@@ -143,8 +151,9 @@ vec3 added_rgb;
 void main()
 {
     finalColor = texture(tex[0], fragTexCoord);
-    added_rgb = finalColor.rgb + color.rgb;
-    finalColor = vec4(added_rgb, finalColor.w*color.w);
+    added_rgb = finalColor.rgb;
+    finalColor = vec4(added_rgb, finalColor.w);
+    //finalColor = mix(color, finalColor, 0.5);
     return;
 }
 """

@@ -36,6 +36,6 @@ OSZILATION_KERNEL = """
 """
 
 window = PlotterWindow(axis=(10.0,10.0), origin=(5.0,5.0))
-duffing_domain = domain.DuffingDomain(PHASE_KERNEL, 50000, 60, 0.08, 1, 1, 1, (3,4))
+duffing_domain = domain.DuffingDomain(PHASE_KERNEL, 500000, 300, 0.08, 1, 1, 1, (1,1))
 window.plotter.add_graph('duffing', graph.Discrete2d(duffing_domain))
 window.run()

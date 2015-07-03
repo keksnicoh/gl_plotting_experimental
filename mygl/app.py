@@ -23,13 +23,17 @@ class BasicGl():
 		"""keyboard_active [I,...] contains all currently active keys"""
 		self.keyboardActive = []
 		self.scrolled = 0.0
+		self.origin = [1.0, 1.0]
+		self.glwh = [2.0, 2.0]
 		BasicGl._dbg("init GLFW", '...')
 		self.initGlfw()
 		BasicGl._dbg("load {}".format(colored('OPENGL_CORE_PROFILE 4.10', 'red')), '...')
 		self.initGlCoreProfile()
 		self.initGlfwWindow()
+		self.mouse = [None, None]
 		self.mouse_active = False
 		self.mouse_relative = [0,0]
+		self.mouse_button = None
 		BasicGl._dbg('  + Vendor             {}'.format(colored(glGetString(GL_VENDOR), 'cyan')))
 		BasicGl._dbg('  + Opengl version     {}'.format(colored(glGetString(GL_VERSION), 'cyan')))
 		BasicGl._dbg('  + GLSL Version       {}'.format(colored(glGetString(GL_SHADING_LANGUAGE_VERSION), 'cyan')))
@@ -81,6 +85,11 @@ class BasicGl():
 		self.scrolled = scrolled
 
 	def mouse_callback(self, win, button, action, mod):
+		if action == 1:
+			self.mouse[button] = self.getCursorRelative()
+		if action == 0:
+			self.mouse[button] = None
+
 		if button == 0 and action == 1:
 			self.mouse_active = True
 			self.mouse_relative = self.getCursorRelative()
@@ -88,19 +97,28 @@ class BasicGl():
 			self.mouse_active = False
 			self.mouse_relative = [0,0]
 
-	def get_mouse_drag(self):
-		if self.mouse_active:
+	def get_mouse_drag(self, button=0):
+		if self.mouse[button] is not None:
 			current_drag = self.getCursorRelative()
-			old_drag = self.mouse_relative
-			self.mouse_relative = current_drag
-			return (old_drag[0]-current_drag[0], current_drag[1]-old_drag[1])
-
-
+			old_drag = self.mouse[button]
+			self.mouse[button] = current_drag
+			drag = (float(old_drag[0]-current_drag[0]), float(current_drag[1]-old_drag[1]))
+			return drag
 	def getCursorRelative(self):
 		"""returns cursor position relative to window"""
 		wx,wy = glfwGetCursorPos(self.window)
 		cx,cy = glfwGetWindowPos(self.window)
 		return cx-wx,cy-wy
+
+	def get_cursor_absolute(self):
+		return glfwGetCursorPos(self.window)
+	def get_cursor_absolute_normalized(self):
+		(cx, cy) = self.get_cursor_absolute()
+		return float(cx)/self.width, float(cy)/self.height
+
+	def normalize(self, data):
+		if data is None: return None
+		return data[0]/self.width, data[1]/self.height
 	def initGlfwWindow(self):
 		"""initialize glwf window and attach callbacks"""
 		self.window = glfwCreateWindow(self.width,self.height,self.window_title)

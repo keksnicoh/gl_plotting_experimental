@@ -14,7 +14,7 @@ from mygl.font import GlFont
 from functools import partial
 from collections import OrderedDict
 from mygl.objects.frame import Window
-
+from plotting.util import UniformManager
 import math
 
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/fonts'
@@ -53,11 +53,15 @@ class Plotter():
         self.gl_plot.i_axis_units = (self.gl_plot.i_axis[0]/10, self.gl_plot.i_axis[1]/10)
         if self.gl_plot.i_axis != (0.0, 0.0):
             self.gl_plot.prepare()
+    def render_graphs(self):
+        self.gl_plot.render_graphs = True
     def get_graph(self, name):
         return self.gl_plot.get_graph(name)
     def render(self):
         self.gl_plot.render(mat_modelview=self.move_origin_translation)
 
+    def get_uniform_manager(self):
+        return self.gl_plot.get_uniform_manager()
 
 class PlotPlane2d():
     """
@@ -87,6 +91,8 @@ class PlotPlane2d():
         self._draw_line_indicies = None
         self._plane_vao = None
         self._plane_vbo = None
+        self._uniform_manager = None
+        self.widgets = OrderedDict()
         self.graphs = OrderedDict()
         self.plane_shader = None
         self.window = Window(size=(2,2), resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
@@ -99,6 +105,12 @@ class PlotPlane2d():
         self._prepare_window_matrix()
         self._prepare_plane()
         self.render_graphs = True
+
+
+    def get_uniform_manager(self):
+        if self._uniform_manager is None:
+            self._uniform_manager = UniformManager()
+        return self._uniform_manager
 
     def get_graph(self, name):
         return self.graphs[name]
@@ -265,11 +277,22 @@ class PlotPlane2d():
                 with self.window:
                     # draw plot
                     for name, graph in self.graphs.items():
+                        # set uniforms
+                        um = self.get_uniform_manager()
+                        for name, value in um.get_global_uniforms().items():
+                            graph.shader.uniform(name, value)
+                        if name in um.get_local_uniforms():
+                            for name, value in um.get_local_uniforms()[name].items():
+                                graph.shader.uniform(name, value)
+
+                        # domain transformation matrix
                         d_transform = graph.domain.transformation_matrix(self.i_axis, self.i_origin)
                         if d_transform is None:
                             d_transform = matrix_identity(3)
                         graph.shader.uniform('mat_domain', d_transform)
+
                         graph.render(self._mat_plot)
+
                 self.render_graphs = False
             self.window.render(self._mat_window)
 
@@ -285,5 +308,9 @@ class PlotPlane2d():
         for text in self._fonts:
             self._gl_font.set_text(text[0], text[1], text[2])
             self._gl_font.render(mat_projection=mat_modelview)
+
+        # draw widgets
+        for name, widget in self.widgets:
+            widget.render()
 
         self.render_first_time = False
