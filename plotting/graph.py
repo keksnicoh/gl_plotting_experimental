@@ -168,4 +168,4 @@ class Line2d():
         #glLineWidth(0.3)
         with self.shader:
             with self.get_vao():
-                glDrawArrays(GL_LINES, 0, self.domain.length)
+                glDrawArrays(GL_LINE_LOOP, 0, self.domain.length)
