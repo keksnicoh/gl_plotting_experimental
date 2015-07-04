@@ -19,7 +19,7 @@ vec4 f(vec4 x) {
     for (int i = 0; i < 200; i+=1) {
         x0 = g(x.x, x0);
     }
-    return vec4(x.x, x0, 0, 0.3);
+    return vec4(x.x, x0, x.y, 0.2);
 }
 """
 
@@ -27,4 +27,6 @@ window = PlotterWindow(axis=(1.1,1.0), origin=(-2.9,0))
 domain = domain.Cartesian(1000, min_y=0.01)
 domain.transformation_matrix = domain.fixed_y_transformation
 window.plotter.add_graph('bifurkation', graph.Discrete2d(domain, KERNEL))
+window.plotter.get_graph('bifurkation').set_colors(color_min=[1,0,0,1], color_max=[0,0,1,1])
+window.plotter.get_graph('bifurkation').set_dotsize(0.001)
 window.run()

@@ -11,9 +11,12 @@ from OpenGL.GL import *
 KERNEL = """
 uniform float t;
 vec4 f(vec4 x) {
-    float tx = x.x;
-    float ty = x.y;
-    return vec4(x.xy, pow(sin(t+sqrt(5*tx*tx*sin(t)*sin(t)+ty*ty)),2), 1);
+    float tx = x.x-0.5;
+    float ty = x.y-0.5;
+    return vec4(x.xy, 5*(
+        0.2*exp(sin(t+sqrt(5*tx*tx*sin(t)*sin(t)+ty*ty)))
+        +sin(t+sqrt(25*x.x*x.x*sin(t)*sin(t)+x.y*x.y))
+    ), 1);
 }
 """
 KERNEL_SINUS = """
@@ -34,7 +37,7 @@ vec4 f(vec4 x) {
 """
 
 axis = domain.Axis(50000)
-cartesian = domain.Cartesian(100)
+cartesian = domain.Cartesian(200)
 # spawn fixed cartesian domains
 minmax_no_y_translation = domain.Cartesian(4, min_y = 0.5, max_y=0.8)
 minmax_no_y_translation.transformation_matrix = minmax_no_y_translation.fixed_y_transformation
@@ -50,7 +53,7 @@ uniforms.set_local('ball', 'b', 5.4)
 
 # test some none coord mapping kernel
 window.plotter.add_graph('ball', graph.Discrete2d(cartesian, KERNEL))
-window.plotter.get_graph('ball').set_colors(color_min=[.4,0.2,1,1], color_max=[.1,.4,0.4,1])
+window.plotter.get_graph('ball').set_colors(color_min=[.0,0.0,0,1], color_max=[.1,.1,0.4,1])
 
 # check two cartesian domains with either fixed x or fixed y axis
 window.plotter.add_graph('translation_testy', graph.Discrete2d(minmax_no_y_translation)) # plot with identity kernel
