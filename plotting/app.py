@@ -54,7 +54,7 @@ class PlotterWindow():
 
                 active_widget.set_mouse(self.app.mouse)
                 active_widget.set_cursor(self.app.get_cursor_absolute_normalized())
-
+                active_widget.set_keyboard_active(active_keyboard)
                 keyboard_captured = active_widget.capture_keyboard()
                 mouse_captured = active_widget.capture_mouse()
 

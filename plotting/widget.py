@@ -6,6 +6,7 @@ widgets
 import os
 import numpy
 from PIL import ImageFont
+from functools import partial
 
 from mygl.objects.frame import Window
 from mygl.font import GlFont
@@ -34,10 +35,12 @@ class Widget():
         self.mouse_drag = [None, None]
         self.cursor = (0.0, 0.0)
         self.active = None
+        self._keyboard_active = []
         self._active_rscorner = None
         self._over_drag = (0.0, 0.0)
-        self.set_active(False)
+
         self._init_matrix()
+        self.set_active(False)
 
     def _init_matrix(self):
         """
@@ -45,12 +48,13 @@ class Widget():
         translate frame to current position
         """
         self.frame.shader.uniform('mat_projection', numpy.array([
-            2.0*self.size[0], 0, 0, 0,
-            0, 2.0*self.size[1], 0, 0,
-            0, 0, 1, 0,
+            2.0*self.size[0],     0,                   0, 0,
+            0,                    2.0*self.size[1],    0, 0,
+            0,                    0,                   1, 0,
             -1.0+2.0*self.pos[0], 1.0-2.0*self.pos[1], 0, 1,
         ], dtype=numpy.float32))
 
+    def set_keyboard_active(self, keyboard): self._keyboard_active = keyboard
     def set_cursor(self, cursor): self.cursor = (cursor[0]-self.pos[0], cursor[1]-self.pos[1])
     def set_mouse(self, mouse): self.mouse = mouse
     def set_mouse_drag(self, drag): self.mouse_drag = drag
@@ -90,10 +94,7 @@ class Widget():
         # drag window
         if self.IS_DRAGABLE and self.mouse_drag[1] is not None and self.mouse_drag[1] != (0.0, 0.0):
             (dx, dy) = self.mouse_drag[1]
-            self.pos = (
-                max(0.0, self.pos[0]+dx),
-                max(0.0, self.pos[1]-dy)
-            )
+            self.pos = (max(0.0, self.pos[0]+dx), max(0.0, self.pos[1]-dy))
             self._init_matrix()
 
         # resize window
@@ -130,29 +131,65 @@ class Uniforms(Widget):
     IS_DRAGABLE = True
     def __init__(self, uniform_manager, pos=(0.1, 0.03), size=(0.30, 0.3)):
         Widget.__init__(self, pos, size)
-        self._um = uniform_manager
+
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 60)
         gl_font = GlFont('', ft)
         gl_font.color = [0.0, 0, 0, 1.0]
-        self.gl_font = gl_font
-        self.refresh_widget = True
+
+        self._um = uniform_manager
         self._last_time = 0.0
+        self._gl_font = gl_font
+        self._active_uniform = -1
+
     def render_widget(self):
-        str_uniforms = ''
+        str_uniforms = []
+
         for name, value in self._um.get_global_uniforms().items():
-            str_uniforms += '{}={:.2f}\n'.format(name, value)
+            str_uniforms.append('{}={:.2f}'.format(name, value))
         for plot, uniforms in self._um.get_local_uniforms().items():
             for name, value in uniforms.items():
-                str_uniforms += '{}.{}={:.2f}\n'.format(plot, name, value)
-        self.gl_font.set_text(str_uniforms)
-        self.gl_font.render(mat_projection=translation_matrix(-1.0, 1.0))
+                str_uniforms.append('{}.{}={:.2f}'.format(plot, name, value))
+
+        for i, str_uniform in enumerate(str_uniforms):
+            self._gl_font.color = [1,0,0,1] if i == self._active_uniform else [0,0,0,1]
+            self._gl_font.set_text('{}) {}'.format(i+1, str_uniform))
+            self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0-0.1*i))
+
         self.refresh_widget = False
+    def capture_keyboard(self):
+        if self.active: return True
     def execute(self):
         Widget.execute(self)
+
+        if self.active:
+            for i in range (48, 58):
+                if i in self._keyboard_active:
+                    if self._active_uniform != i-49:
+                        self.refresh_widget = True
+                        self._active_uniform = i-49
+                        break
+            # add/dec
+            if 93 in self._keyboard_active or 47 in self._keyboard_active:
+                setget = self.get_uniform_setget(self._active_uniform)
+                if setget is not None:
+                    (setter, getter) = setget
+                    setter(getter()+0.01*(-1 if 47 in self._keyboard_active else 1))
+                    self.refresh_widget = True
+
         if 't' in self._um.get_global_uniforms():
             if self._um.get_global_uniforms()['t'] - self._last_time > 2.0:
                 self.refresh_widget = True
                 self._last_time = self._um.get_global_uniforms()['t']
+
+    def get_uniform_setget(self, n):
+        for i, name in enumerate(self._um.get_global_uniforms()):
+            if i == n: return (partial(self._um.set_global, name), partial(self._um.get_global, name))
+
+        for plot, uniforms in self._um.get_local_uniforms().items():
+            for name in uniforms:
+                i+=1
+                if i == n: return (partial(self._um.set_local, plot, name), partial(self._um.get_local, plot, name))
+
 
 class Text(Widget):
     """ simple text widget """
@@ -160,11 +197,11 @@ class Text(Widget):
     def __init__(self, text, font_size=40, font_color=[0,0,0,1], pos=(0.0, 0.0), size=(0.50, 0.7)):
         Widget.__init__(self, pos, size)
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", font_size)
-        self.gl_font = GlFont(text, ft)
-        self.gl_font.color = font_color
-        self.refresh_widget = True
+        self._gl_font = GlFont(text, ft)
+        self._gl_font.color = font_color
+
     def render_widget(self):
-        self.gl_font.render(mat_projection=translation_matrix(-1.0, 1.0))
+        self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0))
         self.refresh_widget = False
 
 

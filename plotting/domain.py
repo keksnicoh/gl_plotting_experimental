@@ -63,6 +63,7 @@ class Axis(Domain):
         for x in range(0, length):
             data[2*x] = (float(x)/length)
             data[2*x+1] = 0.0
+
         self.push_data(data)
 
     def get_dot_size(self): return max(0.002, 1.0/self.length)
@@ -72,6 +73,29 @@ class Axis(Domain):
             0, 0, 0,
             -origin[0], 0,   1.0,
         ], dtype=numpy.float32)
+
+class Series(Domain):
+    """
+    series domain domain
+    """
+    def init_vbo(self, length):
+        """ initializes vbo by given length """
+        Domain.init_vbo(self, length)
+
+        data = numpy.zeros(length*2)
+        for x in range(0, length):
+            data[2*x] = x
+            data[2*x+1] = 0.0
+        self.push_data(data)
+
+    def get_dot_size(self): return max(0.002, 1.0/self.length)
+    def transformation_matrix(self, axis, origin):
+        return numpy.array([
+            max(1, float(axis[0])/float(self.length)), 0,   0,
+            0, 0, 0,
+            -origin[0], 0,   1.0,
+        ], dtype=numpy.float32)
+
 
 
 class DuffingDomain(Domain):
@@ -92,7 +116,7 @@ class DuffingDomain(Domain):
         awp = calculator.create2ComponentVektor(self.initial_conditions)
 
         gl_buffer = calculator.getOpenGLBufferFromId(self.vbo.get(0).id)
-        
+
         calculator.calculateGL(self.kernel, [awp, numpy.int32(length), self.time, self.lambd, self.beta, self.omega, self.epsilon], [gl_buffer], (1,))
 
     def get_dot_size(self): return max(0.002, 1.0/self.length)

@@ -1,7 +1,7 @@
 from plotting.app import PlotterWindow
 from plotting import graph, domain
 
-LOG_KERNEL = """
+KERNEL = """
 float g(float r, float x) {
     return r*x*(1-x);
 }
@@ -19,22 +19,16 @@ vec4 f(vec4 x) {
     for (int i = 0; i < 200; i+=1) {
         x0 = g(x.x, x0);
     }
-    return vec4(x.x, x0, 0, 0.3);
-}
-"""
-
-SIN_KERNEL = """
-vec4 f(vec4 x) {
-    float y0 = x.y;
-    for (int i = 0; i < 200; i+=1) {
-        y0 = x.x * sin(y0);
-    }
-    return vec4(x.x, y0, 0, 0.3);
+    return vec4(x.x, x0, x.y, 0.2);
 }
 """
 
 window = PlotterWindow(axis=(3.0,5.0), origin=(-1.0,1.0))
 domain = domain.Cartesian(1000, min_y=0.01)
 domain.transformation_matrix = domain.fixed_y_transformation
-window.plotter.add_graph('bifurkation', graph.Discrete2d(domain, SIN_KERNEL))
+
+window.plotter.add_graph('bifurkation', graph.Discrete2d(domain, KERNEL))
+window.plotter.get_graph('bifurkation').set_colors(color_min=[1,0,0,1], color_max=[0,0,1,1])
+window.plotter.get_graph('bifurkation').set_dotsize(0.001)
+
 window.run()

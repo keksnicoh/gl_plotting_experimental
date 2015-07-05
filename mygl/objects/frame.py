@@ -17,6 +17,7 @@ class Layout():
         self.position = position
         self.view_port = glGetIntegerv(GL_VIEWPORT)
         self.windows = {}
+
     def prepare(self):
         current_translation = [self.position[0], self.position[1]]
         row_height = self._size[1]/len(self.layout)
@@ -60,8 +61,7 @@ class Window():
 
         self.shader.uniform('tex[0]', 0)
         self.shader.uniform('depth_tex', 1)
-        #self.shader.uniform('color', color)
-        self.color = color
+        self.set_color(color)
 
         self._rectangle = geometry.Rectangle(*self.size)
         self._rectangle.link_attr_position(self.shader)
@@ -80,6 +80,7 @@ class Window():
     def set_color(self, color):
         self.color = color
         self.shader.uniform('color', color)
+
     def record(self):
         """ start rendering to framebuffer """
         self._old_viewport = glGetIntegerv(GL_VIEWPORT)

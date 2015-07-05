@@ -95,7 +95,7 @@ class PlotPlane2d():
         self.widgets = OrderedDict()
         self.graphs = OrderedDict()
         self.plane_shader = None
-        self.window = Window(size=(2,2), color=[.9,.9,.9,1], resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
+        self.window = Window(size=(2,2), color=[0.9,0.9,.9,1], resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
         self.render_graphs = True
         self.render_first_time = True
     def prepare(self):
@@ -271,6 +271,8 @@ class PlotPlane2d():
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
+        if self._uniform_manager.has_updated():
+            self.render_graphs = True
         if not self.render_first_time:
             # skip the first time rendering
             if self.render_graphs:
