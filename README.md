@@ -4,6 +4,13 @@ Nicolas Heimann
 
 Jeese Hinrichsen
 
+ 
+bifurcation diagramm with translated (+0,6384) lyapunov exponent
+![bifurkation von r*sin mit cos fit](/results/bifurc-logistic-translated-lyapunov.jpg)
+
+
+
+
 currently its possible to plot a 1d/2d domain on a x-y cartesian space. here is a image from a
 bifurcation animation of the logistic function. the plotter shows from iter_max=0 to iter_max=100
 an animation of the bifurcation diagramm. in this image 16.000.000 (x,r) values where rendered.

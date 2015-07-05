@@ -44,7 +44,12 @@ minmax_no_y_translation.transformation_matrix = minmax_no_y_translation.fixed_y_
 minmax_no_x_translation = domain.Cartesian(4, min_x = 0.4, max_x=1.2)
 minmax_no_x_translation.transformation_matrix = minmax_no_x_translation.fixed_x_transformation
 
-window = PlotterWindow(axis=(8.0, 8.0), origin=(2.0,4.0), plot_time=True)
+window = PlotterWindow(
+    axis=(8.0, 8.0),
+    origin=(2.0,4.0),
+    plot_time=True,
+    x_label='some serious axis [Nm^2/T^3]',
+    y_label='I(f(z(THETTA)))/42 [Kg]')
 
 uniforms = window.plotter.get_uniform_manager()
 uniforms.set_global('a', 5.0)

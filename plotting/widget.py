@@ -145,7 +145,7 @@ class Uniforms(Widget):
         str_uniforms = []
 
         for name, value in self._um.get_global_uniforms().items():
-            str_uniforms.append('{}={:.2f}'.format(name, value))
+            str_uniforms.append('{}={:.6f}'.format(name, value))
         for plot, uniforms in self._um.get_local_uniforms().items():
             for name, value in uniforms.items():
                 str_uniforms.append('{}.{}={:.2f}'.format(plot, name, value))
@@ -173,7 +173,9 @@ class Uniforms(Widget):
                 setget = self.get_uniform_setget(self._active_uniform)
                 if setget is not None:
                     (setter, getter) = setget
-                    setter(getter()+0.01*(-1 if 47 in self._keyboard_active else 1))
+                    if getter() == 0:
+                        setter(0.1)
+                    setter(getter()*(1+0.1*(-1 if 47 in self._keyboard_active else 1)))
                     self.refresh_widget = True
 
         if 't' in self._um.get_global_uniforms():

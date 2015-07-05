@@ -24,13 +24,22 @@ class Plotter():
     """
     class to handle PlotPlane2d
     """
-    def __init__(self, axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0)):
+    def __init__(self, axis=(1.0, 1.0), origin=(0.0,0.0), size=(2.0,2.0), x_label='x-axis', y_label='y-axis',
+        bg_color=[.9,.9,.9,1]):
         self.move_origin_translation = translation_matrix(-1, 1)
         self.domains = {}
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 12)
         gl_font = GlFont('', ft)
         gl_font.color = [0.0, 0, 0, 1.0]
-        self.gl_plot = PlotPlane2d(gl_font)
+
+        ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 25)
+        gl_label_font_x = GlFont(x_label, ft)
+        gl_label_font_x.color = [0.0, 0, 0, 1.0]
+
+        gl_label_font_y = GlFont(y_label, ft)
+        gl_label_font_y.color = [0.0, 0, 0, 1.0]
+
+        self.gl_plot = PlotPlane2d(gl_font, gl_label_font_x, gl_label_font_y, bg_color=bg_color)
         self.gl_plot.i_axis = axis
         self.gl_plot.i_origin = origin
         self.gl_plot.o_wh = size
@@ -68,13 +77,16 @@ class PlotPlane2d():
     renders a 2d plotting plane within a
     opengl render cycle
     """
-    def __init__(self, gl_font):
+    def __init__(self, gl_font, gl_label_font_x, gl_label_font_y, bg_color):
         self._gl_font = gl_font
-
+        self._gl_label_font_x = gl_label_font_x
+        self._gl_label_font_y = gl_label_font_y
+        self._mat_label_x = None
+        self._mat_label_y = None
         """ size of the main plane in outer plane coords """
         self.o_wh = (2.0, 2.0)
         """ border sizes in outer plane coords """
-        self.i_border = (.15, .025, .025, .1)
+        self.i_border = (.25, .025, .025, .15)
         """ axis size in plot plane coords """
         self.i_axis = (4.0, 4.0)
         """ axis unit size in plot plane coords """
@@ -95,7 +107,7 @@ class PlotPlane2d():
         self.widgets = OrderedDict()
         self.graphs = OrderedDict()
         self.plane_shader = None
-        self.window = Window(size=(2,2), color=[0.9,0.9,.9,1], resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
+        self.window = Window(size=(2,2), color=bg_color, resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
         self.render_graphs = True
         self.render_first_time = True
     def prepare(self):
@@ -153,6 +165,22 @@ class PlotPlane2d():
                 0.0, 0.0, 0.0, 1.0,
         ]
 
+        char_width=0.03
+        x_len = len(self._gl_label_font_x.text)
+        y_len = len(self._gl_label_font_y.text)
+        self._mat_label_x = numpy.array([
+            1,0,0,0,
+            0,1,0,0,
+            0,0,1,0,
+            -x_len*char_width/2,-0.92,0,1,
+        ], dtype=numpy.float32)
+        self._mat_label_y = numpy.array([
+            0,1,0,0,
+            -1,0,0,0,
+            0,0,1,0,
+            -0.98,-y_len*char_width/2,0,1,
+        ], dtype=numpy.float32)
+
         self._fonts = []
         for u in range(1, self._unit_count[0]+1):
             verticies.append(self._unit_w[0]*u)
@@ -162,10 +190,12 @@ class PlotPlane2d():
             colors += [0.0, 0.0, 0.0, 1.0]
             colors += [0.0, 0.0, 0.0, 1.0]
             self._fonts.append([
-                '{:.3f}'.format(u*(self.i_axis[0]/self._unit_count[0])-self.i_origin[0]),
+                '{:.2f}'.format(u*(self.i_axis[0]/self._unit_count[0])-self.i_origin[0]),
                 (self._unit_w[0]*u+self.i_border[0]-0.05)*self._scaling[0],
-                (-self.o_wh[1]+(self.i_border[3])*0.5)
+                (-self.o_wh[1]+(self.i_border[3])*0.5+0.04)
             ])
+
+        # y axis
         for u in range(0, self._unit_count[1]):
             verticies.append(0.02)
             verticies.append(-self._unit_w[1]*u)
@@ -174,9 +204,9 @@ class PlotPlane2d():
             colors += [0.0, 0.0, 0.0, 1.0]
             colors += [0.0, 0.0, 0.0, 1.0]
             self._fonts.append([
-                '{:.3f}'.format(self.i_axis[1]-u*self.i_axis[1]/self._unit_count[1]-self.i_origin[1]),
-                (0.025)*self._scaling[0],
-                (-(self._unit_w[1])*u-self.i_border[1]+0.01)*self._scaling[1]
+                '{:.2f}'.format(self.i_axis[1]-u*self.i_axis[1]/self._unit_count[1]-self.i_origin[1]),
+                (0.025+0.10)*self._scaling[0],
+                (-(self._unit_w[1])*u-self.i_border[1])*self._scaling[1]
             ])
 
         self._draw_plane_indicies = (0, 6)
@@ -310,6 +340,11 @@ class PlotPlane2d():
         for text in self._fonts:
             self._gl_font.set_text(text[0], text[1], text[2])
             self._gl_font.render(mat_projection=mat_modelview)
+
+        # draw labels
+        self._gl_label_font_x.render(mat_projection=self._mat_label_x)
+        self._gl_label_font_y.render(mat_projection=self._mat_label_y)
+
 
         # draw widgets
         for name, widget in self.widgets:
