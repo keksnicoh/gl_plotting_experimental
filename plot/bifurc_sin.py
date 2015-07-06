@@ -49,7 +49,7 @@ cdomain = domain.Cartesian(500, min_y=0.01)
 cdomain.transformation_matrix = cdomain.fixed_y_transformation
 
 window.plotter.add_graph('bifurkation', graph.Discrete2d(cdomain, KERNEL))
-window.plotter.get_graph('bifurkation').set_colors(color_min=[.9,0.5,.2,1], color_max=[.1,.5,.1,1])
+window.plotter.get_graph('bifurkation').set_colors(color_min=[.9,0.5,.2,1], color_max=[1.0,.1,.1,1])
 window.plotter.get_graph('bifurkation').set_dotsize(0.00101)
 
 

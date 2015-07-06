@@ -129,13 +129,14 @@ class Widget():
 class Uniforms(Widget):
     """ renders active uniform values from UniformManager """
     IS_DRAGABLE = True
-    def __init__(self, uniform_manager, pos=(0.1, 0.03), size=(0.30, 0.3)):
+    def __init__(self, uniform_manager, pos=(0.1, 0.03), size=(0.30, 0.3), font_color=[0.0, 0, 0, 1.0]):
         Widget.__init__(self, pos, size)
 
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 60)
         gl_font = GlFont('', ft)
-        gl_font.color = [0.0, 0, 0, 1.0]
+        gl_font.color = font_color
 
+        self._font_color = font_color
         self._um = uniform_manager
         self._last_time = 0.0
         self._gl_font = gl_font
@@ -151,7 +152,7 @@ class Uniforms(Widget):
                 str_uniforms.append('{}.{}={:.2f}'.format(plot, name, value))
 
         for i, str_uniform in enumerate(str_uniforms):
-            self._gl_font.color = [1,0,0,1] if i == self._active_uniform else [0,0,0,1]
+            self._gl_font.color = [1,0,0,1] if i == self._active_uniform else self._font_color
             self._gl_font.set_text('{}) {}'.format(i+1, str_uniform))
             self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0-0.1*i))
 

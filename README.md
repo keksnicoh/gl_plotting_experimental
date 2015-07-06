@@ -9,6 +9,8 @@ bifurcation diagramm with translated (+0,6384) lyapunov exponent
 ![bifurkation von r*sin mit cos fit](/results/bifurc-logistic-translated-lyapunov.jpg)
 
 
+problems with the iterations: before fixing
+![bifurkation von r*sin mit cos fit](/results/bad-iteration.png)
 
 
 currently its possible to plot a 1d/2d domain on a x-y cartesian space. here is a image from a
