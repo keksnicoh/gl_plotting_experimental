@@ -8,6 +8,7 @@ from mygl.util import *
 from OpenGL.GL import *
 import numpy
 import math
+import random
 
 from opencl.OpenCLHandler import BaseCalculator
 
@@ -50,6 +51,12 @@ class Domain():
         plotter should interpret this as identity matrix.
         """
         return None
+
+    def get_dimension(self):
+        """
+        returns standard dimension 2 for
+        """
+        return 2
 
 class Axis(Domain):
     """
@@ -121,6 +128,8 @@ class DuffingDomain(Domain):
 
     def get_dot_size(self): return max(0.002, 1.0/self.length)
 
+        
+
 class Cartesian(Domain):
     def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0):
         Domain.__init__(self, length)
@@ -151,6 +160,7 @@ class Cartesian(Domain):
         self.push_data(data)
 
     def get_dot_size(self): return 1.0/self.length
+
     def transformation_matrix(self, axis, origin):
         """
         default transformation does transform x and y coordinates into
@@ -183,4 +193,36 @@ class Cartesian(Domain):
         ], dtype=numpy.float32)
 
 
+class RandomCartesian(Cartesian):
+    """docstring for RandomCartesian"""
+    def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0, randomPosition=False):
+        Cartesian.__init__(self, length, min_y, max_y, min_x, max_x)
+        self.randomPosition = randomPosition
 
+    def get_dimension(self):
+        return 3
+
+    def get_random_array(self, length):
+        return np.random.rand(length,1)
+
+        #random.randint(0, length)
+    def init_vbo(self, length, min_y=0.0, max_y=0.0, min_x=0.0, max_x=1.0):
+        """ initializes vbo by given length """
+        Domain.init_vbo(self, length*length*length)
+
+        # fill data
+        shift_x = 1.0/(2*length)
+        shift_y = 1.0/(2*length)
+        data = numpy.zeros(length*length*length*2)
+
+        delta_x = self.max_x - self.min_x
+        delta_y = self.max_y - self.min_y
+        for x in range(0, length):
+            for y in range(0, length):
+                data[3*length*x+3*y] = delta_x*(float(x)/length + shift_x) + self.min_x
+                if self.randomPosition:
+                    y = random.randint(0, length)
+                data[3*length*x+3*y+1] = delta_y*(float(y)/length + shift_y) + self.min_y
+                data[3*length*x+3*y+2] = int(random.randint(0, 1))
+
+        self.push_data(data)
