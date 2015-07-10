@@ -14,10 +14,27 @@ os.environ['PYOPENCL_COMPILER_OUTPUT'] = '1'
 
 class BaseCalculator(object):
 	"""docstring for BaseCalculator"""
-	def __init__(self, gpuOnly=True, sharedGlContext=False):
+	def __init__(self, gpuOnly=True, sharedGlContext=False, hidePlatformDetails=False):
 		super(BaseCalculator, self).__init__()
 		self.platform = cl.get_platforms()[0]
 		self.devices = self.platform.get_devices()
+
+		if not hidePlatformDetails:
+			for platform in cl.get_platforms():
+				for device in platform.get_devices():
+					print("===============================================================")
+					print("Platform name:", platform.name)
+					print("Platform profile:", platform.profile)
+					print("Platform vendor:", platform.vendor)
+					print("Platform version:", platform.version)
+					print("---------------------------------------------------------------")
+					print("Device name:", device.name)
+					print("Device type:", cl.device_type.to_string(device.type))
+					print("Device memory: ", device.global_mem_size//1024//1024, 'MB')
+					print("Device max clock speed:", device.max_clock_frequency, 'MHz')
+					print("Device compute units:", device.max_compute_units)
+					print("Device max work group size:", device.max_work_group_size)
+					print("Device max work item sizes:", device.max_work_item_sizes)
 
 		properties = None
 		if sharedGlContext:
@@ -39,6 +56,9 @@ class BaseCalculator(object):
 
 	def createArrayBuffer(self, array):
 		return cl.Buffer(self.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR, hostbuf=array)
+
+	def createArrayBufferWrite(self, array):
+		return cl.Buffer(self.context, cl.mem_flags.READ_WRITE | cl.mem_flags.COPY_HOST_PTR, hostbuf=array)
 
 	def create2ComponentVektor(self, vec):
 		if len(vec) != 2:
@@ -65,7 +85,8 @@ class BaseCalculator(object):
 		cl.enqueue_release_gl_objects(self.queue, glBuffers)
 
 
-	def calculateSimple(self, kernel, buffers, outputArray):
+
+	def calculateSimple(self, kernel, buffers, outputArray, localsize=1):
 		"""
 		Handles output buffer based on given numpy array
 		"""
@@ -75,7 +96,7 @@ class BaseCalculator(object):
 		buffers.append(outputBuffer)
 
 		if self.queue:
-			program.f(self.queue, outputArray.shape, None, *buffers)
+			program.f(self.queue, outputArray.shape, (localsize, ), *buffers)
 		else:
 			print "No queue initialized"
 

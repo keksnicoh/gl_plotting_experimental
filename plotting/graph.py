@@ -53,6 +53,7 @@ class Discrete2d():
         self.shader.uniform('color_max', [.0,.0,.0,1])
         self.shader.uniform('dot_size', dot_size)
         self.shader.uniform('mat_modelview', Discrete2d.MAT_MODELVIEW) # default matrix
+        self.shader.uniform('dot_size', dot_size)
 
     def get_vao(self):
         """
@@ -65,7 +66,7 @@ class Discrete2d():
             with self.domain.get_vbo():
                 vertex_position = self.shader.attributeLocation('vertex_position')
                 with self.vao:
-                    glVertexAttribPointer(vertex_position, 2, GL_FLOAT, GL_FALSE, 0, None)
+                    glVertexAttribPointer(vertex_position, self.domain.get_dimension(), GL_FLOAT, GL_FALSE, 0, None)
                     glEnableVertexAttribArray(0)
             time_took = time() - start_time
             print('done. took {:.02f}s'.format(time_took))

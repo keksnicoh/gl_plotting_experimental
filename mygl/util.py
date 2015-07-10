@@ -159,6 +159,9 @@ class Shader(object):
                 glUniformMatrix4fv(self.uniformLocation(name), 1, GL_FALSE, value)
             elif len(value) == 9:
                 glUniformMatrix3fv(self.uniformLocation(name), 1, GL_FALSE, value)
+            elif len(value) == 2:
+                value = numpy.array(value, dtype=numpy.float32)
+                glUniform2f(self.uniformLocation(name), *value)
             else:
                 print(len(value))
                 raise Exception('not implemented')

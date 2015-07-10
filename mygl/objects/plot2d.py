@@ -38,7 +38,7 @@ def cartesian_domain(n, w=1.0, h=1.0, origin=(0.5, 0.5)):
         for y in range(0, n):
             data[2*n*x+2*y] = (float(x)/n)*w - origin[0]
             data[2*n*x+2*y+1] = (float(y)/n)*h - origin[1]
-
+            
     return (data, math.sqrt)
 
 def x_axis_domain(n, w=5.0, x_0=0):
