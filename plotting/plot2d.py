@@ -317,11 +317,13 @@ class PlotPlane2d():
                             for name, value in um.get_local_uniforms()[name].items():
                                 graph.shader.uniform(name, value)
 
+                        graph.space_translation(self.i_axis, self.i_origin)
                         # domain transformation matrix
-                        d_transform = graph.domain.transformation_matrix(self.i_axis, self.i_origin)
-                        if d_transform is None:
-                            d_transform = matrix_identity(3)
-                        graph.shader.uniform('mat_domain', d_transform)
+                        #if hasattr(graph, 'domain'):
+                        #    d_transform = graph.domain.transformation_matrix(self.i_axis, self.i_origin)
+                        #    if d_transform is None:
+                        #        d_transform = matrix_identity(3)
+                        #    graph.shader.uniform('mat_domain', d_transform)
 
                         graph.render(self._mat_plot)
 

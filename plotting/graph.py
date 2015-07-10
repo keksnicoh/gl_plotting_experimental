@@ -7,9 +7,18 @@ from mygl import util
 from OpenGL.GL import *
 import os, numpy
 from time import time
-SHADER_DIR = os.path.dirname(os.path.abspath(__file__))+'/plot2d'
+from mygl.objects import geometry
+from mygl.matricies import *
 
-class Discrete2d():
+SHADER_DIR = os.path.dirname(os.path.abspath(__file__))+'/plot2d'
+class BaseGraph():
+    def space_translation(self, axis, origin):
+        d_transform = self.domain.transformation_matrix(axis, origin)
+        if d_transform is None:
+            d_transform = matrix_identity(3)
+        self.shader.uniform('mat_domain', d_transform)
+
+class Discrete2d(BaseGraph):
     """
     Renders descrete points from a given domain.
     The vertex shader takes a kernel function to modify
@@ -89,7 +98,7 @@ class Discrete2d():
             with self.get_vao():
                 glDrawArrays(GL_POINTS, 0, self.domain.length)
 
-class Line2d():
+class Line2d(BaseGraph):
     """
     Renders descrete points from a given domain.
     The vertex shader takes a kernel function to modify
@@ -169,3 +178,42 @@ class Line2d():
         with self.shader:
             with self.get_vao():
                 glDrawArrays(GL_LINE_STRIP, 0, self.domain.length)
+
+class Field2d(BaseGraph):
+    """
+    Renders descrete points from a given domain.
+    The vertex shader takes a kernel function to modify
+    the xy and fragment information during rendering.
+    """
+    IDENTITY_KERNEL = 'vec4 f(vec2 pc) { return vec4(0, 0, 0, 1); }'
+    def __init__(self, kernel=None):
+        """ takes a domain and an optional kernel function """
+        self.kernel = kernel
+
+        # create vertex shader source
+        fragment_shader = open(SHADER_DIR+'/field.frag.glsl').read();
+        if self.kernel is not None:
+            fragment_shader = fragment_shader.replace(self.IDENTITY_KERNEL, self.kernel)
+        self.shader = util.Shader(
+            vertex=open(SHADER_DIR+'/field.vert.glsl').read(),
+            fragment=fragment_shader,
+            link=True
+        )
+        identity = matrix_identity(4)
+        self.shader.uniform('mat_projection', identity)
+        self.shader.uniform('mat_modelview', translation_matrix(-1.0, 1.0))
+
+        self._rectangle = geometry.Rectangle(2.0,2.0)
+        self._rectangle.link_attr_position(self.shader)
+
+    def space_translation(self, axis, origin):
+        """ sets shader to transform fragment coords into plane coords """
+        self.shader.uniform('mat_domain', numpy.array([
+            axis[0]*0.5, 0,   0,
+            0,   axis[1]*0.5, 0,
+            -origin[0]+axis[0]*0.5, -origin[1]+axis[1]*0.5,   1.0,
+        ], dtype=numpy.float32))
+
+    def render(self, mat_modelview=None):
+        """ renders the graph """
+        with self.shader: self._rectangle.render()

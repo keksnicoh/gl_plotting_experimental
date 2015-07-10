@@ -43,7 +43,7 @@ window = PlotterWindow(axis=(3.0,5.0), origin=(-1.0,1.0),
     x_label='logistic function parameter r',
     y_label='x_200',
     bg_color=[.083,.03,.2,1])
-cdomain = domain.Cartesian(250, min_y=0.01)
+cdomain = domain.Cartesian(500, min_y=0.01)
 cdomain.transformation_matrix = cdomain.fixed_y_transformation
 
 window.plotter.add_graph('bifurkation', graph.Discrete2d(cdomain, KERNEL))
