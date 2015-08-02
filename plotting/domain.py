@@ -10,7 +10,7 @@ import numpy
 import math
 import random
 
-from opencl.OpenCLHandler import BaseCalculator
+from opencl.cl_handler import BaseCalculator
 
 class Domain():
     """
@@ -25,10 +25,13 @@ class Domain():
 
     def init_vbo(self, length):
         """ initializes vbo by given length """
-        self.vbo = VBO()
-        with self.vbo:
-            glBufferData(GL_ARRAY_BUFFER, length*8, None, GL_STATIC_DRAW)
-            self.length = length
+        if self.vbo:
+            raise RuntimeWarning("VBO already initializesed. better use get_vbo()")
+        else:
+            self.vbo = VBO()
+            with self.vbo:
+                glBufferData(GL_ARRAY_BUFFER, length*8, None, GL_STATIC_DRAW)
+                self.length = length
 
     def push_data(self, data):
         """ pushes data into vbo """
@@ -103,6 +106,16 @@ class Series(Domain):
             -origin[0], 0,   1.0,
         ], dtype=numpy.float32)
 
+
+
+class AxisGL(Domain):
+    """
+        Domain that only returns gl_buffer to be modified somewhere else
+    """
+    def __init__(self, length, calculator):
+        Domain.__init__(self, length)
+        vbo = self.get_vbo()
+        self.buffer = calculator.getOpenGLBufferFromId(vbo.get(0).id)
 
 
 class DuffingDomain(Domain):

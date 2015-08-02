@@ -15,16 +15,17 @@ out vec4 fragment_color;
 void main(void)
 {
     fragment_point_value = geometry_point_value[0];
-    gl_Position = gl_in[0].gl_Position + vec4(-fragment_point_value[0]*dot_size,-dot_size, 0, 0) ;
+    vec4 shape = vec4(1.0,1.0,1.0,1.0); //fragment_point_value[0]
+    gl_Position = gl_in[0].gl_Position + vec4(-shape.x*dot_size,-dot_size, 0, 0) ;
     EmitVertex();
 
-    gl_Position = gl_in[0].gl_Position + vec4(-(1-fragment_point_value[0])*dot_size,dot_size, 0,0) ;
+    gl_Position = gl_in[0].gl_Position + vec4(-shape.y*dot_size,dot_size, 0,0) ;
     EmitVertex();
 
-    gl_Position = gl_in[0].gl_Position + vec4(fragment_point_value[0]*dot_size,-dot_size, 0,0) ;
+    gl_Position = gl_in[0].gl_Position + vec4(shape.z*dot_size,-dot_size, 0,0) ;
     EmitVertex();
 
-    gl_Position = gl_in[0].gl_Position + vec4((1-fragment_point_value[0])*dot_size,dot_size, 0,0) ;
+    gl_Position = gl_in[0].gl_Position + vec4(shape.w*dot_size,dot_size, 0,0) ;
     EmitVertex();
 
     EndPrimitive();

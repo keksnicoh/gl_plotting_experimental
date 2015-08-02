@@ -9,6 +9,9 @@ from traceback import print_exc
 from termcolor import colored
 from math import pi
 from termcolor import colored
+import numpy
+
+
 class BasicGl():
 	def __init__(self, width=600, height=600, window_title="no title"):
 		"""general window configuration"""
@@ -68,6 +71,13 @@ class BasicGl():
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	def createAdditionalWindow(self, title, size=(200,200), position=(100,100)):
+		win = glfwCreateWindow(size[0], size[1], title, None, self.window)
+		glfwSetWindowPos(win, position[0], position[1]);
+		self.windows.append(win)
+
+		return win
+
 	def onKeyboard(self, win, key, scancode, action, mods):
 		if action == 0:
 			self.keyboardActive.remove(key)
@@ -124,18 +134,39 @@ class BasicGl():
 		self.window = glfwCreateWindow(self.width,self.height,self.window_title)
 		if not self.window:
 			raise RuntimeError('glfw.CreateWindow() error')
+		self.windows = [self.window]
 		glfwMakeContextCurrent(self.window)
 		glfwSetScrollCallback(self.window, self.scroll_callback)
 		glfwSetMouseButtonCallback(self.window, self.mouse_callback)
 		#glfw.SetKeyCallback(self.window, self.onKeyboard)
 	def active(self):
 		return not self.exit and not glfwWindowShouldClose(self.window)
+
 	def run(self):
+		print "fpp"
+		exit(3)
 		while not self.exit and not glfwWindowShouldClose(self.window):
 			"""todo move to a better place..."""
 			try:
 				glfw.PollEvents()
 				self.scene(self)
+
+				#Also update the other window
+				glfwMakeContextCurrent(self.windows[1])
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+				#glUseProgram(self.shader.program)
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+				#glBindVertexArray(self.vaos[i])
+				#glDrawArrays(GL_POINTS, 0, 1)
+				#glUseProgram(0)
+				#glBindVertexArray(0)
+			
+				glfwSwapBuffers(window);
+
+				glfwMakeContextCurrent(self.window)
 
 			except:
 				print_exc(exc_info()[0])
