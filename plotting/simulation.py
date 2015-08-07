@@ -132,12 +132,16 @@ class Simulation():
         size = (300, 300)
         self.sim_frame = SimulationFrame(self.plotter.app.window, self.plotter.app.createAdditionalWindow, ("Simulation", size))
 
+
+
         with self.sim_frame as frame:
+            glfwSetKeyCallback(frame.sim_window, self.onKeyboard)
 
             self.shader = util.Shader(vertex=VERTEX_SHADER, geometry=GEOMETRY_SHADER, fragment=FRAGMENT_SHADER, link=True)
             self.vbo = glGenBuffers(1)
-            self.data = numpy.array([0.0, 0.0, 0.0, 0.5], dtype=numpy.float32)
-            self.velocity = numpy.array([0.0, 0.0, 0.5, 0.0], dtype=numpy.float32)
+            self.data = numpy.array([0.3, 0.0, 0.0, 0.5], dtype=numpy.float32)
+            self.velocity = numpy.array([0.0, 0.5, 3, 0.0], dtype=numpy.float32)
+            #self.external = numpy.array([0,0,0,0], dtype=numpy.float32)
             glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
             glBufferData(GL_ARRAY_BUFFER, ArrayDatatype.arrayByteCount(self.data), self.data, GL_STATIC_DRAW)
             
@@ -157,6 +161,20 @@ class Simulation():
         self.vel_buffer = self.calculator.createArrayBufferWrite(self.velocity)
         self.program = self.calculator._buildKernel(CL_KERNEL)
 
+    # z: faster 89
+    # u: slower 85
+    def onKeyboard(self, win, key, scancode, action, mods):
+        if key == 89:
+            self.velocity = self.calculator.arrayFromBuffer(self.velocity, self.vel_buffer)
+            self.velocity[2] += 0.1*self.velocity[2]
+            self.velocity[3] += 0.1*self.velocity[3]
+            self.vel_buffer = self.calculator.createArrayBufferWrite(self.velocity)
+
+        if key == 85:
+            self.velocity = self.calculator.arrayFromBuffer(self.velocity, self.vel_buffer)
+            self.velocity[2] -= 0.1*self.velocity[2]
+            self.velocity[3] -= 0.1*self.velocity[3]
+            self.vel_buffer = self.calculator.createArrayBufferWrite(self.velocity)
 
     def applyPhysics(self):
 
@@ -165,10 +183,20 @@ class Simulation():
         self.calculator.queue.finish()
         self.calculator.releaseGlObjects([self.gl_buffer, self.domain.buffer])
 
+    def setExternal(self, particle_id, velocity=(0,0)):
+        self.external[2*particle_id] = velocity[0]
+        self.external[2*particle_id + 1] = velocity[1]
+
+        self.external[2*particle_id] = 0
+        self.external[2*particle_id + 1] = 0
+
+
+
     def run(self):
         if not self.domain:
             raise RuntimeError("No Domain available")
         self.time_buffer = self.calculator.createArrayBufferWrite(numpy.array([0, 0, self.domain.length], dtype=numpy.int32))
+        #self.ext_buffer = self.calculator.createArrayBufferWrite(self.external)
 
         self.plotter.initRun()
         while self.plotter.app.active():

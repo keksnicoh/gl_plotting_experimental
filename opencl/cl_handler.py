@@ -94,6 +94,9 @@ class BaseCalculator(object):
 
 
 
+	def arrayFromBuffer(self, array, buffer):
+		cl.enqueue_copy(self.queue, array, buffer)
+		return array
 
 	def calculateSimple(self, kernel, buffers, outputArray, globalsize=None, localsize=(1,)):
 		"""
