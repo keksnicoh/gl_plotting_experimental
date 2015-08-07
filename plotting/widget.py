@@ -129,7 +129,7 @@ class Widget():
 class Uniforms(Widget):
     """ renders active uniform values from UniformManager """
     IS_DRAGABLE = True
-    def __init__(self, uniform_manager, pos=(0.1, 0.03), size=(0.30, 0.3), font_color=[0.0, 0, 0, 1.0]):
+    def __init__(self, uniform_manager, pos=(0.1, 0.03), size=(0.30, 0.3), font_color=[0.0, 0, 0, 1.0], update_callback=None):
         Widget.__init__(self, pos, size)
 
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 60)
@@ -141,6 +141,7 @@ class Uniforms(Widget):
         self._last_time = 0.0
         self._gl_font = gl_font
         self._active_uniform = -1
+        self.unfiform_update_callback = update_callback
 
     def render_widget(self):
         str_uniforms = []
@@ -176,7 +177,9 @@ class Uniforms(Widget):
                     (setter, getter) = setget
                     if getter() == 0:
                         setter(0.1)
-                    setter(getter()*(1+0.1*(-1 if 47 in self._keyboard_active else 1)))
+                    setter(getter()+0.01*(-1 if 47 in self._keyboard_active else 1))
+                    if self.unfiform_update_callback is not None:
+                        self.unfiform_update_callback(setget, getter())
                     self.refresh_widget = True
 
         if 't' in self._um.get_global_uniforms():
