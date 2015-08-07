@@ -38,6 +38,28 @@
 \section{  Einleitung  }
 LALALA
 
+\section{Logistische Abbildung}
+$$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
+Def.: $f^2(x) = f(f(x))$
+$$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
+\newline
+Fixpunktgleichung (Einerzyklus): 
+$$x=rx(1-x)$$
+$$\Rightarrow x_1=0, x_2=1-\frac{1}{r}$$
+Startwerte x=0 und x=1 haben den Fixpunkt $x_1$ wohingegen für alle $x\in (0,1)$ der Fixpunkt $x_2$ ist.
+\newline
+Fixpunktgleichung (Zweierzyklus):
+$$x=r^2x(1-x)(1-rx(1-x))$$
+$$\Rightarrow x_{3,4}=\pm\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$$
+Damit $x_{3,4}$ reel bleibt muss $r^2-2 r-3 \geq 0$
+$$\Rightarrow r < -1 \land r > 3$$
+Für diesen Bereich gibt es folglich 2 weitere Fixpunkte $x_{3,4}$ 
+\newline
+Stabilitätsbedingung:
+$$\mid f'(x)\mid <1, mit f'(x)=r(1-x) folgt$$
+$$\mid r(1-x)\mid < 1$$
+$$\Leftrightarrow \mid 1-x\mid < \mid \frac{1}{r}\mid$$
+
 \section{ Literatur }
 \begin{itemize} 
 \item Nichtlineare Dynamik und Chaos - Physikalisches Praktikum für Fortgeschrittene Universität Hamburg
@@ -47,3 +69,10 @@ LALALA
 
 
 \end{document}
+
+
+
+
+
+
+
