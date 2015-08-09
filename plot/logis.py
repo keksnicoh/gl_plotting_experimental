@@ -2,7 +2,7 @@ from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
 
 
-r = 1.75
+r = 1.0
 x_0 = 0.1
 
 NORMAL = """
@@ -15,6 +15,14 @@ LOG = """
 uniform float r = %f;
 vec4 f(vec4 x) {
     float y = x.x*r*(1-x.x);
+    return vec4(x.x, y, 0, 0.5);
+}
+""" % r
+
+LOG2 = """
+uniform float r = %f;
+vec4 f(vec4 x) {
+    float y = x.x*r*r*(1-x.x)*(1-r*x.x*(1-x.x));
     return vec4(x.x, y, 0, 0.5);
 }
 """ % r
@@ -32,7 +40,7 @@ KERNEL = """
 
 
 
-window = PlotterWindow(axis=(1.0,1.0), origin=(0.0,0.0))
+window = PlotterWindow(axis=(1.0,1.0), origin=(0.0,0.0), x_label='x_n', y_label='x_n')
 
 log_domain = domain.Logistic(1000, x_0, r)
 
@@ -43,6 +51,7 @@ def update_uniform(self, value):
 
 window.plotter.add_graph('Logistische Abbildung Fixpunkt', graph.Discrete2d(log_domain, NORMAL))
 window.plotter.add_graph('Logistische Abbildung', graph.Discrete2d(axis_domain, LOG))
+window.plotter.add_graph('Logistische Abbildung2', graph.Discrete2d(axis_domain, LOG2))
 
 uniforms = window.plotter.get_uniform_manager()
 uniforms.set_global('r', r)

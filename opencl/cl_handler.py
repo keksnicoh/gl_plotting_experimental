@@ -53,7 +53,8 @@ class BaseCalculator(object):
 
 	def _buildKernel(self, kernel):
 		program = cl.Program(self.context, kernel).build()
-		self.queue = cl.CommandQueue(self.context)
+		if not self.queue:
+			self.queue = cl.CommandQueue(self.context)
 		return program
 
 	def createLocalMemory(self, size):
