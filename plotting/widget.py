@@ -174,10 +174,11 @@ class Uniforms(Widget):
             if 93 in self._keyboard_active or 47 in self._keyboard_active:
                 setget = self.get_uniform_setget(self._active_uniform)
                 if setget is not None:
-                    (setter, getter) = setget
+                    (setter, getter, steps) = setget
                     if getter() == 0:
                         setter(0.1)
-                    setter(getter()+0.01*(-1 if 47 in self._keyboard_active else 1))
+
+                    setter(getter()+steps*(-1 if 47 in self._keyboard_active else 1), steps)
                     if self.unfiform_update_callback is not None:
                         self.unfiform_update_callback(setget, getter())
                     self.refresh_widget = True
@@ -189,7 +190,7 @@ class Uniforms(Widget):
 
     def get_uniform_setget(self, n):
         for i, name in enumerate(self._um.get_global_uniforms()):
-            if i == n: return (partial(self._um.set_global, name), partial(self._um.get_global, name))
+            if i == n: return (partial(self._um.set_global, name), partial(self._um.get_global, name), self._um.global_uniforms_steps[name])
 
         for plot, uniforms in self._um.get_local_uniforms().items():
             for name in uniforms:

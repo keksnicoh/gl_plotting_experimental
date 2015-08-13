@@ -74,6 +74,11 @@ class Axis(Domain):
     """
     x-axis domain
     """
+    def __init__(self, length, dot_size=0.002):
+        """ init """
+        Domain.__init__(self, length)
+        self.dot_size = dot_size
+
     def init_vbo(self, length):
         """ initializes vbo by given length """
         Domain.init_vbo(self, length)
@@ -85,7 +90,7 @@ class Axis(Domain):
 
         self.push_data(data)
 
-    def get_dot_size(self): return max(0.002, 1.0/self.length)
+    def get_dot_size(self): return max(self.dot_size, 1.0/self.length)
     def transformation_matrix(self, axis, origin):
         return numpy.array([
             axis[0], 0,   0,

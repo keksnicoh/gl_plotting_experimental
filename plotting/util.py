@@ -7,6 +7,7 @@ class UniformManager():
         self.global_uniforms = global_uniforms
         self.local_uniforms = local_uniforms
         self._updated = False
+        self.global_uniforms_steps = {}
     def has_updated(self):
         updated = self._updated
         self._updated = False
@@ -19,9 +20,10 @@ class UniformManager():
 
     def get_global(self, name): return self.global_uniforms[name]
 
-    def set_global(self, name, value):
+    def set_global(self, name, value, steps=1):
         self._updated = True
         self.global_uniforms[name] = value
+        self.global_uniforms_steps[name] = steps
 
     def set_local(self, plot, name, value):
         self._updated = True
