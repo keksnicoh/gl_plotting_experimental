@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.25)  13 AUG 2015 19:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.25)  15 AUG 2015 11:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -559,6 +559,45 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 Package caption Info: KOMA-Script document class.
 \c@ContinuedFloat=\count117
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count118
+\lst@gtempboxa=\box55
+\lst@token=\toks23
+\lst@length=\count119
+\lst@currlwidth=\dimen139
+\lst@column=\count120
+\lst@pos=\count121
+\lst@lostspace=\dimen140
+\lst@width=\dimen141
+\lst@newlines=\count122
+\lst@lineno=\count123
+\lst@maxwidth=\dimen142
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+\c@lstnumber=\count124
+\lst@skipnumbers=\count125
+\lst@framebox=\box56
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
+))
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup4
@@ -566,35 +605,35 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 (./Protokoll.aux)
 \openout1 = `Protokoll.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 50.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count118
-\scratchdimen=\dimen139
-\scratchbox=\box55
-\nofMPsegments=\count119
-\nofMParguments=\count120
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count121
-\MPscratchDim=\dimen140
-\MPnumerator=\count122
-\makeMPintoPDFobject=\count123
-\everyMPtoPDFconversion=\toks24
+\scratchcounter=\count126
+\scratchdimen=\dimen143
+\scratchbox=\box57
+\nofMPsegments=\count127
+\nofMParguments=\count128
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count129
+\MPscratchDim=\dimen144
+\MPnumerator=\count130
+\makeMPintoPDFobject=\count131
+\everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -678,40 +717,42 @@ Package geometry Warning: The marginal notes overrun the paper.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 28.
+\c@lstlisting=\count132
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 51.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 42.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 65.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 42.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 65.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 42.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 65.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 42.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 65.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 42.
+(Font)              <10.95> on input line 65.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 42.
+(Font)              <8> on input line 65.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 42.
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 42.
+(Font)              <6> on input line 65.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 65.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -719,17 +760,17 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 <r3.png, id=1, 597.23125pt x 594.22pt>
 File: r3.png Graphic file (type png)
  <use r3.png>
-Package pdftex.def Info: r3.png used on input line 58.
+Package pdftex.def Info: r3.png used on input line 81.
 (pdftex.def)             Requested size: 179.17075pt x 178.26736pt.
 
 <analy-periodenv.png, id=3, 595.22375pt x 592.2125pt>
 File: analy-periodenv.png Graphic file (type png)
 
 <use analy-periodenv.png>
-Package pdftex.def Info: analy-periodenv.png used on input line 59.
+Package pdftex.def Info: analy-periodenv.png used on input line 82.
 (pdftex.def)             Requested size: 178.5685pt x 177.66512pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--61
+Underfull \hbox (badness 10000) in paragraph at lines 78--84
 
  []
 
@@ -741,47 +782,56 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--61
 File: stable_fixpoints.png Graphic file (type png)
 
 <use stable_fixpoints.png>
-Package pdftex.def Info: stable_fixpoints.png used on input line 70.
+Package pdftex.def Info: stable_fixpoints.png used on input line 93.
 (pdftex.def)             Requested size: 474.9661pt x 307.54355pt.
  [2 <./r3.png> <./analy-periodenv.png> <./stable_fixpoints.png>]
-Overfull \hbox (5.77739pt too wide) in paragraph at lines 78--79
+Overfull \hbox (5.77739pt too wide) in paragraph at lines 101--102
 \T1/lmr/m/n/10.95 Eine Mög-lich-keit die Fei-gen-baum-kon-stan-te zu be-rech-ne
 n ist über die Null-stel-len des Lyapunov-Exponenten.
  []
 
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 82.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 110.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 129.
+
+
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 82.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 129.
  [3]
 (./Protokoll.aux) ) 
 Here is how much of TeX's memory you used:
- 6382 strings out of 493089
- 98881 string characters out of 6134842
- 232260 words of memory out of 5000000
- 9741 multiletter control sequences out of 15000+600000
- 40317 words of font info for 37 fonts, out of 8000000 for 9000
+ 8223 strings out of 493089
+ 123348 string characters out of 6134842
+ 287271 words of memory out of 5000000
+ 11555 multiletter control sequences out of 15000+600000
+ 43928 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 47i,7n,46p,353b,271s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-rm
-.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr
-/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/tex
-live/2015/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2015/texm
-f-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pu
-blic/lm/lmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr
-12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2015/texmf-dist
-/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/public/lm/lmsy8.pfb>
-Output written on Protokoll.pdf (3 pages, 259273 bytes).
+ 47i,8n,49p,353b,1124s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.
+enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/
+local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/
+2015/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2015/texmf
+-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2015/texmf-dist/font
+s/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/lm/lmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi10
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2015/texmf-dist/font
+s/type1/public/lm/lmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
+ic/lm/lmri12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmss
+bx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on Protokoll.pdf (3 pages, 277365 bytes).
 PDF statistics:
- 67 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 77 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

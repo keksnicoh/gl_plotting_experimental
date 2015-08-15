@@ -11,6 +11,7 @@ from functools import partial
 from mygl.objects.frame import Window
 from mygl.font import GlFont
 from mygl.matricies import *
+from mygl.util import *
 
 FONT_RESOURCES_DIR = os.path.dirname(os.path.abspath(__file__))+'/../resources/fonts'
 
@@ -211,5 +212,32 @@ class Text(Widget):
         self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0))
         self.refresh_widget = False
 
+
+class Coordinates(Widget):
+    """ Drag somewhere to evaluate exact coordinates """
+    IS_DRAGABLE = True
+    def __init__(self, gl_plot, font_size=80, font_color=[0,0,0,1], pos=(0.7, 0.0), size=(0.3, 0.3)):
+        Widget.__init__(self, pos, size)
+        ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", font_size)
+        self._gl_font = GlFont("x: %f\ny: %f" % pos, ft)
+        self._gl_font.color = font_color
+        self.gl_plot = gl_plot
+        self.RESIZEABLE = False
+
+    def render_widget(self):
+       
+        plot_plane_offset = (self.gl_plot.i_border[0] / self.gl_plot.o_wh[0], self.gl_plot.i_border[1] / self.gl_plot.o_wh[1])
+
+        x_real_size = 1 - (self.gl_plot.i_border[0] / self.gl_plot.o_wh[0] + self.gl_plot.i_border[2] / self.gl_plot.o_wh[0])
+        y_real_size = 1 - (self.gl_plot.i_border[1] / self.gl_plot.o_wh[1] + self.gl_plot.i_border[3] / self.gl_plot.o_wh[1])
+        in_plot_position = (self.pos[0]/x_real_size - plot_plane_offset[0]/x_real_size, 1 - (self.pos[1]/y_real_size - plot_plane_offset[1]/y_real_size))
+
+        coordinates = (-self.gl_plot.i_origin[0] + self.gl_plot.i_axis[0]*in_plot_position[0], -self.gl_plot.i_origin[1] + self.gl_plot.i_axis[1]*in_plot_position[1]) 
+
+        self._gl_font.set_text("x: %f\ny: %f" % coordinates)
+        self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0))
+        self.refresh_widget = True
+
+    
 
 

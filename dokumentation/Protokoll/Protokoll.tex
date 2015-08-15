@@ -10,9 +10,32 @@
 \usepackage{geometry}
 \usepackage{authblk}
 \usepackage[font=scriptsize, labelfont=bf]{caption}
+\usepackage{listings}
+\usepackage{color}
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
+  
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+  }
 
 
 % for skript letters like H...
@@ -75,7 +98,31 @@ $$2.82<r<3.45 \Rightarrow 3 \geq r > 3.45$$
 Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesamten Bereich $-1.45<r<3.45$ stabil aber da der Fixpunkt ebenfalls nur für $r \leq -1 \land r \geq 3$ existiert gilt der selbe Bereich wie für $x_3$. Die Fixpunkt sind dort stabil, wo sich der graue und der grüne Graph in der Abbildung überlagern.
 \section{ Feigenbaumkonstante}
 \subsection {Lyapunov}
-Eine Möglichkeit die Feigenbaumkonstante zu berechnen ist über die Nullstellen des Lyapunov-Exponenten. Gerade an diesen Stellen kommt es zu einer Periodenverdopplung.
+Eine Möglichkeit die Feigenbaumkonstante zu berechnen ist über die Nullstellen des Lyapunov-Exponenten. Gerade an diesen Stellen kommt es zu einer Periodenverdopplung. Dann lässt sich die Feigenbaumkonstante durch
+$$\delta = \lim_{n \rightarrow \infty}\frac{a_{n-1}-a_{n-2}}{a_n-a_{n-1}}$$
+, wobei die $a_n$ der Parameter ist bei dem die n-te Periodenverdopplung auftritt.
+\newline
+Für dern Lyapunov-Exponenten gilt:
+$$\lambda(x_0) = \lim_{N \rightarrow \infty}\lim_{\epsilon \rightarrow 0} \frac{1}{N}\log{\mid \frac{f^N(x_0+\epsilon)- f^N(x_0)}{\epsilon} \mid} $$
+oder auch
+$$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $$
+Zweite Formel implementiert als OpenGL Kernel für die logistische Abbildung:
+\begin{lstlisting}
+float g(float r, float x) {
+    return r * x * (1-x);
+}
+vec4 f(vec4 x) {
+    float x0 = 0.4;
+    float eps = 0.0001;
+    float n = 10000;
+    float summe = x0;
+    for (int i = 1; i <= n - 1; i+=1) {
+        x0 = g(x.x, x0);
+        summe += log(abs(g(x.x, x0+eps)-g(x.x, x0))/eps);
+    }
+    return vec4(x.x, summe/n, 0, 0.5);
+}
+\end{lstlisting}
 
 \section{ Literatur }
 \begin{itemize} 
