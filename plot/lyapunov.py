@@ -57,15 +57,15 @@ vec4 f(vec4 x) {
 """
 
 
-#window = PlotterWindow(axis=(0.002,0.002), origin=(-2.999,0.001))
-window = PlotterWindow(axis=(1.0,1.0), origin=(0.0,0.0))
+window = PlotterWindow(axis=(0.002,0.002), origin=(-2.999,0.001))
+#window = PlotterWindow(axis=(1.0,1.0), origin=(0.0,0.0))
 #domain = domain.Cartesian(1000, min_y=0.01)
-domain = domain.Axis(1000)
+domain = domain.Axis(4000)
 #domain.transformation_matrix = domain.fixed_y_transformation
 window.plotter.add_graph('lyapunov', graph.Discrete2d(domain, KERNEL_LOG))
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('eps', 0.001, 0.0001)
-uniforms.set_global('n', 1000, 10)
+uniforms.set_global('eps', 0.00001, 0.000001)
+uniforms.set_global('n', 2000, 10)
 uniforms.set_global('start', 0, 5)
 window.add_widget('test', widget.Uniforms(uniforms))
 window.add_widget('coordinates', widget.Coordinates(window.plotter.gl_plot))
