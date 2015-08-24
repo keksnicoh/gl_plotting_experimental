@@ -80,8 +80,16 @@ OSZILATION_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     }
 """
 
+COLORIZE_ME = """
+vec4 f(vec4 p) {
+
+    return vec4(p.xy, 1- gl_VertexID/100000, 1);
+}
+"""
 
 window = PlotterWindow(axis=(10.0,10.0), origin=(5.0,5.0))
 duffing_domain = domain.DuffingDomain(PHASE_KERNEL, 500000, 300, 0.04, 1, 1, 1, (1,1))
-window.plotter.add_graph('duffing', graph.Line2d(duffing_domain))
+window.plotter.add_graph('duffing', graph.Line2d(duffing_domain, COLORIZE_ME))
+window.plotter.get_graph('duffing').set_colors(color_min=[.0,0.0,.0,1], color_max=[1.0,0,0,1])
+
 window.run()
