@@ -58,7 +58,7 @@ class Duffing(object):
 	def calculation(self, awp, phasendiagramm=False):
 		(x, y) = awp
 		h = 0.001
-		t_f = 200
+		t_f = 60
 
 		def f_x(y_value):
 			return y_value
@@ -75,14 +75,16 @@ class Duffing(object):
 			t = i/float(iterations) * t_f
 			theta = self.omega * t
 			phase = math.cos(theta)
-			if phase < formerPhase and first:
-				x = x + h * f_x(y)
-				y = y + h * f_y(y, x, self.lambd, self.epsilon, theta, self.beta)
-				x_Data.append(x)
-				y_Data.append(y)
-				first = False
-			elif phase > formerPhase:
-				first = True
+
+			x = x + h * f_x(y)
+			y = y + h * f_y(y, x, self.lambd, self.epsilon, theta, self.beta)
+
+			#if phase < formerPhase and first:	
+			x_Data.append(x)
+			y_Data.append(y)
+			first = False
+			#elif phase > formerPhase:
+			first = True
 
 			formerPhase = phase
 
@@ -96,7 +98,7 @@ class Duffing(object):
 
 
 if __name__ == '__main__': 
-	#app = Duffing(0.08, 1.0, 1.0, 0.2)
+	app = Duffing(0.08, 1.0, 1.0, 0.2)
 
 	afw = [
 		(0.21, 0.02),
@@ -106,12 +108,12 @@ if __name__ == '__main__':
 		(-0.43, 0.12)
 	]
 
-	#app.calculation(afw[2], True)
+	app.calculation((3.0,4.0), True)
 
-	poincarre = Duffing(0.2, 1.0, 1.0, 7.72)
+	#poincarre = Duffing(0.2, 1.0, 1.0, 7.72)
 
 
-	poincarre.calculation((3, 4), True)
+	#poincarre.calculation((3, 4), True)
 
 
 

@@ -80,7 +80,19 @@ class chaos(object):
 
 	def dreieckPlot(self, x_0, a):
 		(x,y) = self.iterate(self.log_dr, x_0, (a,), 300)
-		self.plotScatter([(x,y,".")], (200,300))
+		self.plotScatter([(x,y)], (200,300))
+
+	def dreieckPlotInformation(self, x_n, a):
+		n = 0
+		y = []
+		x = []
+		while n < 10:
+			x.append(x_n)
+			x_n = self.log_dr(x_n, a)
+			y.append(x_n)
+			n += 1
+			
+		self.plotScatter([(x,y)], (0, 1), (0, 0.5))
 
 	def plotScatter(self, tupleOfDataTuples, xLim=None, yLim=None):
 		#plt.scatter(x,y, s=1)
@@ -337,6 +349,12 @@ class chaos(object):
 # 8: 3.5440894317360905, time for loop: 26.39645504951477
 
 if __name__ == '__main__':
+	app = chaos(True)
+	#app.plotLyapunovExponent(app.ableitungSinAbblidung, (1,4), 0.01, 0.5, 5000)
+	#app.dreieckPlot(0.8, 0.98)
+	app.dreieckPlotInformation(0.8, 0.3)
+	exit(1)
+
 	helpText = '6.2.py -p [look for how many periods] -d'
 	periods = None
 	data = False

@@ -4,6 +4,15 @@ Nicolas Heimann
 
 Jeese Hinrichsen
 
+Logistic map:
+Development on growing Parameter r for equation: x=rx(1-x)
+![Development on growing Parameter r for equation: x=rx(1-x)](/dokumentation/Protokoll/animation_log.gif)
+
+Periodenverdopplung analytical for f(x) and f^2(x)
+![Periodenverdopplung analytical for f(x) and f^2(x)](/dokumentation/Protokoll/analy-periodenv.png)
+
+Stable area for fixpoints
+![Stable area for fixpoints](/dokumentation/Protokoll/stable_fixpoints.png)
  
 bifurcation diagramm with translated (+0,6384) lyapunov exponent
 ![bifurkation von r*sin mit cos fit](/results/bifurc-logistic-translated-lyapunov.jpg)

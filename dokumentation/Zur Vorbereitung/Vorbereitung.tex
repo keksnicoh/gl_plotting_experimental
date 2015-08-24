@@ -1,0 +1,99 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{courier}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{authblk}
+\usepackage[font=scriptsize, labelfont=bf]{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+
+% for skript letters like H...
+\usepackage{mathrsfs}
+
+\geometry{verbose,a4paper,tmargin=25mm,bmargin=25mm,lmargin=15mm,rmargin=20mm}
+
+\title{Vorbereitung zum Versuch Nichtlineare Dynamik und Chaos}
+\author{Nicolas Heimann, Jesse Hinrichsen}
+\affil{\textit{Universität Hamburg}}
+\date{2015}
+\begin{document}
+\maketitle
+
+
+
+
+\begin{description}
+\item Vorbereitung zum Versuch Nichtlineare Dynamik und Chaos. Kurzantworten und Erklärungen verschiedener relevanter Fragen und Begriffe.
+\end{description}
+
+
+\section{  Was ist Information?  }
+Information ist eine Angabe zu einem System um eine Beschreibung zu ermöglichen. Z.b. ist eine Positionsangabe eine Information.
+
+\section{  Was sind die Eigenschaften von Chaos?  }
+Choas entsteht, wenn Informationen verloren gehen....
+
+\section{  Wie beschreibt man Informationsverlust?  }
+
+
+\section{  Was ist ein Bifurkationsdiagramm?  }
+Ein Bifurkationsdiagramm ist eine grafische Darstellung, welches den Übergang zwischen Ordnung und Chaos darstellt. Dabei wird der der Wert einer Abbildung nach einer großen Anzahl von Iterationen gegen einen Kontrollparameter aufgetragen. Konvergiert die Abbildung gegen einen bestimmten Wert (Fixpunkt), so wird dieser Fixpunkt Attraktor genannt. Ist bereits $x_0$ der Attraktor, so bleibt nach jeder Iteration der Wert konstant. Man spricht auch von einem stabilen Fixpunkt.
+
+\section{  Wie bestimmt man die Feigenbaumkonstante?  }
+Die Feigenbaumkonstante ist eine universelle Konstante. Sie lässt sich über die Punkte an denen Periodenverdopplung entsteht oder anhand der Parameter bei denen ein sog. superattraktiver Fall (Iteration nähert sich besonders schnell dem Fixpunkt) berechnen.
+
+Für beide Fälle gilt für die Feigenbaumkonstante $\delta$:
+
+$\delta=\lim\limits_{n \rightarrow \infty}{\frac{a_{n-1}-a_{n-2}}{a_n-{a_{n-1}}}}$
+
+
+\section{  Was sind dissipative Systeme?  }
+System die sich nicht im Gleichgewicht befinden (z.B. thermischen Gleichgewicht)
+\section{  Was beschreibt die Duffing-Gleichung?  }
+Die Duffing-Gleichung beschreibt einen Oszillator, der gedämpft ist und angetrieben wird. Der Unterschied zur klassischen erzwungenen Schwingung ist, dass der Term bei dem die Federkonstante eingeht nicht linear sonder kubisch ist. Dies lässt sich dann als Schwingung eines Metallstabes interpretieren.
+
+$\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}$
+
+\section{  Wofür stehen die Parameter der Duffing-Gleichung?  }
+$\lambda$: Dämpfung
+\newline
+$\epsilon$: Größe der Amplitude der Anregung
+\newline
+$\Omega$: Frequenz der Anregung
+\newline
+$\beta$: Federkonstante
+
+\section{  Was ist das Euler-Cauchy-Verfahren?  }
+Das Euler-Cauchy-Verfahren ist eine Möglichkeit Differentialgleichungen mit gegebenen Anfangswerten näherungsweise zu lösen. Dabei wählt man eine möglichst kleine Schrittweite $h$ und berechnet den Wert nach diesem Intervall.
+$x_{n+1}=x_n +hf(x_n)$, wobei
+
+$\dot{x}=f(x)$
+\section{  Wie funktioniert ein Runge-Kutta-Verfahren?  }
+Besseres Verfahren, bei dem die Steigung innerhalb der Schrittweite berücksichtigt wird und zu eine Korrektur des nächsten Iterationswertes führt......
+\section{  Was sind Phasenraum, Trajektorien und Attraktoren?  }
+Der Phasenraum ist der Raum der zeitlichen Ableitungen (Geschwindigkeit) der Trajektorie im Ortsraum. Ein Attraktor ist ein Punkt gegen den die Trajektorie im Phasenraum strebt.
+\section{  Was ist ein Poincaré-Schnitt?  }
+Im Fall der Duffing-Gleichung betrachten wir ein dreidimensionales System. Neben $x$ und $\dot{x}$ haben wir noch einen Winkel $\phi$ ($\dot{phi}=\Omega$).
+Durch diesen dreidimensionalen Raum können wir nun eine Ebene legen und lediglich die Punkte auf dieser Ebene plotten. Dies wird dann Poincaré-Schnitt genannt.
+\section{  Was ist eine Diode?  }
+Ein elektrisches Bauelement, welches, unter bestimmten Vorraussetzungen, Strom nur in einer Richtung hindurch lässt. 
+\section{  Was ist ein nichtlinearer Schwingkreis?  }
+...
+
+\section{ Literatur }
+\begin{itemize} 
+\item Nichtlineare Dynamik und Chaos - Physikalisches Praktikum für Fortgeschrittene Universität Hamburg
+\end{itemize}
+
+
+
+
+\end{document}

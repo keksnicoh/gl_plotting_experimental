@@ -318,6 +318,7 @@ class PlotPlane2d():
                                 graph.shader.uniform(name, value)
 
                         graph.space_translation(self.i_axis, self.i_origin)
+                        #print self.i_origin, self.i_axis
                         # domain transformation matrix
                         #if hasattr(graph, 'domain'):
                         #    d_transform = graph.domain.transformation_matrix(self.i_axis, self.i_origin)

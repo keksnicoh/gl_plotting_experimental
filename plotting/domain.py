@@ -10,7 +10,7 @@ import numpy
 import math
 import random
 
-from opencl.OpenCLHandler import BaseCalculator
+from opencl.cl_handler import BaseCalculator
 
 class Domain():
     """
@@ -22,13 +22,17 @@ class Domain():
         """ init """
         self.vbo = None
         self.length = length
+        self.calculator = None
 
     def init_vbo(self, length):
         """ initializes vbo by given length """
-        self.vbo = VBO()
-        with self.vbo:
-            glBufferData(GL_ARRAY_BUFFER, length*8, None, GL_STATIC_DRAW)
-            self.length = length
+        if self.vbo:
+            raise RuntimeWarning("VBO already initializesed. better use get_vbo()")
+        else:
+            self.vbo = VBO()
+            with self.vbo:
+                glBufferData(GL_ARRAY_BUFFER, length*8, None, GL_STATIC_DRAW)
+                self.length = length
 
     def push_data(self, data):
         """ pushes data into vbo """
@@ -58,10 +62,23 @@ class Domain():
         """
         return 2
 
+    def getDomainBuffer(self):
+        """
+        returns opengl buffer to be modiefied elsewhere
+        """
+        if not self.calculator:
+            self.calculator = BaseCalculator(sharedGlContext=True)
+        return self.calculator.getOpenGLBufferFromId(self.vbo.get(0).id)
+
 class Axis(Domain):
     """
     x-axis domain
     """
+    def __init__(self, length, dot_size=0.002):
+        """ init """
+        Domain.__init__(self, length)
+        self.dot_size = dot_size
+
     def init_vbo(self, length):
         """ initializes vbo by given length """
         Domain.init_vbo(self, length)
@@ -73,13 +90,50 @@ class Axis(Domain):
 
         self.push_data(data)
 
-    def get_dot_size(self): return max(0.002, 1.0/self.length)
+    def get_dot_size(self): return max(self.dot_size, 1.0/self.length)
     def transformation_matrix(self, axis, origin):
         return numpy.array([
             axis[0], 0,   0,
             0, 0, 0,
             -origin[0], 0,   1.0,
         ], dtype=numpy.float32)
+
+class Logistic(Domain):
+    def __init__(self, length, x_0, r):
+        Domain.__init__(self, length)
+        self.x_0 = x_0
+        self.r = r
+        self.gl_buffer = None
+
+    def updateParameterR(self, value, kernel):
+        if not self.gl_buffer:
+            self.gl_buffer = self.getDomainBuffer()
+        self.calculator.calculateGL(kernel, [numpy.int32(self.length), numpy.float32(value)], [self.gl_buffer], (1,))
+
+    def _logFunction(self, x):
+        return self.r*x*(1-x)
+
+    def init_vbo(self, length):
+        Domain.init_vbo(self, length)
+
+        data = numpy.zeros(length*2)
+        
+        data[0] = self.x_0
+        data[1] = self._logFunction(self.x_0)
+        for i in range(1, length):
+            data[2*i] = data[2*(i-1)+1]
+            data[2*i+1] = self._logFunction(data[2*i])
+
+        self.push_data(data)
+
+    def get_dot_size(self): return max(0.005, 1.0/self.length)
+    def transformation_matrix(self, axis, origin):
+        return numpy.array([
+            axis[0], 0,   0,
+            0, 0, 0,
+            -origin[0], 0,   1.0,
+        ], dtype=numpy.float32)
+
 
 class Series(Domain):
     """
@@ -103,6 +157,16 @@ class Series(Domain):
             -origin[0], 0,   1.0,
         ], dtype=numpy.float32)
 
+
+
+class AxisGL(Domain):
+    """
+        Domain that only returns gl_buffer to be modified somewhere else
+    """
+    def __init__(self, length, calculator):
+        Domain.__init__(self, length)
+        vbo = self.get_vbo()
+        self.buffer = calculator.getOpenGLBufferFromId(vbo.get(0).id)
 
 
 class DuffingDomain(Domain):

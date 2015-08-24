@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 """
 OpenCL handler class
+IMPORTANT: Apple CPU only supports workgroup_size = 1
+Use GPU to work with workgroups
 @author Jesse Hinrichsen <jesse@j-apps.com>
 """
 
@@ -43,7 +45,7 @@ class BaseCalculator(object):
 
 		devices = self.devices
 		if gpuOnly and len(self.devices) > 1:
-			devices = [self.devices[0]]
+			devices = [self.devices[1]]
 
 		self.context = cl.Context(properties=properties, devices=devices)
 
@@ -51,8 +53,12 @@ class BaseCalculator(object):
 
 	def _buildKernel(self, kernel):
 		program = cl.Program(self.context, kernel).build()
-		self.queue = cl.CommandQueue(self.context)
+		if not self.queue:
+			self.queue = cl.CommandQueue(self.context)
 		return program
+
+	def createLocalMemory(self, size):
+		return cl.LocalMemory(size)
 
 	def createArrayBuffer(self, array):
 		return cl.Buffer(self.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR, hostbuf=array)
@@ -68,6 +74,9 @@ class BaseCalculator(object):
 
 	def getOpenGLBufferFromId(self, buffer_id):
 		return cl.GLBuffer(self.context, cl.mem_flags.READ_WRITE, int(buffer_id))
+
+	def releaseGlObjects(self, buffers):
+		cl.enqueue_release_gl_objects(self.queue, buffers)
 
 	def calculateGL(self, kernel, clBuffers, glBuffers, outputShape):
 		"""
@@ -86,7 +95,11 @@ class BaseCalculator(object):
 
 
 
-	def calculateSimple(self, kernel, buffers, outputArray, localsize=1):
+	def arrayFromBuffer(self, array, buffer):
+		cl.enqueue_copy(self.queue, array, buffer)
+		return array
+
+	def calculateSimple(self, kernel, buffers, outputArray, globalsize=None, localsize=(1,)):
 		"""
 		Handles output buffer based on given numpy array
 		"""
@@ -95,8 +108,11 @@ class BaseCalculator(object):
 		outputBuffer = cl.Buffer(self.context, cl.mem_flags.WRITE_ONLY, outputArray.nbytes)
 		buffers.append(outputBuffer)
 
+		if not globalsize:
+			globalsize = outputArray.shape
+
 		if self.queue:
-			program.f(self.queue, outputArray.shape, (localsize, ), *buffers)
+			program.f(self.queue, globalsize, localsize, *buffers)
 		else:
 			print "No queue initialized"
 
