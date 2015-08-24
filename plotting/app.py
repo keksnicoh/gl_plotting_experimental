@@ -20,7 +20,7 @@ class PlotterWindow():
     """
     TIME_TO_RERENDER = 0.05
 
-    def __init__(self, axis=(1.0, 1.0), origin=(0.0,0.0), plot_time=False, x_label='x-axis', y_label='y-axis', bg_color=[.9,.9,.9,1]):
+    def __init__(self, axis=(1.0, 1.0), origin=(0.0,0.0), plot_time=False, x_label=None, y_label=None, bg_color=[.9,.9,.9,1]):
         self.app = BasicGl(window_title='plot')
         self.plotter = Plotter(axis=axis, origin=origin, size=(2.0,2.0), x_label=x_label, y_label=y_label, bg_color=bg_color)
         self._plot_time = plot_time

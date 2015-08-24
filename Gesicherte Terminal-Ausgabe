@@ -1,0 +1,427 @@
+Last login: Wed Jul 29 10:47:23 on ttys000
+nicolass-MBP:valuenet.vbm keksnicoh$ cd ..
+nicolass-MBP:slice-dice keksnicoh$ cd valuenet.master/
+nicolass-MBP:valuenet.master keksnicoh$ boot2docker up && $(boot2docker shellinit) && docker-compose start && docker-compose -f 
+.git/                            etc/
+.gitignore                       frontend/
+.gitmodules                      made/
+README.rst                       made-admin/
+crm/                             make.py
+docker-compose.frontend.dev.yml  shop/
+docker-compose.vbm.dev.yml       tvr/
+docker-compose.vcp.dev.yml       vbm/
+docker-compose.yml               vcp/
+nicolass-MBP:valuenet.master keksnicoh$ boot2docker up && $(boot2docker shellinit) && docker-compose start && docker-compose -f docker-compose.vbm.dev.yml run --rm vbm bash 
+Waiting for VM and Docker daemon to start...
+...........oooo
+Started.
+Writing /Users/keksnicoh/.boot2docker/certs/boot2docker-vm/ca.pem
+Writing /Users/keksnicoh/.boot2docker/certs/boot2docker-vm/cert.pem
+Writing /Users/keksnicoh/.boot2docker/certs/boot2docker-vm/key.pem
+
+To connect the Docker client to the Docker daemon, please set:
+    export DOCKER_HOST=tcp://192.168.59.103:2376
+    export DOCKER_CERT_PATH=/Users/keksnicoh/.boot2docker/certs/boot2docker-vm
+    export DOCKER_TLS_VERIFY=1
+
+Writing /Users/keksnicoh/.boot2docker/certs/boot2docker-vm/ca.pem
+Writing /Users/keksnicoh/.boot2docker/certs/boot2docker-vm/cert.pem
+Writing /Users/keksnicoh/.boot2docker/certs/boot2docker-vm/key.pem
+Starting valuenetmaster_mongodb_1...
+Starting valuenetmaster_vbm_1...
+Starting valuenetmaster_mysql_1...
+Starting valuenetmaster_mail_1...
+Starting valuenetmaster_crm_1...
+Starting valuenetmaster_vcp_1...
+Starting valuenetmaster_web_1...
+Starting valuenetmaster_nginx_1...
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# 
+[root@8225b0586e21 vbm]# cd 
+analyzation.xls       .DS_Store             .git/                 LICENSE.txt           neo_components.pdf    requirements-dev.txt  todo150623.txt        vbm/
+Dockerfile            etc/                  .gitignore            neo_components.ods    README.rst            requirements.txt      tox.ini               
+[root@8225b0586e21 vbm]# cd vbm/rechner/
+[root@8225b0586e21 rechner]# py.test -vvv test
+======================================================================================== test session starts ========================================================================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 159 items / 1 errors 
+
+test/test_config.py::test_config PASSED
+test/test_config.py::test_unkown PASSED
+test/test_data.py::test_value PASSED
+test/test_data.py::test_scalar PASSED
+test/test_data.py::test_currency PASSED
+test/test_data.py::test_enum PASSED
+test/test_data.py::test_whitelist PASSED
+test/test_data.py::test_interval_value PASSED
+test/test_data.py::test_percentage_value PASSED
+test/test_data.py::test_validator PASSED
+test/test_data.py::test_validator_stack PASSED
+test/test_data.py::test_container_values PASSED
+test/test_data.py::test_value_validation_walker PASSED
+test/test_data.py::test_datetime PASSED
+test/test_data_config.py::test_config_path_exists PASSED
+test/calculator/test_luecke.py::test_luedcke[parameters0-expected_result0] PASSED
+test/calculator/test_luecke.py::test_luedcke[parameters1-expected_result1] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[sachbezug-test_data0] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[dienstwagen_miete-test_data1] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[dienstwagen_auslage-test_data2] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[berufskleidung-test_data3] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[kinder-test_data4] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[pc-test_data5] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[heimarbeit-test_data6] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[personal_rabatt-test_data7] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[werbeflaeche-test_data8] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[gesundheit-test_data9] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[VMA_STSVFREI-test_data10] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[internet-test_data11] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[erholungsbeihilfe-test_data12] PASSED
+test/calculator/test_optlib_neo.py::test_basic_behavior[VMA_PST-test_data13] PASSED
+test/calculator/test_optlib_neo.py::test_festnetz PASSED
+test/calculator/test_optlib_neo.py::test_handy PASSED
+test/calculator/test_optlib_neo.py::test_ebike PASSED
+test/calculator/test_optlib_neo.py::test_essencheck PASSED
+test/calculator/test_sv.py::test_calculator[parameters0-expected_result0] PASSED
+test/calculator/test_sv.py::test_calculator[parameters1-expected_result1] PASSED
+test/calculator/test_sv.py::test_calculator[parameters2-expected_result2] PASSED
+test/calculator/test_sv.py::test_calculator[parameters3-expected_result3] PASSED
+test/calculator/test_sv.py::test_calculator[parameters4-expected_result4] PASSED
+test/calculator/test_sv.py::test_calculator[parameters5-expected_result5] PASSED
+test/calculator/test_sv.py::test_calculator[parameters6-expected_result6] PASSED
+test/calculator/test_sv.py::test_calculator[parameters7-expected_result7] PASSED
+test/calculator/test_sv.py::test_calculator[parameters8-expected_result8] PASSED
+test/calculator/test_sv.py::test_calculator[parameters9-expected_result9] PASSED
+test/calculator/test_sv.py::test_calculator[parameters10-expected_result10] PASSED
+test/calculator/test_sv.py::test_calculator[parameters11-expected_result11] PASSED
+test/calculator/test_sv.py::test_calculator[parameters12-expected_result12] PASSED
+test/calculator/test_sv.py::test_calculator[parameters13-expected_result13] PASSED
+test/calculator/test_sv.py::test_calculator[parameters14-expected_result14] PASSED
+test/calculator/test_sv.py::test_calculator[parameters15-expected_result15] PASSED
+test/calculator/test_sv.py::test_calculator[parameters16-expected_result16] PASSED
+test/calculator/test_sv.py::test_calculator[parameters17-expected_result17] PASSED
+test/calculator/test_sv.py::test_calculator[parameters18-expected_result18] PASSED
+test/calculator/test_sv.py::test_calculator[parameters19-expected_result19] PASSED
+test/calculator/test_sv.py::test_calculator[parameters20-expected_result20] PASSED
+test/calculator/test_sv.py::test_calculator[parameters21-expected_result21] PASSED
+test/calculator/test_sv.py::test_calculator[parameters22-expected_result22] PASSED
+test/calculator/test_sv.py::test_calculator[parameters23-expected_result23] PASSED
+test/calculator/test_sv.py::test_calculator[parameters24-expected_result24] PASSED
+test/calculator/test_sv.py::test_calculator[parameters25-expected_result25] PASSED
+test/calculator/test_sv.py::test_calculator[parameters26-expected_result26] PASSED
+test/calculator/test_sv.py::test_calculator[parameters27-expected_result27] PASSED
+test/calculator/test_sv.py::test_calculator[parameters28-expected_result28] PASSED
+test/calculator/test_sv.py::test_calculator[parameters29-expected_result29] PASSED
+test/calculator/test_sv.py::test_calculator[parameters30-expected_result30] PASSED
+test/calculator/test_sv.py::test_calculator[parameters31-expected_result31] PASSED
+test/calculator/test_sv.py::test_calculator[parameters32-expected_result32] PASSED
+test/calculator/test_sv.py::test_calculator[parameters33-expected_result33] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters34-expected_result34] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters35-expected_result35] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters36-expected_result36] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters37-expected_result37] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters38-expected_result38] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters39-expected_result39] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters40-expected_result40] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters41-expected_result41] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters42-expected_result42] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters43-expected_result43] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters44-expected_result44] PASSED
+test/calculator/test_sv.py::test_calculator[parameters45-expected_result45] PASSED
+test/calculator/test_sv.py::test_calculator[parameters46-expected_result46] PASSED
+test/calculator/test_sv.py::test_calculator[parameters47-expected_result47] PASSED
+test/calculator/test_sv.py::test_calculator[parameters48-expected_result48] PASSED
+test/calculator/test_sv.py::test_calculator[parameters49-expected_result49] PASSED
+test/calculator/test_sv.py::test_calculator[parameters50-expected_result50] PASSED
+test/calculator/test_sv.py::test_calculator[parameters51-expected_result51] PASSED
+test/calculator/test_sv.py::test_calculator[parameters52-expected_result52] PASSED
+test/calculator/test_sv.py::test_calculator[parameters53-expected_result53] PASSED
+test/calculator/test_sv.py::test_calculator[parameters54-expected_result54] PASSED
+test/calculator/test_sv.py::test_calculator[parameters55-expected_result55] PASSED
+test/calculator/test_sv.py::test_calculator[parameters56-expected_result56] PASSED
+test/calculator/test_sv.py::test_calculator[parameters57-expected_result57] PASSED
+test/calculator/test_sv.py::test_calculator[parameters58-expected_result58] PASSED
+test/calculator/test_sv.py::test_calculator[parameters59-expected_result59] PASSED
+test/calculator/test_sv.py::test_calculator[parameters60-expected_result60] PASSED
+test/calculator/test_sv.py::test_calculator[parameters61-expected_result61] PASSED
+test/calculator/test_sv.py::test_calculator[parameters62-expected_result62] PASSED
+test/calculator/test_sv.py::test_calculator[parameters63-expected_result63] PASSED
+test/calculator/test_sv.py::test_calculator[parameters64-expected_result64] PASSED
+test/calculator/test_sv.py::test_calculator[parameters65-expected_result65] PASSED
+test/calculator/test_sv.py::test_calculator[parameters66-expected_result66] PASSED
+test/calculator/test_sv.py::test_calculator[parameters67-expected_result67] PASSED
+test/calculator/test_sv.py::test_calculator[parameters68-expected_result68] PASSED
+test/calculator/test_sv.py::test_calculator[parameters69-expected_result69] PASSED
+test/calculator/test_sv.py::test_calculator[parameters70-expected_result70] PASSED
+test/calculator/test_sv.py::test_calculator[parameters71-expected_result71] PASSED
+test/calculator/test_sv.py::test_calculator[parameters72-expected_result72] PASSED
+test/calculator/test_sv.py::test_calculator[parameters73-expected_result73] PASSED
+test/calculator/test_sv.py::test_calculator[parameters74-expected_result74] PASSED
+test/calculator/test_sv.py::test_calculator[parameters75-expected_result75] PASSED
+test/calculator/test_sv.py::test_calculator[parameters76-expected_result76] PASSED
+test/calculator/test_sv.py::test_calculator[parameters77-expected_result77] PASSED
+test/calculator/test_sv.py::test_calculator[parameters78-expected_result78] PASSED
+test/calculator/test_sv.py::test_calculator[parameters79-expected_result79] PASSED
+test/calculator/test_sv.py::test_calculator[parameters80-expected_result80] PASSED
+test/calculator/test_sv.py::test_calculator[parameters81-expected_result81] PASSED
+test/calculator/test_sv.py::test_calculator[parameters82-expected_result82] PASSED
+test/calculator/test_sv.py::test_calculator[parameters83-expected_result83] PASSED
+test/calculator/test_sv.py::test_calculator[parameters84-expected_result84] PASSED
+test/calculator/test_sv.py::test_calculator[parameters85-expected_result85] PASSED
+test/calculator/test_sv.py::test_calculator[parameters86-expected_result86] PASSED
+test/calculator/test_sv.py::test_calculator[parameters87-expected_result87] PASSED
+test/calculator/test_sv.py::test_calculator[parameters88-expected_result88] PASSED
+test/calculator/test_sv.py::test_calculator[parameters89-expected_result89] PASSED
+test/calculator/test_sv.py::test_calculator[parameters90-expected_result90] PASSED
+test/calculator/test_sv.py::test_calculator[parameters91-expected_result91] PASSED
+test/calculator/test_sv.py::test_calculator[parameters92-expected_result92] PASSED
+test/calculator/test_sv.py::test_calculator[parameters93-expected_result93] PASSED
+test/calculator/test_sv.py::test_calculator[parameters94-expected_result94] PASSED
+test/calculator/test_sv.py::test_calculator[parameters95-expected_result95] PASSED
+test/calculator/test_sv.py::test_calculator[parameters96-expected_result96] PASSED
+test/calculator/test_sv.py::test_calculator[parameters97-expected_result97] PASSED
+test/calculator/test_sv.py::test_calculator[parameters98-expected_result98] PASSED
+test/calculator/test_sv.py::test_calculator[parameters99-expected_result99] PASSED
+test/calculator/test_sv.py::test_calculator[parameters100-expected_result100] PASSED
+test/calculator/test_sv.py::test_calculator[parameters101-expected_result101] PASSED
+test/calculator/test_sv.py::test_calculator[parameters102-expected_result102] SKIPPED
+test/calculator/test_sv.py::test_calculator[parameters103-expected_result103] PASSED
+test/calculator/test_sv.py::test_calculator[parameters104-expected_result104] PASSED
+test/calculator/test_sv.py::test_calculator[parameters105-expected_result105] PASSED
+test/calculator/test_sv.py::test_calculator[parameters106-expected_result106] PASSED
+test/calculator/test_sv.py::test_calculator[parameters107-expected_result107] PASSED
+test/calculator/test_sv.py::test_calculator[parameters108-expected_result108] PASSED
+test/calculator/test_sv.py::test_calculator[parameters109-expected_result109] PASSED
+test/collections/test_structured_dict.py::test_standalone_scalar PASSED
+test/collections/test_structured_dict.py::test_validation PASSED
+test/collections/test_structured_dict.py::test_container_behavior PASSED
+test/collections/test_structured_dict.py::test_allowed_value_callback PASSED
+test/collections/test_structured_list.py::test_basic_behavior PASSED
+test/collections/test_structured_list.py::test_args[args0-kwargs0-abc0] PASSED
+test/collections/test_structured_list.py::test_args[args1-kwargs1-abc1] PASSED
+test/collections/test_structured_list.py::test_args[args2-kwargs2-abc2] PASSED
+test/collections/test_structured_list.py::test_args[args3-kwargs3-abc3] PASSED
+test/collections/test_structured_list.py::test_args[args4-kwargs4-abc4] PASSED
+test/collections/test_structured_list.py::test_validation_no_additional_info PASSED
+test/collections/test_structured_list.py::test_validation_additional_info PASSED
+test/collections/test_structured_list.py::test_reduce_compatibility PASSED
+test/collections/test_structured_list.py::test_map_compatibility PASSED
+
+============================================================================================== ERRORS ===============================================================================================
+_________________________________________________________________________ ERROR collecting vbm/rechner/test/test_schema.py __________________________________________________________________________
+test/test_schema.py:7: in <module>
+    from jsonschema import IValidator
+E   ImportError: cannot import name 'IValidator'
+========================================================================== 147 passed, 12 skipped, 1 error in 2.59 seconds ==========================================================================
+[root@8225b0586e21 rechner]# py.test -vvv test/test_schema.py 
+=============================================== test session starts ===============================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 1 items 
+
+test/test_schema.py::test_get_available_components_schema FAILED
+
+==================================================== FAILURES =====================================================
+______________________________________ test_get_available_components_schema _______________________________________
+
+    def test_get_available_components_schema():
+        schema = get_available_components_schema()
+        print(schema)
+>       draft0000r = Draft3Validator(schema)
+
+test/test_schema.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/lib/python3.4/site-packages/jsonschema/validators.py:67: in __init__
+    resolver = RefResolver.from_schema(schema)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'jsonschema.validators.RefResolver'>
+schema = [{'description': None, 'properties': {'additional_data': {'type': 'StructuredDict'}, 'enabled': {'type': 'Scalar'}, 'k...'type': 'Scalar'}, 'kst_satz': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, ...}, 'title': 'Sachbezug'}, ...]
+args = (), kwargs = {}
+
+    @classmethod
+    def from_schema(cls, schema, *args, **kwargs):
+        """
+            Construct a resolver from a JSON schema object.
+    
+            :argument schema: the referring schema
+            :rtype: :class:`RefResolver`
+    
+            """
+    
+>       return cls(schema.get(u"id", u""), schema, *args, **kwargs)
+E       AttributeError: 'list' object has no attribute 'get'
+
+/usr/lib/python3.4/site-packages/jsonschema/validators.py:283: AttributeError
+---------------------------------------------- Captured stdout call -----------------------------------------------
+[{'description': None, 'title': 'Gesundheit', 'properties': {'enabled': {'type': 'Scalar'}, 'value': {'type': 'Currency'}, 'version': {'type': 'IdenticalTo'}, 'kst_satz': {'type': 'IdenticalTo'}, 'additional_data': {'type': 'StructuredDict'}, 'pst': {'type': 'EnumValue'}}}, {'description': '\n    EBike optimierung.\n    ', 'title': 'EBike', 'properties': {'listenpreis': {'type': 'Currency'}, 'enabled': {'type': 'Scalar'}, 'value': {'type': 'Currency'}, 'version': {'type': 'IdenticalTo'}, 'kst_satz': {'type': 'IdenticalTo'}, 'additional_data': {'type': 'StructuredDict'}, 'pst': {'type': 'EnumValue'}}}, {'description': '\n    Entfernung component\n    ', 'title': 'Entfernung', 'properties': {'enabled': {'type': 'Scalar'}, 'value': {'type': 'Currency'}, 'version': {'type': 'IdenticalTo'}, 'kst_satz': {'type': 'IdenticalTo'}, 'additional_data': {'type': 'StructuredDict'}, 'pst': {'type': 'EnumValue'}}}, {'description': None, 'title': 'Heimarbeit', 'properties': {'enabled': {'type': 'Scalar'}, 'value': {'type': 'Cu   und berechnet die optimierung\n    ', 'title': 'Essenscheck', 'properties': {'additional_data': {'type': 'StructuredDict'}, 'value': {'type': 'Currency'}, 'version': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, 'kst_satz': {'type': 'IdenticalTo'}, 'anzahl_gutscheine': {'type': 'Scalar'}, 'is_sachbezug': {'type': 'Scalar'}, 'enabled': {'type': 'Scalar'}}}, {'description': None, 'title': 'DienstwagenAuslage', 'properties': {'enabled': {'type': 'Scalar'}, 'value': {'type': 'Currency'}, 'version': {'type': 'IdenticalTo'}, 'kst_satz': {'type': 'IdenticalTo'}, 'additional_data': {'type': 'StructuredDict'}, 'pst': {'type': 'EnumValue'}}}, {'description': None, 'title': 'Berufskleidung', 'properties': {'enabled': {'type': 'Scalar'}, 'value': {'type': 'Currency'}, 'version': {'type': 'IdenticalTo'}, 'kst_satz': {'type': 'IdenticalTo'}, 'additional_data': {'type': 'StructuredDict'}, 'pst': {'type': 'EnumValue'}}}, {'description': None, 'title': 'PersonalComputer', 'properties': {'enabled': {'type': 'Scalar'[root@8225b0586e21 rechner]# py.test -vvv test/test_schema.py 
+=============================================== test session starts ===============================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 1 items 
+
+test/test_schema.py::test_get_available_components_schema FAILED
+
+==================================================== FAILURES =====================================================
+______________________________________ test_get_available_components_schema _______________________________________
+
+    def test_get_available_components_schema():
+        schema = get_available_components_schema()
+        print(schema)
+>       draft0000r = Draft3Validator(schema)
+
+test/test_schema.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/lib/python3.4/site-packages/jsonschema/validators.py:67: in __init__
+    resolver = RefResolver.from_schema(schema)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'jsonschema.validators.RefResolver'>
+schema = [{'description': None, 'properties': {'additional_data': {'type': 'StructuredDict'}, 'enabled': {'type': 'Scalar'}, 'k...type': 'Scalar'}, 'kst_satz': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, ...}, 'title': 'Gesundheit'}, ...]
+args = (), kwargs = {}
+
+    @classmethod
+    def from_schema(cls, schema, *args, **kwargs):
+        """
+            Construct a resolver from a JSON schema object.
+    
+            :argument schema: the referring schema
+            :rtype: :class:`RefResolver`
+    
+            """
+    
+>       return cls(schema.get(u"id", u""), schema, *args, **kwargs)
+E       AttributeError: 'list' object has no attribute 'get'
+
+/usr/lib/python3.4/site-packages/jsonschema/validators.py:283: AttributeError
+---------------------------------------------- Captured stdout call -----------------------------------------tructuredDict'}, 'kst_satz': {'type': 'IdenticalTo'}}}, {'description': None, 'title': 'Berufskleidung', 'properties': {'version': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, 'value': {'type': 'Currency'}, 'enabled': {'type': 'Scalar'}, 'additional_data': {'type': 'StructuredDict'}, 'kst_satz': {'type': 'IdenticalTo'}}}, {'description': None, 'title': 'VMA_STSVFREI', 'properties': {'version': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, 'value': {'type': 'Currency'}, 'enabled': {'type': 'Scalar'}, 'additional_data': {'type': 'StructuredDict'}, 'kst_satz': {'type': 'IdenticalTo'}}}, {'description': '\n    Entfernung component\n    ', 'title': 'Entfernung', 'properties': {'version': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, 'value': {'type': 'Currency'}, 'enabled': {'type': 'Scalar'}, 'additional_data': {'type': 'StructuredDict'}, 'kst_satz': {'type': 'IdenticalTo'}}}, {'description': '\n    essenscheck komponente. nimmt eine anzahl von essencheck\n    und berechnet die optimie[root@8225b0586e21 rechner]# py.test -vvv test/test_schema.py 
+=============================================== test session starts ===============================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 1 items 
+
+test/test_schema.py::test_get_available_components_schema FAILED
+
+==================================================== FAILURES =====================================================
+______________________________________ test_get_available_components_schema _______________________________________
+
+    def test_get_available_components_schema():
+        schema = get_available_components_schema()
+        #print(schema)
+>       draft0000r = Draft3Validator(schema)
+
+test/test_schema.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/usr/lib/python3.4/site-packages/jsonschema/validators.py:67: in __init__
+    resolver = RefResolver.from_schema(schema)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'jsonschema.validators.RefResolver'>
+schema = [{'description': None, 'properties': {'additional_data': {'type': 'StructuredDict'}, 'enabled': {'type': 'Scalar'}, 'k... 'Scalar'}, 'kst_satz': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, ...}, 'title': 'DienstwagenMiete'}, ...]
+args = (), kwargs = {}
+
+    @classmethod
+    def from_schema(cls, schema, *args, **kwargs):
+        """
+            Construct a resolver from a JSON schema object.
+    
+            :argument [root@8225b0586e21 rechner]# py.test -vvv test/test_schema.py 
+=============================================== test session starts ===============================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 1 items 
+
+test/test_schema.py::test_get_available_components_schema FAILED
+
+==================================================== FAILURES =====================================================
+______________________________________ test_get_available_components_schema _______________________________________
+
+    def test_get_available_components_schema():
+        schema = get_available_components_schema()
+>       pprint(schema)
+E       TypeError: 'module' object is not callable
+
+test/test_schema.py:12: TypeError
+============================================ 1 failed in 0.59 seconds =============================================
+[root@8225b0586e21 rechner]# py.test -vvv test/test_schema.py 
+=============================================== test session starts ===============================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 1 items 
+
+test/test_schema.py::test_get_available_components_schema FAILED
+
+==================================================== FAILURES =====================================================
+______________________________________ test_get_available_components_schema _______________________________________
+
+    def test_get_available_components_schema():
+        schema = get_available_components_schema()
+>       pprint.PrettyPrinter(schema)
+
+test/test_schema.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <pprint.PrettyPrinter object at 0x7fdbbcd1b9e8>
+indent = [{'description': '\n    Entfernung component\n    ', 'properties': {'additional_data': {'type': 'StructuredDict'}, 'en...type': 'Scalar'}, 'kst_satz': {'type': 'IdenticalTo'}, 'pst': {'type': 'EnumValue'}, ...}, 'title': 'Gesundheit'}, ...]
+width = 80, depth = None, stream = None
+
+    def __init__(self, indent=1, width=80, depth=None, stream=None, *,
+                 compact=False):
+        """Handle pretty printing operations onto a stream using a set of
+            configured parameters.
+    
+            indent
+                Number of spaces to indent for each level of nesting.
+    
+            width
+                Attempted maximum number of columns in the output.
+    
+            depth
+                The maximum depth to print out nested structures.
+    
+            stream
+                The desired output stream.  If omitted (or false), the standard
+                output stream available at construction will be used.
+    
+            compact
+                If true, several items will be combined in one line.
+    
+            """
+>       indent = int(indent)
+E       TypeError: int() argument must be a string, a bytes-like object or a number, not 'list'
+
+/usr/lib/python3.4/pprint.py:124: TypeError
+============================================ 1 failed in 0.84 seconds =============================================
+[root@8225b0586e21 rechner]# py.test -vvv test/test_schema.py 
+=============================================== test session starts ===============================================
+platform linux -- Python 3.4.3 -- py-1.4.30 -- pytest-2.7.2 -- /usr/bin/python
+rootdir: /tmp/vbm, inifile: tox.ini
+plugins: asyncio, pythonpath, cov
+collected 1 items 
+
+test/test_schema.py::test_get_available_components_schema FAILED
+
+==================================================== FAILURES =====================================================
+______________________________________ test_get_available_components_schema _______________________________________
+
+    def test_get_available_components_schema():
+        schema = get_available_components_schema()
+        pppp = pprint.PrettyPrinter()
+>       pppp.print(schema)
+E       AttributeError: 'PrettyPrinter' object has no attribute 'print'
+
+test/test_schema.py:13: AttributeError
+============================================ 1 failed in 0.53 seconds =============================================
+[root@8225b0586e21 rechner]# 
