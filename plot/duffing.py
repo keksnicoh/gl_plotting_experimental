@@ -124,7 +124,7 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *dummy, __global float *result)
     {
         float h = time / convert_float(iterations);
-
+        float t = 0;
         float theta = 0;
         result[0] = awp.x;
         result[1] = awp.y;
@@ -139,7 +139,8 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         float k3;
         float k4;
         for(int i=3; i < iterations*3; i += 3) {
-            theta = i / (3.0f * iterations) * time * omega;
+            t = i / (3.0f * iterations) * time;
+            theta = t * omega;
             k1 = h * dummy[i-2];
             k2 = h * (dummy[i-2] + k1/2.0f);
             k3 = h * (dummy[i-2] + k2/2.0f);
@@ -147,6 +148,8 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
             dummy[i] = dummy[i-3] + (k1 + 2*k2 + 2*k3 + k4)/6.0f;
             dummy[i+1] = dummy[i-2] + h * (epsilon * cos(theta) - lambda * dummy[i-2] - beta * dummy[i-3] * dummy[i-3] * dummy[i-3]);
             dummy[i+2] = i/(iterations*3);
+
+            
 
             if(i > start_iteration) {
                 result[i] = dummy[i];
@@ -156,7 +159,11 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
             else {
                 result[i] = 0.0f;
                 result[i+1] = 0.0f;
-                result[i+2] = 0.0f;
+                //result[i+2] = 0.0f;
+            }
+
+            if(t < 50.0f) {
+                result[i+2] = 1.0f;
             }
         }
     }
@@ -176,10 +183,10 @@ vec4 f(vec4 x) {
 }
 """
 
-(x_0, y_0) = (0.21, 0.02) #small
+#(x_0, y_0) = (0.21, 0.02) #small
 #(x_0, y_0) = (1.05, 0.77) #gone
 #(x_0, y_0) = (-0.67, 0.02) #small
-#(x_0, y_0) = (-0.46, 0.30) #big
+(x_0, y_0) = (-0.46, 0.30) #big
 #(x_0, y_0) = (-0.43, 0.12) #small
 #(x_0, y_0) = (3.0,4.0)
 
@@ -188,10 +195,10 @@ vec4 f(vec4 x) {
 (lambd, epsilon) = (0.08, 0.2)
 
 start_iteration = 0
-length = 10000
-time = 60 
+length = 100000
+time = 500 
 
-active_cl_kernel = PHASE_KERNEL
+active_cl_kernel = PHASE_KERNEL_RK
 
 phase_axis = (5.0, 10.0)
 phase_origin = (2.5, 5.0)
@@ -217,8 +224,10 @@ uniforms = window.plotter.get_uniform_manager()
 uniforms.set_global('x_0', x_0, 0.01)
 uniforms.set_global('y_0', y_0, 0.01)
 uniforms.set_global('s', start_iteration, 10)
-uniforms.set_global('t', time, 1)
-window.add_widget('manipulate', widget.Uniforms(uniforms, update_callback=update_uniform))
+uniforms.set_global('t', time, 10)
+widget = widget.Uniforms(uniforms, update_callback=update_uniform)
+widget.floating_percision = 2
+window.add_widget('manipulate', widget)
 
 window.run()
 

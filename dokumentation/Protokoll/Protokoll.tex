@@ -129,7 +129,7 @@ vec4 f(vec4 x) {
 	\caption{Lyapunov mit N=1000 und $\epsilon=0.001$ (Logistische Abbildung). Parameter r auf der x-achse und $\lambda(x_0)$ auf y-achse, mit startwert $x_0=0.4$}
 	\label{img:lyapunov_100}
 \end{figure}
-Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereich für $x=3$ genauer an, so stellen wir eine gewisse Ungenauigkeit fest (vgl. nächste Abbildung). Da wir für die Feigenbaumkonstante möglichst genau die Stellen an denen Periodenverdopplung auftritt identifizieren wollen, müssen wir die Parameter entsprechend modifizieren.
+Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereich für $x=3$ genauer an, so stellen wir eine gewisse Ungenauigkeit fest (vgl. nächste Abbildung). Da wir für die Feigenbaumkonstante möglichst genau die Stellen an denen Periodenverdopplung auftritt identifizieren wollen, müssen wir die Parameter entsprechend modifizieren. Die Fluktuation nehmen zu, wenn $\epsilon$ kleiner wird.
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.50]{lyapunov_1000_at_3}
@@ -143,6 +143,19 @@ Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereic
 3. Weitere Periodenverdopplungen grafisch identifizieren. (Domain hoch setzen für bessere Genauigkeit)
 4. Ursache für Fluktuationen?? Und Möglichkeit diese Fluktuationen zu mitteln!?
 5. Mit gemittelter Fluktuation in OpenCL nicht-grafisch Nullstellen identifiezieren (double precision!!! -> Fehler der durch float64 berücksichtigt werden muss)
+
+\section { Duffing-Gleichung}
+Wir betrachten nun ein angetrieben und gedämpften Oszillator. Als Unterschied zum klassischen Harmonischen Oszillator wird der Term mit der Federkonstante kubisch.
+$$\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}$$
+Diese DGL lässt sich nun nicht mehr analytisch berechnen.
+Im Folgenden lösen wir die Gleichung mit der Euler-Methode.
+$$\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3$$
+$$\frac{dx}{dt}=y$$
+$$\frac{d\theta}{dt}=\Omega$$
+\subsection { Attraktoren }
+Parameter:
+$$\epsilon = 0,2, \lambda = 0,08, \beta = 1, \Omega = 1$$
+
 
 \section{ Literatur }
 \begin{itemize} 

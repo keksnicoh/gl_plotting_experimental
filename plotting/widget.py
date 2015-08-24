@@ -143,12 +143,14 @@ class Uniforms(Widget):
         self._gl_font = gl_font
         self._active_uniform = -1
         self.unfiform_update_callback = update_callback
+        self.floating_percision = 6
+
 
     def render_widget(self):
         str_uniforms = []
 
         for name, value in self._um.get_global_uniforms().items():
-            str_uniforms.append('{}={:.6f}'.format(name, value))
+            str_uniforms.append(('{}={:.'+str(self.floating_percision)+'f}').format(name, value))
         for plot, uniforms in self._um.get_local_uniforms().items():
             for name, value in uniforms.items():
                 str_uniforms.append('{}.{}={:.2f}'.format(plot, name, value))

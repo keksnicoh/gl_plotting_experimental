@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.25)  16 AUG 2015 11:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.25)  24 AUG 2015 14:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -808,42 +808,42 @@ File: lyapunov_1000_at_3.png Graphic file (type png)
 <use lyapunov_1000_at_3.png>
 Package pdftex.def Info: lyapunov_1000_at_3.png used on input line 135.
 (pdftex.def)             Requested size: 405.01213pt x 351.31163pt.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 149.
+ [3] [4 <./lyapunov_1000.png>] [5 <./lyapunov_1000_at_3.png>]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 162.
 
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omslmr.fd
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 149.
- [3] [4 <./lyapunov_1000.png>] [5 <./lyapunov_1000_at_3.png>] [6] (./Protokoll.
-aux) ) 
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 162.
+ [6]
+(./Protokoll.aux) ) 
 Here is how much of TeX's memory you used:
  8252 strings out of 493089
  123848 string characters out of 6134842
- 288271 words of memory out of 5000000
+ 289271 words of memory out of 5000000
  11577 multiletter control sequences out of 15000+600000
  53660 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 47i,8n,49p,392b,1124s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/lo
-cal/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/201
-5/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2015/texmf-di
-st/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/d
-vips/lm/lm-mathsy.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm
--mathit.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmbx8.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/lm/lmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
-ic/lm/lmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr8.p
-fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on Protokoll.pdf (6 pages, 365314 bytes).
+ 47i,8n,49p,449b,1124s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-ec
+.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/loca
+l/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/
+2015/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2015/texmf-dis
+t/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2015/texmf-dist/fonts/en
+c/dvips/lm/lm-mathit.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/lm/lmbx8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmex10.
+pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/lm/lmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
+lic/lm/lmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmri1
+2.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on Protokoll.pdf (6 pages, 368570 bytes).
 PDF statistics:
  96 PDF objects out of 1000 (max. 8388607)
  64 compressed objects within 1 object stream
