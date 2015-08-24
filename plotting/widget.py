@@ -130,10 +130,10 @@ class Widget():
 class Uniforms(Widget):
     """ renders active uniform values from UniformManager """
     IS_DRAGABLE = True
-    def __init__(self, uniform_manager, pos=(0.1, 0.03), size=(0.30, 0.3), font_color=[0.0, 0, 0, 1.0], update_callback=None):
+    def __init__(self, uniform_manager, pos=(0.2, 0.03), size=(0.40, 0.4), font_color=[0.0, 0, 0, 1.0], update_callback=None):
         Widget.__init__(self, pos, size)
 
-        ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/courier.ttf", 60)
+        ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/arial.ttf", 60)
         gl_font = GlFont('', ft)
         gl_font.color = font_color
 
@@ -191,12 +191,14 @@ class Uniforms(Widget):
 
     def get_uniform_setget(self, n):
         for i, name in enumerate(self._um.get_global_uniforms()):
-            if i == n: return (partial(self._um.set_global, name), partial(self._um.get_global, name), self._um.global_uniforms_steps[name])
+            if i == n: 
+                return (partial(self._um.set_global, name), partial(self._um.get_global, name), self._um.global_uniforms_steps[name])
 
         for plot, uniforms in self._um.get_local_uniforms().items():
             for name in uniforms:
                 i+=1
-                if i == n: return (partial(self._um.set_local, plot, name), partial(self._um.get_local, plot, name))
+                if i == n: 
+                    return (partial(self._um.set_local, plot, name), partial(self._um.get_local, plot, name))
 
 
 class Text(Widget):

@@ -92,6 +92,8 @@ class Discrete2d(BaseGraph):
 
     def render(self, mat_modelview=None):
         """ renders the graph """
+        self.domain.pre_render()
+
         if mat_modelview is not None:
             self.shader.uniform('mat_modelview', mat_modelview)
 
@@ -171,10 +173,14 @@ class Line2d(BaseGraph):
 
     def render(self, mat_modelview=None):
         """ renders the graph """
+        self.domain.pre_render()
+        
         if mat_modelview is not None:
             self.shader.uniform('mat_modelview', mat_modelview)
         odl_line_width = glGetFloatv(GL_LINE_WIDTH)
         glEnable(GL_LINE_SMOOTH)
+
+
         #glLineWidth(0.3)
         with self.shader:
             with self.get_vao():

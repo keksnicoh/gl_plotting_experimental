@@ -48,6 +48,12 @@ class Domain():
             self.init_vbo(self.length)
         return self.vbo
 
+    def pre_render(self):
+        """
+        gets invoked before a graph is rendered
+        """
+        pass
+
     def transformation_matrix(self, axis, origin):
         """
         returns a 3x3 transformation/scaling matrix
@@ -85,7 +91,7 @@ class Axis(Domain):
 
         data = numpy.zeros(length*2)
         for x in range(0, length):
-            data[2*x] = (float(x)/length)
+            data[2*x] = (float(x)/(length-1))
             data[2*x+1] = 0.0
 
         self.push_data(data)
@@ -289,4 +295,15 @@ class RandomCartesian(Cartesian):
                 data[3*length*x+3*y+1] = delta_y*(float(y)/length + shift_y) + self.min_y
                 data[3*length*x+3*y+2] = int(random.randint(0, 1))
 
+        self.push_data(data)
+
+class PythonCodeDomain(Domain):
+
+    def calculata_domain(): return numpy.zeros(2)
+
+    def pre_render(self):
+        """
+        gets invoked before a graph is rendered
+        """
+        data = self.calculata_domain()
         self.push_data(data)
