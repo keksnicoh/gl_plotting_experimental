@@ -154,7 +154,7 @@ class Line2d(BaseGraph):
             with self.domain.get_vbo():
                 vertex_position = self.shader.attributeLocation('vertex_position')
                 with self.vao:
-                    glVertexAttribPointer(vertex_position, 2, GL_FLOAT, GL_FALSE, 0, None)
+                    glVertexAttribPointer(vertex_position, self.domain.get_dimension(), GL_FLOAT, GL_FALSE, 0, None)
                     glEnableVertexAttribArray(0)
             time_took = time() - start_time
             print('done. took {:.02f}s'.format(time_took))
