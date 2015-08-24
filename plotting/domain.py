@@ -176,7 +176,7 @@ class AxisGL(Domain):
 
 
 class DuffingDomain(Domain):
-    def __init__(self, kernel, length, time, lambd, epsilon, omega, beta, initial_conditions):
+    def __init__(self, kernel, length, time, lambd, epsilon, omega, beta, initial_conditions, start_iteration):
         Domain.__init__(self, length)
         self.kernel = kernel
         self.time = numpy.int32(time)
@@ -185,16 +185,45 @@ class DuffingDomain(Domain):
         self.omega = numpy.float32(omega)
         self.beta = numpy.float32(beta)
         self.initial_conditions = initial_conditions
+        self.start_iteration = numpy.int32(start_iteration)
+
+    def get_dimension(self):
+        return 3
+
+    def updateParameter(self, param, value, kernel):
+        if not self.gl_buffer:
+            self.gl_buffer = self.getDomainBuffer()
+
+        print param
+
+        if param == 'x_0':
+            self.initial_conditions = (value, self.initial_conditions[1])
+        elif param == 'y_0':
+            self.initial_conditions = (self.initial_conditions[0], value)
+        elif param == 's':
+            self.start_iteration = numpy.int32(value)
+        elif param == 't':
+            self.time = numpy.int32(value)
+        else:
+            return
+
+        print self.initial_conditions[0] + self.initial_conditions[1]
+
+        awp = self.calculator.create2ComponentVektor(self.initial_conditions)
+        self.calculator.calculateGL(self.kernel, [awp, numpy.int32(self.length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration, self.dummy_buffer], [self.gl_buffer], (1,))
+
 
     def init_vbo(self, length):
         Domain.init_vbo(self, length)
 
-        calculator = BaseCalculator(sharedGlContext=True)
-        awp = calculator.create2ComponentVektor(self.initial_conditions)
+        self.calculator = BaseCalculator(sharedGlContext=True)
+        self.gl_buffer = self.calculator.getOpenGLBufferFromId(self.get_vbo().get(0).id)
 
-        gl_buffer = calculator.getOpenGLBufferFromId(self.vbo.get(0).id)
+        self.dummy_buffer = self.calculator.createArrayBufferWrite(numpy.zeros(length*self.get_dimension()))
 
-        calculator.calculateGL(self.kernel, [awp, numpy.int32(length), self.time, self.lambd, self.beta, self.omega, self.epsilon], [gl_buffer], (1,))
+        awp = self.calculator.create2ComponentVektor(self.initial_conditions)
+
+        self.calculator.calculateGL(self.kernel, [awp, numpy.int32(length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration, self.dummy_buffer], [self.gl_buffer], (1,))
 
     def get_dot_size(self): return max(0.002, 1.0/self.length)
 
