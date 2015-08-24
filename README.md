@@ -11,6 +11,10 @@ Development on growing Parameter r for equation: x=rx(1-x)
 Periodenverdopplung analytical for f(x) and f^2(x)
 ![Periodenverdopplung analytical for f(x) and f^2(x)](/dokumentation/Protokoll/analy-periodenv.png)
 
+erste 3d plottings...
+![Periodenverdopplung analytical for f(x) and f^2(x)](/results/3dexp.png)
+
+
 Stable area for fixpoints
 ![Stable area for fixpoints](/dokumentation/Protokoll/stable_fixpoints.png)
  
