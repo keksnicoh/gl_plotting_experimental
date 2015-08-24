@@ -31,13 +31,13 @@ class Domain():
         else:
             self.vbo = VBO()
             with self.vbo:
-                glBufferData(GL_ARRAY_BUFFER, length*8, None, GL_STATIC_DRAW)
+                glBufferData(GL_ARRAY_BUFFER, length*4*self.get_dimension(), None, GL_STATIC_DRAW)
                 self.length = length
 
     def push_data(self, data):
         """ pushes data into vbo """
         data = numpy.array(data, dtype=numpy.float32)
-        byte_count = min(ArrayDatatype.arrayByteCount(data), self.length*8)
+        byte_count = min(ArrayDatatype.arrayByteCount(data), self.length*4*self.get_dimension())
         self.get_vbo().get(0).glBufferSubData(0, byte_count, data)
 
     def get_vbo(self):
@@ -230,12 +230,16 @@ class DuffingDomain(Domain):
         
 
 class Cartesian(Domain):
-    def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0):
+    def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0, dimension=2):
         Domain.__init__(self, length)
         self.min_y = min_y
         self.max_y = max_y
         self.min_x = min_x
         self.max_x = max_x
+        self.dimension = dimension
+
+    def get_dimension(self):
+        return self.dimension
 
     """
     cartesian space
@@ -247,14 +251,16 @@ class Cartesian(Domain):
         # fill data
         shift_x = 1.0/(2*length)
         shift_y = 1.0/(2*length)
-        data = numpy.zeros(length*length*2)
+        data = numpy.zeros(length*length*self.dimension)
 
         delta_x = self.max_x - self.min_x
         delta_y = self.max_y - self.min_y
         for x in range(0, length):
             for y in range(0, length):
-                data[2*length*x+2*y] = delta_x*(float(x)/length + shift_x) + self.min_x
-                data[2*length*x+2*y+1] = delta_y*(float(y)/length + shift_y) + self.min_y
+                data[self.dimension*length*x+self.dimension*y] = delta_x*(float(x)/length + shift_x) + self.min_x
+                data[self.dimension*length*x+self.dimension*y+1] = delta_y*(float(y)/length + shift_y) + self.min_y
+                if self.dimension == 3:
+                    data[self.dimension*length+self.dimension*y+2] = 0.0
 
         self.push_data(data)
 
