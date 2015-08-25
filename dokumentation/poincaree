@@ -1,0 +1,25 @@
+implementation des Poincaree Schnittes. 
+
+Aufzeichnung der Schnittpunkte mit der theta Ebene. 
+
+Um zu erkennen ob ein Phasenraum Punkt (x,y,theta) die theta
+Ebene schneidet wird ein Parameter epsilos definiert, welcher 
+einen Bereich angibt in welchen der Algorithmus den Schnittpunkt
+ermittelt. Ist |abs(cos(theta))| < eps so ist wird beim nächsten
+Phasenraumpunkt folgende Logik angewendet.
+
+if |abs(cos(theta))| < eps:
+    if last == -1: last = |abs(cos(theta))|
+    else:
+       if last > |abs(cos(theta))|:
+          last = |abs(cos(theta))|
+       else:
+          poincaree_record()
+          last = -1
+else:
+    last = -10 
+
+probleme der Logik:
+1. Epsilon muss groß genug sein damit mehrere Punkte im Epsilon Band liegen.
+2. Ist Epsilon hingegen zu groß wird zu viel gerechnet. 
+3. der schnittpunkt mit der Ebene wird nicht exakt bestimmt. 

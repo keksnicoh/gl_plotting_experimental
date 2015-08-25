@@ -150,13 +150,14 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         float h = time / convert_float(iterations);
         float t = 0;
         float theta = 0;
-        result[0] = awp.x;
-        result[1] = awp.y;
-        result[2] = 0.0f;
 
-        dummy[0] = awp.x;
-        dummy[1] = awp.y;
-        dummy[2] = 0.0f;
+        float last_point = 0.0f;
+        float position = 0.0f;
+
+        float last_x = awp.x;
+        float new_x = awp.x;
+        float last_y = awp.y;
+        float last_c = 0.0f;
 
         float k1;
         float k2;
@@ -165,30 +166,24 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         for(int i=3; i < iterations*3; i += 3) {
             t = i / (3.0f * iterations) * time;
             theta = t * omega;
-            k1 = h * dummy[i-2];
-            k2 = h * (dummy[i-2] + k1/2.0f);
-            k3 = h * (dummy[i-2] + k2/2.0f);
-            k4 = h * (dummy[i-2] + k3);
-            dummy[i] = dummy[i-3] + (k1 + 2*k2 + 2*k3 + k4)/6.0f;
-            dummy[i+1] = dummy[i-2] + h * (epsilon * cos(theta) - lambda * dummy[i-2] - beta * dummy[i-3] * dummy[i-3] * dummy[i-3]);
-            dummy[i+2] = i/(iterations*3);
+            k1 = h * last_y;
+            k2 = h * (last_y + k1/2.0f);
+            k3 = h * (last_y + k2/2.0f);
+            k4 = h * (last_y + k3);
+            new_x = last_x + (k1 + 2*k2 + 2*k3 + k4)/6.0f;
+            last_y = last_y + h * (epsilon * cos(theta) - lambda * last_y - beta * last_x * last_x * last_x);
+            last_x = new_x;
+            last_c = i/(iterations*3);
 
+            position = sin(theta);
+            if (last_point*position < 0.0f) {
+                result[i] = last_x;
+                result[i+1] = last_y;
+                result[i+2] = last_c;
+
+            }
             
-
-            if(i > start_iteration) {
-                result[i] = dummy[i];
-                result[i+1] = dummy[i+1];
-                result[i+2] = dummy[i+2];
-            }
-            else {
-                result[i] = 0.0f;
-                result[i+1] = 0.0f;
-                //result[i+2] = 0.0f;
-            }
-
-            if(t < 50.0f) {
-                result[i+2] = 1.0f;
-            }
+            last_point = position;
         }
     }
 """
@@ -207,7 +202,7 @@ vec4 f(vec4 x) {
 }
 """
 
-active_cl_kernel = PHASE_KERNEL
+active_cl_kernel = PHASE_KERNEL_RK
 
 phase_axis = (1.7, 6.5)
 phase_origin = (-1.7, 2.0)
