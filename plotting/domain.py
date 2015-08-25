@@ -186,15 +186,14 @@ class DuffingDomain(Domain):
         self.beta = numpy.float32(beta)
         self.initial_conditions = initial_conditions
         self.start_iteration = numpy.int32(start_iteration)
+        self.dimension = 3
 
     def get_dimension(self):
-        return 3
+        return self.dimension
 
     def updateParameter(self, param, value, kernel):
         if not self.gl_buffer:
             self.gl_buffer = self.getDomainBuffer()
-
-        print param
 
         if param == 'x_0':
             self.initial_conditions = (value, self.initial_conditions[1])
@@ -206,8 +205,6 @@ class DuffingDomain(Domain):
             self.time = numpy.int32(value)
         else:
             return
-
-        print self.initial_conditions[0] + self.initial_conditions[1]
 
         awp = self.calculator.create2ComponentVektor(self.initial_conditions)
         self.calculator.calculateGL(self.kernel, [awp, numpy.int32(self.length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration, self.dummy_buffer], [self.gl_buffer], (1,))

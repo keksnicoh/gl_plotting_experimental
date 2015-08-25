@@ -44,10 +44,12 @@ class PlotPlane3d():
         return create_perspective_projection_matrix(45.00, 3.0/4.0, 0.1, 1000)
     def zoom(self, zoom):
         self._zoom += zoom-1
-
+        self._render_graphs = True
+        
     def translate_origin(self, x, z):
         self.rotation_x += float(z)/1000
         self.rotation_z -= float(x)/1000
+        self._render_graphs = True
 
     def get_plot_matrix(self):
         self.plot_matrix = create_from_x_rotation(self.rotation_x)

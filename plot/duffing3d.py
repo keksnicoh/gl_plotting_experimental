@@ -5,9 +5,10 @@ OpenCL implementation for domain calculation on Duffing equation
 """
 
 from plotting.app import PlotterWindow
-from plotting import graph, domain, widget
+from plotting import graph, domain, widget, plot3d
 import math
 import numpy as np
+from OpenGL.GL import *
 
 """
 Kernel to calculate duffing equation and writes (x, y) data to given GLBuffer
@@ -16,29 +17,34 @@ PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *dummy, __global float *result)
     {
         float h = time / convert_float(iterations);
+        float t = 0;
         float theta = 0;
 
         dummy[0] = awp.x;
         dummy[1] = awp.y;
-        dummy[2] = 0.0f;
+        dummy[2] = theta;
+        dummy[3] = 1.0f;
 
         result[0] = awp.x;
         result[1] = awp.y;
-        result[2] = 0.0f;
-        for(int i=3; i < iterations*3; i += 3) {
-            theta = i / (3.0f * iterations) * time * omega;
-            dummy[i] = dummy[i-3] + h * dummy[i-2];
-            dummy[i+1] = dummy[i-2] + h * (epsilon * cos(theta) - lambda * dummy[i-2] - beta * dummy[i-3] * dummy[i-3] * dummy[i-3]);
-            dummy[i+2] = i/(iterations*3);
-            if(i > start_iteration) {
+        result[2] = theta;
+        result[3] = 1.0f;
+        for(int i=4; i < iterations*4; i += 4) {
+            t = i / (4.0f * iterations) * time;
+            theta = t * omega;
+            dummy[i] = dummy[i-4] + h * dummy[i-3];
+            dummy[i+1] = dummy[i-3] + h * (epsilon * cos(theta) - lambda * dummy[i-3] - beta * dummy[i-4] * dummy[i-4] * dummy[i-4]);
+            dummy[i+2] = theta;
+            dummy[i+3] = i/(iterations*4);
+            //if(i > start_iteration) {
                 result[i] = dummy[i];
                 result[i+1] = dummy[i+1];
-                result[i+2] = dummy[i+2];
-            }
-            else {
-                result[i] = 0.0f;
-                result[i+1] = 0.0f;
-                result[i+2] = 0.0f;
+                result[i+2] = cos(dummy[i+2]);
+                result[i+3] = dummy[i+3];
+            //}
+
+            if(t < 50.0f) {
+                result[i+3] = 1.0f;
             }
         }
 
@@ -171,7 +177,7 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
 COLOR_KERNEL = """
 vec4 f(vec4 x) {
-    return vec4(x.x, x.y, x.z, 0.5);
+    return vec4(x.x, x.y, x.z, x.w);
 }
 """
 
@@ -186,8 +192,8 @@ vec4 f(vec4 x) {
 #(x_0, y_0) = (0.21, 0.02) #small
 #(x_0, y_0) = (1.05, 0.77) #gone
 #(x_0, y_0) = (-0.67, 0.02) #small
-(x_0, y_0) = (-0.46, 0.30) #big
-#(x_0, y_0) = (-0.43, 0.12) #small
+#(x_0, y_0) = (-0.46, 0.30) #big
+(x_0, y_0) = (-0.43, 0.12) #small
 #(x_0, y_0) = (3.0,4.0)
 
 (lambd, epsilon) = (0.2, 0.0)
@@ -195,21 +201,22 @@ vec4 f(vec4 x) {
 (lambd, epsilon) = (0.08, 0.2)
 
 start_iteration = 0
-length = 100000
-time = 500 
+length = 10000
+time = 1000 
 
-active_cl_kernel = PHASE_KERNEL_RK
+active_cl_kernel = PHASE_KERNEL
 
-phase_axis = (5.0, 10.0)
-phase_origin = (2.5, 5.0)
+phase_axis = (1.4, 1.2)
+phase_origin = (0.8, 0.6)
 
 oszilation_axis = (70.0, 8.0)
 oszilation_origin = (0.0, 4.0)
 
 
-window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[.0,.0,.0,1])
+window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[.0,.0,.0,1], plotter=plot3d.PlotPlane3d)
 duffing_domain = domain.DuffingDomain(active_cl_kernel, length, time, lambd, epsilon, 1, 1, (x_0, y_0), start_iteration)
-window.plotter.add_graph('duffing', graph.Line2d(duffing_domain, COLOR_KERNEL))
+duffing_domain.dimension = 4
+window.plotter.add_graph('duffing', graph.Graph3d(duffing_domain, COLOR_KERNEL, mode=GL_LINE_STRIP))
 window.plotter.get_graph('duffing').set_colors(color_min=[1.0, 0.0, 0.0, 1.0], color_max=[0.0, 1.0, 0.0, 1.0])
 
 axis_domain = domain.Axis(50)
@@ -223,8 +230,9 @@ def update_uniform(self, value):
 uniforms = window.plotter.get_uniform_manager()
 uniforms.set_global('x_0', x_0, 0.01)
 uniforms.set_global('y_0', y_0, 0.01)
-uniforms.set_global('s', start_iteration, 10)
+#uniforms.set_global('s', start_iteration, 10)
 uniforms.set_global('t', time, 10)
+uniforms.set_global('length', length, 10)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
 widget.floating_percision = 2
 window.add_widget('manipulate', widget)

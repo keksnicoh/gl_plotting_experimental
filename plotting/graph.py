@@ -245,7 +245,7 @@ class Graph3d(BaseGraph):
         self.kernel = kernel
         self.domain = domain
         self.vao    = None
-        self.mode   = GL_POINTS
+        self.mode   = mode
 
         # create vertex shader source
         vertex_shader_kernel = open(SHADER_DIR+'/line3d.vert.glsl').read()
@@ -257,7 +257,7 @@ class Graph3d(BaseGraph):
         # graph shader
         self.shader = util.Shader(
             vertex=vertex_shader_kernel,
-            fragment=open(SHADER_DIR+'/line.frag.glsl').read(),
+            fragment=open(SHADER_DIR+'/line3d.frag.glsl').read(),
             link=True
         )
 
