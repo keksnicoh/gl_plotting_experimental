@@ -20,46 +20,40 @@ PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         float h = time / convert_float(iterations);
         float theta = 0;
         float t = 0;
-        float eps = 0.01f;
-        float last_point = -1.0f;
+        float last_point = 0.0f;
         float position = 0.0f;
 
+        for(int i=0; i < iterations*3; i += 3) {
+            result[i+0] = 0.0;
+            result[i+1] = 0.0;
+            result[i+2] = 0.0;
+        }
 
 
         float last_x = awp.x;
         float new_x = awp.x;
         float last_y = awp.y;
         float last_c = 0.0f;
-
+        int k = 0;
         for(int i=3; i < iterations*3; i += 3) {
             t = i / (3.0f * iterations) * time;
             theta = t * omega;
             new_x = last_x + h * last_y;
-            last_y = last_y + h * (epsilon * cos(theta) - lambda * last_y - beta * last_x * last_x * last_x);
+            last_y = last_y + h * (epsilon * cos(theta) - lambda * last_y - beta * new_x * new_x * new_x);
             last_x = new_x;
             last_c = i/(iterations*3);
 
-            position = fabs(sin(theta));
-            if(position < eps) {
-                if(last_point == -1.0f) {
-                    last_point = position;
-                }
-                else {
-                    if(last_point > position) {
-                        last_point = position;
-                    }
-                    else {
-                        result[i] = last_x;
-                        result[i+1] = last_y;
-                        result[i+2] = last_c;
-                        last_point = -1.0f;
-                    }
-                }
-            }
+            position = sin(theta);
+            if (last_point*position < 0.0f) {
+                result[k] = last_x;
+                result[k+1] = last_y;
+                result[k+2] = last_c;
 
-            if(t < 50.0f) {
-                result[i+2] = 1.0f;
+                
             }
+            k = k + 3;
+            
+            last_point = position;
         }
 
     }
@@ -191,7 +185,7 @@ PHASE_KERNEL_RK = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
 COLOR_KERNEL = """
 vec4 f(vec4 x) {
-    return vec4(x.x, x.y, x.z, 0.5);
+    return vec4(x.x, x.y, x.z, 1.0);
 }
 """
 
@@ -205,19 +199,19 @@ vec4 f(vec4 x) {
 
 active_cl_kernel = PHASE_KERNEL
 
-phase_axis = (1.7, 6.5)
-phase_origin = (-1.7, 2.0)
+phase_axis = (1.3, 6.0)
+phase_origin = (-1.9, 2.0)
 
 oszilation_axis = (70.0, 8.0)
 oszilation_origin = (0.0, 4.0)
 
 
-window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[.0,.0,.0,1])
+window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label='x', y_label='y')
 duffing_domain = domain.DuffingDomain(active_cl_kernel, length, time, lambd, epsilon, 1, 1, (x_0, y_0), start_iteration)
 duffing_domain.dimension = 3
 window.plotter.add_graph('duffing', graph.Discrete2d(duffing_domain, COLOR_KERNEL))
-window.plotter.get_graph('duffing').set_colors(color_min=[1.0, 0.0, 0.0, 1.0], color_max=[0.0, 1.0, 0.0, 1.0])
-window.plotter.get_graph('duffing').set_dotsize(0.002)
+window.plotter.get_graph('duffing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
+window.plotter.get_graph('duffing').set_dotsize(0.003)
 axis_domain = domain.Axis(50)
 #window.plotter.add_graph('start', graph.Discrete2d(axis_domain, NORMAL))
 

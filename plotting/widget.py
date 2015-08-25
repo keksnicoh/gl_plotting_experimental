@@ -158,7 +158,7 @@ class Uniforms(Widget):
         for i, str_uniform in enumerate(str_uniforms):
             self._gl_font.color = [1,0,0,1] if i == self._active_uniform else self._font_color
             self._gl_font.set_text('{}) {}'.format(i+1, str_uniform))
-            self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0-0.1*i))
+            self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0-0.14*i))
 
         self.refresh_widget = False
     def capture_keyboard(self):
