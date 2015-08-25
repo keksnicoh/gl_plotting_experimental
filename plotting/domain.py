@@ -331,11 +331,17 @@ class RandomCartesian(Cartesian):
 
 class PythonCodeDomain(Domain):
 
+    def __init__(self, length):
+        Domain.__init__(self, length)
+        self.recalculate_on_prerender = True
+        self._is_calculated = False
     def calculata_domain(): return numpy.zeros(2)
 
     def pre_render(self):
         """
         gets invoked before a graph is rendered
         """
-        data = self.calculata_domain()
-        self.push_data(data)
+        if not self._is_calculated or self.recalculate_on_prerender:
+            data = self.calculata_domain()
+            self.push_data(data)
+            self._is_calculated = True
