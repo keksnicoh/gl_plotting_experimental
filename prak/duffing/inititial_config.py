@@ -10,7 +10,7 @@
 (lambd, epsilon) = (0.2, 7.72)
 
 start_iteration = 0
-length = 1500000
+length = 2500000
 time = 4000
 
 phase_axis = (1.7, 6.5)

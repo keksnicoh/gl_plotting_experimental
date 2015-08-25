@@ -24,19 +24,20 @@ PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         float last_point = -1.0f;
         float position = 0.0f;
 
-        dummy[0] = awp.x;
-        dummy[1] = awp.y;
-        dummy[2] = 0.0f;
 
-        result[0] = awp.x;
-        result[1] = awp.y;
-        result[2] = 0.0f;
+
+        float last_x = awp.x;
+        float new_x = awp.x;
+        float last_y = awp.y;
+        float last_c = 0.0f;
+
         for(int i=3; i < iterations*3; i += 3) {
             t = i / (3.0f * iterations) * time;
             theta = t * omega;
-            dummy[i] = dummy[i-3] + h * dummy[i-2];
-            dummy[i+1] = dummy[i-2] + h * (epsilon * cos(theta) - lambda * dummy[i-2] - beta * dummy[i-3] * dummy[i-3] * dummy[i-3]);
-            dummy[i+2] = i/(iterations*3);
+            new_x = last_x + h * last_y;
+            last_y = last_y + h * (epsilon * cos(theta) - lambda * last_y - beta * last_x * last_x * last_x);
+            last_x = new_x;
+            last_c = i/(iterations*3);
 
             position = fabs(sin(theta));
             if(position < eps) {
@@ -48,17 +49,12 @@ PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
                         last_point = position;
                     }
                     else {
-                        result[i] = dummy[i];
-                        result[i+1] = dummy[i+1];
-                        result[i+2] = dummy[i+2];
+                        result[i] = last_x;
+                        result[i+1] = last_y;
+                        result[i+2] = last_c;
                         last_point = -1.0f;
                     }
                 }
-            }
-            else {
-                result[i] = 0.0f;
-                result[i+1] = 0.0f;
-                result[i+2] = 0.0f;
             }
 
             if(t < 50.0f) {
