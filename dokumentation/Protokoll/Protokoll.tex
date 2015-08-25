@@ -96,6 +96,11 @@ Grafisch lässt sich ablesen, dass der Fixpunkt $x_3=\frac{\sqrt{r^2-2 r-3}+r+1}
 $$-1.45<r<-0.82 \Rightarrow -1.45 < r \leq -1$$
 $$2.82<r<3.45 \Rightarrow 3 \geq r > 3.45$$
 Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesamten Bereich $-1.45<r<3.45$ stabil aber da der Fixpunkt ebenfalls nur für $r \leq -1 \land r \geq 3$ existiert gilt der selbe Bereich wie für $x_3$. Die Fixpunkt sind dort stabil, wo sich der graue und der grüne Graph in der Abbildung überlagern.
+\section { Bifurctationsdiagramm}
+\subsection { Logistische Abbildung }
+asdf
+\subsection { Sinus Abbildung }
+asdf
 \section{ Feigenbaumkonstante}
 \subsection {Lyapunov}
 Eine Möglichkeit die Feigenbaumkonstante zu berechnen ist über die Nullstellen des Lyapunov-Exponenten. Gerade an diesen Stellen kommt es zu einer Periodenverdopplung. Dann lässt sich die Feigenbaumkonstante durch
@@ -148,13 +153,24 @@ Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereic
 Wir betrachten nun ein angetrieben und gedämpften Oszillator. Als Unterschied zum klassischen Harmonischen Oszillator wird der Term mit der Federkonstante kubisch.
 $$\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}$$
 Diese DGL lässt sich nun nicht mehr analytisch berechnen.
-Im Folgenden lösen wir die Gleichung mit der Euler-Methode.
+Im Folgenden lösen wir die Gleichung mit der Euler-Methode als auch mit dem Runge-Kutta Verfahren.
 $$\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3$$
 $$\frac{dx}{dt}=y$$
 $$\frac{d\theta}{dt}=\Omega$$
 \subsection { Attraktoren }
 Parameter:
 $$\epsilon = 0,2, \lambda = 0,08, \beta = 1, \Omega = 1$$
+- Unterschiede Runge Kutta Euler (unterschiedliche attraktoren)
+\newline
+- stabile / instabile Trajektorien --> parameter $h = \frac{Zeit}{Iterationen}$
+\newline
+- Optimierung durch Schrittweiten adaptierung
+\newline
+- lyapunov??
+\subsection{ Poincareschnitt }
+Stichwort: Seltsame Attraktoren, Hasudorff-Dimension, Fraktale
+
+\section {LDR-Oszillator}
 
 
 \section{ Literatur }
