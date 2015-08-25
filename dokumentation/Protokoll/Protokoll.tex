@@ -168,8 +168,34 @@ $$\epsilon = 0,2, \lambda = 0,08, \beta = 1, \Omega = 1$$
 \newline
 - lyapunov??
 \subsection{ Poincareschnitt }
-Stichwort: Seltsame Attraktoren, Hasudorff-Dimension, Fraktale
+Die gezeigten Phasenraumportaits sind projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Referenz zu benutzen. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
+\begin{lstlisting}
+      pos = sin(theta);
+      if (last_pos*pos <= 0.0f) {
+          result[k*2] = last_x;
+          result[k*2+1] = last_y;
+          k++;
+      }
+      last_pos = pos;
 
+\end{lstlisting}
+Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter ungenauigeite. So wird nicht exakt das $(x,y)$ duplet angezeigt bei welchen die Ebene geschnitten wurden. Stattdessen wird das $(x,y)$ Duplet bei $\theta_2$ angezeit. Eine Möglichkeit dies zu Optimieren wäre den Mittelwert $(\frac{x_1+x_2}{2}, \frac{y_1 + y_2}{2})$ als Schnittpunkt zu identifizieren.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.20]{poincare-772}
+	\caption{Poincare Schnitt des Duffing Oszillators für $\epsilon=7.72 x=3.0, y=4.0, \lambda=0.2, \beta=1, \theta=1$. als Referenz aus dem VORBEREITUNGSHEFT-LITERATUR-S38}
+	\label{img:poincare-772}
+\end{figure}
+\section {LDR-Oszillator}
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.60]{lyapunov-log}
+	\caption{asdf}
+	\label{img:lyapunov-log}
+\end{figure}
 \section {LDR-Oszillator}
 
 

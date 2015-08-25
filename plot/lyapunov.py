@@ -4,6 +4,10 @@ OpenGL Kernel for lyapunov exponent
 @author Jesse Hinrichsen <jesse@j-apps.com>
 """
 
+# XXX
+# - 3 methoden vergleichen. 
+# - bestimmung von feigenbaum über superattraktive punkte. 6-8 stellen
+
 from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
 
