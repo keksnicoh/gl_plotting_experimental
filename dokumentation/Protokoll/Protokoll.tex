@@ -61,10 +61,102 @@
 \section{  Einleitung  }
 LALALA
 
+Im folgenden bezeichnet $f^2(x) = f(f(x))$
+
 \section{Logistische Abbildung}
-Die logistische Abbildung ist eine 
-$$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
-Def.: $f^2(x) = f(f(x))$
+Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zeigt sich das diese einfache Funktionsvorschrift 
+bereits chaotisches Verhalten an den Tag legt, welches wir im folgenden Abschnitt genauer untersucht haben. Zunächst haben 
+wir ein Bifurkations Diagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ auf die y-Achse abgebildet haben (Abbildung N). Das Bifurkationsdiagramm weißt mehrere Gabelungen auf und hat ab $r=3.6$ ein chaotisches Aussehen, wobei trotzdem Strukturen zu erkennen sind (Bögen, Spalte, Punktierte Linien).
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.35]{bifurkation}
+	\caption{wregergergre}
+	\label{bifurkation}
+\end{figure}
+\subsection{Fixpunkte}
+Gilt für den Parameter $0 \textless r \textless 1$ dann konvergiert $f^n(x)$ gegen 0, denn $f^n(x)$ ist ein Polynom vom grad $2n$.
+Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x^*)=x^* \forall n \iff x^* ist Fixpunkt$. Ist $|f'(x^*)|<1$ so ist der Fixpunkt stabil und umgekehrt für $|f'(x^*)|>1$ ist der Fixpunkt instabil.
+Mit 
+\begin{math}
+f(x^*)=rx^*(1-x^*)=x^*
+\iff x^*=1-1/r \vee x'=0
+\end{math}
+ließ sich analytisch bestimmen, dass die Fixpunkte für $r \in [0,1) \cup (3,4]$ instabil für $r \in (1,3)$ stabil sind.
+Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte für r. Die Aufspaltung im Bifurkationsdiagramm ab $r 3$ ist der Instabilität der Fixpunkte in diesem Bereich zugrundeliegend.
+
+\begin{figure}
+\includegraphics[scale=0.2]{fixpunkt-2878}
+\includegraphics[scale=0.2]{fixpunkt-311}
+\caption{Verlauf der Iterationen bei fixierten Parameter r. Linkes Bild zeigt einen Anziehenden Fixpunkt bei r=2.878, rechtes Bild zeigt abstroßenden Fixpunkt bei r=3.113. Als Linie Verbunden geplottet ist die Folge ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
+\end{figure}
+\subsection{Lyapunov Exponent}
+Der Lyapunov Exponent beschreibt mit welcher Geschwindigkeit sich zwei naheliegende Punkte voneinander entfernen. 
+Es gibt drei Wege den Lyapunov Exponenten zu implementieren.
+
+Definition
+$$\lambda(x_0) = \lim_{N \rightarrow \infty}\lim_{\epsilon \rightarrow 0} \frac{1}{N}\log{\mid \frac{f^N(x_0+\epsilon)- f^N(x_0)}{\epsilon} \mid} $$
+oder analytisch
+$$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $$
+oder renormiert
+$$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $$
+
+
+In Abbildung N haben wir die drei Möglichkeiten auf die logisitsche Funktion angewendet. Es zeigte sich, dass die erste Möglichkeit sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden ergibt. Dies liegt daran, dass die selbt bei kleinen EPSILON die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten keinen Sinn ergibt. 
+Der Lyapunov Exponent hat seine Nullstellen dort wo Periodenverdoppelnde Verzweigungen im Bifurkationsdiagramm sind. 
+Renomierte Formel implementiert als OpenGL Shader Kernel für die logistische Abbildung:
+\begin{lstlisting}
+float g(float r, float x) {
+    return r * x * (1-x);
+}
+vec4 f(vec4 x) {
+    float x0 = 0.4;
+    float eps = 0.0001;
+    float n = 10000;
+    float summe = x0;
+    for (int i=1; i < n; i++) {
+        x0 = g(x.x, x0);
+        summe += log(abs(g(x.x, x0+eps)-g(x.x, x0))/eps);
+    }
+    return vec4(x.x, summe/n, 0, 0.5);
+}
+\end{lstlisting}
+ 
+\begin{figure}
+\includegraphics[scale=0.28]{iteration/lyapunov-1}
+\includegraphics[scale=0.28]{iteration/lyapunov-2}
+\includegraphics[scale=0.28]{iteration/lyapunov-3}
+\caption{Die drei Lyapunov Exponent Implementation im Vergleich. Links: Definition, Mitte: Ableitung, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
+\caption{Analyse des Bifurkationsdiagrammes der logistischen Funktion. Eingezeichnet sind die y=0 Achse, sowie die ersten 5 Superattraktiven Stellen für r. Das Bifurkationsdiagramm wurde so translatiert und skaliert, dass es hinter dem Lyapunov Exponenten erscheint.}. 
+\end{figure}
+
+
+
+\subsection{Feigenbaumkonstante}
+Die Berechnung ist schwer, und so, aber Algorithmus hat geklärt:
+
+Wir haben einen Algorithmus implementiert welcher die ersten 5 Stellen für Superattraktive Fälle aus dem Lyapunov Exponenten ermittelt. (Quellcode: prak/feigenbaum.py). 
+       
+\begin{lstlisting}
+searching from 1.9
+looking for next start_r from 2.00000000002
+searching from 2.99950000003
+looking for next start_r from 3.23606797751
+searching from 3.44927797752
+looking for next start_r from 3.49856169934
+searching from 3.54400769935
+looking for next start_r from 3.55464086278
+searching from 3.56439786279
+looking for next start_r from 3.56666737986
+found values [2.0000000000249916, 3.236067977509959, 3.498561699344952, 3.554640862779951, 3.5666673798649517]
+delta_0=4.70894301336
+delta_1=4.68077099865
+delta_2=4.66295961155
+\end{lstlisting}
+Somit konnten wir für $n=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ numerisch berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert 4.669201016091029... (lit vorbereitung) ab. $$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
 $$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
 \newline
 Fixpunktgleichung (Einerzyklus): 
@@ -112,23 +204,7 @@ Für dern Lyapunov-Exponenten gilt:
 $$\lambda(x_0) = \lim_{N \rightarrow \infty}\lim_{\epsilon \rightarrow 0} \frac{1}{N}\log{\mid \frac{f^N(x_0+\epsilon)- f^N(x_0)}{\epsilon} \mid} $$
 oder auch
 $$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $$
-Zweite Formel implementiert als OpenGL Kernel für die logistische Abbildung:
-\begin{lstlisting}
-float g(float r, float x) {
-    return r * x * (1-x);
-}
-vec4 f(vec4 x) {
-    float x0 = 0.4;
-    float eps = 0.0001;
-    float n = 10000;
-    float summe = x0;
-    for (int i = 1; i <= n - 1; i+=1) {
-        x0 = g(x.x, x0);
-        summe += log(abs(g(x.x, x0+eps)-g(x.x, x0))/eps);
-    }
-    return vec4(x.x, summe/n, 0, 0.5);
-}
-\end{lstlisting}
+
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.65]{lyapunov_1000}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.27)  25 AUG 2015 15:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.27)  26 AUG 2015 01:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -723,54 +723,78 @@ LaTeX Font Info:    Try loading font information for T1+lmss on input line 51.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 65.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 64.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 65.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 64.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 65.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 64.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 65.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 64.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 65.
+(Font)              <10.95> on input line 64.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 65.
+(Font)              <8> on input line 64.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 65.
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 65.
+(Font)              <6> on input line 64.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 64.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-<r3.png, id=1, 597.23125pt x 594.22pt>
-File: r3.png Graphic file (type png)
- <use r3.png>
-Package pdftex.def Info: r3.png used on input line 81.
-(pdftex.def)             Requested size: 179.17075pt x 178.26736pt.
+<bifurkation.png, id=1, 1549.79pt x 685.56125pt>
+File: bifurkation.png Graphic file (type png)
+ <use bifurkation.png>
+Package pdftex.def Info: bifurkation.png used on input line 72.
+(pdftex.def)             Requested size: 542.43463pt x 239.95003pt.
 
-<analy-periodenv.png, id=3, 595.22375pt x 592.2125pt>
-File: analy-periodenv.png Graphic file (type png)
+Overfull \hbox (44.51138pt too wide) in paragraph at lines 72--73
+ [][] 
+ []
 
-<use analy-periodenv.png>
-Package pdftex.def Info: analy-periodenv.png used on input line 82.
-(pdftex.def)             Requested size: 178.5685pt x 177.66512pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--84
+LaTeX Warning: Command \textless invalid in math mode on input line 77.
 
+
+LaTeX Warning: Command \textless invalid in math mode on input line 77.
+
+<fixpunkt-2878.png, id=3, 1198.4775pt x 1198.4775pt>
+File: fixpunkt-2878.png Graphic file (type png)
+ <use fixpunkt-2878.png>
+Package pdftex.def Info: fixpunkt-2878.png used on input line 88.
+(pdftex.def)             Requested size: 239.69125pt x 239.69125pt.
+
+<fixpunkt-311.png, id=4, 1198.4775pt x 1197.47375pt>
+File: fixpunkt-311.png Graphic file (type png)
+ <use fixpunkt-311.png>
+Package pdftex.def Info: fixpunkt-311.png used on input line 89.
+(pdftex.def)             Requested size: 239.69125pt x 239.49051pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 90.
+
+Underfull \hbox (badness 4981) in paragraph at lines 90--90
+[][]|\T1/lmr/m/n/8 Ver-lauf der Ite-ra-tio-nen bei fi-xier-ten Pa-ra-me-ter r. 
+Lin-kes Bild zeigt einen An-zie-hen-den Fix-punkt bei
+ []
+
+
+Underfull \hbox (badness 1147) in paragraph at lines 90--90
+\T1/lmr/m/n/8 r=2.878, rech-tes Bild zeigt ab-st-ro-ÿen-den Fix-punkt bei r=3.1
+13. Als Li-nie Ver-bun-den ge-plot-tet ist die Fol-
  []
 
 [1
@@ -779,90 +803,142 @@ Underfull \hbox (badness 10000) in paragraph at lines 78--84
 
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<stable_fixpoints.png, id=18, 1187.43625pt x 768.8725pt>
+[2 <./bifurkation.png> <./fixpunkt-2878.png> <./fixpunkt-311.png>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 107.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+<iteration/lyapunov-1.png, id=30, 601.24625pt x 597.23125pt>
+File: iteration/lyapunov-1.png Graphic file (type png)
+
+<use iteration/lyapunov-1.png>
+Package pdftex.def Info: iteration/lyapunov-1.png used on input line 125.
+(pdftex.def)             Requested size: 168.3478pt x 167.2236pt.
+
+<iteration/lyapunov-2.png, id=31, 598.235pt x 599.23875pt>
+File: iteration/lyapunov-2.png Graphic file (type png)
+
+<use iteration/lyapunov-2.png>
+Package pdftex.def Info: iteration/lyapunov-2.png used on input line 126.
+(pdftex.def)             Requested size: 167.50465pt x 167.7857pt.
+
+<iteration/lyapunov-3.png, id=32, 598.235pt x 600.2425pt>
+File: iteration/lyapunov-3.png Graphic file (type png)
+
+<use iteration/lyapunov-3.png>
+Package pdftex.def Info: iteration/lyapunov-3.png used on input line 127.
+(pdftex.def)             Requested size: 167.50465pt x 168.06674pt.
+
+Overfull \hbox (10.30052pt too wide) in paragraph at lines 125--128
+[][] [] [] 
+ []
+
+<iteration/bifurk-log-lyapunov-periode.png, id=33, 1025.8325pt x 518.93875pt>
+File: iteration/bifurk-log-lyapunov-periode.png Graphic file (type png)
+
+<use iteration/bifurk-log-lyapunov-periode.png>
+Package pdftex.def Info: iteration/bifurk-log-lyapunov-periode.png used on inpu
+t line 132.
+(pdftex.def)             Requested size: 461.62038pt x 233.52028pt.
+ [3 <./iteration/lyapunov-1.png> <./iteration/lyapunov-2.png> <./iteration/lyap
+unov-3.png>] [4 <./iteration/bifurk-log-lyapunov-periode.png>] <r3.png, id=46, 
+597.23125pt x 594.22pt>
+File: r3.png Graphic file (type png)
+
+<use r3.png>
+Package pdftex.def Info: r3.png used on input line 174.
+(pdftex.def)             Requested size: 179.17075pt x 178.26736pt.
+ <analy-periodenv.png, id=47, 595.22375pt x 592.2125pt>
+File: analy-periodenv.png Graphic file (type png)
+
+<use analy-periodenv.png>
+Package pdftex.def Info: analy-periodenv.png used on input line 175.
+(pdftex.def)             Requested size: 178.5685pt x 177.66512pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--177
+
+ []
+
+<stable_fixpoints.png, id=48, 1187.43625pt x 768.8725pt>
 File: stable_fixpoints.png Graphic file (type png)
 
 <use stable_fixpoints.png>
-Package pdftex.def Info: stable_fixpoints.png used on input line 93.
+Package pdftex.def Info: stable_fixpoints.png used on input line 186.
 (pdftex.def)             Requested size: 474.9661pt x 307.54355pt.
- [2 <./r3.png> <./analy-periodenv.png> <./stable_fixpoints.png>]
-Overfull \hbox (5.77739pt too wide) in paragraph at lines 106--107
+ [5 <./r3.png> <./analy-periodenv.png>]
+Overfull \hbox (5.77739pt too wide) in paragraph at lines 199--200
 \T1/lmr/m/n/10.95 Eine Mög-lich-keit die Fei-gen-baum-kon-stan-te zu be-rech-ne
 n ist über die Null-stel-len des Lyapunov-Exponenten.
  []
 
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 115.
-(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-<lyapunov_1000.png, id=26, 585.18625pt x 594.22pt>
+[6 <./stable_fixpoints.png>]
+<lyapunov_1000.png, id=58, 585.18625pt x 594.22pt>
 File: lyapunov_1000.png Graphic file (type png)
  <use lyapunov_1000.png>
-Package pdftex.def Info: lyapunov_1000.png used on input line 133.
+Package pdftex.def Info: lyapunov_1000.png used on input line 210.
 (pdftex.def)             Requested size: 380.36655pt x 386.23842pt.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 134.
 
-<lyapunov_1000_at_3.png, id=27, 810.02625pt x 702.625pt>
+<lyapunov_1000_at_3.png, id=59, 810.02625pt x 702.625pt>
 File: lyapunov_1000_at_3.png Graphic file (type png)
 
 <use lyapunov_1000_at_3.png>
-Package pdftex.def Info: lyapunov_1000_at_3.png used on input line 140.
+Package pdftex.def Info: lyapunov_1000_at_3.png used on input line 217.
 (pdftex.def)             Requested size: 405.01213pt x 351.31163pt.
- [3] [4 <./lyapunov_1000.png>] [5 <./lyapunov_1000_at_3.png>] <poincare-772.png
-, id=44, 1204.5pt x 1200.485pt>
+ [7 <./lyapunov_1000.png>] [8 <./lyapunov_1000_at_3.png>] <poincare-772.png, id
+=69, 1204.5pt x 1200.485pt>
 File: poincare-772.png Graphic file (type png)
-
-<use poincare-772.png>
-Package pdftex.def Info: poincare-772.png used on input line 185.
+ <use poincare-772.png>
+Package pdftex.def Info: poincare-772.png used on input line 262.
 (pdftex.def)             Requested size: 240.89574pt x 240.09274pt.
- <lyapunov-log.png, id=45, 714.67pt x 736.7525pt>
-File: lyapunov-log.png Graphic file (type png)
 
-<use lyapunov-log.png>
-Package pdftex.def Info: lyapunov-log.png used on input line 195.
+<lyapunov-log.png, id=70, 714.67pt x 736.7525pt>
+File: lyapunov-log.png Graphic file (type png)
+ <use lyapunov-log.png>
+Package pdftex.def Info: lyapunov-log.png used on input line 272.
 (pdftex.def)             Requested size: 428.8053pt x 442.05492pt.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 204.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 281.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 204.
- [6] [7 <./poincare-772.png>] [8 <./lyapunov-log.png>]
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 281.
+ [9] [10 <./poincare-772.png>] [11 <./lyapunov-log.png>]
 (/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.a
 ux) ) 
 Here is how much of TeX's memory you used:
- 8048 strings out of 493117
- 119775 string characters out of 6135432
- 268192 words of memory out of 5000000
- 11347 multiletter control sequences out of 15000+600000
+ 8105 strings out of 493117
+ 120922 string characters out of 6135432
+ 267192 words of memory out of 5000000
+ 11396 multiletter control sequences out of 15000+600000
  53660 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 47i,8n,49p,545b,1124s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/loc
-al/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2014
-/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2014/texmf-dis
-t/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dv
-ips/lm/lm-mathsy.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-
-mathit.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmbx8.pfb>
+ 47i,8n,49p,545b,1668s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/loca
+l/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/
+2014/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2014/texmf-dis
+t/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2014/texmf-dist/fonts/en
+c/dvips/lm/lm-ec.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-
+mathsy.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmbx8.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/loca
 l/texlive/2014/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/
-2014/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2014/texmf-
-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/
-type1/public/lm/lmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
-c/lm/lmr6.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr8.pf
-b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/lo
-cal/texlive/2014/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texl
-ive/2014/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2014/texmf-dist/f
-onts/type1/urw/courier/ucrr8a.pfb>
+2014/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2014/texmf-
+dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2014/texmf-dist/fonts/
+type1/public/lm/lmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/publi
+c/lm/lmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr6.p
+fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive
+/2014/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2014/texmf-dist/f
+onts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
+urw/courier/ucrr8a.pfb>
 Output written on /Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texp
-adtmp/Protokoll.pdf (8 pages, 768166 bytes).
+adtmp/Protokoll.pdf (11 pages, 1683535 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 135 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
