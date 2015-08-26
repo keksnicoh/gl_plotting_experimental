@@ -19,8 +19,7 @@ delta_1=4.68077099865
 delta_2=4.66295961155
 
 """
-
-from numpy import log, abs, sin, cos
+from numpy import log, abs, sin
 
 n = 2000
 eps_initial = 0.0005
@@ -28,7 +27,7 @@ depth = 0
 max_depth = 8
 eps = eps_initial
 a = []
-start_r = -0.1
+start_r = 1.9
 
 log_fct = lambda r, x: r*x*(1-x)
 dlog_fct = lambda r, x: r-2*r*x
@@ -36,8 +35,8 @@ dlog_fct = lambda r, x: r-2*r*x
 sin_fct = lambda r, x: r*sin(x)
 dsin_fct = lambda r, x: r*cos(x)
 
-f = sin_fct
-df = dsin_fct
+f = log_fct
+df = dlog_fct
 
 def lyapunov(r):
     x0 = 0.4
