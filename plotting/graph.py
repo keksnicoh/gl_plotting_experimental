@@ -115,11 +115,12 @@ class Line2d(BaseGraph):
         -1, -1,   0, 1
     ], dtype=numpy.float32)
 
-    def __init__(self, domain, kernel=None):
+    def __init__(self, domain, kernel=None, mode=GL_LINE_STRIP):
         """ takes a domain and an optional kernel function """
         self.kernel = kernel
         self.domain = domain
         self.vao    = None
+        self.mode   = mode
 
         # create vertex shader source
         vertex_shader_kernel = open(SHADER_DIR+'/line.vert.glsl').read()
@@ -184,7 +185,7 @@ class Line2d(BaseGraph):
         #glLineWidth(0.3)
         with self.shader:
             with self.get_vao():
-                glDrawArrays(GL_LINE_STRIP, 0, self.domain.length)
+                glDrawArrays(self.mode, 0, self.domain.length)
 
 class Field2d(BaseGraph):
     """
