@@ -19,7 +19,7 @@ delta_1=4.68077099865
 delta_2=4.66295961155
 
 """
-from numpy import log, abs
+from numpy import log, abs, sin
 
 n = 2000
 eps_initial = 0.0005
@@ -32,13 +32,19 @@ start_r = 1.9
 log_fct = lambda r, x: r*x*(1-x)
 dlog_fct = lambda r, x: r-2*r*x
 
+sin_fct = lambda r, x: r*sin(x)
+dsin_fct = lambda r, x: r*cos(x)
+
+f = log_fct
+df = dlog_fct
+
 def lyapunov(r):
     x0 = 0.4
     sum = 0.0
-    sum = log(abs(dlog_fct(r, x0)))
+    sum = log(abs(df(r, x0)))
     for i in range(1, n):
-        x0 = log_fct(r, x0)
-        log_arg = abs(dlog_fct(r, x0))
+        x0 = f(r, x0)
+        log_arg = abs(df(r, x0))
         sum += log(log_arg)
     return sum/n
 

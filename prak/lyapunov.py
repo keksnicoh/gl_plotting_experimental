@@ -80,7 +80,8 @@ window.plotter.add_graph('origin', graph.Line2d(origin_domain))
 window.plotter.get_graph('origin').set_colors(color_min=[0.0,0.0,.0,1.0], color_max=[0.0,0.0,0.0,1.0])
 
 
-lines= [2.0000000000249916, 3.236067977509959, 3.498561699344952, 3.554640862779951, 3.5666673798649517]
+lines= 1.5707963268249954, 2.4433226863000517, 2.65898801277506, 2.7063260938000595, 2.715853799875058, 2.7158537995000565, 2.715853800025055, 2.715853800350054]
+
 for x in lines:
     origin_domain = domain.Domain(2)
     origin_domain.push_data([x, -10.0, x, 10.0])

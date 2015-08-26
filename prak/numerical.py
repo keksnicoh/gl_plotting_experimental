@@ -49,26 +49,26 @@ def iteration_attractor_quadruple_opt1(f, l=100):
 
 
 
-def bifurcation(f, l=100, rn=10000, imax=1000, xs=2.5, xe=4.0):
+def bifurcation(f, l=100, rn=10000, imax=1000, xs=2.5, xe=4.0, x_0=lambda i: 0.5):
     """
     erstellt datensatz welcher die iterationsschritte visualisiert.
     """
 
     #xs, xe = 2.5, 4.0
 
-    data = numpy.zeros(rn*imax/2*3)
+    data = numpy.zeros(rn*imax/2*2)
     k = 0
     for i in range(0, rn):
         r = xs+i*(xe-xs)/rn
-        x = 0.5
+        x = x_0(i)
         for j in range(0, imax):
             
             if j > imax/2:
-                data[k*3] = r
-                data[k*3 +1] = f(r, x)
-                data[k*3 +2] = 2*(float(j)/imax-0.5)
+                data[k*2] = r
+                data[k*2 +1] = f(r, x)
+                #data[k*3 +2] = 2*(float(j)/imax-0.5)
 
-                x = data[k*3 +1] 
+                x = data[k*2 +1] 
                 k+=1
             else:
                 x = f(r,x)
