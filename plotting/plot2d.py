@@ -100,6 +100,9 @@ class PlotPlane2d():
         """ axis origin position in plot plane coords """
         self.i_origin = (0.0, 0.0)
 
+        """ decimal precision for axis """
+        self.precision_axis = (2,2)
+
         """ internal stuff """
         self._uniforms = {}
         self._unit_count = None
@@ -116,6 +119,8 @@ class PlotPlane2d():
         self.window = Window(size=(2,2), color=bg_color, resolution=(1000, 1000)) # the maximum size seems to be a raise conditional problem
         self.render_graphs = True
         self.render_first_time = True
+
+
     def prepare(self):
         self._prepare_scalings()
         self._prepare_outer_matrix()
@@ -201,7 +206,7 @@ class PlotPlane2d():
             colors += [0.0, 0.0, 0.0, 1.0]
             colors += [0.0, 0.0, 0.0, 1.0]
             self._fonts.append([
-                '{:.2f}'.format(u*(self.i_axis[0]/self._unit_count[0])-self.i_origin[0]),
+                ('{:.'+str(self.precision_axis[0])+'f}').format(u*(self.i_axis[0]/self._unit_count[0])-self.i_origin[0]),
                 (self._unit_w[0]*u+self.i_border[0]-0.05)*self._scaling[0],
                 (-self.o_wh[1]+(self.i_border[3])*0.5+0.04)
             ])
@@ -215,7 +220,7 @@ class PlotPlane2d():
             colors += [0.0, 0.0, 0.0, 1.0]
             colors += [0.0, 0.0, 0.0, 1.0]
             self._fonts.append([
-                '{:.2f}'.format(self.i_axis[1]-u*self.i_axis[1]/self._unit_count[1]-self.i_origin[1]),
+                ('{:.'+str(self.precision_axis[1])+'f}').format(self.i_axis[1]-u*self.i_axis[1]/self._unit_count[1]-self.i_origin[1]),
                 (0.025+0.10)*self._scaling[0],
                 (-(self._unit_w[1])*u-self.i_border[1])*self._scaling[1]
             ])

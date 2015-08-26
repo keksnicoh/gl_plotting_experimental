@@ -292,9 +292,6 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 	\caption{Poincare Schnitt des Duffing Oszillators für $\epsilon=7.72 x=3.0, y=4.0, \lambda=0.2, \beta=1, \theta=1$. als Referenz aus dem VORBEREITUNGSHEFT-LITERATUR-S38}
 	\label{img:poincare-772}
 \end{figure}
-\section {LDR-Oszillator}
-
-
 
 \begin{figure}
 	\centering
@@ -302,8 +299,81 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 	\caption{asdf}
 	\label{img:lyapunov-log}
 \end{figure}
-\section {LDR-Oszillator}
 
+\section {LDR-Oszillator}
+Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis.
+\subsection { Theorie } \label{ssec:theo}
+Zunächst lässt sich ein linearer Schwingkreis der aus einem Widerstand, einem Kondensator und einer Spule besteht über die Spannungen an den einzelnen Bauteilen beschreiben
+$$V_g=V_c+V_l+V_r \text{ (Kirschoff'sches Gesetz)}$$
+Daraus folgt mit $V_g=V_s\cos{\omega t}$ die Differentialgleichung
+$$\ddot{Q}L + \dot{Q}R+ \frac{Q}{C} = V_s\cos{\omega t}$$
+welche mit dem angetriebener, gedämpfter Oszillator vergleichbar ist. Dabei ist $Q$ die Ladung, $L$ die Induktivität der Spule, $R$ der Widerstand, C die Kapazität des Kondensators $V_s$ die angelegte Spannung und $\omega$ die Frequenz der angelegten Wechselspannung.
+\newline
+Wird nun der Kondensator durch eine Diode ausgetauscht erhalten wir, wie bei Duffing-Oszillator, einen nichtlinearen Term. Während beim linearen Schwingkreis $I=\frac{dQ}{dt}$ gilt lässt sich die Diode als parallel geschalteter Kondensator und Widerstand mit 
+$$I=I_f(1-\exp(-\frac{V_d}{V_t})) + \frac{dQ}{dt}$$
+beschreiben, wobei $I_f$ und $V_t$ Konstanten sind.
+Dies führt zu
+$$\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_f\exp(-\frac{V_d}{V_t})} $$
+in Durchlassrichtung und 
+$$\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_r(1+\frac{V_d}{\phi})^{\gamma}}$$
+in Sperrrichtung.
+Weiterhin gilt
+$$\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}$$
+$$\frac{d\theta}{dt}=\omega$$
+Damit lässt sich nun das Euler-Verfahren anwenden (siehe \ref{ssec:num})
+
+\subsection{ Numerische Berechnungen } \label{ssec:num}
+Unter Verwendung folgender Paramter
+\newline
+$R=100\Omega$
+\newline
+$L=2367\cdot10^{-6} H$
+\newline
+$C_r=82 pF$
+\newline
+$C_f=56 \cdot10^{-6}  pF$
+\newline
+$I_f=2,8pA$
+\newline
+$\gamma=0,44$
+\newline
+$\phi=0,6V$
+\newline
+$V_t=34mV$
+\newline
+haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6$ die Diode sperrt und ansonsten leitet.
+\newline
+Für unterschiedlichen Anregungsspannungen erhalten wir teilweise deutliche Akttraktoren als auch chaos (siehe Abbildung \ref{fig:ldr-prd}).
+\newline
+\begin{figure}
+\includegraphics[scale=0.28]{V_s-2V_spannung}
+\includegraphics[scale=0.28]{V_s-2V_strom}
+\includegraphics[scale=0.28]{V_s-2V}
+\caption{LDR-Schwingkreis bei einer Anregungsspannung von $V_s=2V$. Numerisch mit Euler-Cauchy-Verfahren gelöst, bei einer Schrittweite $h=10^{-9}$ Links: Zeitlicher Verlauf der Spannung $V_d$ an der Diode ($10^5$Iterationen). Mitte: Zeitlicher Verlauf des Stroms $I$ ($10^5 Iterationen$). Rechts: Phasenraumdiagram nach $10^5$ Iterationen für weitere $4 \cdot 10^5$ Iterationen }. 
+\label{fig:ldr_v2}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.28]{V_s-4V}
+\includegraphics[scale=0.28]{V_s-6V}
+\includegraphics[scale=0.28]{V_s-15-67V}
+\caption{Phasenraumdiagramme bei unterschiedlichen Anregungsspannungen $V_s$ nach $10^5$ Iterationen für weitere $4 \cdot 10^5$ Iterationen. Links: $V_s=4V$. Mitte: $V_s=6V$. Rechts: $V_s=15.67V$}
+\label{fig:ldr-prd}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.5]{Poincare-nach10000iterations}
+\caption{Poincaré-Schnitt für $V_s=2V$ durch die Ebene bei $\sin(\theta)=0$ angefangen nach $10^4$ Iterationen. Insgesamt 1500 Punkte}
+\label{fig:ldr-prd}
+\end{figure}
+
+
+\subsection{ Versuchsaufbau}
+Der in diesem Versuch verwendete Schwingreis ist aufgebaut aus einer Spule, einem Widerstand und einer Diode.....
+
+\subsection { Versuchsdurchführung }
+
+\subsection { Zusammenfassung }
 
 \section{ Literatur }
 \begin{itemize} 
