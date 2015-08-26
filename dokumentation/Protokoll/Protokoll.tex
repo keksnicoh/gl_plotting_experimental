@@ -274,7 +274,7 @@ $$\epsilon = 0,2, \lambda = 0,08, \beta = 1, \Omega = 1$$
 \newline
 - lyapunov??
 \subsection{ Poincareschnitt }
-Die gezeigten Phasenraumportaits sind projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Referenz zu benutzen. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
+Die gezeigten Phasenraumportaits sind projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ und $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
 \begin{lstlisting}
       pos = sin(theta);
       if (last_pos*pos <= 0.0f) {
@@ -285,7 +285,7 @@ Die gezeigten Phasenraumportaits sind projektionen des dreidimensionalen Phasenr
       last_pos = pos;
 
 \end{lstlisting}
-Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter ungenauigeite. So wird nicht exakt das $(x,y)$ duplet angezeigt bei welchen die Ebene geschnitten wurden. Stattdessen wird das $(x,y)$ Duplet bei $\theta_2$ angezeit. Eine Möglichkeit dies zu Optimieren wäre den Mittelwert $(\frac{x_1+x_2}{2}, \frac{y_1 + y_2}{2})$ als Schnittpunkt zu identifizieren.
+Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. So wird nicht exakt das $(x,y)$ duplet abgebildet bei welchen die Ebene geschnitten wurden, stattdessen wird das $(x,y)$ Duplet bei $\theta_2$ angezeit. Eine Möglichkeit dies zu Optimieren wäre den Mittelwert $(\frac{x_1+x_2}{2}, \frac{y_1 + y_2}{2})$ als Schnittpunkt zu identifizieren.
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.20]{poincare-772}
