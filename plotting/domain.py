@@ -175,6 +175,32 @@ class AxisGL(Domain):
         self.buffer = calculator.getOpenGLBufferFromId(vbo.get(0).id)
 
 
+class CLDomain(Domain):
+    def __init__(self, kernel, gl_buffer_length, cl_params, dimension=2):
+        Domain.__init__(self, gl_buffer_length)
+        self.kernel = kernel
+        self.dimension = dimension
+        self.cl_params = cl_params
+
+    def get_dimension(self):
+        return self.dimension
+
+    def init_vbo(self, length):
+        Domain.init_vbo(self, length)
+        self.calculator = BaseCalculator(sharedGlContext=True)
+        self.gl_buffer = self.calculator.getOpenGLBufferFromId(self.get_vbo().get(0).id)
+        self.calculate_cl_buffer()
+
+    def calculate_cl_buffer(self, param=None, value=None):
+        if param == 'V_s':
+            print "V_s:", value
+            self.cl_params[6] = numpy.float32(value)
+        if param == 'it_offset':
+            self.cl_params[1] = numpy.int32(value)
+
+        self.calculator.calculateGL(self.kernel, self.cl_params, [self.gl_buffer], (1,))
+
+
 class DuffingDomain(Domain):
     def __init__(self, kernel, length, time, lambd, epsilon, omega, beta, initial_conditions, start_iteration):
         Domain.__init__(self, length)
