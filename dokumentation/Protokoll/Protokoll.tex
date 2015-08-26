@@ -71,7 +71,7 @@ wir ein Bifurkations Diagramm der logistischen Abbildung erzeugt indem wir den P
 Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ haben laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste aus (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Perdionenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (Fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strutkuren feststellen lassen (Bögen, Punkte auf geraden, freie Bereiche).
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.35]{bifurkation}
+	\includegraphics[scale=0.25]{bifurkation}
 	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
 	\label{bifurkation}
 \end{figure}
@@ -98,20 +98,20 @@ Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte
 Der Lyapunov Exponent beschreibt mit welcher Geschwindigkeit sich zwei naheliegende Punkte voneinander entfernen. 
 Es gibt drei Wege den Lyapunov Exponenten zu implementieren:
 
-Definition
+(1) Definition
 $\lambda(x_0) = \lim_{N \rightarrow \infty}\lim_{\epsilon \rightarrow 0} \frac{1}{N}\log{\mid \frac{f^N(x_0+\epsilon)- f^N(x_0)}{\epsilon} \mid} $
 
 
-analytisch
+(2) Analytisch
 $\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $
 
 
-renormiert:
+(3) Renormiert:
 $\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $
 
 
 In Abbildung N haben wir die drei Möglichkeiten auf die logisitsche Funktion angewendet. Es zeigte sich, dass die erste Möglichkeit sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden ergibt. Dies liegt daran, dass die selbt bei kleinen EPSILON die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten keinen Sinn ergibt. 
-Der Lyapunov Exponent hat seine Nullstellen dort wo Periodenverdoppelnde Verzweigungen im Bifurkationsdiagramm sind. 
+Der Lyapunov Exponent hat seine Nullstellen dort wo die Abbildung ihre superattraktiven Stellen hat. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen. Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$. Tratsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (QUELLE). Im folgenden ist der OpenCL Quellcode der renomierten Formel des Lyapunov Exponenten.
 Renomierte Formel implementiert als OpenGL Shader Kernel für die logistische Abbildung:
 \begin{lstlisting}
 float g(float r, float x) {
@@ -134,13 +134,18 @@ vec4 f(vec4 x) {
 \includegraphics[scale=0.28]{iteration/lyapunov-1}
 \includegraphics[scale=0.28]{iteration/lyapunov-2}
 \includegraphics[scale=0.28]{iteration/lyapunov-3}
-\caption{Die drei Lyapunov Exponent Implementation im Vergleich. Links: Definition, Mitte: Ableitung, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
+\caption{Die drei Lyapunov Exponent Implementation im Vergleich. Links: Definition, Mitte: Analytisch, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
 \caption{Analyse des Bifurkationsdiagrammes der logistischen Funktion. Eingezeichnet sind die y=0 Achse, sowie die ersten 5 Superattraktiven Stellen für r. Das Bifurkationsdiagramm wurde so translatiert und skaliert, dass es hinter dem Lyapunov Exponenten erscheint.}. 
 \end{figure}
+
+
+\section{Sinus Abbildung}
+Die Sinusabbildung ist gegeben durch $x_{n+1}=r*sin(x)$. Wir haben die bereits implementieren Programme nun auf die Sinus Funktion angewendet und kamen zu folgendem Ergebniss:
+ TABELLE MIT ALLEN SACHEN:
 
 \begin{figure}
 \centering
@@ -151,10 +156,19 @@ vec4 f(vec4 x) {
 
 
 \subsection{Feigenbaumkonstante}
-Die Berechnung ist schwer, und so, aber Algorithmus hat geklärt:
-
-Wir haben einen Algorithmus implementiert welcher die ersten 5 Stellen für Superattraktive Fälle aus dem Lyapunov Exponenten ermittelt. (Quellcode: prak/feigenbaum.py). 
-       
+Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen nicht linearen System auf und lässt sich wie folgt bestimmen:
+$$\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}$$ oder $$\delta_i = \frac{s_i-s_{i+1}}{s_{i+1}-s_{i+2}}$$
+$$\lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991 (2.3.1) $$ (https://oeis.org/A006890)
+wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stellen sind.
+Also lässt sich die Feigenbaumkonstante mit dem Lyapunov Exponenten bestimmen. 
+Wir haben uns dazu entschieden, die superattraktiven Fälle numerisch zu finden, da diese leichter zu ermitteln sind (Infimum). Die Nullstellen sind bei genauerem hingucken nicht präzise weshalb ein sehr schwammiges Epsilon Kriterium die Genauigkeit verwischt hätte (Siehe Abbildung N XXX). 
+Der Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
+Ist $l_2-l_1 \leq 0$ $(1) $ wandert der Iterationsschritt zum superattraktiven Fall. 
+Dies wird so lange fortgesetzt bis die Bedingung $(1)$ nicht mehr hält. 
+Es wird nun um $\Delta x$ zurueckgegangen und anschließend die Schrittweite $\Delta x \mapsto \frac{\Delta x}{10} $ verkleinert. Nun wird erneut so lange iteriert, bis $(1)$ nicht mehr hält. 
+Der Vorgang wiederholt sich 8 mal. Nun wird $(2*x_0 + \Delta x )/2$ als Ergebniss gespeichert. 
+Als nächstes befindet sich der Algorithmus im Anfangspunkt-Modus. Es wird so lange die x-Achse abgetestet bis die Bedingung $\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2*\Delta x)$ nicht mehr erfuellt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert.  (Quellcode: prak/feigenbaum.py)
+Im folgenden ist die Terminal Ausgabe des Algorithmusses beigefuegt:
 \begin{lstlisting}
 searching from 1.9
 looking for next start_r from 2.00000000002
@@ -171,7 +185,7 @@ delta_0=4.70894301336
 delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
-Somit konnten wir für $n=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ numerisch berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert 4.669201016091029... (lit vorbereitung) ab. $$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
+Somit konnten wir für $n=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ numerisch berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab. $$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
 $$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
 \newline
 Fixpunktgleichung (Einerzyklus): 
