@@ -158,7 +158,7 @@ I_f = 2.8*10**-12 #A
 
 phi = 0.6
 
-V_s = 2.0 #V
+V_s = 6.0 #V
 V_t = 0.034 #V
 
 w = 1.0 / math.sqrt(L*C_r)
@@ -167,8 +167,8 @@ V_d = 0.0
 I = 0.0
 
 
-iterations = 1500
-iteration_offset = 10000
+iterations = 500000
+iteration_offset = 100000
 #h = 10**-8
 #time = 0.0
 
@@ -217,9 +217,9 @@ cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dime
 #domain.push_data(data)
 
 
-window.plotter.add_graph('schwing', graph.Discrete2d(cl_domain))
+window.plotter.add_graph('schwing', graph.Line2d(cl_domain))
 window.plotter.get_graph('schwing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
-window.plotter.get_graph('schwing').set_dotsize(0.004)
+window.plotter.get_graph('schwing').set_dotsize(0.001)
 window.plotter.gl_plot.precision_axis = (1,1)
 
 def update_uniform(self, value):
