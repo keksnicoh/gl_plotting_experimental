@@ -158,7 +158,7 @@ I_f = 2.8*10**-12 #A
 
 phi = 0.6
 
-V_s = 6.0 #V
+V_s = 4.62 #V
 V_t = 0.034 #V
 
 w = 1.0 / math.sqrt(L*C_r)
@@ -167,8 +167,8 @@ V_d = 0.0
 I = 0.0
 
 
-iterations = 500000
-iteration_offset = 100000
+iterations = 100000
+iteration_offset = 2500000
 #h = 10**-8
 #time = 0.0
 
@@ -210,7 +210,7 @@ y_oszillation_label = "Spannung in [V]"
 
 #window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[.9,.9,.9,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[.9,.9,.9,1], x_label=x_phase_label, y_label=y_phase_label)
+window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
 cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dimension=2)
 #domain = domain.Domain(gl_buffer_length)
@@ -227,10 +227,10 @@ def update_uniform(self, value):
     cl_domain.calculate_cl_buffer(param, value)
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('V_s', V_s, 1.0)
+uniforms.set_global('V_s', V_s, .01)
 #uniforms.set_global('it_offset', iteration_offset, 1000)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
-widget.floating_percision = 1
+widget.floating_percision = 3
 window.add_widget('manipulate', widget)
 
 window.run()

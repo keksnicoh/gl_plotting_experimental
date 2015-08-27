@@ -92,7 +92,7 @@ PHASE_KERNEL_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     }
 """
 
-active_cl_kernel = PHASE_KERNEL_RK
+active_cl_kernel = PHASE_KERNEL
 
 (x_0, y_0) = (0.21, 0.02) #small
 #(x_0, y_0) = (1.05, 0.77) #gone

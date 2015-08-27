@@ -278,17 +278,22 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 
 
 \section {LDR-Oszillator}
-Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis.
+Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.60]{schaltskizze}
+	\caption{Schaltskizze für nichtlinearen Schwingkreis. Quelle: Versuchsanleitung, S. 43, Uni Hamburg}
+	\label{img:schaltskizze}
+\end{figure}
 
-TODO: Schaltskizze
 \subsection { Theorie } \label{ssec:theo}
 Zunächst lässt sich ein linearer Schwingkreis der aus einem Widerstand, einem Kondensator und einer Spule besteht über die Spannungen an den einzelnen Bauteilen beschreiben
 $$V_g=V_c+V_l+V_r \text{ (Kirschoff'sches Gesetz)}$$
 Daraus folgt mit $V_g=V_s\cos{\omega t}$ die Differentialgleichung
 $$\ddot{Q}L + \dot{Q}R+ \frac{Q}{C} = V_s\cos{\omega t}$$
-welche mit dem angetriebener, gedämpfter Oszillator vergleichbar ist. Dabei ist $Q$ die Ladung, $L$ die Induktivität der Spule, $R$ der Widerstand, C die Kapazität des Kondensators $V_s$, die angelegte Spannung und $\omega$ die Frequenz der angelegten Wechselspannung.
+welche mit dem angetriebenen, gedämpften Oszillator vergleichbar ist. Dabei ist $Q$ die Ladung, $L$ die Induktivität der Spule, $R$ der Widerstand, C die Kapazität des Kondensators $V_s$, die angelegte Spannung und $\omega$ die Frequenz der angelegten Wechselspannung.
 \newline
-Wird nun der Kondensator durch eine Diode ausgetauscht erhalten wir, wie bei Duffing-Oszillator, einen nichtlinearen Term. Während beim linearen Schwingkreis $I=\frac{dQ}{dt}$ gilt lässt sich die Diode als parallel geschalteter Kondensator und Widerstand mit 
+Wird nun der Kondensator durch eine Diode ausgetauscht erhalten wir, wie bei dem Duffing-Oszillator eine Gleichung die nicht mehr analytisch lösbar ist. Während beim linearen Schwingkreis $I=\frac{dQ}{dt}$ gilt lässt sich die Diode als parallel geschalteter Kondensator und Widerstand mit 
 $$I=I_f(1-\exp(-\frac{V_d}{V_t})) + \frac{dQ}{dt}$$
 beschreiben, wobei $I_f$ und $V_t$ Konstanten sind.
 Dies führt zu
@@ -296,46 +301,82 @@ $$\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_f\exp(-\frac{V_d}{V_
 in Durchlassrichtung und 
 $$\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_r(1+\frac{V_d}{\phi})^{\gamma}}$$
 in Sperrrichtung.
-Weiterhin gilt
+Außerdem gilt
 $$\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}$$
 $$\frac{d\theta}{dt}=\omega$$
-Damit lässt sich nun das Euler-Verfahren anwenden (siehe \ref{ssec:num})
+Diese Gleichungen lassen sich nun numerisch lösen.
 
 \subsection{ Numerische Berechnungen } \label{ssec:num}
 Unter Verwendung folgender Paramter
 \begin{center}
     \begin{tabular}{ | l | l | p{5cm} |}
     \hline
-    $R$ & $100\Omega$ & beschreibung \\ \hline
-    $L$ & $2367\cdot10^{-6} H$ & beschreibung \\ \hline
-    $C_r$ & $82 pF$ & beschreibung \\ \hline
-    $C_f$ & $56 \cdot10^{-6}  pF$ & beschreibung \\ \hline
-    $I_f$ & $2,8pA$ & beschreibung \\ \hline
-    $\gamma$ & $0,44$ & beschreibung \\ \hline
-    $\phi$ & $0,6V$ & beschreibung \\ \hline
-    $V_t$ & $34mV$ & beschreibung \\
+    $R$ & $100\Omega$ & Widerstand \\ \hline
+    $L$ & $2367\cdot10^{-6} H$ & Spule \\ \hline
+    $C_r$ & $82 pF$ & Konstante proportional zur Kapazität der Diode in Sperrrichtung \\ \hline
+    $C_f$ & $56 \cdot10^{-6}  pF$ & Konstante proportional zur Kapazität der Diode in Durchlassrichtung \\ \hline
+    $I_f$ & $2,8pA$ & Konstante proportional zum Strom  \\ \hline
+    $\gamma$ & $0,44$ & Konstante \\ \hline
+    $\phi$ & $0,6V$ & Konstante \\ \hline
+    $V_t$ & $34mV$ & Konstante \\
     \hline
     \end{tabular}
 \end{center}
 
 haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6$ die Diode sperrt und ansonsten leitet.
 \newline
-Für unterschiedlichen Anregungsspannungen erhalten wir teilweise deutliche Akttraktoren als auch chaos (siehe Abbildung \ref{fig:ldr-prd}).
+Bereits bei sehr geringer Anregungsspannung $V_s=0.001V$ stellt sich ein Chaotisches Verhalten ein (siehe Abbildung \ref{fig:ldr-0001}).
+\begin{figure}
+\includegraphics[scale=0.28]{schwing-runge-nach50k-weitere200k-10-9}
+\includegraphics[scale=0.28]{schwing-runge-nach100k-weitere200k-10-9}
+\includegraphics[scale=0.28]{schwing-runge-nach200k-weitere200k-10-9}
+\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $V_s=0.001V$ mit $2\cdot10^5$ Zeitschritte bei einer Schrittweite von $h=10^{-9}$. Links: Nach $5\cdot10^4$ Zeitschritten Einschwingzeit, Mitte: Nach $10^2$ Zeitschritten Einschwingzeit. Rechts: Nach $2\cdot10^5$ Zeitschritten Einschwingzeit}. 
+\label{fig:ldr-0001}
+\end{figure}
+Eindeutige Attraktoren erhalten wir bei Spannungen ab $V_s=1V$ (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
+\begin{figure}
+\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1V}
+\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
+\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,42V}
+\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$}. 
+\label{fig:ldr-0002}
+\end{figure}
+Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und dann wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} mitte und rechts).
+\begin{figure}
+\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-20V}
+\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-30V}
+\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere120k-10-9-34V}
+\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=20V$ für $2\cdot10^4$ Zeitschritte, Mitte: $V_s=30V$ für $2\cdot10^4$ Zeitschritte. Rechts: $V_s=34V$ für $1.2\cdot10^5$ Zeitschritte}. 
+\label{fig:ldr-0003}
+\end{figure}
 \newline
+Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Z.b. erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts)....(ERKLÄRUNG)
+\begin{figure}
+\includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
+\includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
+\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten für weitere $5\cdot10^4$ Zeitschritte bei einer Schrittweite von $h=10^{-8}$. Links: Wohldefinierter Attraktor. Rechts: Chaos}. 
+\label{fig:ldr-0004}
+\end{figure}
+Auch unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005} und \ref{fig:ldr-0006} ) bis hin zum Chaos.
+\begin{figure}
+\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,4V}
+\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,6V}
+\caption{Phasenraumdiagramm mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Links: $V_s=3.4V$, Rechts: $V_s=3.6V$}. 
+\label{fig:ldr-0005}
+\end{figure}
+\begin{figure}
+\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-4,4V}
+\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-4,602V}
+\caption{Phasenraumdiagramm mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Links: $V_s=4.4V$, Rechts: $V_s=4.602V$}. 
+\label{fig:ldr-0006}
+\end{figure}
+
 \begin{figure}
 \includegraphics[scale=0.28]{V_s-2V_spannung}
 \includegraphics[scale=0.28]{V_s-2V_strom}
 \includegraphics[scale=0.28]{V_s-2V}
 \caption{LDR-Schwingkreis bei einer Anregungsspannung von $V_s=2V$. Numerisch mit Euler-Cauchy-Verfahren gelöst, bei einer Schrittweite $h=10^{-9}$ Links: Zeitlicher Verlauf der Spannung $V_d$ an der Diode ($10^5$Iterationen). Mitte: Zeitlicher Verlauf des Stroms $I$ ($10^5 Iterationen$). Rechts: Phasenraumdiagram nach $10^5$ Iterationen für weitere $4 \cdot 10^5$ Iterationen }. 
 \label{fig:ldr_v2}
-\end{figure}
-
-\begin{figure}
-\includegraphics[scale=0.28]{V_s-4V}
-\includegraphics[scale=0.28]{V_s-6V}
-\includegraphics[scale=0.28]{V_s-15-67V}
-\caption{Phasenraumdiagramme bei unterschiedlichen Anregungsspannungen $V_s$ nach $10^5$ Iterationen für weitere $4 \cdot 10^5$ Iterationen. Links: $V_s=4V$. Mitte: $V_s=6V$. Rechts: $V_s=15.67V$}
-\label{fig:ldr-prd}
 \end{figure}
 
 \begin{figure}
