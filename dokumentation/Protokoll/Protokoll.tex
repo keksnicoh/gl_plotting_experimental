@@ -14,6 +14,8 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{sidecap}
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
@@ -229,7 +231,7 @@ wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stelle
 Also lässt sich die Feigenbaumkonstante mit dem Lyapunov Exponenten bestimmen. 
 Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimmen. Wir wendeten dabei das folgende Kriterium für Nullstellen an:
 $$\lambda(x-\epsilon) < \lambda(x) \wedge \lambda(x+\epsilon) < \lambda(x) \wedge |\lambda(x)|<\epsilon$$
-Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung TODO).
+Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung \ref{fig:lya-rauschen}).
 Aufgrund dieser Probleme
 haben wir uns dazu entschieden die superattraktiven Stellen anstelle der Bifurkationspunkte numerisch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
 Ist
@@ -259,6 +261,13 @@ delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
 Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
+\begin{SCfigure}
+\centering
+\includegraphics[scale=0.20]{lya-rauschen}
+\caption{Zoom in den Lyapunovexponenten der logistischen Abbildung bei $r=3$ mit 80000 Iterationen. 
+Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung der Spitzen an den Bifurkationspunkten erschwert wird. Sourcecode: prak/lyapunov-superattraktiv.py}. 
+\label{fig:lya-rauschen}
+\end{SCfigure}
 
 \section{Sinus Abbildung}
 Die Sinusabbildung ist gegeben durch 
