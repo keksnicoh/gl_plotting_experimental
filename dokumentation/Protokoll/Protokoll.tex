@@ -13,6 +13,9 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{color}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{sidecap}
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
@@ -50,34 +53,35 @@
 \date{2015}
 \begin{document}
 \maketitle
-
-
-
+\begin{center}
+\includegraphics[scale=0.25]{funfunfun} 
+\end{center}
 
 \begin{description}
-\item Zusammenfassung
+\item ABSTRACT TEXT TODO - vorläufig stand 270815
 \end{description}
 
-
-\section{  Einleitung  }
-Alle Plottss und Simulationen aus dem Versuch haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Visualisierungen und Berechnungen. Der Quellcode ist online über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}.  
+\section{Einleitung}
+Alle Plots und Simulationen in diesem Protokoll haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Visualisierungen und Berechnungen. Der Quellcode ist über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}. Bei Abbildungen ist ein entsprechender Quellcodeverweis angegeben. 
 
 Im folgenden bezeichnet $f^2(x) = f(f(x))$
+
+\tableofcontents
 
 \section{Logistische Abbildung}
 Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zeigt sich das diese einfache Funktionsvorschrift 
 bereits chaotisches Verhalten an den Tag legt welches wir im folgenden Abschnitt genauer untersucht haben. Zunächst haben 
-wir ein Bifurkations Diagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ auf die y-Achse aufgetragen haben (Abbildung N).
-Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Perdionenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (Fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strutkuren feststellen lassen (Bögen, Punkte auf geraden, freie Bereiche).
+wir ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ auf die y-Achse aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
+Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Perdionenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strutkuren feststellen lassen (Bögen, Punkte auf Geraden, freie Bereiche).
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.25]{bifurkation}
+	\includegraphics[scale=0.30]{bifurkation}
 	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
-	\label{bifurkation}
+	\label{fig:bifurkation-sin-nice}
 \end{figure}
 \subsection{Fixpunkte / Stabilitätsbedigung}
 Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x^*)=x^* \forall n \iff x^* ist Fixpunkt$. 
-Stabilitätsbedingung
+Stabilitätsbedingung:
 $$|f'(x^*)|<1 \iff Fixpunkt-stabil$$
 $$|f'(x^*)|>1 \iff Fixpunkt-instabil$$ Mit
 \begin{math}
@@ -88,7 +92,9 @@ ließ sich so analytisch bestimmen, dass die Fixpunkte für $r \in [0,1) \cup (3
 Obwohl für den Parameter $0 \textless r \textless 1$ der Fixpunkt instabil ist konvergieren $f^n(x)$ gegen 0 $\forall x \neq x^*$, denn $f^n(x)$ ist ein Polynom vom grad $2n$. 
 
 
-Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte für r. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abblidung N) für $r>3$ verstehen. Abbildung N zeigt wie sich die Iteration jeweils für einen stabilen und einen Instabilen Wert von r verhält. Für den zweierzyklus $f^2(x)$ ließen sich folgende Fixpunkte bestimmen welche in Abbildung N zusammen mit dem Einerzyklus Fixpunkten dargestellt sind ermitteln.
+Abbildung \ref{fig:log-iteration-behavior} zeigt wie sich die Iteration jeweils für einen stabilen und einen instabilen Fixpunkt verhält. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abbildung \ref{fig:bifurkation-sin-nice}) für $r>3$ verstehen.  
+Für den Zweierzyklus $f^2(x)$ ließen sich folgende Fixpunkte bestimmen welche in Abbildung \ref{fig:log-intermittenz-cycles} zusammen mit dem Einerzyklus Fixpunkten dargestellt sind. 
+Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung \ref{fig:log-intermittenz-cycles}). Intermittenz ein Grund für die Verdichtungen welche im choatischen Bereich des Bifurkationsdiagrammes zu sehen sind.
 
 $$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
 $$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
@@ -96,7 +102,7 @@ $$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
 Fixpunktgleichung (Zweierzyklus):
 $$x=r^2x(1-x)(1-rx(1-x))$$
 $$\Rightarrow x_{3,4}=\pm\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$$
-Damit $x_{3,4}$ reel bleibt muss $r^2-2 r-3 \geq 0$
+Damit $x_{3,4} \in \mathbb{R} $  muss $r^2-2 r-3 \geq 0$
 $$\Rightarrow r \leq -1 \land r \geq 3$$
 Für diesen Bereich gibt es folglich 2 weitere Fixpunkte $x_{3,4} 
 \Leftrightarrow$ Perdiodenverdopplung. 
@@ -114,14 +120,16 @@ Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesam
 \centering
 \includegraphics[scale=0.2]{fixpunkt-2878}
 \includegraphics[scale=0.2]{fixpunkt-311}
-\caption{Verlauf der Iterationen bei festen Parameter r. Linkes Bild zeigt einen stabilen Fixpunkt bei r=2.878, rechtes Bild zeigt instabilen Fixpunkt bei r=3.113. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet ist die Folge ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
+\caption{Verlauf der Iterationen bei festen Parameter r. Linkes Bild zeigt einen stabilen Fixpunkt bei r=2.878, rechtes Bild zeigt instabilen Fixpunkt bei r=3.113. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet sind die Folgen ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
+\label{fig:log-iteration-behavior}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.22]{intermittenz}
 \includegraphics[scale=0.15]{analy-periodenv}
-\caption{Logistische Funktion. Links: Intermittenz bei $r=3.80102$. Rechts: Die stabile Lösung des Einerzyklus $x^*$ und die beiden Lösungen des Zweierzyklus $x_{3,4}$. Im Hintergrund das Bifurkationsdiagramm. Die vertikalen Linien sind an $r=3.0$ und $r=444$ und markieren die Stellen wo $|f'(x)|=1$, $|\frac{d}{dx}f^2(x)|=1$ sind. Sourcecode: prak/intermittenz.py, prak/logis-zyklen.py}. 
+\caption{Logistische Funktion. Links: Intermittenz bei $r=3.80102$. Rechts: Die stabile Lösung des Einerzyklus $x^*$ und die beiden Lösungen des Zweierzyklus $x_{3,4}$. Im Hintergrund das Bifurkationsdiagramm. Die vertikalen Linien sind an $r=3.0$ und $r=3.44$ und markieren die Stellen wo $|f'(x)|=1$, $|\frac{d}{dx}f^2(x)|=1$ sind. Sourcecode: prak/intermittenz.py, prak/logis-zyklen.py}. 
+\label{fig:log-intermittenz-cycles}
 \end{figure}
 
 
@@ -138,11 +146,16 @@ $\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f
 
 
 (3) Renormiert:
-Nach jedem Iterationsschritt wird der Abstand $\epsilon$ neu gesetzt.
+Nach jedem Iterationsschritt wird der Abstand $\epsilon$ neu gesetzt. \newline
 
-
-In Abbildung N haben wir die drei Möglichkeiten auf die logisitsche Funktion angewendet. Es zeigte sich, dass die erste Möglichkeit sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden ergibt. Dies liegt daran, dass die selbt bei kleinen EPSILON die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten keinen Sinn ergibt. Die Renomierung hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
-Der Lyapunov Exponent hat seine Nullstellen dort wo die Abbildung ihre superattraktiven Stellen hat. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen. Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$. Tratsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (QUELLE). Im folgenden ist der OpenCL Quellcode der renomierten Formel des Lyapunov Exponenten:
+In Abbildung \ref{fig:lyapunov} haben wir die drei Möglichkeiten auf die logisitsche Funktion angewendet.
+Es zeigte sich, dass die erste Möglichkeit sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden ergibt.
+Dies liegt daran, dass schon bei kleinen $\epsilon$ die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten keinen Sinn ergibt.
+Die Renomierung hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
+Der Lyapunov Exponent hat seine Nullstellen dort wo die Abbildung ihre periodenverdoppelnden Stellen hat. Umgekehrt divergiert  an den superattraktiven Stellen $\lambda(x_0)$ gegen $-\infty$.
+Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$.
+Tratsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (QUELLE skript todo).
+Im folgenden ist der OpenCL Quellcode der renomierten Formel des Lyapunov Exponenten:
 \begin{lstlisting}
 float g(float r, float x) {
     return r * x * (1-x);
@@ -164,43 +177,63 @@ vec4 f(vec4 x) {
 \includegraphics[scale=0.28]{iteration/lyapunov-2}
 \includegraphics[scale=0.28]{iteration/lyapunov-3}
 \caption{Drei verschiedene Implementation des Lyapunov Exponent. Links: Definition, Mitte: Analytisch, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden Implementation auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
+\label{fig:lyapunov}
 \end{figure}
-\subsubsection{Vergleich der analytischen und renomierten Implementation}
-Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen die 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen einmal von oben (renormiert) und ein mal von unten (analytisch) gegen einen scheinbar gemeinsamen Wert streben (Abbildung N). Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller zum Ergebniss kommt. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht mehr weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller an seinen Grenzwert zu konvergieren als es die renormierte tut. Beide Versionen zeigten aber in Stichproben, dass sie stets gegen den gleichen Grenzwert strebten.
+ 
+\subsubsection{Betrachtung im chaotischen Bereich.}
+In Abbildung \ref{fig:lyapunov} ist zu sehen wie der Lyapunov Exponent ab $r=...$ zu rauschen beginnt. 
+Der Verdacht liegt nahe, dass nicht genuegend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19*10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs und nicht an ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich Konvergenzverhalten an. Dieses ist aber nicht präzise: Falls 
+$$
+\lim_{N \rightarrow \infty} \lambda_N(x) = L
+$$
+so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in einen Epsilon Schlauch von $\epsilon=0.002$ passt. Dies ist nicht sehr befriedigend angesichts der massiven Iterationslänge.  
+
+TODO: Optimierungen?
+
+TODO: was passiert bei r>4.0
+
 \begin{figure}
 \centering
-\includegraphics[scale=0.40]{lyapunov-analysis-300}
-\includegraphics[scale=0.35]{lyapunov-analysis-305}
-\caption{Vergleich des analytischen(Schwarz) und renormierten(Blau) Iterationsverhalten des Lyapunov Exponenten. Vertikale Linie bei N=700. Oberes Bild zeigt Iterationsverhalten bei $r=3.0$. Unteres Bild zeigt Iterationsverhalten bei $r=3.05$ }. 
+\includegraphics[scale=0.18]{lya378-zoom}
+\includegraphics[scale=0.36]{lya378}
+\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Links: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts:  0 bis $19*10^6$ Iterationen.}
+\label{fig:lyapunov-chaos}
 \end{figure}
+
+
+\subsubsection{Vergleich der analytischen und renomierten Implementation}
+Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen die 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) scheinbar gegen einen gemeinsamen Wert streben (Abbildung \ref{fig:lyapunov-compare}). Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
+\begin{figure}
+\centering
+\includegraphics[width=220px, height=220px]{lyapunov-analysis-300}
+\includegraphics[width=220px, height=220px]{lyapunov-analysis-305}
+\caption{Vergleich des analytischen(Schwarz) und renormierten(Blau) Iterationsverhalten des Lyapunov Exponenten. Vertikale Linie bei N=700. Oberes Bild zeigt Iterationsverhalten bei $r=3.0$. Unteres Bild zeigt Iterationsverhalten bei $r=3.05$ }. 
+\label{fig:lyapunov-compare}
+\end{figure}
+
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
-\caption{Analyse des Bifurkationsdiagrammes der logistischen Funktion. Eingezeichnet sind die y=0 Achse, sowie die ersten 5 Superattraktiven Stellen für r. Das Bifurkationsdiagramm wurde so translatiert und skaliert, dass es hinter dem Lyapunov Exponenten erscheint.}. 
+\caption{Analyse des Bifurkationsdiagrammes der logistischen Funktion. Eingezeichnet sind die y=0 Achse, sowie die ersten 5 Superattraktiven Stellen. Das Bifurkationsdiagramm wurde so translatiert und skaliert, so dass es hinter dem Lyapunov Exponenten erscheint.}.
+\label{fix:log-detail} 
 \end{figure}
 
 
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.55]{bifurkation-sin}
-\includegraphics[scale=0.47]{bifurkation-sin-zoom}
-\caption{Oben: Analyse des Bifurkationsdiagrammes der sinus Abbildung. Eingezeichnet sind die y=0 Achse, sowie die ersten 6 Superattraktiven Stellen für r (Erste Superattraktive Stelle bei $r=0$. Ebenfalls wurden $\pi$ und $2\pi$ eingezeichnet. Unten: Vergrößerung des Ausschnittes $r \in [2.1,3.1], y\in[-2.8,-0.8]$}. 
-\end{figure}
 
 
 \subsection{Feigenbaumkonstante}
 Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen nicht linearen System auf und lässt sich wie folgt bestimmen:
 $$\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}$$ oder $$\delta_i = \frac{s_i-s_{i+1}}{s_{i+1}-s_{i+2}}$$
-$$\delta = \lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991 (2.3.1) $$ (https://oeis.org/A006890)
+$$\delta = \lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991 (2.3.1) $$ (TODO QUELLE https://oeis.org/A006890)
 wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stellen sind.
 Also lässt sich die Feigenbaumkonstante mit dem Lyapunov Exponenten bestimmen. 
-Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimmen. Wir wendeten dabei das folgende Kriterium für eine Nullstelle an:
+Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimmen. Wir wendeten dabei das folgende Kriterium für Nullstellen an:
 $$\lambda(x-\epsilon) < \lambda(x) \wedge \lambda(x+\epsilon) < \lambda(x) \wedge |\lambda(x)|<\epsilon$$
-Es zeigte sich aber, dass bei genauen Betrachten des numerisch bestimmten Lyapunov Exponenten sehr große Schwankungen vorhanden waren, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung N).
-Aufgrund der Probleme mit den Periodenverdoppelden Stellen 
-haben wir uns dazu entschieden die superattraktiven Stellen numeritsch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
+Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung \ref{fig:lya-rauschen}).
+Aufgrund dieser Probleme
+haben wir uns dazu entschieden die superattraktiven Stellen anstelle der Bifurkationspunkte numerisch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
 Ist
 $$l_2-l_1 \leq 0 (1) $$
 wandert der Iterationsschritt zum superattraktiven Fall. 
@@ -209,7 +242,7 @@ Es wird nun um $\Delta x$ zurückgegangen und anschließend die Schrittweite $\D
 Der Vorgang wiederholt sich 8 mal. Anschließend wird $(2*x_0 + \Delta x )/2$ als Ergebniss gespeichert. 
 Als nächstes befindet sich der Algorithmus im Anfangspunkt-Modus. Es wird so lange die x-Achse abgetestet bis die Bedingung 
 $$\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2*\Delta x)$$
-nicht mehr erfüllt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert.  (Quellcode: prak/feigenbaum.py)
+nicht mehr erfüllt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert  (Quellcode: prak/feigenbaum.py).
 Im folgenden ist die Terminal Ausgabe des Algorithmusses beigelegt:
 \begin{lstlisting}
 searching from 1.9
@@ -227,14 +260,48 @@ delta_0=4.70894301336
 delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
-Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung N). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten Superattraktiven Fällen noch dichter bei Sammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
+Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
+\begin{SCfigure}
+\centering
+\includegraphics[scale=0.20]{lya-rauschen}
+\caption{Zoom in den Lyapunovexponenten der logistischen Abbildung bei $r=3$ mit 80000 Iterationen. 
+Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung der Spitzen an den Bifurkationspunkten erschwert wird. Sourcecode: prak/lyapunov-superattraktiv.py}. 
+\label{fig:lya-rauschen}
+\end{SCfigure}
 
 \section{Sinus Abbildung}
-Die Sinusabbildung ist gegeben durch $x_{n+1}=r*sin(x)$. Wir haben die bereits implementierten Programme nun auf die Sinus Funktion angewendet und kamen zu folgendem Ergebniss:
- TABELLE MIT ALLEN SACHEN:
+Die Sinusabbildung ist gegeben durch 
+$$f(x_n)=x_{n+1}=r*sin(x)$$
+Wir haben die bereits implementierten Programme nun auf die Sinus Funktion angewendet. Abbildung \ref{fig:bifurc-sin} zeigt das Bifurkationsdiagramm der Sinusabbildung. Es fällt sofort auf, dass sich die Bildpunkte innerhalb einer Einhüllenden befinden. Betrachtet man die Funktion wird wegen des Bildbereiches des Sinus ($[-1,1]$) sofort klar, dass $\sup_{n \in \mathbb{N}} |f^n(r)| \leq r $ gilt. Bei den Bifurkationsdiagrammen der logistischen Abbildung hatten wir ein festen Startwert $x_0$ gewählt. Für die Sinusabbildung wählten wir als Startwerte die Folge $x_{0,n} = (-1)^n * x_0$ da sonst im Bereich $r \in [0,\pi]$ das Bild des Graphen stets positiv wäre. Auch dieses Phänomen lässt sich mit einfachen Überlegungen erklären: 
+$$sin([0,\pi]) = [0,1] \Rightarrow f([0,\pi]) = [0,\pi] \Rightarrow f^2([0,\pi]) = [0,\pi] \forall r \in [0,\pi]$$
  
- 
- 
+Das Anwenden unseres Algorithmus zur bestimmung der Feigenbaumkonstante lieferte im Vergleich zur logistischen Abbildung keine guten Ergebnisse. Die ersten superattraktiven Stellen $s_i$ ließen sich ohne weiteres bestimmen. Die Abstände $\Delta s$ werden schon nach den ersten 4 Folgegliedern sehr klein und der Lyapunov Exponent beginnt zu "rauschen". 
+Wir entwickelten einen weiteren Algorithmus, welcher nur marginal bessere Ergebnisse nach $s_4$ lieferte. Die Idee des Algorithmusses war es, zunächst den Lyapunov Exponenten Grob für $r\in [0,3.2]$ zu berechnen. 
+Die so entstandene Folge $l_i=(x_i, l(x_i))$ wird nun iteriert. Sobald $l_{i,1} < M < 0$ gilt wird $A=l_{i,0}$ gesetzt. Es wird weiter iteriert bis $l_{i,1} > 0$ und schließlich wird das Intervall $[A, l_{i,1}]$ gespeichert. Dies wird bis zum Ende der Folge $l_i$ ausgeführt. 
+Nun wird der Algorithmus für eine tiefere Schranke auf alle ermittelten Intervalle erneut angewendet. 
+Wir fanden so mehrere Hinweise auf die nächsten superattraktiven Stellen. 
+Schließlich wurde $M \leq 4.0$ und plötzlich fielen keine Punkte außer $s_1, s_2, s_3, s_4$ in das Raster. Beim betrachten des Lyapunovexponenten fiel auf, dass trotz einer Iterationstiefe von 10000 Iterationen stets galt $\lambda(x)>-4.0$. 
+Wir haben dafür nur zwei plausible Erklärungen: 
+(1.) $s_5-s_4$ ist sehr klein und wir erwarten, dass $s_6-s_5$ noch kleiner ist (untere Abbildung \ref{fig:bifurc-sin}). Eventuell reicht unsere numerische Genauigkeit nicht aus. 
+(2.) Der Sinus ist ungenau implementiert und verschmiert so den Grenzwert. 
+Die folgenden superattraktiven Stellen haben wir ermittelt: $s_1=0.0$, $s_2=1.570728749999546$ $s_3=2.4432446071429674$, $s_4=2.6580499999998904$, $s_5=2.70599999999986$, $s_6=2.71600010303040$ und daraus die ersten 4 Glieder in der Feigenbaum Folge bestimmen:
+$$\delta_1=1.8002294596$$
+$$\delta_2=4.06188990667$$
+$$\delta_3=4.47977878743$$
+$$\delta_4=4.79495059736$$
+
+Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfunktion nicht ab. Auch dies lässt sich auf den Kompakten Bildbereich des Sinus zurückführen. Der Lyapunov Exponent weißt ab $r>8$ eine Perdiodizität von $\pi$ auf weshalb weitere Betrachtungen für $r>8$ nicht zielführend erscheinen.
+
+TODO weitere Analyse dokumentieren.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{bifurkation-sin}
+\includegraphics[scale=0.47]{bifurkation-sin-zoom}
+\caption{Oben: Analyse des Bifurkationsdiagrammes der sinus Abbildung. Eingezeichnet sind die y=0 Achse, sowie die ersten 6 Superattraktiven Stellen für r (Erste Superattraktive Stelle bei $r=0$. Ebenfalls wurden $\pi$ und $2\pi$ eingezeichnet. Unten: Vergrößerung des Ausschnittes $r \in [2.1,3.1], y\in[-2.8,-0.8]$}. 
+\label{fig:bifurc-sin}
+\end{figure}
+
  
 \section { Duffing-Gleichung}
 Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied zum gewöhnlichen Harmonischen Oszillator tritt hier ein kubischer Dämpfungsterm auf.

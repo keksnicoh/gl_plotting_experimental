@@ -5,7 +5,7 @@ import numpy
 
 EPS = 0.00001
 X0 = 0.6
-R = 3.06
+R = 3.00
 N = 50000
 TRACK = 10
 _TRACK_LEN = int(float(N)/float(TRACK))
@@ -41,6 +41,9 @@ for i in range(1, N):
         data2[k*2] = i 
         data2[k*2+1] = sum/i
         k += 1
+
+# R= 
+#window = PlotterWindow(axis=(N, 0.004), origin=(0.0,-0.4085), x_label='iterations', y_label='lambda(x)')
 
 # R = 3.05
 #window = PlotterWindow(axis=(N, 0.005), origin=(0,0.116), x_label='iterations', y_label='lambda(x)')

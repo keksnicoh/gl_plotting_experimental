@@ -28,7 +28,7 @@ OSZILATION_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     __kernel void f(int iterations, int offset, float I_0, float V_0, float I_f, float V_t, float V_s, float C_f, float C_r, float R, float L, float w, float phi, __global float *result)
     {
         float time = 0.0f;
-        float h = pow(10.0f, -8.0f);
+        float h = pow(10.0f, -9.0f);
 
         float I = I_0;
         float V_d = V_0;
@@ -261,7 +261,7 @@ phi = 0.6
 V_s = 6.33043 #V gut bei h=10^-8
 
 
-V_s = 1.42 #V
+V_s = 2 #V
 
 V_t = 0.034 #V
 
@@ -271,7 +271,7 @@ V_d = 0.0
 I = 0.0
 
 
-iterations = 100000
+iterations = 300000
 iteration_offset = 0
 #h = 10**-8
 #time = 0.0
@@ -298,7 +298,7 @@ cl_kernel_params = [
 ]
 
 
-active_cl_kernel = PHASE_KERNEL_OPTIMIZED
+active_cl_kernel = OSZILATION_KERNEL
 
 
 phase_axis = (2.0, 6.0)
@@ -312,9 +312,9 @@ oszilation_origin = (0.0, 1.0)
 x_oszillation_label = "Zeit"
 y_oszillation_label = "Spannung in [V]"
 
-#window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
+window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
+#window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
 cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dimension=2)
 #domain = domain.Domain(gl_buffer_length)
@@ -331,7 +331,7 @@ def update_uniform(self, value):
     cl_domain.calculate_cl_buffer(param, value)
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('V_s', V_s, 0.1)
+uniforms.set_global('V_s', V_s, 1)
 #uniforms.set_global('iterations', iterations, 10)
 #uniforms.set_global('it_offset', iteration_offset, 1000)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
