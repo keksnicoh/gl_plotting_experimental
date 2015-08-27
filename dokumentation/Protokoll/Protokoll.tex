@@ -88,7 +88,27 @@ ließ sich so analytisch bestimmen, dass die Fixpunkte für $r \in [0,1) \cup (3
 Obwohl für den Parameter $0 \textless r \textless 1$ der Fixpunkt instabil ist konvergieren $f^n(x)$ gegen 0 $\forall x \neq x^*$, denn $f^n(x)$ ist ein Polynom vom grad $2n$. 
 
 
-Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte für r. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abblidung N) für $r>3$ verstehen. Abbildung N zeigt wie sich die Iteration jeweils für einen stabilen und einen Instabilen Wert von r verhält.  TODO $f^2(x)$
+Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte für r. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abblidung N) für $r>3$ verstehen. Abbildung N zeigt wie sich die Iteration jeweils für einen stabilen und einen Instabilen Wert von r verhält. Für den zweierzyklus $f^2(x)$ ließen sich folgende Fixpunkte bestimmen welche in Abbildung N zusammen mit dem Einerzyklus Fixpunkten dargestellt sind ermitteln.
+
+$$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
+$$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
+\newline
+Fixpunktgleichung (Zweierzyklus):
+$$x=r^2x(1-x)(1-rx(1-x))$$
+$$\Rightarrow x_{3,4}=\pm\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$$
+Damit $x_{3,4}$ reel bleibt muss $r^2-2 r-3 \geq 0$
+$$\Rightarrow r \leq -1 \land r \geq 3$$
+Für diesen Bereich gibt es folglich 2 weitere Fixpunkte $x_{3,4} 
+\Leftrightarrow$ Perdiodenverdopplung. 
+Im Fall der logistischen Abbildung gilt
+$$\frac{d}{dx}f(x)=r-2rx=r(1-2x)$$
+$$\frac{d}{dx}f^2(x)=-r^2(2x-1)(2r(x-1)x+1)$$
+AB HIER TODO: Grafisch lässt sich ablesen, dass der Fixpunkt $x_3=\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grüner Graph) für folgende Bereiche stabil ist:
+$$-1.45<r<-0.82 \Rightarrow -1.45 < r \leq -1$$
+$$2.82<r<3.45 \Rightarrow 3 \geq r > 3.45$$
+Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesamten Bereich $-1.45<r<3.45$ stabil aber da der Fixpunkt ebenfalls nur für $r \leq -1 \land r \geq 3$ existiert gilt der selbe Bereich wie für $x_3$. Die Fixpunkt sind dort stabil, wo sich der graue und der grüne Graph in der Abbildung überlagern.
+
+
 
 \begin{figure}
 \centering
@@ -96,6 +116,15 @@ Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte
 \includegraphics[scale=0.2]{fixpunkt-311}
 \caption{Verlauf der Iterationen bei festen Parameter r. Linkes Bild zeigt einen stabilen Fixpunkt bei r=2.878, rechtes Bild zeigt instabilen Fixpunkt bei r=3.113. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet ist die Folge ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.22]{intermittenz}
+\includegraphics[scale=0.15]{analy-periodenv}
+\caption{Logistische Funktion. Links: Intermittenz bei $r=3.80102$. Rechts: Die stabile Lösung des Einerzyklus $x^*$ und die beiden Lösungen des Zweierzyklus $x_{3,4}$. Im Hintergrund das Bifurkationsdiagramm. Die vertikalen Linien sind an $r=3.0$ und $r=444$ und markieren die Stellen wo $|f'(x)|=1$, $|\frac{d}{dx}f^2(x)|=1$ sind. Sourcecode: prak/intermittenz.py, prak/logis-zyklen.py}. 
+\end{figure}
+
+
 \subsection{Lyapunov Exponent}
 Der Lyapunov Exponent beschreibt mit welcher Geschwindigkeit sich zwei naheliegende Punkte voneinander entfernen. 
 Es gibt drei Wege den Lyapunov Exponenten zu implementieren:
@@ -130,13 +159,21 @@ vec4 f(vec4 x) {
     return vec4(x.x, summe/n, 0, 0.5);
 }
 \end{lstlisting}
- 
 \begin{figure}
 \includegraphics[scale=0.28]{iteration/lyapunov-1}
 \includegraphics[scale=0.28]{iteration/lyapunov-2}
 \includegraphics[scale=0.28]{iteration/lyapunov-3}
 \caption{Drei verschiedene Implementation des Lyapunov Exponent. Links: Definition, Mitte: Analytisch, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden Implementation auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
 \end{figure}
+\subsubsection{Vergleich der analytischen und renomierten Implementation}
+Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen die 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen einmal von oben (renormiert) und ein mal von unten (analytisch) gegen einen scheinbar gemeinsamen Wert streben (Abbildung N). Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller zum Ergebniss kommt. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht mehr weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller an seinen Grenzwert zu konvergieren als es die renormierte tut. Beide Versionen zeigten aber in Stichproben, dass sie stets gegen den gleichen Grenzwert strebten.
+\begin{figure}
+\centering
+\includegraphics[scale=0.40]{lyapunov-analysis-300}
+\includegraphics[scale=0.35]{lyapunov-analysis-305}
+\caption{Vergleich des analytischen(Schwarz) und renormierten(Blau) Iterationsverhalten des Lyapunov Exponenten. Vertikale Linie bei N=700. Oberes Bild zeigt Iterationsverhalten bei $r=3.0$. Unteres Bild zeigt Iterationsverhalten bei $r=3.05$ }. 
+\end{figure}
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
@@ -159,13 +196,20 @@ $$\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}$$ oder $$\delta_i = \frac{s_i-s
 $$\delta = \lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991 (2.3.1) $$ (https://oeis.org/A006890)
 wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stellen sind.
 Also lässt sich die Feigenbaumkonstante mit dem Lyapunov Exponenten bestimmen. 
-Wir haben uns dazu entschieden, die superattraktiven Fälle numerisch zu bestimmen, da diese leichter zu ermitteln sind (Infimum). Die Nullstellen sind bei genauerem hingucken nicht präzise weshalb ein sehr schwammiges Epsilon Kriterium die Genauigkeit verwischt hätte (Siehe Abbildung N XXX). 
-Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
-Ist $l_2-l_1 \leq 0$ $(1) $ wandert der Iterationsschritt zum superattraktiven Fall. 
+Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimmen. Wir wendeten dabei das folgende Kriterium für eine Nullstelle an:
+$$\lambda(x-\epsilon) < \lambda(x) \wedge \lambda(x+\epsilon) < \lambda(x) \wedge |\lambda(x)|<\epsilon$$
+Es zeigte sich aber, dass bei genauen Betrachten des numerisch bestimmten Lyapunov Exponenten sehr große Schwankungen vorhanden waren, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung N).
+Aufgrund der Probleme mit den Periodenverdoppelden Stellen 
+haben wir uns dazu entschieden die superattraktiven Stellen numeritsch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
+Ist
+$$l_2-l_1 \leq 0 (1) $$
+wandert der Iterationsschritt zum superattraktiven Fall. 
 Dies wird so lange fortgesetzt bis die Bedingung $(1)$ nicht mehr hält. 
 Es wird nun um $\Delta x$ zurückgegangen und anschließend die Schrittweite $\Delta x \mapsto \frac{\Delta x}{10} $ verkleinert. Nun wird erneut so lange iteriert, bis $(1)$ nicht mehr hält. 
 Der Vorgang wiederholt sich 8 mal. Anschließend wird $(2*x_0 + \Delta x )/2$ als Ergebniss gespeichert. 
-Als nächstes befindet sich der Algorithmus im Anfangspunkt-Modus. Es wird so lange die x-Achse abgetestet bis die Bedingung $\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2*\Delta x)$ nicht mehr erfuellt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert.  (Quellcode: prak/feigenbaum.py)
+Als nächstes befindet sich der Algorithmus im Anfangspunkt-Modus. Es wird so lange die x-Achse abgetestet bis die Bedingung 
+$$\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2*\Delta x)$$
+nicht mehr erfüllt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert.  (Quellcode: prak/feigenbaum.py)
 Im folgenden ist die Terminal Ausgabe des Algorithmusses beigelegt:
 \begin{lstlisting}
 searching from 1.9
@@ -183,83 +227,11 @@ delta_0=4.70894301336
 delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
-Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab.
+Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung N). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten Superattraktiven Fällen noch dichter bei Sammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
 
 \section{Sinus Abbildung}
 Die Sinusabbildung ist gegeben durch $x_{n+1}=r*sin(x)$. Wir haben die bereits implementierten Programme nun auf die Sinus Funktion angewendet und kamen zu folgendem Ergebniss:
  TABELLE MIT ALLEN SACHEN:
-
-
-$$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
-$$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
-\newline
-Fixpunktgleichung (Einerzyklus): 
-$$x=rx(1-x)$$
-$$\Rightarrow x_1=0, x_2=1-\frac{1}{r}$$
-Startwerte x=0 und x=1 haben den Fixpunkt $x_1$ wohingegen für alle $x\in (0,1)$ der Fixpunkt $x_2$ ist.
-\newline
-Fixpunktgleichung (Zweierzyklus):
-$$x=r^2x(1-x)(1-rx(1-x))$$
-$$\Rightarrow x_{3,4}=\pm\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$$
-Damit $x_{3,4}$ reel bleibt muss $r^2-2 r-3 \geq 0$
-$$\Rightarrow r \leq -1 \land r \geq 3$$
-Für diesen Bereich gibt es folglich 2 weitere Fixpunkte $x_{3,4} \Leftrightarrow$ Perdiodenverdopplung 
-\newline
-\includegraphics[scale=0.3]{r3}
-\includegraphics[scale=0.3]{analy-periodenv}
-\newline
-\subsection{ Stabilitätsbedingung }
-Ein Fixpunkt ist stabil, wenn gilt:
-$$\mid f'(x)\mid <1$$
-Im Fall der logistischen Abbildung gilt
-$$\frac{d}{dx}f(x)=r-2rx=r(1-2x)$$
-$$\frac{d}{dx}f^2(x)=-r^2(2x-1)(2r(x-1)x+1)$$
-\newline
-Es gilt zu lösen, für welche $r$ bei bekannten Fixpunkte die Stabilitätsbedingung erfüllt ist.
-\newline
-\includegraphics[scale=0.4]{stable_fixpoints}
-\newline
-Grafisch lässt sich ablesen, dass der Fixpunkt $x_3=\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grüner Graph) für folgende Bereiche stabil ist:
-$$-1.45<r<-0.82 \Rightarrow -1.45 < r \leq -1$$
-$$2.82<r<3.45 \Rightarrow 3 \geq r > 3.45$$
-Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesamten Bereich $-1.45<r<3.45$ stabil aber da der Fixpunkt ebenfalls nur für $r \leq -1 \land r \geq 3$ existiert gilt der selbe Bereich wie für $x_3$. Die Fixpunkt sind dort stabil, wo sich der graue und der grüne Graph in der Abbildung überlagern.
-\section { Bifurctationsdiagramm}
-\subsection { Logistische Abbildung }
-asdf
-\subsection { Sinus Abbildung }
-asdf
-\section{ Feigenbaumkonstante ALT}
-\subsection {Lyapunov}
-Eine Möglichkeit die Feigenbaumkonstante zu berechnen ist über die Nullstellen des Lyapunov-Exponenten. Gerade an diesen Stellen kommt es zu einer Periodenverdopplung. Dann lässt sich die Feigenbaumkonstante durch
-$$\delta = \lim_{n \rightarrow \infty}\frac{a_{n-1}-a_{n-2}}{a_n-a_{n-1}}$$
-, wobei die $a_n$ der Parameter ist bei dem die n-te Periodenverdopplung auftritt.
-\newline
-Für dern Lyapunov-Exponenten gilt:
-$$\lambda(x_0) = \lim_{N \rightarrow \infty}\lim_{\epsilon \rightarrow 0} \frac{1}{N}\log{\mid \frac{f^N(x_0+\epsilon)- f^N(x_0)}{\epsilon} \mid} $$
-oder auch
-$$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $$
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.25]{lyapunov_1000}
-	\caption{Lyapunov mit N=1000 und $\epsilon=0.001$ (Logistische Abbildung). Parameter r auf der x-achse und $\lambda(x_0)$ auf y-achse, mit startwert $x_0=0.4$}
-	\label{img:lyapunov_100}
-\end{figure}
-Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereich für $x=3$ genauer an, so stellen wir eine gewisse Ungenauigkeit fest (vgl. nächste Abbildung). Da wir für die Feigenbaumkonstante möglichst genau die Stellen an denen Periodenverdopplung auftritt identifizieren wollen, müssen wir die Parameter entsprechend modifizieren. Die Fluktuation nehmen zu, wenn $\epsilon$ kleiner wird.
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.20]{lyapunov_1000_at_3}
-	\caption{1. Bei $x=3$ erhalten wir einen von 0 verschiedenen Wert ($\lambda\approx-0,0027$) 2. Wie stellen fest das der Lyapunov-Exponent für unterschiedliche r fluktuiert.}
-	\label{img:lyapunov_1000_at_3}
-\end{figure}
-\newline
-@TODO: Bei N -> 13000 und epsilon < 0.00001 kommt man schon ganz gut dran!
-1. Verhalten wenn man erst später anfängt zu summieren
-2. Bei gegebener Konfiguration für r=3 messen mit Fehler etc.
-3. Weitere Periodenverdopplungen grafisch identifizieren. (Domain hoch setzen für bessere Genauigkeit)
-4. Ursache für Fluktuationen?? Und Möglichkeit diese Fluktuationen zu mitteln!?
-5. Mit gemittelter Fluktuation in OpenCL nicht-grafisch Nullstellen identifiezieren (double precision!!! -> Fehler der durch float64 berücksichtigt werden muss)
-
 \section { Duffing-Gleichung}
 Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied zum gewöhnlichen Harmonischen Oszillator tritt hier ein kubischer Dämpfungsterm auf.
 $$\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}$$
@@ -298,12 +270,6 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 	\label{img:poincare-772}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.60]{lyapunov-log}
-	\caption{asdf}
-	\label{img:lyapunov-log}
-\end{figure}
 
 \section {LDR-Oszillator}
 Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis.

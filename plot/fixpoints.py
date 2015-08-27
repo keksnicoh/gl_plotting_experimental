@@ -13,7 +13,7 @@ vec4 f(vec4 x) {
     float fixpoint = 1.0 - 1.0/x.x;
 
     float y = x.x*(1.0-2.0*fixpoint);
-    return vec4(x.x, y, 0, 0.5);
+    return vec4(x.x, y, 0, 1);
 }
 """
 
@@ -24,7 +24,7 @@ vec4 f(vec4 x) {
     //float y = x.x*(1.0-2.0*fixpoint);
     float y = -x.x*x.x*(2.0*fixpoint-1.0)*(2.0*x.x*(fixpoint-1.0)*fixpoint+1.0);
 
-    return vec4(x.x, y, 0, 0.5);
+    return vec4(x.x, y, 0, 1);
 }
 """
 
@@ -35,7 +35,7 @@ vec4 f(vec4 x) {
     //float y = x.x*(1.0-2.0*fixpoint);
     float y = -x.x*x.x*(2.0*fixpoint-1.0)*(2.0*x.x*(fixpoint-1.0)*fixpoint+1.0);
 
-    return vec4(x.x, y, 0, 0.5);
+    return vec4(x.x, y, 0, 1);
 }
 """
 

@@ -77,7 +77,9 @@ class Plotter():
 
     def get_uniform_manager(self):
         return self.gl_plot.get_uniform_manager()
-
+    def set_precision_axis(self, xy):
+        self.gl_plot.precision_axis = xy
+        self.gl_plot.prepare()
 class PlotPlane2d():
     """
     renders a 2d plotting plane within a
