@@ -15,18 +15,28 @@ Kernel to calculate duffing equation and writes (x, y) data to given GLBuffer
 PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *result)
     {
+        //iterations = iterations + start_iteration;
         float h = time / convert_float(iterations);
         float theta = 0;
+        float new_x = 0;
+
         float t = 0;
+        float x = awp.x;
+        float y = awp.y;
 
-
-        result[0] = awp.x;
-        result[1] = awp.y;
-        for(int i=2; i < iterations*2; i += 2) {
+        for(int i=2; i < (iterations+start_iteration)*2; i += 2) {
             t = i / (2.0f * iterations) * time;
             theta = t * omega;
-            result[i] = result[i-2] + h * result[i-1];
-            result[i+1] = result[i-1] + h * (epsilon * cos(theta) - lambda * result[i-1] - beta * result[i-2] * result[i-2] * result[i-2]);
+            new_x = x + h * y;
+
+            y = y + h * (epsilon * cos(theta) - lambda * y - beta * x * x * x);
+
+            x = new_x;
+
+            if(i > start_iteration) {
+                result[i-start_iteration] = x;
+                result[i+1-start_iteration] = y;
+            }
         }
 
     }
@@ -143,21 +153,21 @@ vec4 f(vec4 x) {
 }
 """
 
-active_cl_kernel = PHASE_KERNEL
+active_cl_kernel = PHASE_KERNEL_RK
 
-#(x_0, y_0) = (0.21, 0.02) #small
+(x_0, y_0) = (0.21, 0.02) #small
 #(x_0, y_0) = (1.05, 0.77) #gone
 #(x_0, y_0) = (-0.67, 0.02) #small
 #(x_0, y_0) = (-0.46, 0.30) #big
-(x_0, y_0) = (-0.43, 0.12) #small
+#(x_0, y_0) = (-0.43, 0.12) #small
 #(x_0, y_0) = (3.0,4.0)
 
-(lambd, epsilon) = (0.2, 0.0)
-(lambd, epsilon) = (0.2, 1.0)
+#(lambd, epsilon) = (0.2, 0.0)
+#(lambd, epsilon) = (0.2, 1.0)
 (lambd, epsilon) = (0.08, 0.2)
 
-start_iteration = 0
-length = 10000
+offset = 10000
+length = 100000
 time = 1000 
 
 phase_axis = (2.0, 6.0)
@@ -176,7 +186,7 @@ window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1
 #window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1.0])
 
 
-duffing_domain = domain.DuffingDomain(active_cl_kernel, length, time, lambd, epsilon, 1, 1, (x_0, y_0), start_iteration)
+duffing_domain = domain.DuffingDomain(active_cl_kernel, length, time, lambd, epsilon, 1, 1, (x_0, y_0), offset)
 window.plotter.add_graph('duffing', graph.Line2d(duffing_domain, COLOR_KERNEL))
 window.plotter.get_graph('duffing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
 
@@ -193,7 +203,8 @@ uniforms.set_global('x_0', x_0, 0.01)
 uniforms.set_global('y_0', y_0, 0.01)
 #uniforms.set_global('s', start_iteration, 10)
 uniforms.set_global('t', time, 10)
-uniforms.set_global('length', length, 10)
+uniforms.set_global('length', length, 100)
+uniforms.set_global('offset', offset, 100)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
 widget.floating_percision = 2
 window.add_widget('manipulate', widget)

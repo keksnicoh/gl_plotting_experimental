@@ -231,8 +231,12 @@ class DuffingDomain(Domain):
             self.start_iteration = numpy.int32(value)
         elif param == 't':
             self.time = numpy.int32(value)
+        elif param == 'offset':
+            self.start_iteration = numpy.int32(value)
         else:
             return
+
+        print "h: %f" % (self.time / float(self.length))
 
         awp = self.calculator.create2ComponentVektor(self.initial_conditions)
         self.calculator.calculateGL(self.kernel, [awp, numpy.int32(self.length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration], [self.gl_buffer], (1,))
