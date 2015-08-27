@@ -60,15 +60,15 @@
 
 
 \section{  Einleitung  }
-Alle Plottings und Simulationsn aus dem Versuch haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Berechnungen und Visualisierungen. Der Quellcode ist online über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}.  
+Alle Plottss und Simulationen aus dem Versuch haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Visualisierungen und Berechnungen. Der Quellcode ist online über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}.  
 
 Im folgenden bezeichnet $f^2(x) = f(f(x))$
 
 \section{Logistische Abbildung}
 Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zeigt sich das diese einfache Funktionsvorschrift 
-bereits chaotisches Verhalten an den Tag legt, welches wir im folgenden Abschnitt genauer untersucht haben. Zunächst haben 
+bereits chaotisches Verhalten an den Tag legt welches wir im folgenden Abschnitt genauer untersucht haben. Zunächst haben 
 wir ein Bifurkations Diagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ auf die y-Achse aufgetragen haben (Abbildung N).
-Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ haben laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste aus (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Perdionenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (Fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strutkuren feststellen lassen (Bögen, Punkte auf geraden, freie Bereiche).
+Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Perdionenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (Fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strutkuren feststellen lassen (Bögen, Punkte auf geraden, freie Bereiche).
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.25]{bifurkation}
@@ -76,7 +76,6 @@ Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ 
 	\label{bifurkation}
 \end{figure}
 \subsection{Fixpunkte / Stabilitätsbedigung}
-Gilt für den Parameter $0 \textless r \textless 1$ dann konvergiert $f^n(x)$ gegen 0, denn $f^n(x)$ ist ein Polynom vom grad $2n$.
 Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x^*)=x^* \forall n \iff x^* ist Fixpunkt$. 
 Stabilitätsbedingung
 $$|f'(x^*)|<1 \iff Fixpunkt-stabil$$
@@ -86,13 +85,16 @@ f(x^*)=rx^*(1-x^*)=x^*
 \iff x^*=1-1/r \vee x'=0
 \end{math}
 ließ sich so analytisch bestimmen, dass die Fixpunkte für $r \in [0,1) \cup (3,4]$ instabil für $r \in (1,3)$ stabil sind.
-Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte für r. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abblidung N) für $r>3$ verstehen. Abbildung N zeigt wie sich die Iteration jeweils für einen stabilen und einen Instabilen Wert von r verhält. 
+Obwohl für den Parameter $0 \textless r \textless 1$ der Fixpunkt instabil ist konvergieren $f^n(x)$ gegen 0 $\forall x \neq x^*$, denn $f^n(x)$ ist ein Polynom vom grad $2n$. 
+
+
+Abbildung N zeigt das Verhalten der logisitschen Funktion für zwei solche Werte für r. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abblidung N) für $r>3$ verstehen. Abbildung N zeigt wie sich die Iteration jeweils für einen stabilen und einen Instabilen Wert von r verhält.  TODO $f^2(x)$
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.2]{fixpunkt-2878}
 \includegraphics[scale=0.2]{fixpunkt-311}
-\caption{Verlauf der Iterationen bei fixierten Parameter r. Linkes Bild zeigt einen Anziehenden Fixpunkt bei r=2.878, rechtes Bild zeigt abstroßenden Fixpunkt bei r=3.113. Der verlauf der logistischen Funktion $f(x)$ sowie $f^2(x)$ sind aufgetragen sowie die Einheitsgerade $y=x$. Als Linie Verbunden geplottet ist die Folge ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
+\caption{Verlauf der Iterationen bei festen Parameter r. Linkes Bild zeigt einen stabilen Fixpunkt bei r=2.878, rechtes Bild zeigt instabilen Fixpunkt bei r=3.113. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet ist die Folge ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
 \end{figure}
 \subsection{Lyapunov Exponent}
 Der Lyapunov Exponent beschreibt mit welcher Geschwindigkeit sich zwei naheliegende Punkte voneinander entfernen. 
@@ -107,12 +109,11 @@ $\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f
 
 
 (3) Renormiert:
-$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{f'(x)} $
+Nach jedem Iterationsschritt wird der Abstand $\epsilon$ neu gesetzt.
 
 
-In Abbildung N haben wir die drei Möglichkeiten auf die logisitsche Funktion angewendet. Es zeigte sich, dass die erste Möglichkeit sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden ergibt. Dies liegt daran, dass die selbt bei kleinen EPSILON die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten keinen Sinn ergibt. 
-Der Lyapunov Exponent hat seine Nullstellen dort wo die Abbildung ihre superattraktiven Stellen hat. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen. Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$. Tratsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (QUELLE). Im folgenden ist der OpenCL Quellcode der renomierten Formel des Lyapunov Exponenten.
-Renomierte Formel implementiert als OpenGL Shader Kernel für die logistische Abbildung:
+In Abbildung N haben wir die drei Möglichkeiten auf die logisitsche Funktion angewendet. Es zeigte sich, dass die erste Möglichkeit sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden ergibt. Dies liegt daran, dass die selbt bei kleinen EPSILON die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten keinen Sinn ergibt. Die Renomierung hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
+Der Lyapunov Exponent hat seine Nullstellen dort wo die Abbildung ihre superattraktiven Stellen hat. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen. Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$. Tratsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (QUELLE). Im folgenden ist der OpenCL Quellcode der renomierten Formel des Lyapunov Exponenten:
 \begin{lstlisting}
 float g(float r, float x) {
     return r * x * (1-x);
@@ -134,7 +135,7 @@ vec4 f(vec4 x) {
 \includegraphics[scale=0.28]{iteration/lyapunov-1}
 \includegraphics[scale=0.28]{iteration/lyapunov-2}
 \includegraphics[scale=0.28]{iteration/lyapunov-3}
-\caption{Die drei Lyapunov Exponent Implementation im Vergleich. Links: Definition, Mitte: Analytisch, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
+\caption{Drei verschiedene Implementation des Lyapunov Exponent. Links: Definition, Mitte: Analytisch, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen im Vergleich zu den anderen beiden Implementation auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
 \end{figure}
 \begin{figure}
 \centering
@@ -143,9 +144,6 @@ vec4 f(vec4 x) {
 \end{figure}
 
 
-\section{Sinus Abbildung}
-Die Sinusabbildung ist gegeben durch $x_{n+1}=r*sin(x)$. Wir haben die bereits implementieren Programme nun auf die Sinus Funktion angewendet und kamen zu folgendem Ergebniss:
- TABELLE MIT ALLEN SACHEN:
 
 \begin{figure}
 \centering
@@ -158,17 +156,17 @@ Die Sinusabbildung ist gegeben durch $x_{n+1}=r*sin(x)$. Wir haben die bereits i
 \subsection{Feigenbaumkonstante}
 Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen nicht linearen System auf und lässt sich wie folgt bestimmen:
 $$\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}$$ oder $$\delta_i = \frac{s_i-s_{i+1}}{s_{i+1}-s_{i+2}}$$
-$$\lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991 (2.3.1) $$ (https://oeis.org/A006890)
+$$\delta = \lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991 (2.3.1) $$ (https://oeis.org/A006890)
 wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stellen sind.
 Also lässt sich die Feigenbaumkonstante mit dem Lyapunov Exponenten bestimmen. 
-Wir haben uns dazu entschieden, die superattraktiven Fälle numerisch zu finden, da diese leichter zu ermitteln sind (Infimum). Die Nullstellen sind bei genauerem hingucken nicht präzise weshalb ein sehr schwammiges Epsilon Kriterium die Genauigkeit verwischt hätte (Siehe Abbildung N XXX). 
-Der Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
+Wir haben uns dazu entschieden, die superattraktiven Fälle numerisch zu bestimmen, da diese leichter zu ermitteln sind (Infimum). Die Nullstellen sind bei genauerem hingucken nicht präzise weshalb ein sehr schwammiges Epsilon Kriterium die Genauigkeit verwischt hätte (Siehe Abbildung N XXX). 
+Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
 Ist $l_2-l_1 \leq 0$ $(1) $ wandert der Iterationsschritt zum superattraktiven Fall. 
 Dies wird so lange fortgesetzt bis die Bedingung $(1)$ nicht mehr hält. 
-Es wird nun um $\Delta x$ zurueckgegangen und anschließend die Schrittweite $\Delta x \mapsto \frac{\Delta x}{10} $ verkleinert. Nun wird erneut so lange iteriert, bis $(1)$ nicht mehr hält. 
-Der Vorgang wiederholt sich 8 mal. Nun wird $(2*x_0 + \Delta x )/2$ als Ergebniss gespeichert. 
+Es wird nun um $\Delta x$ zurückgegangen und anschließend die Schrittweite $\Delta x \mapsto \frac{\Delta x}{10} $ verkleinert. Nun wird erneut so lange iteriert, bis $(1)$ nicht mehr hält. 
+Der Vorgang wiederholt sich 8 mal. Anschließend wird $(2*x_0 + \Delta x )/2$ als Ergebniss gespeichert. 
 Als nächstes befindet sich der Algorithmus im Anfangspunkt-Modus. Es wird so lange die x-Achse abgetestet bis die Bedingung $\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2*\Delta x)$ nicht mehr erfuellt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert.  (Quellcode: prak/feigenbaum.py)
-Im folgenden ist die Terminal Ausgabe des Algorithmusses beigefuegt:
+Im folgenden ist die Terminal Ausgabe des Algorithmusses beigelegt:
 \begin{lstlisting}
 searching from 1.9
 looking for next start_r from 2.00000000002
@@ -185,7 +183,14 @@ delta_0=4.70894301336
 delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
-Somit konnten wir für $n=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ numerisch berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab. $$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
+Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.133671789\% vom tatsächlichen Wert (2.3.1) ab.
+
+\section{Sinus Abbildung}
+Die Sinusabbildung ist gegeben durch $x_{n+1}=r*sin(x)$. Wir haben die bereits implementierten Programme nun auf die Sinus Funktion angewendet und kamen zu folgendem Ergebniss:
+ TABELLE MIT ALLEN SACHEN:
+
+
+$$x_{n+1}=f_r(x_n)=rx_n(1-x_n)$$
 $$\Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))$$
 \newline
 Fixpunktgleichung (Einerzyklus): 
@@ -223,7 +228,7 @@ Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesam
 asdf
 \subsection { Sinus Abbildung }
 asdf
-\section{ Feigenbaumkonstante}
+\section{ Feigenbaumkonstante ALT}
 \subsection {Lyapunov}
 Eine Möglichkeit die Feigenbaumkonstante zu berechnen ist über die Nullstellen des Lyapunov-Exponenten. Gerade an diesen Stellen kommt es zu einer Periodenverdopplung. Dann lässt sich die Feigenbaumkonstante durch
 $$\delta = \lim_{n \rightarrow \infty}\frac{a_{n-1}-a_{n-2}}{a_n-a_{n-1}}$$
@@ -236,14 +241,14 @@ $$\lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N-1}  \log{
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.65]{lyapunov_1000}
+	\includegraphics[scale=0.25]{lyapunov_1000}
 	\caption{Lyapunov mit N=1000 und $\epsilon=0.001$ (Logistische Abbildung). Parameter r auf der x-achse und $\lambda(x_0)$ auf y-achse, mit startwert $x_0=0.4$}
 	\label{img:lyapunov_100}
 \end{figure}
 Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereich für $x=3$ genauer an, so stellen wir eine gewisse Ungenauigkeit fest (vgl. nächste Abbildung). Da wir für die Feigenbaumkonstante möglichst genau die Stellen an denen Periodenverdopplung auftritt identifizieren wollen, müssen wir die Parameter entsprechend modifizieren. Die Fluktuation nehmen zu, wenn $\epsilon$ kleiner wird.
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.50]{lyapunov_1000_at_3}
+	\includegraphics[scale=0.20]{lyapunov_1000_at_3}
 	\caption{1. Bei $x=3$ erhalten wir einen von 0 verschiedenen Wert ($\lambda\approx-0,0027$) 2. Wie stellen fest das der Lyapunov-Exponent für unterschiedliche r fluktuiert.}
 	\label{img:lyapunov_1000_at_3}
 \end{figure}
@@ -256,7 +261,7 @@ Wie erwartet ist eine Nullstelle bei $x=3$. Gucken wir uns allerdings den Bereic
 5. Mit gemittelter Fluktuation in OpenCL nicht-grafisch Nullstellen identifiezieren (double precision!!! -> Fehler der durch float64 berücksichtigt werden muss)
 
 \section { Duffing-Gleichung}
-Wir betrachten nun ein angetrieben und gedämpften Oszillator. Als Unterschied zum klassischen Harmonischen Oszillator wird der Term mit der Federkonstante kubisch.
+Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied zum gewöhnlichen Harmonischen Oszillator tritt hier ein kubischer Dämpfungsterm auf.
 $$\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}$$
 Diese DGL lässt sich nun nicht mehr analytisch berechnen.
 Im Folgenden lösen wir die Gleichung mit der Euler-Methode als auch mit dem Runge-Kutta Verfahren.
@@ -274,7 +279,7 @@ $$\epsilon = 0,2, \lambda = 0,08, \beta = 1, \Omega = 1$$
 \newline
 - lyapunov??
 \subsection{ Poincareschnitt }
-Die gezeigten Phasenraumportaits sind projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ und $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
+Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ und $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
 \begin{lstlisting}
       pos = sin(theta);
       if (last_pos*pos <= 0.0f) {
@@ -302,12 +307,14 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 
 \section {LDR-Oszillator}
 Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis.
+
+TODO: Schaltskizze
 \subsection { Theorie } \label{ssec:theo}
 Zunächst lässt sich ein linearer Schwingkreis der aus einem Widerstand, einem Kondensator und einer Spule besteht über die Spannungen an den einzelnen Bauteilen beschreiben
 $$V_g=V_c+V_l+V_r \text{ (Kirschoff'sches Gesetz)}$$
 Daraus folgt mit $V_g=V_s\cos{\omega t}$ die Differentialgleichung
 $$\ddot{Q}L + \dot{Q}R+ \frac{Q}{C} = V_s\cos{\omega t}$$
-welche mit dem angetriebener, gedämpfter Oszillator vergleichbar ist. Dabei ist $Q$ die Ladung, $L$ die Induktivität der Spule, $R$ der Widerstand, C die Kapazität des Kondensators $V_s$ die angelegte Spannung und $\omega$ die Frequenz der angelegten Wechselspannung.
+welche mit dem angetriebener, gedämpfter Oszillator vergleichbar ist. Dabei ist $Q$ die Ladung, $L$ die Induktivität der Spule, $R$ der Widerstand, C die Kapazität des Kondensators $V_s$, die angelegte Spannung und $\omega$ die Frequenz der angelegten Wechselspannung.
 \newline
 Wird nun der Kondensator durch eine Diode ausgetauscht erhalten wir, wie bei Duffing-Oszillator, einen nichtlinearen Term. Während beim linearen Schwingkreis $I=\frac{dQ}{dt}$ gilt lässt sich die Diode als parallel geschalteter Kondensator und Widerstand mit 
 $$I=I_f(1-\exp(-\frac{V_d}{V_t})) + \frac{dQ}{dt}$$
@@ -324,23 +331,21 @@ Damit lässt sich nun das Euler-Verfahren anwenden (siehe \ref{ssec:num})
 
 \subsection{ Numerische Berechnungen } \label{ssec:num}
 Unter Verwendung folgender Paramter
-\newline
-$R=100\Omega$
-\newline
-$L=2367\cdot10^{-6} H$
-\newline
-$C_r=82 pF$
-\newline
-$C_f=56 \cdot10^{-6}  pF$
-\newline
-$I_f=2,8pA$
-\newline
-$\gamma=0,44$
-\newline
-$\phi=0,6V$
-\newline
-$V_t=34mV$
-\newline
+\begin{center}
+    \begin{tabular}{ | l | l | p{5cm} |}
+    \hline
+    $R$ & $100\Omega$ & beschreibung \\ \hline
+    $L$ & $2367\cdot10^{-6} H$ & beschreibung \\ \hline
+    $C_r$ & $82 pF$ & beschreibung \\ \hline
+    $C_f$ & $56 \cdot10^{-6}  pF$ & beschreibung \\ \hline
+    $I_f$ & $2,8pA$ & beschreibung \\ \hline
+    $\gamma$ & $0,44$ & beschreibung \\ \hline
+    $\phi$ & $0,6V$ & beschreibung \\ \hline
+    $V_t$ & $34mV$ & beschreibung \\
+    \hline
+    \end{tabular}
+\end{center}
+
 haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6$ die Diode sperrt und ansonsten leitet.
 \newline
 Für unterschiedlichen Anregungsspannungen erhalten wir teilweise deutliche Akttraktoren als auch chaos (siehe Abbildung \ref{fig:ldr-prd}).
