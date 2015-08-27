@@ -314,15 +314,10 @@ $$\frac{d\theta}{dt}=\Omega$$
 \subsection { Attraktoren }
 Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$
 Zunächst untersuchen wir die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$.
-
-
+\newline
 - Unterschiede Runge Kutta Euler (unterschiedliche attraktoren)
 \newline
-- stabile / instabile Trajektorien --> parameter $h = \frac{Zeit}{Iterationen}$
-\newline
-- Optimierung durch Schrittweiten adaptierung
-\newline
-- lyapunov??
+- variation parameter $h = \frac{Zeit}{Iterationen}$ und Bedeutung
 \subsection{ Poincareschnitt }
 Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ und $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
 \begin{lstlisting}
@@ -392,6 +387,13 @@ Unter Verwendung folgender Paramter
 
 haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6$ die Diode sperrt und ansonsten leitet.
 \newline
+Um sinnvolle Lösungen zu erhalten muss für die Schrittweite gelten $h \geq 10^{-8}$. Diese oszillierende Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und Pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
+\begin{figure}
+\includegraphics[scale=0.7]{runge-oszillation-100k-2V}
+\caption{Oszillation von Strom (schwarz) und Spannung (rot) bei $V_s=2V$ mit Runge-Kutta-Verfahren 4ter Ordnung}. 
+\label{fig:ldr-oszi}
+\end{figure}
+\subsubsection{Phasenraumdiagramme}
 Bereits bei sehr geringer Anregungsspannung $V_s=0.001V$ stellt sich ein Chaotisches Verhalten ein (siehe Abbildung \ref{fig:ldr-0001}).
 \begin{figure}
 \includegraphics[scale=0.28]{schwing-runge-nach50k-weitere200k-10-9}
@@ -438,20 +440,16 @@ Auch unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein a
 \label{fig:ldr-0006}
 \end{figure}
 
-\begin{figure}
-\includegraphics[scale=0.28]{V_s-2V_spannung}
-\includegraphics[scale=0.28]{V_s-2V_strom}
-\includegraphics[scale=0.28]{V_s-2V}
-\caption{LDR-Schwingkreis bei einer Anregungsspannung von $V_s=2V$. Numerisch mit Euler-Cauchy-Verfahren gelöst, bei einer Schrittweite $h=10^{-9}$ Links: Zeitlicher Verlauf der Spannung $V_d$ an der Diode ($10^5$Iterationen). Mitte: Zeitlicher Verlauf des Stroms $I$ ($10^5 Iterationen$). Rechts: Phasenraumdiagram nach $10^5$ Iterationen für weitere $4 \cdot 10^5$ Iterationen }. 
-\label{fig:ldr_v2}
-\end{figure}
-
+\subsubsection{Poincaré-Schnitt}
+TODO
 \begin{figure}
 \includegraphics[scale=0.5]{Poincare-nach10000iterations}
 \caption{Poincaré-Schnitt für $V_s=2V$ durch die Ebene bei $\sin(\theta)=0$ angefangen nach $10^4$ Iterationen. Insgesamt 1500 Punkte}
 \label{fig:ldr-prd}
 \end{figure}
 
+\subsubsection{Bifurcations-Diagramm}
+TODO
 
 \subsection{ Versuchsaufbau}
 Der in diesem Versuch verwendete Schwingreis ist aufgebaut aus einer Spule, einem Widerstand und einer Diode.....

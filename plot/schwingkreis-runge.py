@@ -24,7 +24,7 @@ from plotting import graph, domain, widget
 import math, numpy
 #from prototyping.schwing import * 
 
-OSZILATION_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+OSZILATION_KERNEL_STROM = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     __kernel void f(int iterations, int offset, float I_0, float V_0, float I_f, float V_t, float V_s, float C_f, float C_r, float R, float L, float w, float phi, __global float *result)
     {
         float time = 0.0f;
@@ -71,6 +71,58 @@ OSZILATION_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
             result[2*i] = time*pow(10.0f, 5.0f);
             result[2*i+1] = I*1000;
+        }
+
+    }
+"""
+
+OSZILATION_KERNEL_SPANNUNG = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+    __kernel void f(int iterations, int offset, float I_0, float V_0, float I_f, float V_t, float V_s, float C_f, float C_r, float R, float L, float w, float phi, __global float *result)
+    {
+        float time = 0.0f;
+        float h = pow(10.0f, -9.0f);
+
+        float I = I_0;
+        float V_d = V_0;
+
+        float new_I = 0.0f;
+
+        float k_1 = 0.0f;
+        float k_2 = 0.0f;
+        float k_3 = 0.0f;
+        float k_4 = 0.0f;
+
+        for(int i=0; i < iterations; i += 1) {
+            k_1 = h * ( V_s*cos(w*time) - V_d - R*I ) / L;
+            k_2 = h * ( V_s*cos(w*(time + 0.5f*h)) - V_d - R*(I + 0.5f*k_1) ) / L;
+            k_3 = h * ( V_s*cos(w*(time + 0.5f*h)) - V_d - R*(I + 0.5f*k_2) ) / L;
+            k_4 = h * ( V_s*cos(w*(time + h)) - V_d - R*(I + k_3) ) / L;
+
+            new_I = I + (k_1 + 2*k_2 + 2*k_3 + k_4) / 6.0f;
+
+            if( V_d > -0.6f) {
+                k_1 = h * (I - I_f*(1.0f - exp(-V_d/V_t))) / (C_r/pow(rootn((1+V_d/phi),25), 11) );
+                k_2 = h * (I - I_f*(1.0f - exp(-(V_d + 0.5f*k_1)/V_t))) / (C_r/pow(rootn((1+(V_d + 0.5f*k_1)/phi),25), 11) );
+                k_3 = h * (I - I_f*(1.0f - exp(-(V_d + 0.5f*k_2)/V_t))) / (C_r/pow(rootn((1+(V_d + 0.5f*k_2)/phi),25), 11) );
+                k_4 = h * (I - I_f*(1.0f - exp(-(V_d + k_3)/V_t))) / (C_r/pow(rootn((1+(V_d + k_3)/phi),25), 11) );
+
+                V_d = V_d + (k_1 + 2*k_2 + 2*k_3 + k_4) / 6.0f;
+            }
+            else {
+                k_1 = h * (I - I_f*(1.0f - exp(-V_d/V_t))) / (C_f*exp(-V_d/V_t));
+                k_2 = h * (I - I_f*(1.0f - exp(-(V_d + 0.5f*k_1)/V_t))) / (C_f*exp(-(V_d + 0.5f*k_1)/V_t));
+                k_3 = h * (I - I_f*(1.0f - exp(-(V_d + 0.5f*k_2)/V_t))) / (C_f*exp(-(V_d + 0.5f*k_2)/V_t));
+                k_4 = h * (I - I_f*(1.0f - exp(-(V_d + k_3)/V_t))) / (C_f*exp(-(V_d + k_3)/V_t));
+
+                V_d = V_d + (k_1 + 2*k_2 + 2*k_3 + k_4) / 6.0f;
+            }
+
+
+            I = new_I;
+            time = time + h;
+
+            result[2*i] = time*pow(10.0f, 5.0f);
+            result[2*i+1] = V_d;
         }
 
     }
@@ -271,7 +323,7 @@ V_d = 0.0
 I = 0.0
 
 
-iterations = 300000
+iterations = 100000
 iteration_offset = 0
 #h = 10**-8
 #time = 0.0
@@ -298,7 +350,7 @@ cl_kernel_params = [
 ]
 
 
-active_cl_kernel = OSZILATION_KERNEL
+#active_cl_kernel = OSZILATION_KERNEL
 
 
 phase_axis = (2.0, 6.0)
@@ -310,18 +362,23 @@ y_phase_label = "Spannung in [V]"
 oszilation_axis = (2.0, 2.0)
 oszilation_origin = (0.0, 1.0)
 x_oszillation_label = "Zeit"
-y_oszillation_label = "Spannung in [V]"
+y_oszillation_label = "Spannung in [V] / Strom in [mA]"
 
 window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
 #window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
-cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dimension=2)
+cl_domain = domain.CLDomain(OSZILATION_KERNEL_SPANNUNG, iterations, cl_kernel_params, dimension=2)
+cl_domain_2 = domain.CLDomain(OSZILATION_KERNEL_STROM, iterations, cl_kernel_params, dimension=2)
 #domain = domain.Domain(gl_buffer_length)
 #domain.push_data(data)
 
+window.plotter.add_graph('schwing2', graph.Line2d(cl_domain))
+window.plotter.get_graph('schwing2').set_colors(color_min=[1.0, 0.0, 0.0, 1.0], color_max=[1.0, 0.0, 0.0, 1.0])
+window.plotter.get_graph('schwing2').set_dotsize(0.004)
 
-window.plotter.add_graph('schwing', graph.Line2d(cl_domain))
+
+window.plotter.add_graph('schwing', graph.Line2d(cl_domain_2))
 window.plotter.get_graph('schwing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
 window.plotter.get_graph('schwing').set_dotsize(0.004)
 window.plotter.gl_plot.precision_axis = (1,1)
