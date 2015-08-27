@@ -197,6 +197,8 @@ class CLDomain(Domain):
             self.cl_params[6] = numpy.float32(value)
         if param == 'it_offset':
             self.cl_params[1] = numpy.int32(value)
+        if param == 'iterations':
+            self.cl_params[0] = numpy.int32(value)
 
         self.calculator.calculateGL(self.kernel, self.cl_params, [self.gl_buffer], (1,))
 
