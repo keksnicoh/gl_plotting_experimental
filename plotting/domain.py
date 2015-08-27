@@ -197,6 +197,8 @@ class CLDomain(Domain):
             self.cl_params[6] = numpy.float32(value)
         if param == 'it_offset':
             self.cl_params[1] = numpy.int32(value)
+        if param == 'iterations':
+            self.cl_params[0] = numpy.int32(value)
 
         self.calculator.calculateGL(self.kernel, self.cl_params, [self.gl_buffer], (1,))
 
@@ -212,7 +214,7 @@ class DuffingDomain(Domain):
         self.beta = numpy.float32(beta)
         self.initial_conditions = initial_conditions
         self.start_iteration = numpy.int32(start_iteration)
-        self.dimension = 3
+        self.dimension = 2
 
     def get_dimension(self):
         return self.dimension
@@ -233,7 +235,7 @@ class DuffingDomain(Domain):
             return
 
         awp = self.calculator.create2ComponentVektor(self.initial_conditions)
-        self.calculator.calculateGL(self.kernel, [awp, numpy.int32(self.length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration, self.dummy_buffer], [self.gl_buffer], (1,))
+        self.calculator.calculateGL(self.kernel, [awp, numpy.int32(self.length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration], [self.gl_buffer], (1,))
 
 
     def init_vbo(self, length):
@@ -242,11 +244,9 @@ class DuffingDomain(Domain):
         self.calculator = BaseCalculator(sharedGlContext=True)
         self.gl_buffer = self.calculator.getOpenGLBufferFromId(self.get_vbo().get(0).id)
 
-        self.dummy_buffer = self.calculator.createArrayBufferWrite(numpy.zeros(length*self.get_dimension()))
-
         awp = self.calculator.create2ComponentVektor(self.initial_conditions)
 
-        self.calculator.calculateGL(self.kernel, [awp, numpy.int32(length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration, self.dummy_buffer], [self.gl_buffer], (1,))
+        self.calculator.calculateGL(self.kernel, [awp, numpy.int32(length), self.time, self.lambd, self.beta, self.omega, self.epsilon, self.start_iteration], [self.gl_buffer], (1,))
 
     def get_dot_size(self): return max(0.002, 1.0/self.length)
 
