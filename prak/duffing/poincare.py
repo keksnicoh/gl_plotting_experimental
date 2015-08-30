@@ -8,14 +8,13 @@ from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
 import math
 import numpy as np
-from prak.duffing.inititial_config import *
 
 
 """
 Kernel to calculate duffing equation and writes (x, y) data to given GLBuffer
 """
 PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
-    __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *dummy, __global float *result)
+    __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *result)
     {
         float h = time / convert_float(iterations);
         float theta = 0;
@@ -196,6 +195,14 @@ vec4 f(vec4 x) {
     return vec4(x_0, y_0, 0, 0.5);
 }
 """
+
+(x_0, y_0) = (0.21, 0.02)
+(x_0, y_0) = (-0.67, 0.02)
+
+(lambd, epsilon) = (0.08, 0.2)
+length = 2500000
+time = 15000
+start_iteration = 0
 
 active_cl_kernel = PHASE_KERNEL
 
