@@ -356,16 +356,18 @@ $$\ddot{Q}L + \dot{Q}R+ \frac{Q}{C} = V_s\cos{\omega t}$$
 welche mit dem angetriebenen, gedämpften Oszillator vergleichbar ist. Dabei ist $Q$ die Ladung, $L$ die Induktivität der Spule, $R$ der Widerstand, C die Kapazität des Kondensators $V_s$, die angelegte Spannung und $\omega$ die Frequenz der angelegten Wechselspannung.
 \newline
 Wird nun der Kondensator durch eine Diode ausgetauscht erhalten wir, wie bei dem Duffing-Oszillator eine Gleichung die nicht mehr analytisch lösbar ist. Während beim linearen Schwingkreis $I=\frac{dQ}{dt}$ gilt lässt sich die Diode als parallel geschalteter Kondensator und Widerstand mit 
-$$I=I_f(1-\exp(-\frac{V_d}{V_t})) + \frac{dQ}{dt}$$
+\begin{equation}I=I_f(1-\exp(-\frac{V_d}{V_t})) + \frac{dQ}{dt}\end{equation}
 beschreiben, wobei $I_f$ und $V_t$ Konstanten sind.
 Dies führt zu
-$$\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_f\exp(-\frac{V_d}{V_t})} $$
+\begin{equation}\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_f\exp(-\frac{V_d}{V_t})} \end{equation}
 in Durchlassrichtung und 
-$$\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_r(1+\frac{V_d}{\phi})^{\gamma}}$$
+\begin{equation}
+\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_r(1+\frac{V_d}{\phi})^{\gamma}}
+\end{equation}
 in Sperrrichtung.
 Außerdem gilt
-$$\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}$$
-$$\frac{d\theta}{dt}=\omega$$
+\begin{equation}\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}\end{equation}
+\begin{equation}\frac{d\theta}{dt}=\omega\end{equation}
 Diese Gleichungen lassen sich nun numerisch lösen.
 
 \subsection{ Numerische Berechnungen } \label{ssec:num}
@@ -463,7 +465,15 @@ Abbildung xxx zeigt eine der verwendeten Schaltkreise. Dabei haben wir x Widerst
 
 \subsection { Versuchsdurchführung }
 \subsubsection { Oszillation und Phasenraumdiagram }
-Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanzfrequenz über die Betrachtung des Phasenraumdiagramms auf $\omega=800kHz$ bestimmt. Leider konnten wir nicht die selben Bedingungen wie bei den numerischen Berechnungen schaffen, da .....
+Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanzfrequenz über die Betrachtung des Phasenraumdiagramms auf $\omega=800kHz$ bestimmt. Leider konnten wir nicht die selben Bedingungen wie bei den numerischen Berechnungen schaffen, da ...... Dennoch erhalten wir einen sehr ähnlichen Verlauf im Vergleich zu unseren numerischen Berechnungen. In Abbildung \ref{fig:ldr-real1} sind die Oszillationen von Strom und Spannung (links) und das entsprechende Phasenraumdiagram dargestellt, welches gut vergleichbar ist mit Abbildung \ref{fig:ldr-0005} (links).
+\begin{figure}
+\centering
+\includegraphics[scale=0.1]{800khz-5V-oszi}
+\includegraphics[scale=0.11]{800khz-5V-phase}
+\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\label{fig:ldr-real1}
+\end{figure}
+
 
 \subsection { Bifurkationsdiagramm }
 Zur Visualisierung des Bifurcationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Aufgrund des Gate-Delay Genrators konnten wir das Verhalten der Oszialltion von Strom bzw. Spannung in Abhängig von $V_s$ darstellen. In Abbildung xxx kann man gut wann Periodenverdopplung und schließlich Chaos auftritt.
