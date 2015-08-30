@@ -344,7 +344,7 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 
 
 \section {LDR-Oszillator}
-Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde.
+Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde (Abbildung \ref{img:schaltskizze})
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.60]{schaltskizze}
@@ -391,16 +391,16 @@ Unter Verwendung folgender Paramter
     \end{tabular}
 \end{center}
 
-haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6$ die Diode sperrt und ansonsten leitet.
+haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6V$ die Diode sperrt.
 \newline
-Um sinnvolle Lösungen zu erhalten muss für die Schrittweite gelten $h \geq 10^{-8}$. Diese oszillierende Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und Pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
+Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ gelten. Diese oszillierenden Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und Pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
 \begin{figure}
 \includegraphics[scale=0.7]{runge-oszillation-100k-2V}
 \caption{Oszillation von Strom (schwarz) und Spannung (rot) bei $V_s=2V$ mit Runge-Kutta-Verfahren 4ter Ordnung}. 
 \label{fig:ldr-oszi}
 \end{figure}
 \subsubsection{Phasenraumdiagramme}
-Bereits bei sehr geringer Anregungsspannung $V_s=0.001V$ stellt sich ein Chaotisches Verhalten ein (siehe Abbildung \ref{fig:ldr-0001}).
+Bei einer Anregungsspannung $V_s < 0.001V$ zeigt sich das Verhalten im Grenzfall des gedämpften Oszillators (siehe Abbildung \ref{fig:ldr-0001}).
 \begin{figure}
 \includegraphics[scale=0.28]{schwing-runge-nach50k-weitere200k-10-9}
 \includegraphics[scale=0.28]{schwing-runge-nach100k-weitere200k-10-9}
@@ -416,7 +416,7 @@ Eindeutige Attraktoren erhalten wir bei Spannungen ab $V_s=1V$ (Abbildung \ref{f
 \caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$}. 
 \label{fig:ldr-0002}
 \end{figure}
-Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und dann wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} mitte und rechts).
+Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein Maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und anschließend wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} mitte und rechts).
 \begin{figure}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-20V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-30V}
@@ -425,14 +425,14 @@ Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie 
 \label{fig:ldr-0003}
 \end{figure}
 \newline
-Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Z.b. erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts)....(ERKLÄRUNG)
+Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Beispielsweise erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts) TODO ....(ERKLÄRUNG)
 \begin{figure}
 \includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
 \includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
 \caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten für weitere $5\cdot10^4$ Zeitschritte bei einer Schrittweite von $h=10^{-8}$. Links: Wohldefinierter Attraktor. Rechts: Chaos}. 
 \label{fig:ldr-0004}
 \end{figure}
-Auch unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005} und \ref{fig:ldr-0006} ) bis hin zum Chaos.
+Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005} und \ref{fig:ldr-0006} ) bis hin zum Chaos.
 \begin{figure}
 \includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,4V}
 \includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,6V}
@@ -456,6 +456,7 @@ TODO
 
 \subsubsection{Bifurcations-Diagramm}
 TODO
+
 
 \subsection{ Versuchsaufbau}
 Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der.... ref{fig:ldr-aufbau1} (rechts)
