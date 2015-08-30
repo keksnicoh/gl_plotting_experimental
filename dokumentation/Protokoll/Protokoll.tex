@@ -309,15 +309,18 @@ TODO weitere Analyse dokumentieren.
  
 \section { Duffing-Gleichung}
 Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied zum gewöhnlichen Harmonischen Oszillator wird der Term mit der Federkonstante kubisch. Dies ist vergleichbar mit der Schwingung eines Metallstabes.
-\begin{equation} \ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}\end{equation}
+\begin{equation}
+\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}
+\label{eq:duffing}
+\end{equation} 
 Diese DGL lässt sich nun nicht mehr analytisch berechnen.
-Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:euler} als auch mit dem Runge-Kutta Verfahren \parencite{wiki:runge}.
+Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:euler} als auch mit dem Runge-Kutta Verfahren \parencite{wiki:runge}. Um dies zu ermöglichen lässt sich \eqref{eq:duffing} als folgendes DGL System umformen.
 \begin{equation}\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3\end{equation}
 \begin{equation}\frac{dx}{dt}=y\end{equation}
 \begin{equation}\frac{d\theta}{dt}=\Omega\end{equation}
-\subsection { Attraktoren }
-Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$
-Zunächst untersuchen wir die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$.
+\newline
+\subsection { Phasenraumdiagramm }
+Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$.
 \newline
 - Unterschiede Runge Kutta Euler (unterschiedliche attraktoren)
 \newline
