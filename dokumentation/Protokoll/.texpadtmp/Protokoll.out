@@ -1,24 +1,25 @@
 \BOOKMARK [1][-]{section.1}{Einleitung}{}% 1
 \BOOKMARK [1][-]{section.2}{Logistische Abbildung}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Fixpunkte / Stabilit\344tsbedigung}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Lyapunov Exponent}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Betrachtung im chaotischen Bereich.}{subsection.2.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Vergleich der analytischen und renomierten Implementation}{subsection.2.2}% 6
-\BOOKMARK [2][-]{subsection.2.3}{Feigenbaumkonstante}{section.2}% 7
-\BOOKMARK [1][-]{section.3}{Sinus Abbildung}{}% 8
-\BOOKMARK [1][-]{section.4}{Duffing-Gleichung}{}% 9
-\BOOKMARK [2][-]{subsection.4.1}{Phasenraumdiagramm}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.2}{Poincareschnitt}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{LDR-Oszillator}{}% 12
-\BOOKMARK [2][-]{subsection.5.1}{Theorie}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.2}{Numerische Berechnungen}{section.5}% 14
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Phasenraumdiagramme}{subsection.5.2}% 15
-\BOOKMARK [3][-]{subsubsection.5.2.2}{Poincar\351-Schnitt}{subsection.5.2}% 16
-\BOOKMARK [3][-]{subsubsection.5.2.3}{Bifurcations-Diagramm}{subsection.5.2}% 17
-\BOOKMARK [2][-]{subsection.5.3}{Versuchsaufbau}{section.5}% 18
-\BOOKMARK [2][-]{subsection.5.4}{Versuchsdurchf\374hrung}{section.5}% 19
-\BOOKMARK [3][-]{subsubsection.5.4.1}{Oszillation und Phasenraumdiagram}{subsection.5.4}% 20
-\BOOKMARK [2][-]{subsection.5.5}{Bifurkationsdiagramm}{section.5}% 21
-\BOOKMARK [2][-]{subsection.5.6}{Vermessung der Bifurkationspunkte}{section.5}% 22
-\BOOKMARK [2][-]{subsection.5.7}{Zusammenfassung}{section.5}% 23
-\BOOKMARK [1][-]{section.6}{Literatur}{}% 24
+\BOOKMARK [2][-]{subsection.2.2}{Betrachtung von Extremwerten}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Lyapunov Exponent}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Betrachtung im chaotischen Bereich.}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Vergleich der analytischen und renomierten Implementation}{subsection.2.3}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Feigenbaumkonstante}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{Sinus Abbildung}{}% 9
+\BOOKMARK [1][-]{section.4}{Duffing-Gleichung}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Phasenraumdiagramm}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Poincareschnitt}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{LDR-Oszillator}{}% 13
+\BOOKMARK [2][-]{subsection.5.1}{Theorie}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.2}{Numerische Berechnungen}{section.5}% 15
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Phasenraumdiagramme}{subsection.5.2}% 16
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Poincar\351-Schnitt}{subsection.5.2}% 17
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Bifurcations-Diagramm}{subsection.5.2}% 18
+\BOOKMARK [2][-]{subsection.5.3}{Versuchsaufbau}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.4}{Versuchsdurchf\374hrung}{section.5}% 20
+\BOOKMARK [3][-]{subsubsection.5.4.1}{Oszillation und Phasenraumdiagram}{subsection.5.4}% 21
+\BOOKMARK [2][-]{subsection.5.5}{Bifurkationsdiagramm}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.6}{Vermessung der Bifurkationspunkte}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.7}{Zusammenfassung}{section.5}% 24
+\BOOKMARK [1][-]{section.6}{Literatur}{}% 25
