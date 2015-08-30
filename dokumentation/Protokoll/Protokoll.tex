@@ -481,7 +481,15 @@ Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanz
 
 
 \subsection { Bifurkationsdiagramm }
-Beim erzeugen des Bifurcationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun geändert (Abbildung \label{fig:ldr-aufbau1}). 
+Beim erzeugen des Bifurcationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \label{fig:ldr-aufbau1}). Wir modelierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Kontrollparameters V_s darstellt. Zunächst ist dies nicht gelungen. Mit Hilfe des digitalen Oszilloskopes konnten wir dann aber den Verlauf so modelieren, dass  Vs=0 bis Vs=v_ausgang linear perdiodisch durchlaufen wird. Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu sehen war, wenn wir den Definitionsbereich von oben nach unten (vs=v_ausgang ... vs=0) eingestellt haben (Abbildung N). 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.1]{800khz-5V-oszi}
+\includegraphics[scale=0.11]{800khz-5V-phase}
+\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\label{fig:ldr-real1}
+\end{figure}
 
 Aufgrund des Gate-Delay Genrators konnten wir das Verhalten der Oszialltion von Strom bzw. Spannung in Abhängig von $V_s$ darstellen. In Abbildung xxx kann man gut wann Periodenverdopplung und schließlich Chaos auftritt.
 Wir waren in der Lage 3 Werte für Periodenverdopplung zu messen.
