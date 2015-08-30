@@ -1,24 +1,49 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
 \select@language {ngerman}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2}Logistische Abbildung}{2}{section.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1}Fixpunkte / Stabilit\IeC {\"a}tsbedigung}{2}{subsection.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2}Lyapunov Exponent}{5}{subsection.2.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.1}Betrachtung im chaotischen Bereich.}{6}{subsubsection.2.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.2}Vergleich der analytischen und renomierten Implementation}{6}{subsubsection.2.2.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3}Feigenbaumkonstante}{8}{subsection.2.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Sinus Abbildung}{9}{section.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}Duffing-Gleichung}{10}{section.4}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.1}Attraktoren}{10}{subsection.4.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.2}Poincareschnitt}{10}{subsection.4.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5}LDR-Oszillator}{12}{section.5}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.1}Theorie}{12}{subsection.5.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.2}Numerische Berechnungen}{13}{subsection.5.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.2.1}Phasenraumdiagramme}{14}{subsubsection.5.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.2.2}Poincar\IeC {\'e}-Schnitt}{16}{subsubsection.5.2.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.2.3}Bifurcations-Diagramm}{16}{subsubsection.5.2.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.3}Versuchsaufbau}{16}{subsection.5.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.4}Versuchsdurchf\IeC {\"u}hrung}{16}{subsection.5.4}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.4.1}Oszillation und Phasenraumdiagram}{16}{subsubsection.5.4.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.5}Bifurkationsdiagramm}{19}{subsection.5.5}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.6}Zusammenfassung}{19}{subsection.5.6}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {6}Literatur}{19}{section.6}

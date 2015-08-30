@@ -1,0 +1,40 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{nty}{nty}
+    \entry{wiki:euler}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=28c1d1ce9d83a4e09e10006667314aca}{Wikipedia}{W\bibinitperiod}{Explizites\bibnamedelima Euler-Verfahren}{E\bibinitperiod\bibinitdelim E\bibinithyphendelim V\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{28c1d1ce9d83a4e09e10006667314aca}
+      \strng{fullhash}{28c1d1ce9d83a4e09e10006667314aca}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Explizites Euler-Verfahren {@ONLINE}}
+      \verb{url}
+      \verb https://de.wikipedia.org/wiki/Explizites_Euler-Verfahren
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

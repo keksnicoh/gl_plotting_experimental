@@ -20,6 +20,10 @@
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
   
+\usepackage[style=numeric]{biblatex}
+\usepackage[babel,german=guillemets]{csquotes}
+\bibliography{literatur}
+  
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -304,13 +308,13 @@ TODO weitere Analyse dokumentieren.
 
  
 \section { Duffing-Gleichung}
-Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied zum gewöhnlichen Harmonischen Oszillator tritt hier ein kubischer Dämpfungsterm auf.
-$$\ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}$$
+Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied zum gewöhnlichen Harmonischen Oszillator wird der Term mit der Federkonstante kubisch. Dies ist vergleichbar mit der Schwingung eines Metallstabes.
+\begin{equation} \ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}\end{equation}
 Diese DGL lässt sich nun nicht mehr analytisch berechnen.
-Im Folgenden lösen wir die Gleichung mit der Euler-Methode (REFERENZ: Euler...) als auch mit dem Runge-Kutta Verfahren (REFERENZ: Runge...).
-$$\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3$$
-$$\frac{dx}{dt}=y$$
-$$\frac{d\theta}{dt}=\Omega$$
+Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:euler} als auch mit dem Runge-Kutta Verfahren \parencite{wiki:runge}.
+\begin{equation}\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3\end{equation}
+\begin{equation}\frac{dx}{dt}=y\end{equation}
+\begin{equation}\frac{d\theta}{dt}=\Omega\end{equation}
 \subsection { Attraktoren }
 Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$
 Zunächst untersuchen wir die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$.
@@ -482,11 +486,13 @@ $$V_{s_1}=6.6V \pm 0.2V$$
 $$V_{s_2}=13.6V \pm 0.2V$$
 $$V_{s_3}=18V \pm 2V$$
 Dabei haben wir die Fehler lediglich geschätzt auf Basis der Ungenauigkeit des Oszilloskopes. Das führt zu einer Feigenbaumkonstante von $\delta=1.6 \pm xxx$
-
+\citation{wiki:euler}
 
 \subsection { Zusammenfassung }
 
 \section{ Literatur }
+\nocite{*}
+\printbibliography
 \begin{itemize} 
 \item Nichtlineare Dynamik und Chaos - Physikalisches Praktikum für Fortgeschrittene Universität Hamburg
 \end{itemize}
