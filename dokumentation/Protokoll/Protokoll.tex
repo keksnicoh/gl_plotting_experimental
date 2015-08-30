@@ -321,8 +321,13 @@ Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:eule
 \newline
 \subsection { Phasenraumdiagramm }
 Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$.
-\newline
-- Unterschiede Runge Kutta Euler (unterschiedliche attraktoren)
+\begin{figure}
+\includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-euler}
+\includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,08-euler}
+\includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-runge}
+\caption{Phasenraumdiagramm mit Euler-Cauchy. Links: Schrittweite $h=0.1$. Mitte: Schrittweite $h=0.08$. Rechts: Runge-Kutta $h=0.1$}. 
+\label{fig:ldr-0001}
+\end{figure}
 \newline
 - variation parameter $h = \frac{Zeit}{Iterationen}$ und Bedeutung
 \subsection{ Poincareschnitt }
