@@ -320,18 +320,30 @@ Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:eule
 \begin{equation}\frac{d\theta}{dt}=\Omega\end{equation}
 \newline
 \subsection { Phasenraumdiagramm }
-Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$.
+Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$. Der zu erwartende Attraktor ist in Abbildung \ref{fig:duffing-awp1} (mitte und rechts) dargestellt. Ist die Schrittgröße zu groß so entsteht bei dem Euler-Cauchy Verfahren ein anderer Attraktor (Abbildung \ref{fig:duffing-awp1} links).
 \begin{figure}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-euler}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,08-euler}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-runge}
-\caption{Phasenraumdiagramm mit Euler-Cauchy. Links: Schrittweite $h=0.1$. Mitte: Schrittweite $h=0.08$. Rechts: Runge-Kutta $h=0.1$}. 
-\label{fig:ldr-0001}
+\caption{Phasenraumdiagramm mit Euler-Cauchy. Links: Schrittweite $h=0.1$. Mitte: Schrittweite $h=0.08$. Rechts: Runge-Kutta mit Schrittweite $h=0.1$}. 
+\label{fig:duffing-awp1}
 \end{figure}
 \newline
-- variation parameter $h = \frac{Zeit}{Iterationen}$ und Bedeutung
+Im weiteren sind alle folgenden Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung gemacht.
+\newline
+Ganz bedeutend ändert sich der Attraktor, wenn die Anfangsbedingungen sich ändern. Variieren wir $x_0$ so bleibt der Attraktor identisch bei $x_0=0.18$, während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
+\newline
+Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfangsbedingungen.
+\begin{figure}
+\includegraphics[scale=0.4]{duffing-awp2-500k-nach-500k-h0,01-runge}
+\includegraphics[scale=0.4]{duffing-awp3-500k-nach-500k-h0,01-runge}
+\includegraphics[scale=0.4]{duffing-awp4-500k-nach-500k-h0,01-runge}
+\includegraphics[scale=0.4]{duffing-awp5-500k-nach-500k-h0,01-runge}
+\caption{Phasenraumdiagramm mit Runge-Kutta. Links oben: $x_0=1.05$, $y_0=0.77$. Rechts oben: $x_0=-0.67$, $y_0=0.02$. Links unten: $x_0=-0.46$, $y_0=0.30$. Rechts unten: $x_0=-0.43$, $y_0=0.12$}. 
+\label{fig:duffing-allawp}
+\end{figure}
 \subsection{ Poincareschnitt }
-Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung XYZ ist ein Bereich Poincaree Schnitt des Duffing-Oszillators mit $\epsilon=7.72$ und $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
+Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} ist ein Poincaree Schnitt des Duffing-Oszillators mit $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
 \begin{lstlisting}
       pos = sin(theta);
       if (last_pos*pos <= 0.0f) {
@@ -340,17 +352,14 @@ Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenr
           k++;
       }
       last_pos = pos;
-
 \end{lstlisting}
 Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. So wird nicht exakt das $(x,y)$ duplet abgebildet bei welchen die Ebene geschnitten wurden, stattdessen wird das $(x,y)$ Duplet bei $\theta_2$ angezeit. Eine Möglichkeit dies zu Optimieren wäre den Mittelwert $(\frac{x_1+x_2}{2}, \frac{y_1 + y_2}{2})$ als Schnittpunkt zu identifizieren.
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.20]{poincare-772}
-	\caption{Poincare Schnitt des Duffing Oszillators für $\epsilon=7.72 x=3.0, y=4.0, \lambda=0.2, \beta=1, \theta=1$. als Referenz aus dem VORBEREITUNGSHEFT-LITERATUR-S38}
+	\caption{Poincaré-Schnitt des Duffing Oszillators für $\epsilon=7.72$, $x=3.0$,$ y=4.0$, $\lambda=0.2$, $\beta=1$, $\theta=1$. als Referenz aus dem VORBEREITUNGSHEFT-LITERATUR-S38}
 	\label{img:poincare-772}
 \end{figure}
-
-
 \section {LDR-Oszillator}
 Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde (Abbildung \ref{img:schaltskizze})
 \begin{figure}
@@ -369,21 +378,20 @@ welche mit dem angetriebenen, gedämpften Oszillator vergleichbar ist. Dabei ist
 \newline
 Wird nun der Kondensator durch eine Diode ausgetauscht erhalten wir, wie bei dem Duffing-Oszillator eine Gleichung die nicht mehr analytisch lösbar ist. Während beim linearen Schwingkreis $I=\frac{dQ}{dt}$ gilt lässt sich die Diode als parallel geschalteter Kondensator und Widerstand mit 
 \begin{equation}I=I_f(1-\exp(-\frac{V_d}{V_t})) + \frac{dQ}{dt}\end{equation}
-beschreiben, wobei $I_f$ und $V_t$ Konstanten sind.
-Dies führt zu
+beschreiben, wobei $I_f$ und $V_t$ Konstanten sind. Dabei beschreibt der erste Summand den Strom durch den Widerstand und der zweite die Änderung der Ladung aufgrund der Diodenkapazität. 
+Dies führt bei einer Kapazität in Durchlassrichtung von $C=C_f\exp(-\frac{V_d}{V_t})$ zu
 \begin{equation}\frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_f\exp(-\frac{V_d}{V_t})} \end{equation}
-in Durchlassrichtung und 
+und bei einer Kapazität in Sperrrichtung von $C=C_r(1+\frac{V_d}{\phi})^{-\gamma}$ zu
 \begin{equation}
 \frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_r(1+\frac{V_d}{\phi})^{\gamma}}
 \end{equation}
-in Sperrrichtung.
+,wobei $\phi$ und $\gamma$ Konstanten sind.
 Außerdem gilt
 \begin{equation}\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}\end{equation}
 \begin{equation}\frac{d\theta}{dt}=\omega\end{equation}
-Diese Gleichungen lassen sich nun numerisch lösen.
-
+Diese Gleichungen lassen sich nur noch numerisch lösen.
 \subsection{ Numerische Berechnungen } \label{ssec:num}
-Unter Verwendung folgender Paramter
+Unter Verwendung folgender Parameter
 \begin{center}
     \begin{tabular}{ | l | l | p{5cm} |}
     \hline
@@ -455,13 +463,21 @@ Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein andere
 \end{figure}
 
 \subsubsection{Poincaré-Schnitt}
-TODO
+Bei der Betrachtung des Poincaré-Schnittes fällt auf, dass bei wohldefinierten Attraktoren die Phasenraumtrajektorie immer bei ähnlichen Spannungen durch die $\theta=0$ Ebene verläuft (vgl. Abbildung \ref{fig:ldr-poin1}).
 \begin{figure}
-\includegraphics[scale=0.5]{Poincare-nach10000iterations}
-\caption{Poincaré-Schnitt für $V_s=2V$ durch die Ebene bei $\sin(\theta)=0$ angefangen nach $10^4$ Iterationen. Insgesamt 1500 Punkte}
-\label{fig:ldr-prd}
+\includegraphics[scale=0.4]{schwing-500k-nach-10k-8V-phase}
+\includegraphics[scale=0.4]{schwing-500k-nach-10k-8V-poin}
+\caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^4$ Zeitschritten bei $V_s=8V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
+\label{fig:ldr-poin1}
 \end{figure}
-
+ Im chaotischen Fall weißt der Poincaré-Schnitt weitere Punkte bei unterschiedlichen Spannungen auf (vgl. Abbildung \ref{fig:ldr-poin2}).
+\begin{figure}
+\includegraphics[scale=0.4]{schwing-500k-nach-10k-7V-phase}
+\includegraphics[scale=0.4]{schwing-500k-nach-10k-7V-poin}
+\caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^4$ Zeitschritten bei $V_s=7V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
+\label{fig:ldr-poin2}
+\end{figure}
+Anmerkung: Bei der numerischen Berechnung  kommt es immer wieder vor, dass bei ganz bestimmten $V_s$ der Open-GL Buffer auf der Grafikkarte überläuft.
 \subsubsection{Bifurcations-Diagramm}
 TODO
 
