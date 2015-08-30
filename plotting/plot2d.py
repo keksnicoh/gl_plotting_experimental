@@ -65,7 +65,7 @@ class Plotter():
     def zoom(self, zoom):
         axis = self.gl_plot.i_axis
         self.gl_plot.i_axis = (axis[0]*zoom, axis[1]*zoom)
-        self.gl_plot.i_axis_units = (self.gl_plot.i_axis[0]/10, self.gl_plot.i_axis[1]/10)
+        self.gl_plot.i_axis_units = (self.gl_plot.i_axis[0]/5, self.gl_plot.i_axis[1]/5)
         if self.gl_plot.i_axis != (0.0, 0.0):
             self.gl_plot.prepare()
     def render_graphs(self):
