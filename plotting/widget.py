@@ -39,8 +39,11 @@ class Widget():
         self._keyboard_active = []
         self._active_rscorner = None
         self._over_drag = (0.0, 0.0)
-
+        self._inner_matrix = None
         self._init_matrix()
+        self._original_size = self.size
+        self._init_inner_matrix()
+        
         self.set_active(False)
 
     def _init_matrix(self):
@@ -54,6 +57,18 @@ class Widget():
             0,                    0,                   1, 0,
             -1.0+2.0*self.pos[0], 1.0-2.0*self.pos[1], 0, 1,
         ], dtype=numpy.float32))
+
+    def _init_inner_matrix(self):
+        """
+        initializes matrix so scale the widgets frame. 
+        this matrix must be assigned to frame shaders.
+        """
+        self._inner_matrix = numpy.array([
+            float(self._original_size[0])/float(self.size[0]), 0.0, 0.0, 0.0,
+            0.0, float(self._original_size[1])/float(self.size[1]), 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            -1.0, 1.0, 0.0, 1.0,            
+        ], dtype=numpy.float32)
 
     def set_keyboard_active(self, keyboard): self._keyboard_active = keyboard
     def set_cursor(self, cursor): self.cursor = (cursor[0]-self.pos[0], cursor[1]-self.pos[1])
@@ -97,6 +112,7 @@ class Widget():
             (dx, dy) = self.mouse_drag[1]
             self.pos = (max(0.0, self.pos[0]+dx), max(0.0, self.pos[1]-dy))
             self._init_matrix()
+            self._init_inner_matrix()
 
         # resize window
         if self.RESIZEABLE:
@@ -118,6 +134,8 @@ class Widget():
                     self.pos = (self.pos[0]+c[0], self.pos[1]+c[1])
                     self.size = new_size
                     self._init_matrix()
+                    self._init_inner_matrix()
+                    self.refresh_widget = True
 
     def render_widget(self): pass
     def render(self):
@@ -136,6 +154,7 @@ class Uniforms(Widget):
         ft = ImageFont.truetype (FONT_RESOURCES_DIR+"/arial.ttf", 60)
         gl_font = GlFont('', ft)
         gl_font.color = font_color
+        
 
         self._font_color = font_color
         self._um = uniform_manager
@@ -149,6 +168,7 @@ class Uniforms(Widget):
     def render_widget(self):
         str_uniforms = []
 
+        self._gl_font.real_projection_matrix = self._inner_matrix
         for name, value in self._um.get_global_uniforms().items():
             str_uniforms.append(('{}={:.'+str(self.floating_percision)+'f}').format(name, value))
         for plot, uniforms in self._um.get_local_uniforms().items():
@@ -158,7 +178,7 @@ class Uniforms(Widget):
         for i, str_uniform in enumerate(str_uniforms):
             self._gl_font.color = [1,0,0,1] if i == self._active_uniform else self._font_color
             self._gl_font.set_text('{}) {}'.format(i+1, str_uniform))
-            self._gl_font.render(mat_projection=translation_matrix(-1.0, 1.0-0.14*i))
+            self._gl_font.render(mat_projection=translation_matrix(-0.0, 0.0-0.14*i))
 
         self.refresh_widget = False
     def capture_keyboard(self):

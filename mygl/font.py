@@ -6,7 +6,7 @@ XXX optimize texture rendering...
 """
 import mygl.app
 from mygl.util import Shader
-from matricies import translation_matrix
+from matricies import translation_matrix, matrix_identity
 from OpenGL.GL import *
 from PIL import ImageFont
 import numpy
@@ -15,6 +15,7 @@ VERTEX_SHADER = """
 #version 410
 uniform mat4 mat_projection;
 uniform mat4 mat_modelview;
+uniform mat4 mat_real_projection;
 
 in vec2 vertex_position;
 in vec2 vertex_texcoord;
@@ -23,7 +24,7 @@ out vec2 fragTexCoord;
 void main()
 {
     fragTexCoord = vertex_texcoord;
-    gl_Position = mat_projection * mat_modelview * vec4(vertex_position, 0.0, 1.0);
+    gl_Position = mat_real_projection * mat_projection * mat_modelview * vec4(vertex_position, 0.0, 1.0);
 }
 """
 
@@ -55,10 +56,12 @@ class GlFont():
         self._render_data = []
         self._texture_cache = {}
         self._prepare_gl()
+        self.real_projection_matrix = matrix_identity(4)
         self._is_prepared = False
         """ local modelview matrix. """
         self.mat_modelview_f = lambda rel_xy, n, l: translation_matrix(*rel_xy)
         self.set_text(text)
+        
 
     def set_color(self, color):
         self.color = color
@@ -66,6 +69,7 @@ class GlFont():
         self.text = text
         self.xy = (x,y)
         self._is_prepared = False
+
 
     def _prepare_gl(self):
         """
@@ -84,6 +88,7 @@ class GlFont():
         self._gl_uniforms['color'] = self._uloc('color')
         self._gl_uniforms['mat_projection'] = self._uloc('mat_projection')
         self._gl_uniforms['mat_modelview'] = self._uloc('mat_modelview')
+        self._gl_uniforms['mat_real_projection'] = self._uloc('mat_real_projection')
         self.vao_id = glGenVertexArrays(1)
         self.vbo_id = glGenBuffers(2)
 
@@ -239,6 +244,7 @@ class GlFont():
         glUniform1i(self._gl_uniforms['tex'], 1)
         glUniform4f(self._gl_uniforms['color'], *self.color)
         glUniformMatrix4fv(self._gl_uniforms['mat_projection'], 1, GL_FALSE, mat_projection)
+        glUniformMatrix4fv(self._gl_uniforms['mat_real_projection'], 1, GL_FALSE, self.real_projection_matrix)
 
 
         for n, data in enumerate(self._render_data[0:length]):

@@ -1,0 +1,8 @@
+ideas
+
+- glDrawElements to specifiy low resolution rendering
+  during camera movements. (indicies...)
+- specify low rendering specs, i.e. when camera is moving
+  the iterations for some calculation could be set lower
+  to increase performance during movement. after movement 
+  is done the high resolution could be rendered again.

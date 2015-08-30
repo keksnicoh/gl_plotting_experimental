@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.27)  27 AUG 2015 23:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.27)  28 AUG 2015 08:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -736,11 +736,7 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 )
 (/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.a
-ux
-
-LaTeX Warning: Label `fig:ldr-prd' multiply defined.
-
-)
+ux)
 \openout1 = `Protokoll.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
@@ -883,7 +879,7 @@ LaTeX Font Info:    Try loading font information for T1+lmss on input line 56.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<funfunfun.png, id=76, 994.71625pt x 1061.9675pt>
+<funfunfun.png, id=84, 994.71625pt x 1061.9675pt>
 File: funfunfun.png Graphic file (type png)
  <use funfunfun.png>
 Package pdftex.def Info: funfunfun.png used on input line 57.
@@ -964,7 +960,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 71.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 71.
- <bifurkation.png, id=114, 1549.79pt x 685.56125pt>
+ <bifurkation.png, id=124, 1549.79pt x 685.56125pt>
 File: bifurkation.png Graphic file (type png)
 
 <use bifurkation.png>
@@ -984,20 +980,20 @@ LaTeX Warning: Command \textless invalid in math mode on input line 92.
 LaTeX Warning: Command \textless invalid in math mode on input line 92.
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 98.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 98.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 99.
+(babel)             in language  on input line 98.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 99.
-[2] <fixpunkt-2878.png, id=129, 1196.47pt x 1199.48125pt>
+(babel)             in language  on input line 98.
+[2] <fixpunkt-2878.png, id=139, 1196.47pt x 1199.48125pt>
 File: fixpunkt-2878.png Graphic file (type png)
 
 <use fixpunkt-2878.png>
 Package pdftex.def Info: fixpunkt-2878.png used on input line 121.
 (pdftex.def)             Requested size: 239.28976pt x 239.892pt.
- <fixpunkt-311.png, id=130, 1194.4625pt x 1197.47375pt>
+ <fixpunkt-311.png, id=140, 1194.4625pt x 1197.47375pt>
 File: fixpunkt-311.png Graphic file (type png)
 
 <use fixpunkt-311.png>
@@ -1035,13 +1031,13 @@ t/8 ; \OT1/lmr/m/n/8 (\OML/lmm/m/it/8 x[]; x[]\OT1/lmr/m/n/8 )\OML/lmm/m/it/8 ;
  :::$ \T1/lmr/m/n/8 Sour-ce-co-de: prak/logisitsch-no-opt-
  []
 
-<intermittenz.png, id=131, 1205.50375pt x 816.04875pt>
+<intermittenz.png, id=141, 1205.50375pt x 816.04875pt>
 File: intermittenz.png Graphic file (type png)
  <use intermittenz.png>
 Package pdftex.def Info: intermittenz.png used on input line 129.
 (pdftex.def)             Requested size: 265.21164pt x 179.53128pt.
 
-<analy-periodenv.png, id=132, 1194.4625pt x 1200.485pt>
+<analy-periodenv.png, id=142, 1194.4625pt x 1200.485pt>
 File: analy-periodenv.png Graphic file (type png)
 
 <use analy-periodenv.png>
@@ -1051,45 +1047,44 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 136.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 136.
-
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 144.
+ [3 <./bifurkation.png>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 144.
+ [4 <./fixpunkt-2878.png> <./fixpunkt-311.png> <./intermittenz.png> <./analy-pe
+riodenv.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 148--150
 
  []
 
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 151.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 151.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 151.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 151.
-[3 <./bifurkation.png>]
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 151.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 151.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 151.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 151.
- [4 <./fixpunkt-2878.png> <./fixpunkt-311.png> <./intermittenz.png> <./analy-pe
-riodenv.png>]
-<iteration/lyapunov-1.png, id=153, 601.24625pt x 597.23125pt>
+<iteration/lyapunov-1.png, id=163, 601.24625pt x 597.23125pt>
 File: iteration/lyapunov-1.png Graphic file (type png)
 
 <use iteration/lyapunov-1.png>
 Package pdftex.def Info: iteration/lyapunov-1.png used on input line 176.
 (pdftex.def)             Requested size: 168.3478pt x 167.2236pt.
 
-<iteration/lyapunov-2.png, id=154, 598.235pt x 599.23875pt>
+<iteration/lyapunov-2.png, id=164, 598.235pt x 599.23875pt>
 File: iteration/lyapunov-2.png Graphic file (type png)
 
 <use iteration/lyapunov-2.png>
 Package pdftex.def Info: iteration/lyapunov-2.png used on input line 177.
 (pdftex.def)             Requested size: 167.50465pt x 167.7857pt.
 
-<iteration/lyapunov-3.png, id=155, 598.235pt x 600.2425pt>
+<iteration/lyapunov-3.png, id=165, 598.235pt x 600.2425pt>
 File: iteration/lyapunov-3.png Graphic file (type png)
 
 <use iteration/lyapunov-3.png>
@@ -1113,13 +1108,13 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 186.
 [5 <./iteration/lyapunov-1.png> <./iteration/lyapunov-2.png> <./iteration/lyapu
-nov-3.png>] <lya378-zoom.png, id=183, 1196.47pt x 1194.4625pt>
+nov-3.png>] <lya378-zoom.png, id=193, 1196.47pt x 1194.4625pt>
 File: lya378-zoom.png Graphic file (type png)
 
 <use lya378-zoom.png>
 Package pdftex.def Info: lya378-zoom.png used on input line 197.
 (pdftex.def)             Requested size: 215.3553pt x 214.99397pt.
- <lya378.png, id=184, 598.235pt x 598.235pt>
+ <lya378.png, id=194, 598.235pt x 598.235pt>
 File: lya378.png Graphic file (type png)
 
 <use lya378.png>
@@ -1129,21 +1124,21 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 204.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 204.
- <lyapunov-analysis-300.png, id=186, 1196.47pt x 576.1525pt>
+ <lyapunov-analysis-300.png, id=196, 1196.47pt x 576.1525pt>
 File: lyapunov-analysis-300.png Graphic file (type png)
 
 <use lyapunov-analysis-300.png>
 Package pdftex.def Info: lyapunov-analysis-300.png used on input line 208.
 (pdftex.def)             Requested size: 220.81404pt x 220.82156pt.
 
-<lyapunov-analysis-305.png, id=187, 1340.00626pt x 804.00375pt>
+<lyapunov-analysis-305.png, id=197, 1340.00626pt x 804.00375pt>
 File: lyapunov-analysis-305.png Graphic file (type png)
 
 <use lyapunov-analysis-305.png>
 Package pdftex.def Info: lyapunov-analysis-305.png used on input line 209.
 (pdftex.def)             Requested size: 220.82568pt x 220.82568pt.
 
-<iteration/bifurk-log-lyapunov-periode.png, id=188, 1025.8325pt x 518.93875pt>
+<iteration/bifurk-log-lyapunov-periode.png, id=198, 1025.8325pt x 518.93875pt>
 File: iteration/bifurk-log-lyapunov-periode.png Graphic file (type png)
 
 <use iteration/bifurk-log-lyapunov-periode.png>
@@ -1173,7 +1168,7 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 228.
  [7 <./lyapunov-analysis-300.png> <./lyapunov-analysis-305.png> <./iteration/bi
 furk-log-lyapunov-periode.png>]
-<lya-rauschen.png, id=208, 1197.47375pt x 1194.4625pt>
+<lya-rauschen.png, id=218, 1197.47375pt x 1194.4625pt>
 File: lya-rauschen.png Graphic file (type png)
  <use lya-rauschen.png>
 Package pdftex.def Info: lya-rauschen.png used on input line 266.
@@ -1201,14 +1196,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 288.
  [9 <./lya-rauschen.png>]
-<bifurkation-sin.png, id=237, 850.17625pt x 397.485pt>
+<bifurkation-sin.png, id=247, 850.17625pt x 397.485pt>
 File: bifurkation-sin.png Graphic file (type png)
 
 <use bifurkation-sin.png>
 Package pdftex.def Info: bifurkation-sin.png used on input line 299.
 (pdftex.def)             Requested size: 467.59839pt x 218.61742pt.
 
-<bifurkation-sin-zoom.png, id=238, 982.67125pt x 598.235pt>
+<bifurkation-sin-zoom.png, id=248, 982.67125pt x 598.235pt>
 File: bifurkation-sin-zoom.png Graphic file (type png)
 
 <use bifurkation-sin-zoom.png>
@@ -1223,37 +1218,43 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 314.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 326.
+(babel)             in language  on input line 321.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 326.
+(babel)             in language  on input line 321.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
  [10]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 331.
+(babel)             in language  on input line 328.
  [11 <./bifurkation-sin.png> <./bifurkation-sin-zoom.png>] <poincare-772.png, i
-d=249, 1204.5pt x 1200.485pt>
+d=259, 1204.5pt x 1200.485pt>
 File: poincare-772.png Graphic file (type png)
 
 <use poincare-772.png>
-Package pdftex.def Info: poincare-772.png used on input line 341.
+Package pdftex.def Info: poincare-772.png used on input line 336.
 (pdftex.def)             Requested size: 240.89574pt x 240.09274pt.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 342.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 347.
+(babel)             in language  on input line 342.
+ <schaltskizze.png, id=261, 316.18124pt x 251.94125pt>
+File: schaltskizze.png Graphic file (type png)
+
+<use schaltskizze.png>
+Package pdftex.def Info: schaltskizze.png used on input line 346.
+(pdftex.def)             Requested size: 189.7102pt x 151.16591pt.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 351.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1272,130 +1273,298 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 371.
 
-<V_s-2V_spannung.png, id=267, 596.2275pt x 595.22375pt>
-File: V_s-2V_spannung.png Graphic file (type png)
+Underfull \hbox (badness 3219) in paragraph at lines 378--378
+[]\T1/lmr/m/n/10.95 Konstante pro-por-tio-nal zur
+ []
 
-<use V_s-2V_spannung.png>
-Package pdftex.def Info: V_s-2V_spannung.png used on input line 393.
-(pdftex.def)             Requested size: 166.94255pt x 166.66151pt.
 
-<V_s-2V_strom.png, id=268, 599.23875pt x 597.23125pt>
-File: V_s-2V_strom.png Graphic file (type png)
- <use V_s-2V_strom.png>
-Package pdftex.def Info: V_s-2V_strom.png used on input line 394.
-(pdftex.def)             Requested size: 167.7857pt x 167.2236pt.
+Underfull \hbox (badness 3219) in paragraph at lines 379--379
+[]\T1/lmr/m/n/10.95 Konstante pro-por-tio-nal zur
+ []
 
-<V_s-2V.png, id=269, 597.23125pt x 599.23875pt>
-File: V_s-2V.png Graphic file (type png)
- <use V_s-2V.png>
-Package pdftex.def Info: V_s-2V.png used on input line 395.
-(pdftex.def)             Requested size: 167.2236pt x 167.7857pt.
 
-Overfull \hbox (8.89528pt too wide) in paragraph at lines 393--396
+Underfull \hbox (badness 10000) in paragraph at lines 379--379
+\T1/lmr/m/n/10.95 Ka-pa-zi-tät der Di-ode in
+ []
+
+<runge-oszillation-100k-2V.png, id=279, 597.23125pt x 597.23125pt>
+File: runge-oszillation-100k-2V.png Graphic file (type png)
+
+<use runge-oszillation-100k-2V.png>
+Package pdftex.def Info: runge-oszillation-100k-2V.png used on input line 392.
+(pdftex.def)             Requested size: 418.05902pt x 418.05902pt.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 396.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 396.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 396.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 396.
+ [13 <./schaltskizze.png>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 396.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 396.
+
+<schwing-runge-nach50k-weitere200k-10-9.png, id=287, 598.235pt x 598.235pt>
+File: schwing-runge-nach50k-weitere200k-10-9.png Graphic file (type png)
+
+<use schwing-runge-nach50k-weitere200k-10-9.png>
+Package pdftex.def Info: schwing-runge-nach50k-weitere200k-10-9.png used on inp
+ut line 399.
+(pdftex.def)             Requested size: 167.50465pt x 167.50465pt.
+
+<schwing-runge-nach100k-weitere200k-10-9.png, id=288, 598.235pt x 597.23125pt>
+File: schwing-runge-nach100k-weitere200k-10-9.png Graphic file (type png)
+
+<use schwing-runge-nach100k-weitere200k-10-9.png>
+Package pdftex.def Info: schwing-runge-nach100k-weitere200k-10-9.png used on in
+put line 400.
+(pdftex.def)             Requested size: 167.50465pt x 167.2236pt.
+
+<schwing-runge-nach200k-weitere200k-10-9.png, id=289, 597.23125pt x 598.235pt>
+File: schwing-runge-nach200k-weitere200k-10-9.png Graphic file (type png)
+
+<use schwing-runge-nach200k-weitere200k-10-9.png>
+Package pdftex.def Info: schwing-runge-nach200k-weitere200k-10-9.png used on in
+put line 401.
+(pdftex.def)             Requested size: 167.2236pt x 167.50465pt.
+
+Overfull \hbox (9.17633pt too wide) in paragraph at lines 399--402
 [][] [] [] 
  []
 
-<V_s-4V.png, id=270, 599.23875pt x 597.23125pt>
-File: V_s-4V.png Graphic file (type png)
- <use V_s-4V.png>
-Package pdftex.def Info: V_s-4V.png used on input line 401.
-(pdftex.def)             Requested size: 167.7857pt x 167.2236pt.
 
-<V_s-6V.png, id=271, 600.2425pt x 597.23125pt>
-File: V_s-6V.png Graphic file (type png)
- <use V_s-6V.png>
-Package pdftex.def Info: V_s-6V.png used on input line 402.
-(pdftex.def)             Requested size: 168.06674pt x 167.2236pt.
+<schwing-runge-nach300k-weitere20k-10-9-1V.png, id=291, 599.23875pt x 598.235pt
+>
+File: schwing-runge-nach300k-weitere20k-10-9-1V.png Graphic file (type png)
+ <use schwing-runge-nach300k-weitere20k-10-9-1V.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere20k-10-9-1V.png used on 
+input line 407.
+(pdftex.def)             Requested size: 167.7857pt x 167.50465pt.
 
-<V_s-15-67V.png, id=272, 598.235pt x 599.23875pt>
-File: V_s-15-67V.png Graphic file (type png)
- <use V_s-15-67V.png>
-Package pdftex.def Info: V_s-15-67V.png used on input line 403.
+<schwing-runge-nach300k-weitere20k-10-9-1,2V.png, id=292, 597.23125pt x 598.235
+pt>
+File: schwing-runge-nach300k-weitere20k-10-9-1,2V.png Graphic file (type png)
+ <use schwing-runge-nach300k-weitere20k-10-9-1,2V.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere20k-10-9-1,2V.png used o
+n input line 408.
+(pdftex.def)             Requested size: 167.2236pt x 167.50465pt.
+
+<schwing-runge-nach300k-weitere20k-10-9-1,42V.png, id=293, 598.235pt x 598.235p
+t>
+File: schwing-runge-nach300k-weitere20k-10-9-1,42V.png Graphic file (type png)
+ <use schwing-runge-nach300k-weitere20k-10-9-1,42V.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere20k-10-9-1,42V.png used 
+on input line 409.
+(pdftex.def)             Requested size: 167.50465pt x 167.50465pt.
+
+Overfull \hbox (9.45738pt too wide) in paragraph at lines 407--410
+[][] [] [] 
+ []
+
+
+<schwing-runge-nach300k-weitere20k-10-9-20V.png, id=296, 598.235pt x 599.23875p
+t>
+File: schwing-runge-nach300k-weitere20k-10-9-20V.png Graphic file (type png)
+ <use schwing-runge-nach300k-weitere20k-10-9-20V.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere20k-10-9-20V.png used on
+ input line 415.
 (pdftex.def)             Requested size: 167.50465pt x 167.7857pt.
 
-Overfull \hbox (10.30052pt too wide) in paragraph at lines 401--404
+<schwing-runge-nach300k-weitere20k-10-9-30V.png, id=297, 597.23125pt x 594.22pt
+>
+File: schwing-runge-nach300k-weitere20k-10-9-30V.png Graphic file (type png)
+ <use schwing-runge-nach300k-weitere20k-10-9-30V.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere20k-10-9-30V.png used on
+ input line 416.
+(pdftex.def)             Requested size: 167.2236pt x 166.38046pt.
+
+<schwing-runge-nach300k-weitere120k-10-9-34V.png, id=298, 599.23875pt x 598.235
+pt>
+File: schwing-runge-nach300k-weitere120k-10-9-34V.png Graphic file (type png)
+ <use schwing-runge-nach300k-weitere120k-10-9-34V.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere120k-10-9-34V.png used o
+n input line 417.
+(pdftex.def)             Requested size: 167.7857pt x 167.50465pt.
+
+Overfull \hbox (9.45738pt too wide) in paragraph at lines 415--418
 [][] [] [] 
  []
 
-<Poincare-nach10000iterations.png, id=273, 595.22375pt x 597.23125pt>
+
+<schwing-runge-nach300k-weitere50k-10-8-searching-chaos1.png, id=300, 598.235pt
+ x 598.235pt>
+File: schwing-runge-nach300k-weitere50k-10-8-searching-chaos1.png Graphic file 
+(type png)
+
+<use schwing-runge-nach300k-weitere50k-10-8-searching-chaos1.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere50k-10-8-searching-chaos
+1.png used on input line 424.
+(pdftex.def)             Requested size: 251.25699pt x 251.25699pt.
+
+<schwing-runge-nach300k-weitere50k-10-8-finding-chaos1.png, id=301, 597.23125pt
+ x 598.235pt>
+File: schwing-runge-nach300k-weitere50k-10-8-finding-chaos1.png Graphic file (t
+ype png)
+ <use schwing-runge-nach300k-weitere50k-10-8-finding-chaos1.png>
+Package pdftex.def Info: schwing-runge-nach300k-weitere50k-10-8-finding-chaos1.
+png used on input line 425.
+(pdftex.def)             Requested size: 250.8354pt x 251.25699pt.
+
+Overfull \hbox (6.60248pt too wide) in paragraph at lines 424--426
+[][] [] 
+ []
+
+
+<schwing-euler-nach2500k-weitere100k-3,4V.png, id=304, 599.23875pt x 599.23875p
+t>
+File: schwing-euler-nach2500k-weitere100k-3,4V.png Graphic file (type png)
+ <use schwing-euler-nach2500k-weitere100k-3,4V.png>
+Package pdftex.def Info: schwing-euler-nach2500k-weitere100k-3,4V.png used on i
+nput line 431.
+(pdftex.def)             Requested size: 251.67856pt x 251.67856pt.
+
+<schwing-euler-nach2500k-weitere100k-3,6V.png, id=305, 597.23125pt x 596.2275pt
+>
+File: schwing-euler-nach2500k-weitere100k-3,6V.png Graphic file (type png)
+ <use schwing-euler-nach2500k-weitere100k-3,6V.png>
+Package pdftex.def Info: schwing-euler-nach2500k-weitere100k-3,6V.png used on i
+nput line 432.
+(pdftex.def)             Requested size: 250.8354pt x 250.41383pt.
+
+Overfull \hbox (7.02405pt too wide) in paragraph at lines 431--433
+[][] [] 
+ []
+
+
+<schwing-euler-nach2500k-weitere100k-4,4V.png, id=306, 597.23125pt x 597.23125p
+t>
+File: schwing-euler-nach2500k-weitere100k-4,4V.png Graphic file (type png)
+ <use schwing-euler-nach2500k-weitere100k-4,4V.png>
+Package pdftex.def Info: schwing-euler-nach2500k-weitere100k-4,4V.png used on i
+nput line 437.
+(pdftex.def)             Requested size: 250.8354pt x 250.8354pt.
+
+<schwing-euler-nach2500k-weitere100k-4,602V.png, id=307, 597.23125pt x 597.2312
+5pt>
+File: schwing-euler-nach2500k-weitere100k-4,602V.png Graphic file (type png)
+ <use schwing-euler-nach2500k-weitere100k-4,602V.png>
+Package pdftex.def Info: schwing-euler-nach2500k-weitere100k-4,602V.png used on
+ input line 438.
+(pdftex.def)             Requested size: 250.8354pt x 250.8354pt.
+
+Overfull \hbox (6.1809pt too wide) in paragraph at lines 437--439
+[][] [] 
+ []
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 442.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 442.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 442.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 442.
+[14 <./runge-oszillation-100k-2V.png>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 442.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 442.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 442.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 442.
+ [15 <./schwing-runge-nach50k-weitere200k-10-9.png> <./schwing-runge-nach100k-w
+eitere200k-10-9.png> <./schwing-runge-nach200k-weitere200k-10-9.png> <./schwing
+-runge-nach300k-weitere20k-10-9-1V.png> <./schwing-runge-nach300k-weitere20k-10
+-9-1,2V.png> <./schwing-runge-nach300k-weitere20k-10-9-1,42V.png> <./schwing-ru
+nge-nach300k-weitere20k-10-9-20V.png> <./schwing-runge-nach300k-weitere20k-10-9
+-30V.png> <./schwing-runge-nach300k-weitere120k-10-9-34V.png>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 443.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 443.
+
+<Poincare-nach10000iterations.png, id=330, 595.22375pt x 597.23125pt>
 File: Poincare-nach10000iterations.png Graphic file (type png)
 
 <use Poincare-nach10000iterations.png>
-Package pdftex.def Info: Poincare-nach10000iterations.png used on input line 40
-9.
+Package pdftex.def Info: Poincare-nach10000iterations.png used on input line 44
+6.
 (pdftex.def)             Requested size: 297.61115pt x 298.61488pt.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 415.
+(babel)             in language  on input line 451.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 415.
+(babel)             in language  on input line 451.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 418.
+(babel)             in language  on input line 454.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 418.
+(babel)             in language  on input line 454.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 420.
+(babel)             in language  on input line 456.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 420.
+(babel)             in language  on input line 456.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 422.
+(babel)             in language  on input line 458.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 422.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 424.
+(babel)             in language  on input line 458.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 460.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 424.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 430.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 460.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 466.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 430.
- [13]
+(babel)             in language  on input line 466.
+ [16 <./schwing-runge-nach300k-weitere50k-10-8-searching-chaos1.png> <./schwing
+-runge-nach300k-weitere50k-10-8-finding-chaos1.png>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 430.
- [14 <./V_s-2V_spannung.png> <./V_s-2V_strom.png> <./V_s-2V.png> <./V_s-4V.png>
- <./V_s-6V.png> <./V_s-15-67V.png>]
+(babel)             in language  on input line 466.
+ [17 <./schwing-euler-nach2500k-weitere100k-3,4V.png> <./schwing-euler-nach2500
+k-weitere100k-3,6V.png> <./schwing-euler-nach2500k-weitere100k-4,4V.png> <./sch
+wing-euler-nach2500k-weitere100k-4,602V.png>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 466.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 430.
- [15 <./Poincare-nach10000iterations.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 430.
+(babel)             in language  on input line 466.
+
+[18 <./Poincare-nach10000iterations.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 466.
 
 (/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.a
 ux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 430.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 430.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 466.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 466.
 Package rerunfilecheck Info: File `Protokoll.out' has not changed.
-(rerunfilecheck)             Checksum: 5A9E0815550BC98CC9461BC5A890024D;1088.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 430.
+(rerunfilecheck)             Checksum: 7A0065019BBA3F19AF49D1B90C7E148B;1422.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 466.
  ) 
 Here is how much of TeX's memory you used:
- 12308 strings out of 493117
- 185471 string characters out of 6135432
- 351496 words of memory out of 5000000
- 15440 multiletter control sequences out of 15000+600000
+ 12383 strings out of 493117
+ 189332 string characters out of 6135432
+ 352496 words of memory out of 5000000
+ 15493 multiletter control sequences out of 15000+600000
  58922 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,10n,49p,1066b,1860s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1420,10 +1589,10 @@ lic/lm/lmsy8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msbm10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/courie
 r/ucrr8a.pfb>
 Output written on /Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texp
-adtmp/Protokoll.pdf (15 pages, 3556249 bytes).
+adtmp/Protokoll.pdf (18 pages, 4014612 bytes).
 PDF statistics:
- 378 PDF objects out of 1000 (max. 8388607)
- 292 compressed objects within 3 object streams
- 86 named destinations out of 1000 (max. 500000)
- 270 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 326 compressed objects within 4 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 341 words of extra memory for PDF output out of 10000 (max. 10000000)
 
