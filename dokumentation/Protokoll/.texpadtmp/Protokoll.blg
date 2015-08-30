@@ -1,14 +1,14 @@
 [0] Config.pm:318> INFO - This is Biber 1.8
 [0] Config.pm:321> INFO - Logfile is '/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.blg'
-[55] biber-darwin:275> INFO - === Sun Aug 30, 2015, 17:45:32
-[55] Biber.pm:333> INFO - Reading '/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.bcf'
-[119] Biber.pm:607> INFO - Using all citekeys in bib section 0
-[138] Biber.pm:3053> INFO - Processing section 0
-[155] Biber.pm:3190> INFO - Looking for bibtex format file 'literatur.bib' for section 0
-[157] bibtex.pm:937> INFO - Decoding LaTeX character macros into UTF-8
-[157] bibtex.pm:812> INFO - Found BibTeX data source 'literatur.bib'
-[194] Biber.pm:2939> INFO - Overriding locale 'en_US.UTF-8' default tailoring 'variable = shifted' with 'variable = non-ignorable'
-[194] Biber.pm:2945> INFO - Sorting 'entry' list 'nty' keys
-[194] Biber.pm:2949> INFO - No sort tailoring available for locale 'en_US.UTF-8'
-[200] bbl.pm:482> INFO - Writing '/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.bbl' with encoding 'UTF-8'
-[201] bbl.pm:555> INFO - Output to /Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.bbl
+[64] biber-darwin:275> INFO - === Sun Aug 30, 2015, 17:48:24
+[64] Biber.pm:333> INFO - Reading '/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.bcf'
+[126] Biber.pm:607> INFO - Using all citekeys in bib section 0
+[147] Biber.pm:3053> INFO - Processing section 0
+[166] Biber.pm:3190> INFO - Looking for bibtex format file 'literatur.bib' for section 0
+[168] bibtex.pm:937> INFO - Decoding LaTeX character macros into UTF-8
+[169] bibtex.pm:812> INFO - Found BibTeX data source 'literatur.bib'
+[206] Biber.pm:2939> INFO - Overriding locale 'en_US.UTF-8' default tailoring 'variable = shifted' with 'variable = non-ignorable'
+[206] Biber.pm:2945> INFO - Sorting 'entry' list 'nty' keys
+[206] Biber.pm:2949> INFO - No sort tailoring available for locale 'en_US.UTF-8'
+[214] bbl.pm:482> INFO - Writing '/Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.bbl' with encoding 'UTF-8'
+[214] bbl.pm:555> INFO - Output to /Users/keksnicoh/unih/SS1516/py/dokumentation/Protokoll/.texpadtmp/Protokoll.bbl
