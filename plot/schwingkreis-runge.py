@@ -313,18 +313,19 @@ phi = 0.6
 V_s = 6.33043 #V gut bei h=10^-8
 
 
-V_s = 2 #V
+V_s = 0.256 #V
 
 V_t = 0.034 #V
 
 w = 1.0 / math.sqrt(L*C_r)
+print w
 
 V_d = 0.0
 I = 0.0
 
 
 iterations = 100000
-iteration_offset = 0
+iteration_offset = 100000
 #h = 10**-8
 #time = 0.0
 
@@ -350,7 +351,7 @@ cl_kernel_params = [
 ]
 
 
-#active_cl_kernel = OSZILATION_KERNEL
+active_cl_kernel = PHASE_KERNEL
 
 
 phase_axis = (2.0, 6.0)
@@ -364,12 +365,12 @@ oszilation_origin = (0.0, 1.0)
 x_oszillation_label = "Zeit"
 y_oszillation_label = "Spannung in [V] / Strom in [mA]"
 
-window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
+#window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-#window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
+window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
-cl_domain = domain.CLDomain(OSZILATION_KERNEL_SPANNUNG, iterations, cl_kernel_params, dimension=2)
-cl_domain_2 = domain.CLDomain(OSZILATION_KERNEL_STROM, iterations, cl_kernel_params, dimension=2)
+cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dimension=2)
+#cl_domain_2 = domain.CLDomain(OSZILATION_KERNEL_STROM, iterations, cl_kernel_params, dimension=2)
 #domain = domain.Domain(gl_buffer_length)
 #domain.push_data(data)
 
@@ -378,9 +379,9 @@ window.plotter.get_graph('schwing2').set_colors(color_min=[1.0, 0.0, 0.0, 1.0], 
 window.plotter.get_graph('schwing2').set_dotsize(0.004)
 
 
-window.plotter.add_graph('schwing', graph.Line2d(cl_domain_2))
-window.plotter.get_graph('schwing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
-window.plotter.get_graph('schwing').set_dotsize(0.004)
+#window.plotter.add_graph('schwing', graph.Line2d(cl_domain_2))
+#window.plotter.get_graph('schwing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
+#window.plotter.get_graph('schwing').set_dotsize(0.004)
 window.plotter.gl_plot.precision_axis = (1,1)
 
 def update_uniform(self, value):
