@@ -478,7 +478,8 @@ Abbildung xxx zeigt eine der verwendeten Schaltkreise. Dabei haben wir x Widerst
 
 \subsection { Versuchsdurchführung }
 \subsubsection { Oszillation und Phasenraumdiagram }
-Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanzfrequenz über die Betrachtung des Phasenraumdiagramms auf $\omega=800kHz$ bestimmt. Leider konnten wir nicht die selben Bedingungen wie bei den numerischen Berechnungen schaffen, da ...... Dennoch erhalten wir einen sehr ähnlichen Verlauf im Vergleich zu unseren numerischen Berechnungen. In Abbildung \ref{fig:ldr-real1} sind die Oszillationen von Strom und Spannung (links) und das entsprechende Phasenraumdiagram dargestellt, welches gut vergleichbar ist mit Abbildung \ref{fig:ldr-0005} (links).
+Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanzfrequenz über die Betrachtung des Phasenraumdiagramms auf $\omega=800kHz$ bestimmt. 
+Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numerischen Modelle, dennoch erhalten wir einen sehr ähnlichen Verlauf im Vergleich zu unseren numerischen Berechnungen. In Abbildung \ref{fig:ldr-real1} sind die Oszillationen von Strom und Spannung (links) und das entsprechende Phasenraumdiagram dargestellt (rechts), welches dem numerischen Ergebniss in \ref{fig:ldr-0005} (links) sehr ähnlich sieht. 
 \begin{figure}
 \centering
 \includegraphics[scale=0.1]{800khz-5V-oszi}
@@ -487,17 +488,51 @@ Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanz
 \label{fig:ldr-real1}
 \end{figure}
 
-
+\begin{figure}
+\centering
+\includegraphics[scale=0.05]{800khz-134V-phase}
+\includegraphics[scale=0.055]{800khz-112V-phase}
+\includegraphics[scale=0.06]{800khz-29,6V-phase-chaos}
+\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\label{fig:ldr-real2}
+\end{figure}
 \subsection { Bifurkationsdiagramm }
-Beim erzeugen des Bifurcationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun geändert (Abbildung \label{fig:ldr-aufbau1}). 
+Beim erzeugen des Bifurcationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \label{fig:ldr-aufbau1}). Wir modelierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Kontrollparameters $V_s$ darstellt. 
+Zunächst ist dies nicht gelungen. Mit Hilfe des digitalen Oszilloskopes konnten wir dann aber den Verlauf so modelieren, dass  $V_s=0V...V_s=V_{Ausgang}$ linear perdiodisch durchlaufen wird. 
+Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu sehen war, wenn wir den Definitionsbereich von oben nach unten ($V_s=V_{Ausgang}...V_s=0V$) eingestellt haben (Abbildung \ref{fig:ldr-modellierung}). In dieser Einstellung gab es zwar noch Artefakte von der Ungenauigkeit des Funktionsgenerators (Abbildung \ref{fig:ldr-modellierung} rechts) aber die Bifurkationspunkte waren nun präziser. Wir erzeugten das Bifurkationsdiagramm zusätzlich mit einer Dreieckspannung. Wie zu erwarten ergab sich so eine Überlageung aus den beiden Sägezahnspannungen. 
+\begin{figure}
+\centering
+\includegraphics[scale=0.12]{bif-ldr/dreieck_1}
+\includegraphics[scale=0.12]{bif-ldr/dreieck_2}
+\includegraphics[scale=0.12]{bif-ldr/dreieck_3}
+\caption{Bifurkationsdiagramme mit verschieden Modulationen des Kontrollparameters $V_s$: Links Sägezahnspannung $V_s=0V...V_s=V_{Ausgang}$, mitte: Dreiecksspannung, rechts: Sägezahnspannung $V_s=V_{Ausgang}...V_s=0V$}
+\label{fig:ldr-modellierung}
+\end{figure}
 
-Aufgrund des Gate-Delay Genrators konnten wir das Verhalten der Oszialltion von Strom bzw. Spannung in Abhängig von $V_s$ darstellen. In Abbildung xxx kann man gut wann Periodenverdopplung und schließlich Chaos auftritt.
-Wir waren in der Lage 3 Werte für Periodenverdopplung zu messen.
-$$V_{s_1}=6.6V \pm 0.2V$$
-$$V_{s_2}=13.6V \pm 0.2V$$
-$$V_{s_3}=18V \pm 2V$$
-Dabei haben wir die Fehler lediglich geschätzt auf Basis der Ungenauigkeit des Oszilloskopes. Das führt zu einer Feigenbaumkonstante von $\delta=1.6 \pm xxx$
-\citation{wiki:euler}
+Wir fragten uns, wieso es zu einer Spitze im oberen Ast nach der ersten Bifuraktionskommt. Dabei zeigte sich, dass die Frequenz nicht genau auf  $\omega=325kHz$ eingestellt war. Als wir dies korrigierten erhielten wir ein glatteres Bifurkationsdiagramm (Abbildung N)
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.18]{bif-ldr/bifurc-bad}
+\includegraphics[scale=0.18]{bif-ldr/bifurc-good}
+\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\label{fig:ldr-bifurc}
+\end{figure}
+\subsection { Vermessung der Bifurkationspunkte }
+Zuletzt haben wir noch die Bifurkationspunkte vermessen. Dazu haben wir die Amplitude der Sägezahnspannung minimiert, so dass $V_s=V_{Ausgang}$ konstant war. Bei geringer Spannung wurde auf dem Oszilloskop nur ein Punkt abgebildet. Beim durchlaufen der Spannung entstanden so sprungartig zwei Punkte und schließlich 4 Punkte. Die jeweiligen $V_{Bifurkation, i}$ konnten wir somit als Bifurkationspunkte identifizieren: 
+$$V_{Bifurkations, 1}=6.6V \pm 0.2V$$
+$$V_{Bifurkations, 2}=13.6V \pm 0.2V$$
+
+In Abbildung \ref{fig:ldr-bifurc-zoo} haben wir noch ein mal mit der Sägezahnspannung die Bifurkationspunkte vergrößert aufgenommen. Es gelang uns nicht den Bifurkationspunkt $_{Bifurkations, 3}$ zu bestimmen weshalb wir die Feigenbaumkonstante nicht aus dem Experiment ableiten konnten.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.18]{bif-ldr/bifurc-zoom}
+\includegraphics[scale=0.18]{bif-ldr/bifurc-zoom2}
+\caption{Vergrößerung der ersten beiden Bifurkationspunkte.}
+\label{fig:ldr-bifurc-zoom}
+\end{figure}
+
 
 \subsection { Zusammenfassung }
 
