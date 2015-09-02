@@ -11,24 +11,25 @@ import math, numpy
 from opencl.cl_handler import BaseCalculator
 
 BIFURC_KONV = """
-//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
-#pragma OPENCL SELECT_ROUNDING_MODE rtn
+#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+//#pragma OPENCL SELECT_ROUNDING_MODE rtn
+//#define DOUBLE_SUPPORT_AVAILABLE
     __kernel void f(__global int *iterations,__global float *result)
     {
         int global_id = get_global_id(0);
 
         int iteration = iterations[global_id];
-
-        float r = 3.0f;
-        float x = 0.6f;
-        float new_x = 0.0f;
+        double r = 3.0;
+        double eps = 0.001;
+        double x = 0.2;
+        double new_x = 0.0;
+        double nnew_x = 0.0;
         for(int i=0; i < iteration; i += 1) {
-            new_x = (float)x*r*(1.0-x);
-            x = new_x;
+            x = r*x - r*x*x-eps;
         }
         float x_real = (float)2.0f/3.0f;
         result[2*global_id] = iteration;
-        result[2*global_id+1] = (float)x;
+        result[2*global_id+1] = x+eps/2.0;
     }
 """
 
@@ -41,7 +42,7 @@ BIFURC = """
 
         float r = r_values[global_id];
 
-        float x = 0.6f;
+        float x = 0;
         for(int i=0; i < iterations; i += 1) {
             x = x*r*(1.0f-x);
         }
@@ -60,7 +61,7 @@ vec4 f(vec4 x) {
 
 
 
-iterations = [x*x for x in range(100, 1000)]
+iterations = [100*x+x%2 for x in range(0, 10000)]
 
 iterations = numpy.array(iterations, dtype=numpy.int32)
 
@@ -68,21 +69,21 @@ buffer_size = len(iterations)
 parallels = buffer_size
 
 cl_kernel_params = [
-    numpy.int32(10**5)
+    #numpy.int32(10**5)
 ]
 
 r_values = numpy.arange(2.99, 3, 0.00001, dtype=numpy.float32)
 buffer_size = r_values.size
 parallels = buffer_size
 
-oszilation_axis = (0.1, 0.01)
+oszilation_axis = (1000000, 0.01)
 oszilation_origin = (-2.9, -0.666)
 x_oszillation_label = "r"
 y_oszillation_label = "x"
 
 window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-
+window.plotter.set_precision_axis((0, 10))
 #def logAbbildung(x, r):
 #        return r*x*(1-x)
 #
@@ -113,9 +114,9 @@ window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=
 #window.plotter.get_graph('iteration').set_dotsize(0.005)
 
 
-cl_domain = domain.CLDomain(BIFURC, buffer_size, cl_kernel_params, dimension=2, parallel=(parallels,))
-#cl_domain.append_array(iterations)
-cl_domain.append_array(r_values)
+cl_domain = domain.CLDomain(BIFURC_KONV, buffer_size, cl_kernel_params, dimension=2, parallel=(parallels,))
+cl_domain.append_array(iterations)
+#cl_domain.append_array(r_values)
 cl_domain.calculate()
 
 xdomain = domain.Axis(100000)
