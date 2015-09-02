@@ -78,7 +78,7 @@ Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zei
 bereits chaotisches Verhalten an den Tag legt welches wir im folgenden Abschnitt genauer untersucht haben. Zunächst haben 
 wir ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ auf die y-Achse aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
 Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Perdionenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strutkuren feststellen lassen (Bögen, Punkte auf Geraden, freie Bereiche).
-\begin{figure}
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[scale=0.30]{bifurkation}
 	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
@@ -123,7 +123,7 @@ Lösungen der Gleichung $|\frac{d}{dx}f^2(x_{3,4})|=1$ sind: $r_0=-1$, $r_1=3$, 
 
 Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung \ref{fig:log-intermittenz-cycles}). Intermittenz ein Grund für die Verdichtungen welche im choatischen Bereich des Bifurkationsdiagrammes zu sehen sind.
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.2]{fixpunkt-2878}
 \includegraphics[scale=0.2]{fixpunkt-311}
@@ -131,7 +131,7 @@ Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung
 \label{fig:log-iteration-behavior}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.22]{intermittenz}
 \includegraphics[scale=0.15]{analy-periodenv}
@@ -142,7 +142,7 @@ Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung
 \subsection{Bifurkationspunkt}
 Im weiteren betrachten wir das Konvergenzverhalten der logistischen Abbildung bei $r=3$ und Umgebung. Für r<3 kennen wir bereits den Fixpunkt $x_1=1-\frac{1}{r}$. 
 Abbildung \ref{fig:log-konv1} (links) trägt den x wert gegen die Anzahl der Iterationen auf für $r=3$. Dabei sei zunächst angemerkt, dass wir bei der Berechnung über einen OpenCL Kernel mit double precision, also float64 anscheinend sehr schnell auf ein Rundungsproblem stoßen, während wir bei der Berechnung in Python anscheinend wesentlich höhere Genauigkeit erreichen. So haben wir nach $10^7$ Iterationen ein $\epsilon=7.67*10^{-5}$, wobei $\epsilon=|\frac{2}{3}-x|$
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.4]{log-konv-r3}
 \includegraphics[scale=0.4]{log-bifurc-umr3}
@@ -222,7 +222,7 @@ vec4 f(vec4 x) {
     return vec4(x.x, summe/n, 0, 0.5);
 }
 \end{lstlisting}
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.28]{iteration/lyapunov-1}
 \includegraphics[scale=0.28]{iteration/lyapunov-2}
 \includegraphics[scale=0.28]{iteration/lyapunov-3}
@@ -238,7 +238,7 @@ Der Verdacht liegt nahe, dass nicht genuegend Iterationsschritte zur Berechnung 
 \end{equation}
 so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in einen Epsilon Schlauch von $\epsilon=0.002$ passt. Dies ist nicht sehr befriedigend angesichts der massiven Iterationslänge.  
  
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.18]{lya378-zoom}
 \includegraphics[scale=0.36]{lya378}
@@ -249,7 +249,7 @@ so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in 
 
 \subsubsection{Vergleich der analytischen und renomierten Implementation}
 Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen die 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) scheinbar gegen einen gemeinsamen Wert streben (Abbildung \ref{fig:lyapunov-compare}). Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=200px, height=200px]{lyapunov-analysis-300}
 \includegraphics[width=200px, height=200px]{lyapunov-analysis-305}
@@ -315,7 +315,7 @@ Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung
 
 
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
 \caption{Analyse des Bifurkationsdiagrammes der logistischen Funktion. Eingezeichnet sind die y=0 Achse, sowie die ersten 5 Superattraktiven Stellen. Das Bifurkationsdiagramm wurde so translatiert und skaliert, so dass es hinter dem Lyapunov Exponenten erscheint.}.
@@ -351,7 +351,7 @@ $$\delta_4=4.79495059736$$
 
 Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfunktion nicht ab. Auch dies lässt sich auf den Kompakten Bildbereich des Sinus zurückführen. Der Lyapunov Exponent weißt ab $r>8$ eine Perdiodizität von $\pi$ auf weshalb weitere Betrachtungen für $r>8$ nicht zielführend erscheinen.
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.55]{bifurkation-sin}
 \includegraphics[scale=0.47]{bifurkation-sin-zoom}
@@ -373,7 +373,7 @@ Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:eule
 \newline
 \subsection { Phasenraumdiagramm }
 Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$. Der zu erwartende Attraktor ist in Abbildung \ref{fig:duffing-awp1} (mitte und rechts) dargestellt. Ist die Schrittgröße zu groß so entsteht bei dem Euler-Cauchy Verfahren ein anderer Attraktor (Abbildung \ref{fig:duffing-awp1} links).
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-euler}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,08-euler}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-runge}
@@ -386,7 +386,7 @@ Im weiteren sind alle folgenden Berechnungen in diesem Kapitel mit dem Runge-Kut
 Ganz bedeutend ändert sich der Attraktor, wenn die Anfangsbedingungen sich ändern. Variieren wir $x_0$ so bleibt der Attraktor identisch bei $x_0=0.18$, während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
 \newline
 Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfangsbedingungen.
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.4]{duffing-awp2-500k-nach-500k-h0,01-runge}
 \includegraphics[scale=0.4]{duffing-awp3-500k-nach-500k-h0,01-runge}
 \includegraphics[scale=0.4]{duffing-awp4-500k-nach-500k-h0,01-runge}
@@ -406,7 +406,7 @@ Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenr
       last_pos = pos;
 \end{lstlisting}
 Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. So wird nicht exakt das $(x,y)$ duplet abgebildet bei welchen die Ebene geschnitten wurden, stattdessen wird das $(x,y)$ Duplet bei $\theta_2$ angezeit. Eine Möglichkeit dies zu Optimieren wäre den Mittelwert $(\frac{x_1+x_2}{2}, \frac{y_1 + y_2}{2})$ als Schnittpunkt zu identifizieren.
-\begin{figure}
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[scale=0.20]{poincare-772}
 	\caption{Poincaré-Schnitt des Duffing Oszillators für $\epsilon=7.72$, $x=3.0$,$ y=4.0$, $\lambda=0.2$, $\beta=1$, $\theta=1$. als Referenz aus dem VORBEREITUNGSHEFT-LITERATUR-S38}
@@ -414,7 +414,7 @@ Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. 
 \end{figure}
 \section {LDR-Oszillator}
 Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde (Abbildung \ref{img:schaltskizze})
-\begin{figure}
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[scale=0.60]{schaltskizze}
 	\caption{Schaltskizze für nichtlinearen Schwingkreis. Quelle: Versuchsanleitung, S. 43, Uni Hamburg}
@@ -462,14 +462,14 @@ Unter Verwendung folgender Parameter
 haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6V$ die Diode sperrt.
 \newline
 Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ gelten. Diese oszillierenden Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und Pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.7]{runge-oszillation-100k-2V}
 \caption{Oszillation von Strom (schwarz) und Spannung (rot) bei $V_s=2V$ mit Runge-Kutta-Verfahren 4ter Ordnung}. 
 \label{fig:ldr-oszi}
 \end{figure}
 \subsubsection{Phasenraumdiagramme}
 Bei einer Anregungsspannung $V_s < 0.001V$ zeigt sich das Verhalten im Grenzfall des gedämpften Oszillators (siehe Abbildung \ref{fig:ldr-0001}).
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.28]{schwing-runge-nach50k-weitere200k-10-9}
 \includegraphics[scale=0.28]{schwing-runge-nach100k-weitere200k-10-9}
 \includegraphics[scale=0.28]{schwing-runge-nach200k-weitere200k-10-9}
@@ -477,7 +477,7 @@ Bei einer Anregungsspannung $V_s < 0.001V$ zeigt sich das Verhalten im Grenzfall
 \label{fig:ldr-0001}
 \end{figure}
 Eindeutige Attraktoren erhalten wir bei Spannungen ab $V_s=1V$ (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,42V}
@@ -485,7 +485,7 @@ Eindeutige Attraktoren erhalten wir bei Spannungen ab $V_s=1V$ (Abbildung \ref{f
 \label{fig:ldr-0002}
 \end{figure}
 Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein Maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und anschließend wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} mitte und rechts).
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-20V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-30V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere120k-10-9-34V}
@@ -493,21 +493,21 @@ Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie 
 \label{fig:ldr-0003}
 \end{figure}
 \newline
-Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Beispielsweise erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts) TODO ....(ERKLÄRUNG)
-\begin{figure}
+Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Beispielsweise erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts).
+\begin{figure}[!htbp]
 \includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
 \includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
 \caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten für weitere $5\cdot10^4$ Zeitschritte bei einer Schrittweite von $h=10^{-8}$. Links: Wohldefinierter Attraktor. Rechts: Chaos}. 
 \label{fig:ldr-0004}
 \end{figure}
 Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005} und \ref{fig:ldr-0006} ) bis hin zum Chaos.
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,4V}
 \includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,6V}
 \caption{Phasenraumdiagramm mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Links: $V_s=3.4V$, Rechts: $V_s=3.6V$}. 
 \label{fig:ldr-0005}
 \end{figure}
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-4,4V}
 \includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-4,602V}
 \caption{Phasenraumdiagramm mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Links: $V_s=4.4V$, Rechts: $V_s=4.602V$}. 
@@ -516,14 +516,14 @@ Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein andere
 
 \subsubsection{Poincaré-Schnitt}
 Bei der Betrachtung des Poincaré-Schnittes fällt auf, dass bei wohldefinierten Attraktoren die Phasenraumtrajektorie immer bei ähnlichen Spannungen durch die $\theta=0$ Ebene verläuft (vgl. Abbildung \ref{fig:ldr-poin1}).
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.4]{schwing-500k-nach-10k-8V-phase}
 \includegraphics[scale=0.4]{schwing-500k-nach-10k-8V-poin}
 \caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^4$ Zeitschritten bei $V_s=8V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
 \label{fig:ldr-poin1}
 \end{figure}
  Im chaotischen Fall weißt der Poincaré-Schnitt weitere Punkte bei unterschiedlichen Spannungen auf (vgl. Abbildung \ref{fig:ldr-poin2}).
-\begin{figure}
+\begin{figure}[!htbp]
 \includegraphics[scale=0.4]{schwing-500k-nach-10k-7V-phase}
 \includegraphics[scale=0.4]{schwing-500k-nach-10k-7V-poin}
 \caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^4$ Zeitschritten bei $V_s=7V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
@@ -531,24 +531,29 @@ Bei der Betrachtung des Poincaré-Schnittes fällt auf, dass bei wohldefinierten
 \end{figure}
 Anmerkung: Bei der numerischen Berechnung  kommt es immer wieder vor, dass bei ganz bestimmten $V_s$ der Open-GL Buffer auf der Grafikkarte überläuft.
 \subsubsection{Bifurcations-Diagramm}
-TODO
-
+Um den Bereich von Chaos und Ordnung zu visualisieren, haben wir im folgenden separat für Strom und Spannung das Bifurkationsdiagramm geplottet. Dabei ist der variierende Parameter die Eingangsspannung $V_s$.
+\begin{figure}[!htbp]
+\includegraphics[scale=0.4]{schwing-bifurc-von-0-8-in-0,01schritten-400k-strom}
+\includegraphics[scale=0.4]{schwing-bifurc-von-0-8-in-0,01schritten-400k-spannung}
+\caption{Bifurkationsdiagramm mit $4\cdot10^5$ Iterationen pro $V_s$. Von $V_s=0$ bis $V_s=8$ in $0.01$ Schritten. Links: Strom. Rechts: Spannung}
+\label{fig:ldr-bifurc}
+\end{figure}
+Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung.Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung fig:ldr-poin2 links) finden wir im Bifurkationsdiagramm wieder.
 
 \subsection{ Versuchsaufbau}
-Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der.... ref{fig:ldr-aufbau1} (rechts)
-\begin{figure}
+Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der \ref{fig:ldr-aufbau1} (rechts) zusehen ist.
+\begin{figure}[!htbp]
 \includegraphics[scale=0.6]{aufbau1}
 \includegraphics[scale=0.5]{aufbau2}
 \caption{Messaufbau zur Visualisierung des LDR-Schwingkreises. Oszilloskop links zur Überprüfung der Eingangsspannung und Frequenz. Links: Strom und Spannung über der Diode werden dargestellt auf Oszilloskop über Eingänge A und B. Rechts: Gate-Delay Einheit verzögert Signal in Abhängigkeit der jetzt variierenden Eingangsspannung $V_s$ zur Darstellung des Stroms bzw. der Spannung in Abhängigkeit von $V_s$ }
 \label{fig:ldr-aufbau1}
 \end{figure}
-Abbildung xxx zeigt eine der verwendeten Schaltkreise. Dabei haben wir x Widerstände mit insgesamt $R=xx\Omega$ verwendet. Außerdem xxx Spulen mit einer Induktivität von insgsgesamt $L=xxxH$. Bei der Diode handelt es sich um xxx. 
-
+Die Parameter des Schwingkreises unterscheiden sich von den Paramtern, die bei der numerischen Berechnung verwendet wurden. So hatten wir eine gesamt Induktivität von $L\approx370\cdot10^{-6}H$ was bei einer Resonanzfrequenz von $w\approx800kHz$ zu $C_r\approx4.2\cdot10^{-9}F$ führt.
 \subsection { Versuchsdurchführung }
 \subsubsection { Oszillation und Phasenraumdiagram }
 Zunächst haben wir bei bei einer Eingangsspannung von $V_s=0.128V$ die Resonanzfrequenz über die Betrachtung des Phasenraumdiagramms auf $\omega=800kHz$ bestimmt. 
 Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numerischen Modelle, dennoch erhalten wir einen sehr ähnlichen Verlauf im Vergleich zu unseren numerischen Berechnungen. In Abbildung \ref{fig:ldr-real1} sind die Oszillationen von Strom und Spannung (links) und das entsprechende Phasenraumdiagram dargestellt (rechts), welches dem numerischen Ergebniss in \ref{fig:ldr-0005} (links) sehr ähnlich sieht. 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.1]{800khz-5V-oszi}
 \includegraphics[scale=0.11]{800khz-5V-phase}
@@ -556,7 +561,7 @@ Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numeri
 \label{fig:ldr-real1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.05]{800khz-134V-phase}
 \includegraphics[scale=0.055]{800khz-112V-phase}
@@ -568,7 +573,7 @@ Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numeri
 Beim erzeugen des Bifurcationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \label{fig:ldr-aufbau1}). Wir modelierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Kontrollparameters $V_s$ darstellt. 
 Zunächst ist dies nicht gelungen. Mit Hilfe des digitalen Oszilloskopes konnten wir dann aber den Verlauf so modelieren, dass  $V_s=0V...V_s=V_{Ausgang}$ linear perdiodisch durchlaufen wird. 
 Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu sehen war, wenn wir den Definitionsbereich von oben nach unten ($V_s=V_{Ausgang}...V_s=0V$) eingestellt haben (Abbildung \ref{fig:ldr-modellierung}). In dieser Einstellung gab es zwar noch Artefakte von der Ungenauigkeit des Funktionsgenerators (Abbildung \ref{fig:ldr-modellierung} rechts) aber die Bifurkationspunkte waren nun präziser. Wir erzeugten das Bifurkationsdiagramm zusätzlich mit einer Dreieckspannung. Wie zu erwarten ergab sich so eine Überlageung aus den beiden Sägezahnspannungen. 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.12]{bif-ldr/dreieck_1}
 \includegraphics[scale=0.12]{bif-ldr/dreieck_2}
@@ -579,7 +584,7 @@ Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu seh
 
 Wir fragten uns, wieso es zu einer Spitze im oberen Ast nach der ersten Bifuraktionskommt. Dabei zeigte sich, dass die Frequenz nicht genau auf  $\omega=325kHz$ eingestellt war. Als wir dies korrigierten erhielten wir ein glatteres Bifurkationsdiagramm (Abbildung N)
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.18]{bif-ldr/bifurc-bad}
 \includegraphics[scale=0.18]{bif-ldr/bifurc-good}
@@ -593,7 +598,7 @@ $$V_{Bifurkations, 2}=13.6V \pm 0.2V$$
 
 In Abbildung \ref{fig:ldr-bifurc-zoo} haben wir noch ein mal mit der Sägezahnspannung die Bifurkationspunkte vergrößert aufgenommen. Es gelang uns nicht den Bifurkationspunkt $_{Bifurkations, 3}$ zu bestimmen weshalb wir die Feigenbaumkonstante nicht aus dem Experiment ableiten konnten.
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.18]{bif-ldr/bifurc-zoom}
 \includegraphics[scale=0.18]{bif-ldr/bifurc-zoom2}
