@@ -3,6 +3,7 @@ from plotting import graph, domain, widget
 from prak import numerical
 from functools import partial
 import numpy
+from numpy import mean
 GERADE = """
 vec4 f(vec4 x) {
     return vec4(x.x, x.y, x.z, 1.0);
@@ -51,15 +52,37 @@ window.plotter.add_graph('Periodenverdopplung Square +', graph.Discrete2d(axis_d
 window.plotter.add_graph('Periodenverdopplung Square -', graph.Discrete2d(axis_domain, NORMAL3))
 
 log_fnc = lambda r, x: r*x*(1-x)
+
+r_start = 2.9
+data = numpy.zeros(44)
+for i in range(0, 22):
+
+    x0 = 0.4
+    val = 0.0
+    last = []
+    last2 = []
+    for k in range(0, 30):
+        x0 = log_fnc(r_start, x0)
+        if k > 30 -3:
+            last.append(x0)
+    data[i*2] = r_start
+    data[i*2+1] = mean(last)
+    r_start += 0.05
+
+
 imax = 1500
 rn = 1500
-pydomain = domain.PythonCodeDomain(int(rn*float(imax)/2))
-pydomain.calculata_domain = partial(numerical.bifurcation, log_fnc, 300, rn=rn, imax=imax, xs=2.9, xe=4.0, x_0=lambda i: 0.5*(2*(i%2) -1))
-pydomain.recalculate_on_prerender = False
-pydomain.dimension = 2
+pydomain = domain.Domain(int(rn*float(imax)/2))
+pydomain.push_data(numerical.bifurcation(log_fnc, 300, rn=rn, imax=imax, xs=2.9, xe=4.0, x_0=lambda i: 0.5*(2*(i%2) -1)))
 window.plotter.add_graph('iteration', graph.Discrete2d(pydomain, GERADE))
 window.plotter.get_graph('iteration').set_colors(color_min=[0.0,0.0,.0,.1], color_max=[0.0,0.0,0.0,.1])
 window.plotter.get_graph('iteration').set_dotsize(0.0015)
+
+pydomain = domain.Domain(22)
+pydomain.push_data(data)
+window.plotter.add_graph('iteration2', graph.Discrete2d(pydomain, GERADE))
+window.plotter.get_graph('iteration2').set_colors(color_min=[0.0,0.0,.0,1.0], color_max=[0.0,0.0,0.0,1.0])
+window.plotter.get_graph('iteration2').set_dotsize(0.015)
 
 lines=  [3.0, 3.45]
 for x in lines:
