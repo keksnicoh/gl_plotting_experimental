@@ -85,48 +85,49 @@ Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ 
 	\label{fig:bifurkation-sin-nice}
 \end{figure}
 \subsection{Fixpunkte / Stabilitätsbedigung}
-Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x^*)=x^*$ $\forall n \iff x^*$ ist Fixpunkt. 
+Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x)=x$ $\forall n \iff x$ ist Fixpunkt. 
 Stabilitätsbedingung:
-\begin{equation} |f'(x^*)|<1 \iff Fixpunkt-stabil \end{equation}
-\begin{equation} |f'(x^*)|>1 \iff Fixpunkt-instabil \end{equation}
-Mit $ f(x^*)=rx^*(1-x^*)=x^* $ folgen die Fixpunkte $x_{0}^*=0$ und $x_{1}^*=1-\frac{1}{r}$. Mit der Stabilitätsbedingung (wir betrachten $f'(x^*)=r-2rx^*$) folgt für $x_{0}^*$:
-$$-1 < r < 1: x_{0}^* \text{ stabil}$$
-$$r > 1: x_{0}^* \text{ instabil}$$
-Für $x_{1}^*=1-\frac{1}{r}$ folgt:
-$$xx$$
-$$xx$$
-Obwohl für den Parameter $0 \textless r \textless 1$ der Fixpunkt instabil ist konvergieren $f^n(x)$ gegen 0 $\forall x \neq x^*$, denn $f^n(x)$ ist ein Polynom vom grad $2n$. 
-
-
-Abbildung \ref{fig:log-iteration-behavior} zeigt wie sich die Iteration jeweils für einen stabilen und einen instabilen Fixpunkt verhält. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abbildung \ref{fig:bifurkation-sin-nice}) für $r>3$ verstehen.  
-Für den Zweierzyklus $f^2(x)$ ließen sich folgende Fixpunkte bestimmen welche in Abbildung \ref{fig:log-intermittenz-cycles} zusammen mit dem Einerzyklus Fixpunkten dargestellt sind. 
-Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung \ref{fig:log-intermittenz-cycles}). Intermittenz ein Grund für die Verdichtungen welche im choatischen Bereich des Bifurkationsdiagrammes zu sehen sind.
-
+\begin{equation} |f'(x)|<1 \iff Fixpunkt-stabil \end{equation}
+\begin{equation} |f'(x)|>1 \iff Fixpunkt-instabil \end{equation}
+Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Mit der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt für $x_{0}$:
+$$-1 < r < 1: x_{0} \text{ stabil}$$
+$$r > 1: x_{0} \text{ instabil}$$
+Für $x_{1}=1-\frac{1}{r}$ folgt:
+$$1 < r < 3: x_1 \text{ stabil}$$
+$$r<1 \wedge  r> 3: x_1 \text{ instabil}$$
+Abbildung \ref{fig:log-iteration-behavior} zeigt wie sich die Iteration bei unterschiedlichen Parametern verhalten. Für $r>3$ ist $x_1$ nicht mehr stabil. So lässt sich auf die Aufspaltung im Bifurkationsdiagramm (Abbildung \ref{fig:bifurkation-sin-nice}) für $r>3$ verstehen.  
+Im folgenden untersuchen wir den Zweierzyklus $f^2(x)$.
 \begin{equation}x_{n+1}=f_r(x_n)=rx_n(1-x_n)
 \Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))\end{equation}
 \newline
 Fixpunktgleichung (Zweierzyklus):
-\begin{equation}x=r^2x(1-x)(1-rx(1-x))
-\Rightarrow x_{3,4}=\pm\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}\end{equation}
-Damit $x_{3,4} \in \mathbb{R} $  muss $r^2-2 r-3 \geq 0$
-\begin{equation}\Rightarrow r \leq -1 \land r \geq 3\end{equation}
-Für diesen Bereich gibt es folglich 2 weitere Fixpunkte $x_{3,4} 
-\Leftrightarrow$ Perdiodenverdopplung. 
-Im Fall der logistischen Abbildung gilt
-\begin{equation}\frac{d}{dx}f(x)=r-2rx=r(1-2x), 
-\frac{d}{dx}f^2(x)=-r^2(2x-1)(2r(x-1)x+1)\end{equation}
-AB HIER TODO: Grafisch lässt sich ablesen, dass der Fixpunkt $x_3=\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grüner Graph) für folgende Bereiche stabil ist:
-\begin{equation}-1.45<r<-0.82 \Rightarrow -1.45 < r \leq -1\end{equation}
-\begin{equation}2.82<r<3.45 \Rightarrow 3 \geq r > 3.45\end{equation}
-Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesamten Bereich $-1.45<r<3.45$ stabil aber da der Fixpunkt ebenfalls nur für $r \leq -1 \land r \geq 3$ existiert gilt der selbe Bereich wie für $x_3$. Die Fixpunkt sind dort stabil, wo sich der graue und der grüne Graph in der Abbildung überlagern.
+\begin{equation}
+x=r^2x(1-x)(1-rx(1-x))
+\Rightarrow 
+x_{3,4}=\pm\frac{\sqrt{r^2-2 r-3}+r+1}{2 r}
+\end{equation}
+Da $x_{3,4} \in \mathbb{R} $,  muss $r^2-2 r-3 \geq 0$
+\begin{equation}
+\Rightarrow r \leq -1 \land r \geq 3
+\end{equation}
+Für diesen Bereich gibt es folglich 2 weitere Fixpunkte $x_{3,4}$. 
+Es gilt:
+\begin{equation}
+\frac{d}{dx}f^2(x)=-r^2(2x-1)(2r(x-1)x+1)
+\end{equation}
+Lösungen der Gleichung $|\frac{d}{dx}f^2(x_{3,4})|=1$ sind: $r_0=-1$, $r_1=3$, $r_2=1-\sqrt{6}\approx-1.45$, $r_3=1+\sqrt{6}\approx3.45$. Da die Fixpunkte $x_{3,4}$ nur für $r>3$ und $r<-1$ existieren folgt.
+\begin{equation}1-\sqrt{6}< r \leq -1 \wedge 3 \geq r > 1+\sqrt{6}: x_{3,4} \text{ stabil}
+\end{equation}
+\begin{equation}r < 1-\sqrt{6} \wedge r>1+\sqrt{6}: x_{3,4} \text{ instabil}
+\end{equation}
 
-
+Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung \ref{fig:log-intermittenz-cycles}). Intermittenz ein Grund für die Verdichtungen welche im choatischen Bereich des Bifurkationsdiagrammes zu sehen sind.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.2]{fixpunkt-2878}
 \includegraphics[scale=0.2]{fixpunkt-311}
-\caption{Verlauf der Iterationen bei festen Parameter r. Linkes Bild zeigt einen stabilen Fixpunkt bei r=2.878, rechtes Bild zeigt instabilen Fixpunkt bei r=3.113. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet sind die Folgen ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
+\caption{Verlauf der Iterationen bei festem Parameter r. Links: Konvergiert gegen Fixpunkt $x_1$ bei r=2.878. Rechts: Bei r=3.113 ist $x_1$ kein stabiler Fixpunkt mehr. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet sind die Folgen ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
 \label{fig:log-iteration-behavior}
 \end{figure}
 
@@ -137,6 +138,18 @@ Der Fixpunkt $x_4=\frac{-\sqrt{r^2-2 r-3}+r+1}{2 r}$ (grauer Graph) ist im gesam
 \caption{Logistische Funktion. Links: Intermittenz bei $r=3.80102$. Rechts: Die stabile Lösung des Einerzyklus $x^*$ und die beiden Lösungen des Zweierzyklus $x_{3,4}$. Im Hintergrund das Bifurkationsdiagramm. Die vertikalen Linien sind an $r=3.0$ und $r=3.44$ und markieren die Stellen wo $|f'(x)|=1$, $|\frac{d}{dx}f^2(x)|=1$ sind. Sourcecode: prak/intermittenz.py, prak/logis-zyklen.py}. 
 \label{fig:log-intermittenz-cycles}
 \end{figure}
+
+\subsection{Bifurkationspunkt}
+Im weiteren betrachten wir das Konvergenzverhalten der logistischen Abbildung bei $r=3$ und Umgebung. Für r<3 kennen wir bereits den Fixpunkt $x_1=1-\frac{1}{r}$. 
+Abbildung \ref{fig:log-konv1} (links) trägt den x wert gegen die Anzahl der Iterationen auf für $r=3$. Dabei sei zunächst angemerkt, dass wir bei der Berechnung über einen OpenCL Kernel mit double precision, also float64 anscheinend sehr schnell auf ein Rundungsproblem stoßen, während wir bei der Berechnung in Python anscheinend wesentlich höhere Genauigkeit erreichen. So haben wir nach $10^7$ Iterationen ein $\epsilon=7.67*10^{-5}$, wobei $\epsilon=|\frac{2}{3}-x|$
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{log-konv-r3}
+\includegraphics[scale=0.4]{log-bifurc-umr3}
+\caption{Links: Konvergenzverhalten der logistischen Abbildung bei $r=3. 2$ Plots übereinander. OpenCL Berechnung: Nach ca. $1.6 \cdot 10^4$ konstant bei $x_n=0.6685$, bzw. $x_{n+1}=6648$. Python Berechnung: $x$ konvergiert kontinuierlich gegen $x=\frac{2}{3}$. Rechts: Vergrößerung des Bifurkationsdiagrammes bei $r\approx3$. $x$ nach $10^5$ Iterationen aufgetragen.}. 
+\label{fig:log-konv1}
+\end{figure}
+Der Bereich um den Bifurkationspunkt ist in Abbildung \ref{fig:log-konv1} (rechts) dargestellt. Dabei wurde zunächst OpenCL für die Berechnung verwendet, was zu einem ungenauem Ergebnis führt. Es lässt sich nur Grob ablesen, dass bei ca. $r=3$ der Fixpunkt $x_1$ instabil.
 
 \subsection{Betrachtung von Extremwerten}
 Das Bifurkationsdiagramm scheint ab $r>4$ zu divergieren. Im folgenden haben wir diesen Bereich näher analysiert. 

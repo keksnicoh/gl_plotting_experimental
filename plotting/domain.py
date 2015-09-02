@@ -176,19 +176,24 @@ class AxisGL(Domain):
 
 
 class CLDomain(Domain):
-    def __init__(self, kernel, gl_buffer_length, cl_params, dimension=2):
+    def __init__(self, kernel, gl_buffer_length, cl_params, dimension=2, parallel=(1,)):
         Domain.__init__(self, gl_buffer_length)
         self.kernel = kernel
         self.dimension = dimension
         self.cl_params = cl_params
+        self.parallel = parallel
+
+        self.calculator = BaseCalculator(sharedGlContext=True)
+        self.gl_buffer = self.calculator.getOpenGLBufferFromId(self.get_vbo().get(0).id)
 
     def get_dimension(self):
         return self.dimension
+        
 
-    def init_vbo(self, length):
-        Domain.init_vbo(self, length)
-        self.calculator = BaseCalculator(sharedGlContext=True)
-        self.gl_buffer = self.calculator.getOpenGLBufferFromId(self.get_vbo().get(0).id)
+    def append_array(self, data):
+        self.cl_params.append(self.calculator.createArrayBuffer(data))
+
+    def calculate(self):
         self.calculate_cl_buffer()
 
     def calculate_cl_buffer(self, param=None, value=None):
@@ -200,7 +205,7 @@ class CLDomain(Domain):
         if param == 'iterations':
             self.cl_params[0] = numpy.int32(value)
 
-        self.calculator.calculateGL(self.kernel, self.cl_params, [self.gl_buffer], (1,))
+        self.calculator.calculateGL(self.kernel, self.cl_params, [self.gl_buffer], self.parallel)
 
 
 class DuffingDomain(Domain):
