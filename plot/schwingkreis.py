@@ -168,7 +168,7 @@ I = 0.0
 
 
 iterations = 100000
-iteration_offset = 2500000
+iteration_offset = 0
 #h = 10**-8
 #time = 0.0
 
@@ -194,7 +194,7 @@ cl_kernel_params = [
 ]
 
 
-active_cl_kernel = PHASE_KERNEL
+active_cl_kernel = OSZILATION_KERNEL
 
 
 phase_axis = (2.0, 6.0)
@@ -208,11 +208,12 @@ oszilation_origin = (0.0, 1.0)
 x_oszillation_label = "Zeit"
 y_oszillation_label = "Spannung in [V]"
 
-#window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[.9,.9,.9,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
+window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[.9,.9,.9,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
+#window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
 cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dimension=2)
+cl_domain.calculate()
 #domain = domain.Domain(gl_buffer_length)
 #domain.push_data(data)
 
