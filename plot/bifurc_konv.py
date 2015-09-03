@@ -11,25 +11,19 @@ import math, numpy
 from opencl.cl_handler import BaseCalculator
 
 BIFURC_KONV = """
-#pragma OPENCL EXTENSION cl_khr_fp64 : enable
-//#pragma OPENCL SELECT_ROUNDING_MODE rtn
-//#define DOUBLE_SUPPORT_AVAILABLE
     __kernel void f(__global int *iterations,__global float *result)
     {
         int global_id = get_global_id(0);
 
         int iteration = iterations[global_id];
-        double r = 3.0;
-        double eps = 0.001;
-        double x = 0.2;
-        double new_x = 0.0;
-        double nnew_x = 0.0;
+        float r = 3.0f;
+        float x = 0.2f;
         for(int i=0; i < iteration; i += 1) {
-            x = r*x - r*x*x-eps;
+            x = r*x - r*x*x;
         }
-        float x_real = (float)2.0f/3.0f;
+        float x_real = 2.0f/3.0f;
         result[2*global_id] = iteration;
-        result[2*global_id+1] = x+eps/2.0;
+        result[2*global_id+1] = x;
     }
 """
 
@@ -61,7 +55,7 @@ vec4 f(vec4 x) {
 
 
 
-iterations = [100*x+x%2 for x in range(0, 10000)]
+iterations = [100*x+x%2 for x in range(0, 1000)]
 
 iterations = numpy.array(iterations, dtype=numpy.int32)
 
@@ -73,8 +67,8 @@ cl_kernel_params = [
 ]
 
 r_values = numpy.arange(2.99, 3, 0.00001, dtype=numpy.float32)
-buffer_size = r_values.size
-parallels = buffer_size
+#buffer_size = r_values.size
+#parallels = buffer_size
 
 oszilation_axis = (1000000, 0.01)
 oszilation_origin = (-2.9, -0.666)
@@ -83,35 +77,35 @@ y_oszillation_label = "x"
 
 window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-window.plotter.set_precision_axis((0, 10))
-#def logAbbildung(x, r):
-#        return r*x*(1-x)
-#
-#x_real=2.0/3.0
-#x=0.6
-#r=3.0
-#
-#max_it = 10**7
-#modul = 10**4-1
-#length = int(max_it/modul)
-#
-#result = []
-#
-#for i in xrange(max_it):
-#    x=logAbbildung(x, r)
-#    if i % modul == 0:
-#        result.append(i)
-#        result.append(x)
-#
-#
-##diff = [x_real - x for x in result]
-#
-#pydomain = domain.Domain(length)
-#pydomain.push_data(result)
 
-#window.plotter.add_graph('iteration', graph.Discrete2d(pydomain))
-#window.plotter.get_graph('iteration').set_colors(color_min=[.0,0.0,.0,1], color_max=[0.0,.0,.0,1])
-#window.plotter.get_graph('iteration').set_dotsize(0.005)
+def logAbbildung(x, r):
+        return r*x*(1-x)
+
+x_real=2.0/3.0
+x=0.6
+r=3.0
+
+max_it = 10**7
+modul = 10**4-1
+length = int(max_it/modul)
+
+result = []
+
+for i in xrange(max_it):
+    x=logAbbildung(x, r)
+    if i % modul == 0:
+        result.append(i)
+        result.append(x)
+
+
+#diff = [x_real - x for x in result]
+
+pydomain = domain.Domain(length)
+pydomain.push_data(result)
+
+window.plotter.add_graph('iteration', graph.Discrete2d(pydomain))
+window.plotter.get_graph('iteration').set_colors(color_min=[.0,0.0,.0,1], color_max=[0.0,.0,.0,1])
+window.plotter.get_graph('iteration').set_dotsize(0.005)
 
 
 cl_domain = domain.CLDomain(BIFURC_KONV, buffer_size, cl_kernel_params, dimension=2, parallel=(parallels,))

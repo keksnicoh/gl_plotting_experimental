@@ -146,11 +146,11 @@ POINCARE_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
 active_cl_kernel = PHASE_KERNEL_RK
 
-#(x_0, y_0) = (0.21, 0.02) #small 1
+(x_0, y_0) = (0.21, 0.02) #small 1
 #(x_0, y_0) = (0.17, 0.02) #custom
 
 #(x_0, y_0) = (1.05, 0.77) #gone 2
-(x_0, y_0) = (-0.67, 0.02) #small 3
+#(x_0, y_0) = (-0.67, 0.02) #small 3
 #(x_0, y_0) = (-0.46, 0.30) #big 4
 #(x_0, y_0) = (-0.43, 0.12) #small 5
 #(x_0, y_0) = (3.0,4.0)
@@ -170,7 +170,7 @@ cl_kernel_params = [
     numpy.int32(length), 
     numpy.float32(lambd),
 
-    numpy.float32(1.0),
+    numpy.float32(0.0),
 
     numpy.float32(1.0),
     numpy.float32(epsilon),
@@ -197,6 +197,7 @@ window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0, 1.0,
 cl_domain = domain.CLDomain(active_cl_kernel, length, cl_kernel_params, dimension=2)
 #domain = domain.Domain(gl_buffer_length)
 #domain.push_data(data)
+cl_domain.calculate()
 
 
 window.plotter.add_graph('duffing', graph.Discrete2d(cl_domain))
