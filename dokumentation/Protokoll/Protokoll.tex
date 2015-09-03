@@ -197,7 +197,7 @@ Analytisch: \lambda(x_0) = \lim_{N \rightarrow \infty} \frac{1}{N} \sum_{i=0}^{N
 Renormiert
 \label{eq:lyapunov-renormiert}
 \end{equation}
-In Abbildung \ref{fig:lyapunov} haben wir die drei Möglichkeiten auf die logistische Funktion angewendet.
+In Abbildung \ref{fix:log-detail} ist der Lyapunov Exponent der analytischen Implementation gezeigt.
 Es zeigte sich, dass die Gleichung (\ref{eq:lyapunov-def}) sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden (\ref{eq:lyapunov-analytisch}), (\ref{eq:lyapunov-renormiert}) ergibt.
 Dies liegt daran, dass schon bei kleinen $\epsilon$ die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten in (\ref{eq:lyapunov-def}) keinen Sinn ergibt.
 Die Renomierung (\ref{eq:lyapunov-renormiert}) hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
@@ -221,11 +221,21 @@ vec4 f(vec4 x) {
     return vec4(x.x, summe/n, 0, 0.5);
 }
 \end{lstlisting}
+\subsubsection{Konvergenzverhalten}
+Es kann passieren, dass man einen Anfangswert wählt, für welchen der Lyapunov-Exponent kein sinnvolles Ergebniss liefert. Setzt man $x_0=0.5$ so divergiert die analytische Formel, denn $log(f'(x_0))=-\infty$.
+Für die renormierte und analytische Implementation haben wir untersucht wie schnell bestimmte Anfangswerte $x_0$ gegen den Grenzwert $\lambda(x_0)$ streben. Dafür wurde untersucht wie nah $\lambda_{N=5}(r, x_0)$ an $\lambda_{N=1000}(r, x_0)$ ist:
+\begin{equation}
+    \gamma = exp^{-500 * (\lambda_{N=5}(r,x_0)
+    - \lambda_{N=10000}(r,x_0))}
+\end{equation}
+In Abbildung \ref{fig:lyapunov} ist das Ergebniss zu sehen: Je dunkler ein Punkt (r, $x_0$) ist, desto besser konvergiert $\lambda(r, x_0)$ ($\gamma \approx 1$). 
+Es gibt also $x_0$ für welche der Lyapunov Exponent abhängig von der Implemention besser konvergiert. Der oben besprochene Startwert $x_0=0.5$ ist in der rechten Abbildung gut bestätigt, denn hier konvergiert $\lambda(r, x_0)$ nicht. 
+
 \begin{figure}[!htbp]
-\includegraphics[scale=0.28]{iteration/lyapunov-1}
-\includegraphics[scale=0.28]{iteration/lyapunov-2}
-\includegraphics[scale=0.28]{iteration/lyapunov-3}
-\caption{Drei verschiedene Implementationen des Lyapunov Exponent. Links: Definition, Mitte: Analytisch, Rechts: Renormiert. Die linke Implementation weißt deutliche Abweichungen zu den anderen beiden Implementation auf und ist somit unbrauchbar. Sourcecode: prak/lyapunov.py}. 
+\includegraphics[height=160px]{iteration/lyapunov-2}
+\includegraphics[height=160px]{lyapunov-normiert-xr}
+\includegraphics[height=160px]{lyapunov-analytisch-xr}
+\caption{Analyse des Lyapunov Exponenten. Links: renormiert TODO. Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation} 
 \label{fig:lyapunov}
 \end{figure}
  
@@ -239,8 +249,8 @@ so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in 
  
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=0.18]{lya378-zoom}
-\includegraphics[scale=0.36]{lya378}
+\includegraphics[height=150px]{lya378-zoom}
+\includegraphics[height=150px]{lya378}
 \caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Links: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts:  0 bis $19*10^6$ Iterationen.}
 \label{fig:lyapunov-chaos}
 \end{figure}

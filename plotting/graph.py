@@ -55,12 +55,13 @@ class Discrete2d(BaseGraph):
 
         dot_size = 0.01
         if hasattr(domain, 'get_dot_size'):
-            dot_size = domain.get_dot_size()
+            dot_size = domain.get_dot_size_xy()
 
         # configure default uniform values
         self.shader.uniform('color_min', [0,0,0,1])
         self.shader.uniform('color_max', [.0,.0,.0,1])
-        self.shader.uniform('dot_size', dot_size)
+        self.shader.uniform('dot_size_x', dot_size[0])
+        self.shader.uniform('dot_size_y', dot_size[1])
         self.shader.uniform('mat_modelview', Discrete2d.MAT_MODELVIEW) # default matrix
         self.shader.uniform('dot_size', dot_size)
 

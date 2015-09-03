@@ -8,6 +8,24 @@ from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
 from prak import numerical
 from functools import partial
+from numpy import log
+
+flog = lambda r,x : r*x*(1-x)
+dflog = lambda r,x : r-2*r*x
+
+r = 3.0
+x0 = 0.5
+summe = log(abs(dflog(r, x0)))
+print(summe)
+
+
+for i in range(0, 1000):
+    x0 = flog(r, x0)
+    print('x0', x0)
+    summe += log(abs(dflog(r, x0)))
+    print(summe)
+print(summe/1000)
+
 
 GERADE = """
 vec4 f(vec4 x) {
@@ -33,7 +51,7 @@ vec4 f(vec4 x) {
 LYAPUNOV_ANALYTISCH = KERNEL_LOG_DIFF + KERNEL_LOG + """
 uniform int n;
 vec4 f(vec4 x) {
-    float x0 = 0.6;
+    float x0 = 0.5;
     float summe = log(abs(dg(x.x, x0)));
     for (int i = 1; i <= n; i+=1) {
         x0 = g(x.x, x0);
@@ -67,12 +85,12 @@ pydomain = domain.PythonCodeDomain(5000*500)
 pydomain.calculata_domain = partial(numerical.bifurcation, log_fnc, 300, rn=5000, imax=500, xs=1.0)
 pydomain.recalculate_on_prerender = False
 pydomain.dimension = 3
-window.plotter.add_graph('bifurcation', graph.Discrete2d(pydomain, GERADE))
-window.plotter.get_graph('bifurcation').set_colors(color_min=[0.0,0.0,.0,.05], color_max=[0.0,0.0,0.0,.05])
-window.plotter.get_graph('bifurcation').set_dotsize(0.00175)
+#window.plotter.add_graph('bifurcation', graph.Discrete2d(pydomain, GERADE))
+#window.plotter.get_graph('bifurcation').set_colors(color_min=[0.0,0.0,.0,.05], color_max=[0.0,0.0,0.0,.05])
+#window.plotter.get_graph('bifurcation').set_dotsize(0.00175)
 
 adomain = domain.Axis(100000)
-window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_ANALYTISCH))
+window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_DEFINITION))
 
 origin_domain = domain.Domain(2)
 origin_domain.push_data([0.0, 0.0, 10.0, 0.0])
@@ -90,7 +108,7 @@ for x in lines:
 
 uniforms = window.plotter.get_uniform_manager()
 #uniforms.set_global('eps', 0.01, 0.000001)
-uniforms.set_global('n', 700, 2)
+uniforms.set_global('n', 4, 2)
 uniforms.set_global('x_0', 0.4, 0.005)
 window.add_widget('test', widget.Uniforms(uniforms))
 

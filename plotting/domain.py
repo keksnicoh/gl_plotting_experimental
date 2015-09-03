@@ -61,7 +61,8 @@ class Domain():
         plotter should interpret this as identity matrix.
         """
         return None
-
+    def get_dot_size_xy(self): return(self.get_dot_size(), self.get_dot_size())
+    
     def get_dimension(self):
         """
         returns standard dimension 2 for
@@ -259,7 +260,6 @@ class DuffingDomain(Domain):
 
     def get_dot_size(self): return max(0.002, 1.0/self.length)
 
-        
 
 class Cartesian(Domain):
     def __init__(self, length, min_y=0.0, max_y=1.0, min_x=0.0, max_x=1.0, dimension=2):
@@ -269,7 +269,8 @@ class Cartesian(Domain):
         self.min_x = min_x
         self.max_x = max_x
         self.dimension = dimension
-
+        self.delta_x = self.max_x - self.min_x
+        self.delta_y = self.max_y - self.min_y
     def get_dimension(self):
         return self.dimension
 
@@ -285,6 +286,7 @@ class Cartesian(Domain):
         shift_y = 1.0/(2*length)
         data = numpy.zeros(length*length*self.dimension)
 
+
         delta_x = self.max_x - self.min_x
         delta_y = self.max_y - self.min_y
         for x in range(0, length):
@@ -294,9 +296,11 @@ class Cartesian(Domain):
                 if self.dimension == 3:
                     data[self.dimension*length+self.dimension*y+2] = 0.0
 
+
         self.push_data(data)
 
     def get_dot_size(self): return 1.0/self.length
+    def get_dot_size_xy(self): return (self.delta_x/self.delta_y*self.get_dot_size(), self.get_dot_size())
 
     def transformation_matrix(self, axis, origin):
         """
