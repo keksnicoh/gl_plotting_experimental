@@ -125,8 +125,8 @@ Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=0.18]{fixpunkt-2878}
-\includegraphics[scale=0.18]{fixpunkt-311}
+\includegraphics[height=150px]{fixpunkt-2878}
+\includegraphics[height=150px]{fixpunkt-311}
 \caption{Verlauf der Iterationen bei festem Parameter r. Links: Konvergiert gegen Fixpunkt $x_1$ bei r=2.878. Rechts: Bei r=3.113 ist $x_1$ kein stabiler Fixpunkt mehr. Der Verlauf der logistischen Funktion $f(x)$, $f^2(x)$ sowie die Einheitsgerade $y=x$ sind aufgetragen . Als Linie Verbunden geplottet sind die Folgen ($x_n, 0.0), (x_n, x_{n+1}), (x_{n+1}, x_{n+1}), (x_{n+1}, x_{n+2}), (x_{n+2}, x_{n+2}), (x_{n+2}, x_{n+3}), ...$ Sourcecode: prak/logisitsch-no-opt-behavior.py}. 
 \label{fig:log-iteration-behavior}
 \end{figure}
@@ -226,16 +226,16 @@ Es kann passieren, dass man einen Anfangswert wählt, für welchen der Lyapunov-
 Für die renormierte und analytische Implementation haben wir untersucht wie schnell bestimmte Anfangswerte $x_0$ gegen den Grenzwert $\lambda(x_0)$ streben. Dafür wurde untersucht wie nah $\lambda_{N=5}(r, x_0)$ an $\lambda_{N=1000}(r, x_0)$ ist:
 \begin{equation}
     \gamma = exp^{-500 * (\lambda_{N=5}(r,x_0)
-    - \lambda_{N=10000}(r,x_0))}
+    - \lambda_{N=10000}(r,x_0))^2}
 \end{equation}
 In Abbildung \ref{fig:lyapunov} ist das Ergebniss zu sehen: Je dunkler ein Punkt (r, $x_0$) ist, desto besser konvergiert $\lambda(r, x_0)$ ($\gamma \approx 1$). 
-Es gibt also $x_0$ für welche der Lyapunov Exponent abhängig von der Implemention besser konvergiert. Der oben besprochene Startwert $x_0=0.5$ ist in der rechten Abbildung gut bestätigt, denn hier konvergiert $\lambda(r, x_0)$ nicht. 
+Es gibt also $x_0$ welche ein sehr schnelles Konvergenzverhalten gegenüber anderen $x_0$ haben. Der oben besprochene Startwert $x_0=0.5$ ist in der rechten Abbildung gut bestätigt, denn hier konvergiert $\lambda(r, x_0)$ nicht. 
 
 \begin{figure}[!htbp]
 \includegraphics[height=160px]{iteration/lyapunov-2}
 \includegraphics[height=160px]{lyapunov-normiert-xr}
 \includegraphics[height=160px]{lyapunov-analytisch-xr}
-\caption{Analyse des Lyapunov Exponenten. Links: renormiert TODO. Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation} 
+\caption{Analyse des Lyapunov Exponenten. Links: renormiert TODO. Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-rx-convergence.py)} 
 \label{fig:lyapunov}
 \end{figure}
  
