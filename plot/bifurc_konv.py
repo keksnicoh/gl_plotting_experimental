@@ -68,12 +68,12 @@ buffer_size = len(iterations)
 parallels = buffer_size
 
 cl_kernel_params = [
-    numpy.int32(10**5)
+    #numpy.int32(10**5)
 ]
 
 r_values = numpy.arange(2.99, 3, 0.00001, dtype=numpy.float32)
-buffer_size = r_values.size
-parallels = buffer_size
+#buffer_size = r_values.size
+#parallels = buffer_size
 
 oszilation_axis = (0.1, 0.01)
 oszilation_origin = (-2.9, -0.666)
@@ -83,39 +83,39 @@ y_oszillation_label = "x"
 window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
 
-#def logAbbildung(x, r):
-#        return r*x*(1-x)
-#
-#x_real=2.0/3.0
-#x=0.6
-#r=3.0
-#
-#max_it = 10**7
-#modul = 10**4-1
-#length = int(max_it/modul)
-#
-#result = []
-#
-#for i in xrange(max_it):
-#    x=logAbbildung(x, r)
-#    if i % modul == 0:
-#        result.append(i)
-#        result.append(x)
-#
-#
-##diff = [x_real - x for x in result]
-#
-#pydomain = domain.Domain(length)
-#pydomain.push_data(result)
+def logAbbildung(x, r):
+        return r*x*(1-x)
 
-#window.plotter.add_graph('iteration', graph.Discrete2d(pydomain))
-#window.plotter.get_graph('iteration').set_colors(color_min=[.0,0.0,.0,1], color_max=[0.0,.0,.0,1])
-#window.plotter.get_graph('iteration').set_dotsize(0.005)
+x_real=2.0/3.0
+x=0.6
+r=3.0
+
+max_it = 10**7
+modul = 10**4-1
+length = int(max_it/modul)
+
+result = []
+
+for i in xrange(max_it):
+    x=logAbbildung(x, r)
+    if i % modul == 0:
+        result.append(i)
+        result.append(x)
 
 
-cl_domain = domain.CLDomain(BIFURC, buffer_size, cl_kernel_params, dimension=2, parallel=(parallels,))
-#cl_domain.append_array(iterations)
-cl_domain.append_array(r_values)
+#diff = [x_real - x for x in result]
+
+pydomain = domain.Domain(length)
+pydomain.push_data(result)
+
+window.plotter.add_graph('iteration', graph.Discrete2d(pydomain))
+window.plotter.get_graph('iteration').set_colors(color_min=[.0,0.0,.0,1], color_max=[0.0,.0,.0,1])
+window.plotter.get_graph('iteration').set_dotsize(0.005)
+
+
+cl_domain = domain.CLDomain(BIFURC_KONV, buffer_size, cl_kernel_params, dimension=2, parallel=(parallels,))
+cl_domain.append_array(iterations)
+#cl_domain.append_array(r_values)
 cl_domain.calculate()
 
 xdomain = domain.Axis(100000)
