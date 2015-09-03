@@ -53,8 +53,8 @@ class Discrete2d(BaseGraph):
             link=True
         )
 
-        dot_size = 0.01
-        if hasattr(domain, 'get_dot_size'):
+        dot_size = (0.01, 0.01)
+        if hasattr(domain, 'get_dot_size_xy'):
             dot_size = domain.get_dot_size_xy()
 
         # configure default uniform values
