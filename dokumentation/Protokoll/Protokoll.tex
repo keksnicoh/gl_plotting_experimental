@@ -22,6 +22,7 @@
   
 \usepackage[style=numeric]{biblatex}
 \usepackage[babel,german=guillemets]{csquotes}
+\usepackage[toc,page]{appendix}
 \bibliography{literatur}
   
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -381,14 +382,15 @@ Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:eule
 \begin{equation}\frac{d\theta}{dt}=\Omega\end{equation}
 \newline
 \subsection { Phasenraumdiagramm }
-Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasendiagramm bei unterschiedlichen Schrittgrößen $h$. Der zu erwartende Attraktor ist in Abbildung \ref{fig:duffing-awp1} (mitte und rechts) dargestellt. Ist die Schrittgröße zu groß so entsteht bei dem Euler-Cauchy Verfahren ein anderer Attraktor (Abbildung \ref{fig:duffing-awp1} links).
+Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasenraumdiagramm bei unterschiedlichen Schrittgrößen $h$. Für kleine Parameter $h$ erhalten wir sowohl bei dem Euler-Cauchy, als auch beim Runge-Kutta Verfahren (Runge-Kutta 4ter Ordnung 3-Dimensional, siehe Appendix) Attraktoren wie in Abbildung \ref{fig:duffing-awp1} (mitte) dargestellt. 
 \begin{figure}[!htbp]
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-euler}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,08-euler}
-\includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-runge}
-\caption{Phasenraumdiagramm mit Euler-Cauchy. Links: Schrittweite $h=0.1$. Mitte: Schrittweite $h=0.08$. Rechts: Runge-Kutta mit Schrittweite $h=0.1$}. 
+\includegraphics[scale=0.28]{duffing-awp1-h2-runge-kutta}
+\caption{Phasenraumdiagramm. Links: Schrittweite $h=0.1$ mit Euler-Cauchy. Mitte: Schrittweite $h=0.08$ mit Euler-Cauchy identisch bei $h=0.1$ mit Runge-Kutta . Rechts: Runge-Kutta bei Schrittweite $h=2$}. 
 \label{fig:duffing-awp1}
 \end{figure}
+Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h>0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (rechts). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h=2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
 \newline
 Im weiteren sind alle folgenden Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung gemacht.
 \newline
@@ -403,8 +405,14 @@ Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfan
 \caption{Phasenraumdiagramm mit Runge-Kutta. Links oben: $x_0=1.05$, $y_0=0.77$. Rechts oben: $x_0=-0.67$, $y_0=0.02$. Links unten: $x_0=-0.46$, $y_0=0.30$. Rechts unten: $x_0=-0.43$, $y_0=0.12$}. 
 \label{fig:duffing-allawp}
 \end{figure}
+Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. Im folgenden variieren wir \epsilon, also die Amplitude der Anregung.
 \subsection{ Poincareschnitt }
-Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} ist ein Poincareschnitt des Duffing-Oszillators mit $\theta=0$ gezeigt. Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
+Ab einem bestimmten Satz von Parametern erhalten wir keinen eindeutigen Attraktor mehr, egal wie viele Zeitschritte wir berechnen. Dennoch stellt sich heraus, dass trotzdem nie eine gesamte Fläche ausgefüllt wird. Solche Attraktoren werden seltsame Attraktoren genannt. Im folgenden untersuchen wir diese seltsamen Attraktoren und deren Poincaré-Schnitt. 
+Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} ist ein Poincareschnitt des Duffing-Oszillators bei $\theta=0$ gezeigt.
+
+
+
+Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
 \begin{lstlisting}
       pos = sin(theta);
       if (last_pos*pos <= 0.0f) {
@@ -624,6 +632,25 @@ In Abbildung \ref{fig:ldr-bifurc-zoo} haben wir noch ein mal mit der Sägezahnsp
 \begin{itemize} 
 \item Nichtlineare Dynamik und Chaos - Physikalisches Praktikum für Fortgeschrittene Universität Hamburg
 \end{itemize}
+
+\section{Appendix}
+\subsection {Runge-Kutta 4ter Ordnung in 3 Dimensionen}
+Hängt $f$ von mehr als nur x und t ab, so lassen sich weitere Parameter ebenfalls mit der selben Idee variieren.
+Gegeben seien folgende Differentialgleichungen:
+$$\frac{dx}{dt}=f(x,y,t)$$
+$$\frac{dy}{dt}=g(x,y,t)$$
+Dann definieren wir im Sinne des Runge-Kutta Verfahrens:
+$$k_1 = hf(x_n,y_n,t)$$
+$$l_1 = hg(x_n,y_n,t)$$
+$$k_2 = hf(x_n+h\frac{k_1}{2},y_n+h\frac{l_1}{2},t+\frac{h}{2})$$
+$$l_2 = hg(x_n+h\frac{k_1}{2},y_n+h\frac{l_1}{2},t+\frac{h}{2})$$
+$$k_3 = hf(x_n+h\frac{k_2}{2},y_n+h\frac{l_2}{2},t+\frac{h}{2})$$
+$$l_3 = hg(x_n+h\frac{k_2}{2},y_n+h\frac{l_2}{2},t+\frac{h}{2})$$
+$$k_4 = hf(x_n+hk_3,y_n+hl_3,t+h)$$
+$$l_4 = hg(x_n+hk_3,y_n+hl_3,t+h)$$
+Und schließlich:
+$$y_{n+1} = y_n + \frac{k_1 + 2k_2 + 2k_3 + k_4}{6}$$
+$$x_{n+1} = x_n + \frac{l_1 + 2l_2 + 2l_3 + l_4}{6}$$
 
 
 

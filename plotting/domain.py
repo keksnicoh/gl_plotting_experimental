@@ -77,6 +77,9 @@ class Domain():
             self.calculator = BaseCalculator(sharedGlContext=True)
         return self.calculator.getOpenGLBufferFromId(self.vbo.get(0).id)
 
+    def get_dot_size(self): return max(0.002, 1.0/self.length)
+
+
 class Axis(Domain):
     """
     x-axis domain
@@ -185,6 +188,7 @@ class CLDomain(Domain):
         self.parallel = parallel
 
         self.calculator = BaseCalculator(sharedGlContext=True)
+
         self.gl_buffer = self.calculator.getOpenGLBufferFromId(self.get_vbo().get(0).id)
 
     def get_dimension(self):
@@ -207,6 +211,9 @@ class CLDomain(Domain):
             self.cl_params[0] = numpy.int32(value)
 
         self.calculator.calculateGL(self.kernel, self.cl_params, [self.gl_buffer], self.parallel)
+
+    def get_dot_size(self): return max(0.002, 1.0/self.length)
+
 
 
 class DuffingDomain(Domain):

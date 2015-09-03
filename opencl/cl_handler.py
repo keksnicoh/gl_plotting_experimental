@@ -47,7 +47,6 @@ class BaseCalculator(object):
 		if gpuOnly and len(self.devices) > 1:
 			devices = [self.devices[1]]
 
-		print(properties, devices)
 		self.context = cl.Context(properties=properties, devices=devices)
 
 		self.queue = None

@@ -8,7 +8,7 @@ from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
 import math, numpy
 
-OSZILATION_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+OSZILATION_KERNEL = """
     __kernel void f(float x, float y, int iterations, float lambda, float beta, float omega, float epsilon, int start_iteration, float h, __global float *result)
     {
         float t = 0.0;
@@ -26,7 +26,8 @@ OSZILATION_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     }
 """
 
-PHASE_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+
+PHASE_KERNEL = """
     __kernel void f(float x, float y, int iterations, float lambda, float beta, float omega, float epsilon, int start_iteration, float h, __global float *result)
     {
         float theta = 0;
@@ -52,7 +53,7 @@ PHASE_KERNEL = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     }
 """
 
-PHASE_KERNEL_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+PHASE_KERNEL_RK = """
     __kernel void f(float x, float y, int iterations, float lambda, float beta, float omega, float epsilon, int start_iteration, float h, __global float *result)
     {
         float t = 0.0f;
@@ -94,7 +95,7 @@ PHASE_KERNEL_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     }
 """
 
-POINCARE_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+POINCARE_RK = """
     __kernel void f(float x, float y, int iterations, float lambda, float beta, float omega, float epsilon, int start_iteration, float h, __global float *result)
     {
         float t = 0.0f;
@@ -109,7 +110,6 @@ POINCARE_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         float l3 = 0.0f;
         float l4 = 0.0f;
 
-        int k = 0;
         float position = 0.0f;
         float last_point = 0.0f;
         for(int i=0; i < (iterations+start_iteration)*2; i += 2) {
@@ -133,9 +133,12 @@ POINCARE_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
             position = sin(t);
             if(i > start_iteration && last_point*position < 0.0f) {
-                result[k] = x;
-                result[k+1] = y;
-                k += 1;
+                result[i] = x;
+                result[i+1] = y;
+            }
+            else {
+                result[i] = 0.0f;
+                result[i+1] = 0.0f;
             }
 
             last_point = position;
@@ -146,23 +149,46 @@ POINCARE_RK = """//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 
 active_cl_kernel = PHASE_KERNEL_RK
 
-(x_0, y_0) = (0.21, 0.02) #small 1
+#(x_0, y_0) = (0.21, 0.02) #small 1
 #(x_0, y_0) = (0.17, 0.02) #custom
 
 #(x_0, y_0) = (1.05, 0.77) #gone 2
 #(x_0, y_0) = (-0.67, 0.02) #small 3
 #(x_0, y_0) = (-0.46, 0.30) #big 4
 #(x_0, y_0) = (-0.43, 0.12) #small 5
-#(x_0, y_0) = (3.0,4.0)
+(x_0, y_0) = (3.0,4.0)
 
-(lambd, epsilon) = (0.08, 0.2)
+#(lambd, epsilon) = (0.08, 0.2)
 #(lambd, epsilon) = (0.2, 1.0)
-#(lambd, epsilon) = (0.2, 7.72)
+(lambd, epsilon) = (0.2, 7.2)
 
-offset = 500000
-length = 500000
+offset = 300000
+length = 300000
 
 h = 0.01
+
+def calculate_pythone():
+    data = numpy.zeros(length, dtype=numpy.float32)
+    theta = 0.0
+    new_x = 0.0
+    omega = 1.0
+    beta = 1.0
+    t = 0.0
+    x = x_0
+    y = y_0
+    for i in xrange(length/2):
+        new_x = x + h * y
+        y = y + h * (epsilon * math.cos(theta) - lambd * y - beta * x * x * x)
+
+        theta = t * omega
+        t = t + h
+        x = new_x
+
+        data[2*i] = x
+        data[2*i + 1] = y
+
+    print(x, y)
+    return data
 
 cl_kernel_params = [
     numpy.float32(x_0),
@@ -170,7 +196,7 @@ cl_kernel_params = [
     numpy.int32(length), 
     numpy.float32(lambd),
 
-    numpy.float32(0.0),
+    numpy.float32(1.0),
 
     numpy.float32(1.0),
     numpy.float32(epsilon),
@@ -180,7 +206,7 @@ cl_kernel_params = [
 ]
 
 phase_axis = (0.5, 0.5)
-phase_origin = (0.25, 0.2)
+phase_origin = (-0.25, 0.25)
 x_phase_label = "x"
 y_phase_label = "y"
 
@@ -195,9 +221,10 @@ y_oszillation_label = "Spannung in [V]"
 window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0, 1.0, 1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
 cl_domain = domain.CLDomain(active_cl_kernel, length, cl_kernel_params, dimension=2)
-#domain = domain.Domain(gl_buffer_length)
-#domain.push_data(data)
 cl_domain.calculate()
+#domain = domain.Domain(length)
+#domain.push_data(calculate_pythone())
+#cl_domain = domain
 
 
 window.plotter.add_graph('duffing', graph.Discrete2d(cl_domain))
@@ -221,12 +248,12 @@ def update_uniform(self, value):
 
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('h', h, 10**-2)
+uniforms.set_global('h', h, 1)
 uniforms.set_global('x_0', x_0, 10**-2)
-uniforms.set_global('offset', offset, 100)
+#uniforms.set_global('offset', offset, 100)
 #uniforms.set_global('it_offset', iteration_offset, 1000)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
-widget.floating_percision = 4
+widget.floating_percision = 2
 window.add_widget('manipulate', widget)
 
 window.run()
