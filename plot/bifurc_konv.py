@@ -11,24 +11,19 @@ import math, numpy
 from opencl.cl_handler import BaseCalculator
 
 BIFURC_KONV = """
-//#pragma OPENCL EXTENSION cl_khr_fp64 : enable
-#pragma OPENCL SELECT_ROUNDING_MODE rtn
     __kernel void f(__global int *iterations,__global float *result)
     {
         int global_id = get_global_id(0);
 
         int iteration = iterations[global_id];
-
         float r = 3.0f;
-        float x = 0.6f;
-        float new_x = 0.0f;
+        float x = 0.2f;
         for(int i=0; i < iteration; i += 1) {
-            new_x = (float)x*r*(1.0-x);
-            x = new_x;
+            x = r*x - r*x*x;
         }
-        float x_real = (float)2.0f/3.0f;
+        float x_real = 2.0f/3.0f;
         result[2*global_id] = iteration;
-        result[2*global_id+1] = (float)x;
+        result[2*global_id+1] = x;
     }
 """
 
@@ -41,7 +36,7 @@ BIFURC = """
 
         float r = r_values[global_id];
 
-        float x = 0.6f;
+        float x = 0;
         for(int i=0; i < iterations; i += 1) {
             x = x*r*(1.0f-x);
         }
@@ -60,7 +55,7 @@ vec4 f(vec4 x) {
 
 
 
-iterations = [x*x for x in range(100, 1000)]
+iterations = [100*x+x%2 for x in range(0, 1000)]
 
 iterations = numpy.array(iterations, dtype=numpy.int32)
 
@@ -75,7 +70,7 @@ r_values = numpy.arange(2.99, 3, 0.00001, dtype=numpy.float32)
 #buffer_size = r_values.size
 #parallels = buffer_size
 
-oszilation_axis = (0.1, 0.01)
+oszilation_axis = (1000000, 0.01)
 oszilation_origin = (-2.9, -0.666)
 x_oszillation_label = "r"
 y_oszillation_label = "x"
