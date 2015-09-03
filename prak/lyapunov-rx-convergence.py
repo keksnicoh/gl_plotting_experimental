@@ -10,28 +10,6 @@ from prak import numerical
 from functools import partial
 from numpy import log
 
-flog = lambda r,x : r*x*(1-x)
-dflog = lambda r,x : r-2*r*x
-
-r = 3.0
-x0 = 0.5
-summe = log(abs(dflog(r, x0)))
-print(summe)
-
-
-for i in range(0, 1000):
-    x0 = flog(r, x0)
-    print('x0', x0)
-    summe += log(abs(dflog(r, x0)))
-    print(summe)
-print(summe/1000)
-
-
-GERADE = """
-vec4 f(vec4 x) {
-    return vec4(x.x, 6*x.y-4.0, x.z, 1.0);
-}
-"""
 KERNEL_LOG = "float g(float r, float x) {return r * x * (1-x);}\n"
 KERNEL_LOG_DIFF = "float dg(float r, float x) {return r-2.0*r*x;}\n"
 LYAPUNOV_NORMIERT = KERNEL_LOG + """
@@ -82,12 +60,12 @@ vec4 f(vec4 x) {
 }
 """
 
-
-window = PlotterWindow(axis=(4.0,1.0), origin=(-0.0,0.0), bg_color=[1,1,1,1], x_label='r', y_label='Bifurkation Logistische Abblidung')
+window = PlotterWindow(axis=(4.0,1.0), origin=(0.0,0.0), bg_color=[1,1,1,1], x_label='r', y_label='Bifurkation Logistische Abblidung')
 
 adomain = domain.Cartesian(700)
 window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_NORMIERT))
 window.plotter.get_graph('lyapunov').set_colors(color_min=[.0,.0,.0,1.0], color_max=[1.0,1.0,1.0,1.0])
+
 uniforms = window.plotter.get_uniform_manager()
 uniforms.set_global('n', 10000)
 
