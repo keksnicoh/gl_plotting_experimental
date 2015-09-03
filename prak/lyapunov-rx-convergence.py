@@ -6,9 +6,6 @@ OpenGL Kernel for lyapunov exponent
 
 from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
-from prak import numerical
-from functools import partial
-from numpy import log
 
 KERNEL_LOG = "float g(float r, float x) {return r * x * (1-x);}\n"
 KERNEL_LOG_DIFF = "float dg(float r, float x) {return r-2.0*r*x;}\n"
