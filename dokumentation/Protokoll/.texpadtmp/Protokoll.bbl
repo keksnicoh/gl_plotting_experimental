@@ -19,6 +19,22 @@
 
 \refsection{0}
   \sortlist{entry}{nty}
+    \entry{versuchmappe}{online}{}
+      \name{labelname}{1}{}{%
+        {{hash=857e273c61fe8f6904948015b40bc189}{Fortgeschrittene\bibnamedelimb Universität\bibnamedelima Hamburg}{F\bibinitperiod\bibinitdelim U\bibinitperiod\bibinitdelim H\bibinitperiod}{Physikalisches\bibnamedelima Praktikum}{P\bibinitperiod\bibinitdelim P\bibinitperiod}{für}{f\bibinitperiod}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{hash=857e273c61fe8f6904948015b40bc189}{Fortgeschrittene\bibnamedelimb Universität\bibnamedelima Hamburg}{F\bibinitperiod\bibinitdelim U\bibinitperiod\bibinitdelim H\bibinitperiod}{Physikalisches\bibnamedelima Praktikum}{P\bibinitperiod\bibinitdelim P\bibinitperiod}{für}{f\bibinitperiod}{}{}}%
+      }
+      \strng{namehash}{857e273c61fe8f6904948015b40bc189}
+      \strng{fullhash}{857e273c61fe8f6904948015b40bc189}
+      \field{sortinit}{F}
+      \field{labeltitle}{Nichtlineare Dynamik und Chaos}
+      \field{title}{Nichtlineare Dynamik und Chaos}
+      \verb{url}
+      \verb http://www3.physnet.uni-hamburg.de/ex/html/fprakt/dwn/chaos/chaos1.pdf
+      \endverb
+    \endentry
     \entry{feigenbaum}{online}{}
       \name{labelname}{1}{}{%
         {{hash=954e9949e83014ed05bad7bd3a73f522}{OESIS}{O\bibinitperiod}{}{}{}{}{}{}}%
