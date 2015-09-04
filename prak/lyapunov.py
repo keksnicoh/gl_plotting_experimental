@@ -51,7 +51,7 @@ vec4 f(vec4 x) {
 LYAPUNOV_ANALYTISCH = KERNEL_LOG_DIFF + KERNEL_LOG + """
 uniform int n;
 vec4 f(vec4 x) {
-    float x0 = 0.5;
+    float x0 = 0.4;
     float summe = log(abs(dg(x.x, x0)));
     for (int i = 1; i <= n; i+=1) {
         x0 = g(x.x, x0);
@@ -90,7 +90,7 @@ pydomain.dimension = 3
 #window.plotter.get_graph('bifurcation').set_dotsize(0.00175)
 
 adomain = domain.Axis(100000)
-window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_DEFINITION))
+window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_ANALYTISCH))
 
 origin_domain = domain.Domain(2)
 origin_domain.push_data([0.0, 0.0, 10.0, 0.0])
@@ -108,7 +108,7 @@ for x in lines:
 
 uniforms = window.plotter.get_uniform_manager()
 #uniforms.set_global('eps', 0.01, 0.000001)
-uniforms.set_global('n', 4, 2)
+uniforms.set_global('n', 1000, 2)
 uniforms.set_global('x_0', 0.4, 0.005)
 window.add_widget('test', widget.Uniforms(uniforms))
 

@@ -60,6 +60,7 @@
 \maketitle
 \begin{center}
 \includegraphics[scale=0.25]{funfunfun} 
+\includegraphics[scale=0.25]{alien} 
 \end{center}
 
 \begin{description}
@@ -201,6 +202,7 @@ Renormiert
 In Abbildung \ref{fix:log-detail} ist der Lyapunov Exponent der analytischen Implementation gezeigt.
 Es zeigte sich, dass die Gleichung (\ref{eq:lyapunov-def}) sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden (\ref{eq:lyapunov-analytisch}), (\ref{eq:lyapunov-renormiert}) ergibt.
 Dies liegt daran, dass schon bei kleinen $\epsilon$ die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten in (\ref{eq:lyapunov-def}) keinen Sinn ergibt.
+In Abbildung \ref{fig:lyapunov} (links) haben wir für $r=0.5$ das Konvergenzverhalten von (\ref{eq:lyapunov-def}) mit dem Konvergenzverhalten von (\ref{eq:lyapunov-analytisch}) verglichen. Es ist zu sehen, dass an $N=60$ der Differentialquotient beginnt von der analytischen Version abzuweichen und schließlich bei $N=125$ divergiert.
 Die Renomierung (\ref{eq:lyapunov-renormiert}) hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
 Der Lyapunov Exponent hat $\lambda(x_0)$ seine Nullstellen dort wo die Abbildung ihre periodenverdoppelnden Stellen hat. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen gegen $-\infty$.
 Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$.
@@ -233,15 +235,15 @@ In Abbildung \ref{fig:lyapunov} ist das Ergebniss zu sehen: Je dunkler ein Punkt
 Es gibt also $x_0$ welche ein sehr schnelles Konvergenzverhalten gegenüber anderen $x_0$ haben. Der oben besprochene Startwert $x_0=0.5$ ist in der rechten Abbildung gut bestätigt, denn hier konvergiert $\lambda(r, x_0)$ nicht. 
 
 \begin{figure}[!htbp]
-\includegraphics[height=160px]{iteration/lyapunov-2}
+\includegraphics[height=160px]{lyapunov-definition-convergence}
 \includegraphics[height=160px]{lyapunov-normiert-xr}
 \includegraphics[height=160px]{lyapunov-analytisch-xr}
-\caption{Analyse des Lyapunov Exponenten. Links: renormiert TODO. Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-rx-convergence.py)} 
+\caption{Analyse des Lyapunov Exponenten. Links: Konvergenz der analytischen Implementation (Punkte) gegen Konvergenz der Definition (Linie, zu besseren Visuellen Unterscheidung wurden die diskreten Abbildungspunkte Verbunden). Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-defintion-convergence.py, prak/lyapunov-rx-convergence.py)} 
 \label{fig:lyapunov}
 \end{figure}
  
 \subsubsection{Betrachtung im chaotischen Bereich.}
-In Abbildung \ref{fig:lyapunov} ist zu sehen wie der Lyapunov Exponent ab $r=TODO PRÄZISE$ nicht mehr stetig konvergiert. 
+In Abbildung \ref{fig:lyapunov} ist zu sehen wie der Lyapunov Exponent ab $r=3.56$ nicht mehr stetig konvergiert. 
 Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19*10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs als ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich Konvergenzverhalten an. Dieses ist aber nicht präzise: Falls 
 \begin{equation}
 \lim_{N \rightarrow \infty} \lambda_N(x) = L
@@ -252,21 +254,16 @@ so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in 
 \centering
 \includegraphics[height=150px]{lya378-zoom}
 \includegraphics[height=150px]{lya378}
-\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Links: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts:  0 bis $19*10^6$ Iterationen.}
+\includegraphics[height=150px, width=150px]{lyapunov-analysis-305}
+\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Mitte: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts:  0 bis $19*10^6$ Iterationen.
+Rechts: Vergleich des analytischen(Schwarz) und renormierten(Blau) Iterationsverhalten des Lyapunov Exponenten bei $r=3.05$. Vertikale Linie bei N=700. }
 \label{fig:lyapunov-chaos}
 \end{figure}
 
 
 \subsubsection{Vergleich der analytischen und renomierten Implementation}
-Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben (Abbildung \ref{fig:lyapunov-compare}). Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
-\begin{figure}
-\centering
-\includegraphics[width=200px, height=200px]{lyapunov-analysis-300}
-\includegraphics[width=200px, height=200px]{lyapunov-analysis-305}
-\caption{Vergleich des analytischen(Schwarz) und renormierten(Blau) Iterationsverhalten des Lyapunov Exponenten. Vertikale Linie bei N=700. Linkes Bild zeigt Iterationsverhalten bei $r=3.0$. Rechtes Bild zeigt Iterationsverhalten bei $r=3.05$ }. 
-\label{fig:lyapunov-compare}
-\end{figure}
-
+Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben (Abbildung \ref{fig:lyapunov-chaos}). 
+Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
 
 
 \subsection{Feigenbaumkonstante}
@@ -363,9 +360,9 @@ Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfu
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=0.55]{bifurkation-sin}
-\includegraphics[scale=0.47]{bifurkation-sin-zoom}
-\caption{Oben: Analyse des Bifurkationsdiagrammes der sinus Abbildung. Eingezeichnet sind die ersten 6 Superattraktiven Stellen (Erste Superattraktive Stelle bei $r=0$. Ebenfalls wurden $\pi$ und $2\pi$ eingezeichnet. Unten: Vergrößerung des Ausschnittes $r \in [2.1,3.1], y\in[-2.8,-0.8]$}. 
+\includegraphics[height=220px, width= 220px]{bifurkation-sin}
+\includegraphics[height= 220px, width= 220px]{bifurkation-sin-zoom}
+\caption{Links: Analyse des Bifurkationsdiagrammes der sinus Abbildung. Eingezeichnet sind die ersten 6 Superattraktiven Stellen (Erste Superattraktive Stelle bei $r=0$. Ebenfalls wurden $\pi$ und $2\pi$ eingezeichnet. Rechts: Vergrößerung des Ausschnittes $r \in [2.1,3.1], y\in[-2.8,-0.8]$}. 
 \label{fig:bifurc-sin}
 \end{figure}
 \newpage
@@ -405,7 +402,7 @@ Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfan
 \caption{Phasenraumdiagramm mit Runge-Kutta. Links oben: $x_0=1.05$, $y_0=0.77$. Rechts oben: $x_0=-0.67$, $y_0=0.02$. Links unten: $x_0=-0.46$, $y_0=0.30$. Rechts unten: $x_0=-0.43$, $y_0=0.12$}. 
 \label{fig:duffing-allawp}
 \end{figure}
-Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. Im folgenden variieren wir \epsilon, also die Amplitude der Anregung.
+Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. Im folgenden variieren wir $\epsilon$, also die Amplitude der Anregung.
 \subsection{ Poincareschnitt }
 Ab einem bestimmten Satz von Parametern erhalten wir keinen eindeutigen Attraktor mehr, egal wie viele Zeitschritte wir berechnen. Dennoch stellt sich heraus, dass trotzdem nie eine gesamte Fläche ausgefüllt wird. Solche Attraktoren werden seltsame Attraktoren genannt. Im folgenden untersuchen wir diese seltsamen Attraktoren und deren Poincaré-Schnitt. 
 Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} ist ein Poincareschnitt des Duffing-Oszillators bei $\theta=0$ gezeigt.

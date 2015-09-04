@@ -57,13 +57,13 @@ vec4 f(vec4 x) {
 }
 """
 
-window = PlotterWindow(axis=(4.0,1.0), origin=(0.0,0.0), bg_color=[1,1,1,1], x_label='r', y_label='Bifurkation Logistische Abblidung')
+window = PlotterWindow(axis=(4.0,1.0), origin=(0.0,0.0), bg_color=[1,1,1,1], x_label='r', y_label='x_0')
 
-adomain = domain.Cartesian(700)
-window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_NORMIERT))
+adomain = domain.Cartesian(300)
+window.plotter.add_graph('lyapunov', graph.Discrete2d(adomain, LYAPUNOV_ANALYTISCH))
 window.plotter.get_graph('lyapunov').set_colors(color_min=[.0,.0,.0,1.0], color_max=[1.0,1.0,1.0,1.0])
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('n', 10000)
+uniforms.set_global('n', 1000)
 
 window.run()
