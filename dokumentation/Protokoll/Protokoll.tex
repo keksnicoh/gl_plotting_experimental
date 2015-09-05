@@ -476,15 +476,8 @@ Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ g
 \label{fig:ldr-oszi}
 \end{figure}
 \subsubsection{Phasenraumdiagramme}
-Bei einer Anregungsspannung $V_s < 0.001V$ zeigt sich das Verhalten im Grenzfall des gedämpften Oszillators (siehe Abbildung \ref{fig:ldr-0001}).
-\begin{figure}[!htbp]
-\includegraphics[scale=0.28]{schwing-runge-nach50k-weitere200k-10-9}
-\includegraphics[scale=0.28]{schwing-runge-nach100k-weitere200k-10-9}
-\includegraphics[scale=0.28]{schwing-runge-nach200k-weitere200k-10-9}
-\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $V_s=0.001V$ mit $2\cdot10^5$ Zeitschritte bei einer Schrittweite von $h=10^{-9}$. Links: Nach $5\cdot10^4$ Zeitschritten Einschwingzeit, Mitte: Nach $10^2$ Zeitschritten Einschwingzeit. Rechts: Nach $2\cdot10^5$ Zeitschritten Einschwingzeit}. 
-\label{fig:ldr-0001}
-\end{figure}
-Eindeutige Attraktoren erhalten wir bei Spannungen ab $V_s=1V$ (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
+Bei einer Anregungsspannung im Grenzfall $V_s < 0.001V$ erhalten wir die Lösungen des angetriebenen, gedämpften harmonischen Oszillators. Da $V_s$ nahe 0 ist wird der nichtlineare Anteil, der für das chaotische Verhalten sorgt, linear und wir erhalten im Phasenraum wie zu erwarten eine Ellipse. 
+Erhöhen wir die Spannung $V_s>1V$, so finden wir weitere Attraktoren (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
 \begin{figure}[!htbp]
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
@@ -523,21 +516,13 @@ Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein andere
 \end{figure}
 
 \subsubsection{Poincaré-Schnitt}
-Bei der Betrachtung des Poincaré-Schnittes fällt auf, dass bei wohldefinierten Attraktoren die Phasenraumtrajektorie immer bei ähnlichen Spannungen durch die $\theta=0$ Ebene verläuft (vgl. Abbildung \ref{fig:ldr-poin1}).
+ Im chaotischen Fall können wir wie beim Duffing-Oszillator seltsame Attrakoren ausmachen (vgl. Abbildung \ref{fig:ldr-poin1}).
 \begin{figure}[!htbp]
-\includegraphics[scale=0.4]{schwing-500k-nach-10k-8V-phase}
-\includegraphics[scale=0.4]{schwing-500k-nach-10k-8V-poin}
-\caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^4$ Zeitschritten bei $V_s=8V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
+\includegraphics[scale=0.4]{schwing-v5-euler}
+\includegraphics[scale=0.4]{schwing-v5-euler-poincare}
+\caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^5$ Zeitschritten bei $V_s=5V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
 \label{fig:ldr-poin1}
 \end{figure}
- Im chaotischen Fall weißt der Poincaré-Schnitt weitere Punkte bei unterschiedlichen Spannungen auf (vgl. Abbildung \ref{fig:ldr-poin2}).
-\begin{figure}[!htbp]
-\includegraphics[scale=0.4]{schwing-500k-nach-10k-7V-phase}
-\includegraphics[scale=0.4]{schwing-500k-nach-10k-7V-poin}
-\caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^4$ Zeitschritten bei $V_s=7V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
-\label{fig:ldr-poin2}
-\end{figure}
-Anmerkung: Bei der numerischen Berechnung  kommt es immer wieder vor, dass bei ganz bestimmten $V_s$ der Open-GL Buffer auf der Grafikkarte überläuft.
 \subsubsection{Bifurkationsdiagramm-Diagramm}
 Um den Bereich von Chaos und Ordnung zu visualisieren, haben wir im folgenden separat für Strom und Spannung das Bifurkationsdiagramm geplottet. Dabei ist der variierende Parameter die Eingangsspannung $V_s$.
 \begin{figure}[!htbp]
@@ -551,8 +536,8 @@ Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung e
 \subsection{ Versuchsaufbau}
 Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der \ref{fig:ldr-aufbau1} (rechts) zusehen ist. TODO: Abbildungen noch nicht korrekt.
 \begin{figure}[!htbp]
-\includegraphics[scale=0.6]{aufbau1}
-\includegraphics[scale=0.5]{aufbau2}
+\includegraphics[scale=0.4]{aufbau1}
+\includegraphics[scale=0.38]{aufbau2}
 \caption{Messaufbau zur Visualisierung des LDR-Schwingkreises. Oszilloskop links zur Überprüfung der Eingangsspannung und Frequenz. Links: Strom und Spannung über der Diode werden dargestellt auf Oszilloskop über Eingänge A und B. Rechts: Gate-Delay Einheit verzögert Signal in Abhängigkeit der jetzt variierenden Eingangsspannung $V_s$ zur Darstellung des Stroms bzw. der Spannung in Abhängigkeit von $V_s$ }
 \label{fig:ldr-aufbau1}
 \end{figure}
