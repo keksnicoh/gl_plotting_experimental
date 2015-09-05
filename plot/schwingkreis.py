@@ -100,11 +100,11 @@ PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     }
 """
 
-POINCARE = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+POINCARE = """
     __kernel void f(int iterations, int offset, float I_0, float V_0, float I_f, float V_t, float V_s, float C_f, float C_r, float R, float L, float w, float phi, __global float *result)
     {
         float time = 0.0f;
-        float h = pow(10.0f, -9.0f);
+        float h = pow(10.0f, -8.0f);
 
         float I = I_0;
         float V_d = V_0;
@@ -115,9 +115,11 @@ POINCARE = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
         float last_point = 0.0f;
         float position = 0.0f;
 
-        int k = 0;
-        int i = 0;
-        while(k < iterations) {
+        //int k = 0;
+        //int i = 0;
+        //while(k < iterations) {
+        for(int i=0; i < iterations+offset; i += 1) {
+
             time = time + h;
             theta = w*time;
 
@@ -135,14 +137,22 @@ POINCARE = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
             I = new_I;
 
             position = sin(theta);
-            if(i > offset && last_point*position < 0.0f) {
-                result[2*k] = I*1000;
-                result[2*k+1] = V_d;
-                k += 1;
+
+
+
+            if(i > offset) {
+                if (last_point*position < 0.0f) {
+                    result[2*(i-offset)] = I*1000;
+                    result[2*(i-offset)+1] = V_d;
+                }
+                else {
+                    result[2*(i-offset)] = 30.0f;
+                    result[2*(i-offset)+1] = 30.0f;
+                }
             }
 
             last_point = position;
-            i += 1;
+            //i += 1;
         }
 
     }
@@ -158,7 +168,7 @@ I_f = 2.8*10**-12 #A
 
 phi = 0.6
 
-V_s = 4.62 #V
+V_s = 5 #V
 V_t = 0.034 #V
 
 w = 1.0 / math.sqrt(L*C_r)
@@ -167,8 +177,8 @@ V_d = 0.0
 I = 0.0
 
 
-iterations = 100000
-iteration_offset = 0
+iterations = 500000
+iteration_offset = 100000
 #h = 10**-8
 #time = 0.0
 
@@ -194,11 +204,11 @@ cl_kernel_params = [
 ]
 
 
-active_cl_kernel = OSZILATION_KERNEL
+active_cl_kernel = POINCARE
 
 
-phase_axis = (2.0, 6.0)
-phase_origin = (1.0, 3.0)
+phase_axis = (2.0, 3.0)
+phase_origin = (0.0, 0.0)
 x_phase_label = "Strom in [mA]"
 y_phase_label = "Spannung in [V]"
 
@@ -208,9 +218,9 @@ oszilation_origin = (0.0, 1.0)
 x_oszillation_label = "Zeit"
 y_oszillation_label = "Spannung in [V]"
 
-window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[.9,.9,.9,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
+#window = PlotterWindow(axis=oszilation_axis, origin=oszilation_origin, bg_color=[.9,.9,.9,1], x_label=x_oszillation_label, y_label=y_oszillation_label)
 
-#window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
+window = PlotterWindow(axis=phase_axis, origin=phase_origin, bg_color=[1.0,1.0,1.0,1], x_label=x_phase_label, y_label=y_phase_label)
 
 cl_domain = domain.CLDomain(active_cl_kernel, iterations, cl_kernel_params, dimension=2)
 cl_domain.calculate()
@@ -218,7 +228,7 @@ cl_domain.calculate()
 #domain.push_data(data)
 
 
-window.plotter.add_graph('schwing', graph.Line2d(cl_domain))
+window.plotter.add_graph('schwing', graph.Discrete2d(cl_domain))
 window.plotter.get_graph('schwing').set_colors(color_min=[0.0, 0.0, 0.0, 1.0], color_max=[0.0, 0.0, 0.0, 1.0])
 window.plotter.get_graph('schwing').set_dotsize(0.001)
 window.plotter.gl_plot.precision_axis = (1,1)
@@ -228,10 +238,10 @@ def update_uniform(self, value):
     cl_domain.calculate_cl_buffer(param, value)
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('V_s', V_s, .01)
-#uniforms.set_global('it_offset', iteration_offset, 1000)
+uniforms.set_global('V_s', V_s, 1)
+#uniforms.set_global('it_offset', iteration_offset, 10000)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
-widget.floating_percision = 3
+widget.floating_percision = 0
 window.add_widget('manipulate', widget)
 
 window.run()
