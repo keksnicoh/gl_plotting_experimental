@@ -383,25 +383,25 @@ Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied
 \ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}
 \label{eq:duffing}
 \end{equation} 
-Diese DGL lässt sich nun nicht mehr analytisch lösen.
-Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:euler} als auch mit dem Runge-Kutta Verfahren \parencite{wiki:runge}. Um dies zu ermöglichen lässt sich \eqref{eq:duffing} als folgendes DGL System umformen.
+Diese DGL lässt sich nicht analytisch lösen.
+Im Folgenden lösen wir die Gleichung sowohl mit der Euler-Methode \parencite{wiki:euler} als auch mit dem Runge-Kutta Verfahren \parencite{wiki:runge}. Um dies zu ermöglichen lässt sich \eqref{eq:duffing} in folgendes DGL System umformen.
 \begin{equation}\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3\end{equation}
 \begin{equation}\frac{dx}{dt}=y\end{equation}
 \begin{equation}\frac{d\theta}{dt}=\Omega\end{equation}
 \newline
 \subsection { Phasenraumdiagramm }
-Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleich bleibenden Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasenraumdiagramm bei unterschiedlichen Schrittgrößen $h$. Für kleine Parameter $h$ erhalten wir sowohl bei dem Euler-Cauchy, als auch beim Runge-Kutta Verfahren (Runge-Kutta 4ter Ordnung 3-Dimensional, siehe Appendix) Attraktoren wie in Abbildung \ref{fig:duffing-awp1} (mitte) dargestellt. 
+Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleichen Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasenraumdiagramm bei unterschiedlichen Schrittgrößen $h$. Für kleine Parameter $h$ erhalten wir sowohl bei dem Euler-Cauchy, als auch beim Runge-Kutta Verfahren (Runge-Kutta 4ter Ordnung 3-Dimensional, siehe Appendix) Attraktoren wie in Abbildung \ref{fig:duffing-awp1} (mitte) dargestellt. 
 \begin{figure}[!htbp]
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-euler}
 \includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,08-euler}
 \includegraphics[scale=0.28]{duffing-awp1-h2-runge-kutta}
-\caption{Phasenraumdiagramm. Links: Schrittweite $h=0.1$ mit Euler-Cauchy. Mitte: Schrittweite $h=0.08$ mit Euler-Cauchy identisch bei $h=0.1$ mit Runge-Kutta . Rechts: Runge-Kutta bei Schrittweite $h=2$}. 
+\caption{Phasenraumdiagramm. Links: Schrittweite $h=0.1$ mit Euler-Cauchy. Mitte: Schrittweite $h=0.08$ mit Euler-Cauchy identisch bei $h=0.2$ mit Runge-Kutta. Rechts: Runge-Kutta bei Schrittweite $h=2$}. 
 \label{fig:duffing-awp1}
 \end{figure}
-Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h>0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (rechts). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h=2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
-\newline
-Im weiteren sind alle folgenden Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung gemacht.
-\newline
+Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h \approx 0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (mitte). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h=2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
+
+Im weiteren sind alle folgenden Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung implementiert.
+
 Ganz bedeutend ändert sich der Attraktor, bei Variation der Anfangsbedingungen. Variieren wir $x_0$ so bleibt der Attraktor identisch bei $x_0=0.18$, während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
 \newline
 Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfangsbedingungen.
@@ -413,10 +413,11 @@ Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfan
 \caption{Phasenraumdiagramm mit Runge-Kutta. Links oben: $x_0=1.05$, $y_0=0.77$. Rechts oben: $x_0=-0.67$, $y_0=0.02$. Links unten: $x_0=-0.46$, $y_0=0.30$. Rechts unten: $x_0=-0.43$, $y_0=0.12$}. 
 \label{fig:duffing-allawp}
 \end{figure}
-Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. Im folgenden variieren wir $\epsilon$, also die Amplitude der Anregung.
+Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. 
 
 \subsection{ Poincareschnitt }
-Ab einem bestimmten Satz von Parametern erhalten wir keinen eindeutigen Attraktor mehr, egal wie viele Zeitschritte wir berechnen. Dennoch stellt sich heraus, dass trotzdem nie eine gesamte Fläche ausgefüllt wird. Solche Attraktoren werden seltsame Attraktoren genannt. Im folgenden untersuchen wir diese seltsamen Attraktoren und deren Poincaré-Schnitt. 
+Im folgenden variieren wir $\epsilon$, also die Amplitude der Anregung.
+Ab einem bestimmten Satz von Parametern erhalten wir keinen eindeutigen Attraktor mehr, egal wie viele Zeitschritte wir berechnen. Dennoch stellt sich heraus, dass trotzdem nie der gesamte Phasenraum ausgefüllt wird. Solche Attraktoren werden seltsame Attraktoren genannt. Im folgenden untersuchen wir diese seltsamen Attraktoren und deren Poincaré-Schnitt. 
 Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} (rechts) sieht man einen Poincareschnitt des Duffing-Oszillators bei $\theta=0$ und das entsprechende Phasenraumdiagramm (links).
 \begin{figure}[!htbp]
 	\centering
@@ -451,7 +452,7 @@ und bei einer Kapazität in Sperrrichtung von $C=C_r(1+\frac{V_d}{\phi})^{-\gamm
 \begin{equation}
 \frac{dV_d}{dt}= \frac{I-I_f(1-\exp(-\frac{V_d}{V_t}))}{C_r(1+\frac{V_d}{\phi})^{\gamma}}
 \end{equation}
-,wobei $\phi$ und $\gamma$ Konstanten sind.
+wobei $\phi$ und $\gamma$ Konstanten sind.
 Außerdem gilt
 \begin{equation}\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}\end{equation}
 \begin{equation}\frac{d\theta}{dt}=\omega\end{equation}
@@ -477,18 +478,19 @@ haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichun
 \newline
 Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ gelten. Diese oszillierenden Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und Pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
 \begin{figure}[!htbp]
-\includegraphics[scale=0.4]{runge-oszillation-100k-2V}
+\centering
+\includegraphics[height=200px,width=400px]{runge-oszillation-100k-2V}
 \caption{Oszillation von Strom (schwarz) und Spannung (rot) bei $V_s=2V$ mit Runge-Kutta-Verfahren 4ter Ordnung}. 
 \label{fig:ldr-oszi}
 \end{figure}
 \subsubsection{Phasenraumdiagramme}
-Bei einer Anregungsspannung im Grenzfall $V_s < 0.001V$ erhalten wir die Lösungen des angetriebenen, gedämpften harmonischen Oszillators. Da $V_s$ nahe 0 ist wird der nichtlineare Anteil, der für das chaotische Verhalten sorgt, linear und wir erhalten im Phasenraum wie zu erwarten eine Ellipse. 
+Bei einer Anregungsspannung im Grenzfall $V_s < 0.001V$ erhalten wir die Lösungen des angetriebenen gedämpften harmonischen Oszillators, denn bei $V_s \approx 0$ verschwinden die nicht-linearen Terme in den Gleichungen. 
 Erhöhen wir die Spannung $V_s>1V$, so finden wir weitere Attraktoren (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
 \begin{figure}[!htbp]
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,42V}
-\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$}. 
+\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$.}
 \label{fig:ldr-0002}
 \end{figure}
 Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein Maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und anschließend wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} mitte und rechts).
@@ -537,10 +539,10 @@ Um den Bereich von Chaos und Ordnung zu visualisieren, haben wir im folgenden se
 \caption{Bifurkationsdiagramm mit $4\cdot10^5$ Iterationen pro $V_s$. Von $V_s=0$ bis $V_s=8$ in $0.01$ Schritten. Links: Strom. Rechts: Spannung}
 \label{fig:ldr-bifurc}
 \end{figure}
-Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung.Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung fig:ldr-poin2 links) finden wir im Bifurkationsdiagramm wieder.
+Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung. Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung \ref{fig:ldr-poin2} links) finden wir im Bifurkationsdiagramm wieder.
 
 \subsection{ Versuchsaufbau}
-Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der \ref{fig:ldr-aufbau1} (rechts) zusehen ist. TODO: Abbildungen noch nicht korrekt.
+Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der \ref{fig:ldr-aufbau1} (rechts) zusehen ist.
 \begin{figure}[!htbp]
 \includegraphics[scale=0.4]{aufbau1}
 \includegraphics[scale=0.38]{aufbau2}
@@ -581,7 +583,7 @@ Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu seh
 \label{fig:ldr-modellierung}
 \end{figure}
 
-Wir fragten uns, wieso es zu einer Spitze im oberen Ast nach der ersten Bifuraktion kommt. Dabei zeigte sich, dass die Frequenz nicht genau auf  $\omega=325kHz$ eingestellt war. Als wir dies korrigierten erhielten wir ein glatteres Bifurkationsdiagramm (Abbildung N)
+Wir fragten uns, wieso es zu einer Spitze im oberen Ast (Abbildung \ref{fig:ldr-bifurc} links) nach dem ersten Bifuraktionspunkt kommt. Dabei zeigte sich, dass die Frequenz nicht genau auf $\omega=325kHz$ eingestellt war. Als wir dies korrigierten erhielten wir ein glatteres Bifurkationsdiagramm (Abbildung \ref{fig:ldr-bifurc} rechts)
 
 \begin{figure}[!htbp]
 \centering
@@ -595,7 +597,7 @@ Zuletzt haben wir noch die Bifurkationspunkte vermessen. Dazu haben wir die Ampl
 $$V_{Bifurkations, 1}=6.6V \pm 0.2V$$
 $$V_{Bifurkations, 2}=13.6V \pm 0.2V$$
 
-In Abbildung \ref{fig:ldr-bifurc-zoo} haben wir noch ein mal mit der Sägezahnspannung die Bifurkationspunkte vergrößert aufgenommen. Es gelang uns nicht den Bifurkationspunkt $_{Bifurkations, 3}$ zu bestimmen weshalb wir die Feigenbaumkonstante nicht aus dem Experiment ableiten konnten.
+In Abbildung \ref{fig:ldr-bifurc-zoom} haben wir noch ein mal mit der Sägezahnspannung die Bifurkationspunkte vergrößert aufgenommen. Es gelang uns nicht den Bifurkationspunkt $_{Bifurkations, 3}$ zu bestimmen weshalb wir die Feigenbaumkonstante nicht aus dem Experiment ableiten konnten.
 
 \begin{figure}[!htbp]
 \centering
@@ -606,13 +608,41 @@ In Abbildung \ref{fig:ldr-bifurc-zoo} haben wir noch ein mal mit der Sägezahnsp
 \end{figure}
 
 
-\subsection { Zusammenfassung }
+\section { Zusammenfassung }
+In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erhalten. TODO
+\subsection{Software}
+Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Rahmen des Versuches Entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
+
+Für das generieren der Plotdaten haben wir verschiedene Wege ausprobiert. 
+
+1. OpenGL Shader. Die VBO Objekte werden in Python initialisiert (x,y). Der Vertex- oder Fragmentshader bildet diese Punkte dann direkt ab. Mittels einer Translations- und Skalierungsmatrix können beim bewegen durch die Plotplane die (x,y) so transformiert werden, dass beim zoomen und beim translatieren im Plot stets gleich viele Punkte abgebildet werden. 
+
+2. OpenCL Kernel. Die VBO Objekte werden via OpenCL mit Daten befüllt. 
+
+3. Direktes eingeben von Plotdaten, (z.B. Textfile, Fortran, Python).
+
+Vor allem waren wir von dem Potential der Variante 1. begeistert. Beispielsweise konnte mit einem Fragmentshader Plot sehr einfach eine Abbildung im komplexen Raum farbig visualisiert werden. 
+
+
+Es zeigte sich, dass die MacBooks mit denen wir arbeiten, keine double percision GPUs verbaut haben. Deshalb waren alle GPU Berechnungen limitiert in der Genauigkeit (Abbildung \ref{fig:bsp-opencl}). Mit einigen Tricks (renormierung) konnten wir die Ergebnisse zwar verbessern, aber beispielsweise lässt sich die Feigenbaumkonstante trotzdem nur sehr schlecht auf der GPU bestimmen.
+
+Nach dem Versuch wurde das Github repository des Versuches nicht mehr weiterentwickelt. Ein neues Repository wo das Feedback welches wir gewinnen konnte einfließt wurde erstellt: GITHUB LINK. 
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[scale=0.18]{log-konv-r3}
+\caption{Beispiel für schlechte Konvergenz auf der GPU verglichen mit der CPU Berechung.}
+\label{fig:bsp-opencl}
+\end{figure}
+
+
 
 \section{ Literatur }
 \nocite{*}
 \printbibliography
 
 \section{Appendix}
+
 \subsection {Runge-Kutta 4ter Ordnung in 3 Dimensionen}
 Hängt $f$ von mehr als nur x und t ab, so lassen sich weitere Parameter ebenfalls mit der selben Idee variieren.
 Gegeben seien folgende Differentialgleichungen:
