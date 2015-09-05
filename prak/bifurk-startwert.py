@@ -9,8 +9,8 @@ from plotting import graph, domain, widget
 
 KERNEL = "float g(float r, float x) {return r * x * (1-x);}\n"
 BIFURK = KERNEL + """
-uniform float eps = 0.00004;
-uniform int n_check = 10;
+uniform float eps = 0.0008;
+uniform int n_check = 2;
 uniform int n;
 vec4 f(vec4 x) {
     float x0 = x.y;
@@ -32,7 +32,7 @@ vec4 f(vec4 x) {
 """
 
 
-window = PlotterWindow(axis=(3.06,1.0), origin=(-0.3,0.0), bg_color=[1,1,1,1], x_label='r', y_label='x_n')
+window = PlotterWindow(axis=(2.45,1.0), origin=(-1.00,-0.0), bg_color=[1,1,1,1], x_label='r', y_label='x_0')
 
 adomain = domain.Cartesian(1000)
 window.plotter.add_graph('bifurk', graph.Discrete2d(adomain, BIFURK))
