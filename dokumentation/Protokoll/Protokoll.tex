@@ -1,4 +1,4 @@
-\documentclass{scrartcl}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -7,7 +7,6 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{multicol}
-\usepackage{geometry}
 \usepackage{authblk}
 \usepackage[font=scriptsize, labelfont=bf]{caption}
 \usepackage{listings}
@@ -16,6 +15,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{sidecap}
+\usepackage{authblk}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
@@ -49,7 +50,8 @@
 
 % for skript letters like H...
 \usepackage{mathrsfs}
-
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 \geometry{verbose,a4paper,tmargin=25mm,bmargin=25mm,lmargin=15mm,rmargin=20mm}
 
 \title{Protokoll zum Versuch Nichtlineare Dynamik und Chaos}
@@ -62,18 +64,12 @@
 \includegraphics[scale=0.25]{funfunfun} 
 \includegraphics[scale=0.25]{alien} 
 \end{center}
-
-\begin{description}
-\item ABSTRACT TEXT TODO - vorläufig stand 300815
-\end{description}
-
-\section{Einleitung}
-In diesem Protokoll haben wir die Eigenschaften von chaotischen System anhand der logistischen Gleichung, der Sinusabbildung, der Duffing-Gleichung und dem LDR Schwingkreis numerisch bestimmt und analysiert. Ebenfalls haben wir den LDR Schwingkreis in einem Experiment anhand eines analogen Oszilloskopes Untersucht.
-Alle Plots und Simulationen in diesem Protokoll haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Visualisierungen und Berechnungen. Der Quellcode ist über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}. Bei Abbildungen ist ein entsprechender Quellcodeverweis angegeben. 
-
-Im folgenden bezeichnet $f^2(x) = f(f(x))$
-
+\abstract{In diesem Protokoll haben wir die Eigenschaften von chaotischen System anhand der logistischen Gleichung, der Sinusabbildung, der Duffing-Gleichung und dem LDR Schwingkreis numerisch bestimmt und analysiert. Ebenfalls haben wir den LDR Schwingkreis in einem Experiment anhand eines analogen Oszilloskopes Untersucht.
+Alle Plots und Simulationen in diesem Protokoll haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Visualisierungen und Berechnungen. Der Quellcode ist über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}. Bei Abbildungen ist ein entsprechender Quellcodeverweis angegeben. }
+\pagebreak
 \tableofcontents
+\pagebreak
+$$\textit{Im folgenden bezeichnet }f^2(x) = f(f(x))$$
 
 \section{Logistische Abbildung}
 Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zeigt sich das diese einfache Funktionsvorschrift 
@@ -331,20 +327,12 @@ Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung
 \label{fig:lya-rauschen}
 \end{SCfigure}
 
-
-
 \begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
 \caption{Analyse des Bifurkationsdiagrammes der logistischen Abbildung. Eingezeichnet sind die y=0 Achse, sowie die ersten 5 Superattraktiven Stellen. Das Bifurkationsdiagramm wurde so translatiert und skaliert, so dass es hinter dem Lyapunov Exponenten erscheint.}.
 \label{fix:log-detail} 
 \end{figure}
-
-
-
-
-
-
 
 \section{Sinus Abbildung}
 Die Sinusabbildung ist gegeben durch 
@@ -567,19 +555,20 @@ Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numeri
 \includegraphics[scale=0.05]{800khz-134V-phase}
 \includegraphics[scale=0.055]{800khz-112V-phase}
 \includegraphics[scale=0.06]{800khz-29,6V-phase-chaos}
-\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\caption{Phasenraumdiagramm bei einer Resonanzfrequenz von $\omega=800kHz$. Links: Eingangsspannung $V_s=134V$. Mitte: Eingangsspannung $V_s=112V$. Links: Eingansgspannung $V_s=29.6V$}
 \label{fig:ldr-real2}
 \end{figure}
 \subsection { Bifurkationsdiagramm }
-Beim erzeugen des Bifurkationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \label{fig:ldr-aufbau1}). Wir modelierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Kontrollparameters $V_s$ darstellt. 
-Zunächst ist dies nicht gelungen. Mit Hilfe des digitalen Oszilloskopes konnten wir dann aber den Verlauf so modelieren, dass  $V_s=0V...V_s=V_{Ausgang}$ linear perdiodisch durchlaufen wird. 
-Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu sehen war, wenn wir den Definitionsbereich von oben nach unten ($V_s=V_{Ausgang}...V_s=0V$) eingestellt haben (Abbildung \ref{fig:ldr-modellierung}). In dieser Einstellung gab es zwar noch Artefakte von der Ungenauigkeit des Funktionsgenerators (Abbildung \ref{fig:ldr-modellierung} rechts) aber die Bifurkationspunkte waren nun präziser. Wir erzeugten das Bifurkationsdiagramm zusätzlich mit einer Dreieckspannung. Wie zu erwarten ergab sich so eine Überlageung aus den beiden Sägezahnspannungen. 
+Beim erzeugen des Bifurkationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \label{fig:ldr-aufbau1}). Wir modelierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Parameters $V_s$ darstellt. 
+Zunächst ist dies nicht gelungen. Mit Hilfe des digitalen Oszilloskopes konnten wir dann aber den Verlauf so modelieren, dass  $V_s=0V linear auf V_s=V_{Ausgang}$ ansteigt und perdiodisch wiederholt wird.
+Abbildung \ref{fig:ldr-modellierung} verdeutlicht die Auswirkung auf das Bifurkationsdiagram bei unterschiedlichen Spannungsverläufen.
+Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu sehen war, wenn wir den Definitionsbereich von oben nach unten ($V_s=V_{Ausgang} nach V_s=0V$) eingestellt haben (Abbildung \ref{fig:ldr-modellierung} rechts). In dieser Einstellung gab es am wenigsten Artefakte aufgrund der Ungenauigkeit des Funktionsgenerators. Wir erzeugten das Bifurkationsdiagramm zusätzlich mit einer Dreieckspannung (Abbildung \ref{fig:ldr-modellierung} mitte). Wie zu erwarten ergab sich so eine Überlagerung aus den beiden Sägezahnspannungen. 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.12]{bif-ldr/dreieck_1}
 \includegraphics[scale=0.12]{bif-ldr/dreieck_2}
 \includegraphics[scale=0.12]{bif-ldr/dreieck_3}
-\caption{Bifurkationsdiagramme mit verschieden Modulationen des Kontrollparameters $V_s$: Links Sägezahnspannung $V_s=0V...V_s=V_{Ausgang}$, mitte: Dreiecksspannung, rechts: Sägezahnspannung $V_s=V_{Ausgang}...V_s=0V$}
+\caption{Bifurkationsdiagramme mit verschieden Modulationen des Parameters $V_s$: Links Sägezahnspannung $V_s$ läuft von $V_s=0V$ bis $V_s=V_{Ausgang}$, mitte: Dreiecksspannung, rechts: Sägezahnspannung $V_s$ läuft von $V_s=V_{Ausgang}$ bis $V_s=0V$}
 \label{fig:ldr-modellierung}
 \end{figure}
 
@@ -589,7 +578,7 @@ Wir fragten uns, wieso es zu einer Spitze im oberen Ast (Abbildung \ref{fig:ldr-
 \centering
 \includegraphics[scale=0.18]{bif-ldr/bifurc-bad}
 \includegraphics[scale=0.18]{bif-ldr/bifurc-good}
-\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\caption{Bifurkationsdiagramm mit variierendem Parameter $V_s$ Links: Verlauf der Spannung $V_d$. Rechts: Verlauf des Stroms $I$}
 \label{fig:ldr-bifurc}
 \end{figure}
 \subsection { Vermessung der Bifurkationspunkte }
@@ -597,20 +586,23 @@ Zuletzt haben wir noch die Bifurkationspunkte vermessen. Dazu haben wir die Ampl
 $$V_{Bifurkations, 1}=6.6V \pm 0.2V$$
 $$V_{Bifurkations, 2}=13.6V \pm 0.2V$$
 
-In Abbildung \ref{fig:ldr-bifurc-zoom} haben wir noch ein mal mit der Sägezahnspannung die Bifurkationspunkte vergrößert aufgenommen. Es gelang uns nicht den Bifurkationspunkt $_{Bifurkations, 3}$ zu bestimmen weshalb wir die Feigenbaumkonstante nicht aus dem Experiment ableiten konnten.
+In Abbildung \ref{fig:ldr-bifurc-zoom} haben wir noch ein mal mit der Sägezahnspannung die Bifurkationspunkte vergrößert aufgenommen. Es gelang uns nicht den Bifurkationspunkt $V_{Bifurkations, 3}$ zu bestimmen weshalb wir die Feigenbaumkonstante nicht aus dem Experiment ableiten konnten.
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.18]{bif-ldr/bifurc-zoom}
 \includegraphics[scale=0.18]{bif-ldr/bifurc-zoom2}
-\caption{Vergrößerung der ersten beiden Bifurkationspunkte.}
+\caption{Bifurkationsdiagram des Stroms $I$. Vergrößerung kurz vor dem chaotischen Bereich.}
 \label{fig:ldr-bifurc-zoom}
 \end{figure}
 
-\subsection{Auswertung}
+\subsection { Auswertung }
+Bereits bei der Oszillation der Spannung $V_d$ (vgl. Abbildung \ref{fig:ldr-real1} links, oberer Verlauf) erkennt man die Ähnlichkeit zu den numerischen Berechnungen (Abbildung \ref{fig:ldr-oszi} rot). Gleiches gilt für die Phasenraumdiagramme bei denen auf gleiche Art und Weise Periodenverdopplung zu beobachten ist. Auch der berechnete seltsame Attraktor (Abbildung \ref{fig:ldr-poin1} links) hat die selbe Form wie der Attraktor in Abbildung \ref{fig:ldr-real2} (rechts).
+\newline
+Die gemessenen Bifurkationsdiagrammen ähneln den berechneten Bifurkationsdiagrammen qualitativ.
 
 \section { Zusammenfassung }
-In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erhalten. TODO
+In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erhalten. Angefangen mit der Dreiecksgleichung und der logistischen Abbildung konnten wir bereits mit sehr einfachen Gleichungen Charakteristiken von Chaos beschreiben. Bei komplexeren Problemen wie dem Duffing-Oszillator wurde der Aspekt der Anfangsbedingungen deutlich, welche eine Form des Chaos beschreibt. Bei der Untersuchung des LDR-Schnwingkreis war es dann möglich die Chaos in einem realen System zu beobachten. Dabei waren zwar deutliche Parallelen zu den numerischen Berechnungen ersichtlich aber es wurde auch klar, dass es sich dabei nur um Modelle handelt und zusätzliche Effekte nicht berücksichtigt werden.
 \subsection{Software}
 Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Rahmen des Versuches entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
 
@@ -639,7 +631,7 @@ Nach dem Versuch wurde das Github repository des Versuches nicht mehr weiterentw
 \section{ Literatur }
 \nocite{*}
 \printbibliography
-
+\pagebreak
 \section{Appendix}
 
 \subsection {Runge-Kutta 4ter Ordnung in 3 Dimensionen}
