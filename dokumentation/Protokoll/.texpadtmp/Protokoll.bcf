@@ -1964,8 +1964,11 @@
     <bcf:datasource type="file" datatype="bibtex">literatur.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">wiki:euler</bcf:citekey>
-    <bcf:citekey order="2">wiki:runge</bcf:citekey>
+    <bcf:citekey order="1">versuchmappe</bcf:citekey>
+    <bcf:citekey order="2">feigenbaum</bcf:citekey>
+    <bcf:citekey order="3">wiki:euler</bcf:citekey>
+    <bcf:citekey order="4">wiki:runge</bcf:citekey>
+    <bcf:citekey order="5">github-future</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" type="entry" label="nty">
