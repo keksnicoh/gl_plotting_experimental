@@ -51,6 +51,22 @@
       \verb https://oeis.org/A006890
       \endverb
     \endentry
+    \entry{github-future}{online}{}
+      \name{labelname}{1}{}{%
+        {{hash=9deb01eecefa2169c75659ae27db4e6b}{Plotters}{P\bibinitperiod}{Weiterführende\bibnamedelima GitHub}{W\bibinitperiod\bibinitdelim G\bibinitperiod}{repository\bibnamedelima des}{r\bibinitperiod\bibinitdelim d\bibinitperiod}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{hash=9deb01eecefa2169c75659ae27db4e6b}{Plotters}{P\bibinitperiod}{Weiterführende\bibnamedelima GitHub}{W\bibinitperiod\bibinitdelim G\bibinitperiod}{repository\bibnamedelima des}{r\bibinitperiod\bibinitdelim d\bibinitperiod}{}{}}%
+      }
+      \strng{namehash}{9deb01eecefa2169c75659ae27db4e6b}
+      \strng{fullhash}{9deb01eecefa2169c75659ae27db4e6b}
+      \field{sortinit}{P}
+      \field{labeltitle}{opengl_plot_prototype}
+      \field{title}{opengl_plot_prototype}
+      \verb{url}
+      \verb https://github.com/keksnicoh/opengl_plot_prototype.git
+      \endverb
+    \endentry
     \entry{wiki:euler}{online}{}
       \name{labelname}{1}{}{%
         {{hash=28c1d1ce9d83a4e09e10006667314aca}{Wikipedia}{W\bibinitperiod}{Explizites\bibnamedelima Euler-Verfahren}{E\bibinitperiod\bibinitdelim E\bibinithyphendelim V\bibinitperiod}{}{}{}{}}%

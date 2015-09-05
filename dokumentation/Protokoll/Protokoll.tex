@@ -611,7 +611,7 @@ In Abbildung \ref{fig:ldr-bifurc-zoom} haben wir noch ein mal mit der Sägezahns
 \section { Zusammenfassung }
 In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erhalten. TODO
 \subsection{Software}
-Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Rahmen des Versuches Entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
+Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Rahmen des Versuches entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
 
 Für das generieren der Plotdaten haben wir verschiedene Wege ausprobiert:
 \begin{enumerate}
@@ -621,13 +621,14 @@ Für das generieren der Plotdaten haben wir verschiedene Wege ausprobiert:
 \end{enumerate}
 Wir waren von dem Potential der ersten Variante begeistert. Beispielsweise konnte mit einem Fragmentshader Plot sehr einfach eine Abbildung im komplexen Raum farbig visualisiert werden. 
 
-Es zeigte sich, dass die MacBooks mit denen wir arbeiten, keine double percision GPUs verbaut haben. Deshalb waren alle GPU Berechnungen limitiert in der Genauigkeit (Abbildung \ref{fig:bsp-opencl}). Mit einigen Tricks (renormierung) konnten wir die Ergebnisse zwar verbessern, aber beispielsweise lässt sich die Feigenbaumkonstante trotzdem nur sehr schlecht auf der GPU bestimmen.
+Es zeigte sich, dass die MacBooks mit denen wir arbeiten (MacBook Pro (Retina, 13-inch, Late 2013)), keine double-percision GPUs verbaut haben. Deshalb waren alle GPU Berechnungen limitiert in der Genauigkeit (Abbildung \ref{fig:bsp-opencl}). 
+Mit einigen Tricks (renormierung) konnten wir die Ergebnisse zwar verbessern, aber beispielsweise lässt sich die Feigenbaumkonstante trotzdem nur ungenau auf unserer GPU bestimmen.
 
-Nach dem Versuch wurde das Github repository des Versuches nicht mehr weiterentwickelt. Ein neues Repository wo das Feedback welches wir gewinnen konnte einfließt wurde erstellt: GITHUB LINK. 
+Nach dem Versuch wurde das Github repository des Versuches nicht mehr weiterentwickelt. Ein neues Repository wo das Feedback welches wir gewinnen konnte einfließt wurde erstellt \parencite{github-future}. 
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=0.18]{log-konv-r3}
+\includegraphics[scale=0.25]{log-konv-r3}
 \caption{Beispiel für schlechte Konvergenz auf der GPU verglichen mit der CPU Berechung.}
 \label{fig:bsp-opencl}
 \end{figure}
