@@ -377,7 +377,7 @@ Wir betrachten nun einen angetrieben und gedämpften Oszillator. Als Unterschied
 \ddot{x}+\lambda\dot{x}+\beta x^3=\epsilon\cos{\Omega t}
 \label{eq:duffing}
 \end{equation} 
-Diese DGL lässt sich nun nicht mehr analytisch berechnen.
+Diese DGL lässt sich nun nicht mehr analytisch lösen.
 Im Folgenden lösen wir die Gleichung mit der Euler-Methode \parencite{wiki:euler} als auch mit dem Runge-Kutta Verfahren \parencite{wiki:runge}. Um dies zu ermöglichen lässt sich \eqref{eq:duffing} als folgendes DGL System umformen.
 \begin{equation}\frac{dy}{dt}=\epsilon\cos{\theta}-\lambda y - \beta x^3\end{equation}
 \begin{equation}\frac{dx}{dt}=y\end{equation}
@@ -408,29 +408,18 @@ Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfan
 \label{fig:duffing-allawp}
 \end{figure}
 Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. Im folgenden variieren wir $\epsilon$, also die Amplitude der Anregung.
+
 \subsection{ Poincareschnitt }
 Ab einem bestimmten Satz von Parametern erhalten wir keinen eindeutigen Attraktor mehr, egal wie viele Zeitschritte wir berechnen. Dennoch stellt sich heraus, dass trotzdem nie eine gesamte Fläche ausgefüllt wird. Solche Attraktoren werden seltsame Attraktoren genannt. Im folgenden untersuchen wir diese seltsamen Attraktoren und deren Poincaré-Schnitt. 
-Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} ist ein Poincareschnitt des Duffing-Oszillators bei $\theta=0$ gezeigt.
-
-
-
-Zur Implementation des Poincaree Schnittes wählten wir $\theta=0$ um die Praktikumsanleitung als Test unserer Software nutzen zu können. Dabei nutzten wir $sin(\theta_1)*sin(\theta_2) \leq 0.0 \iff Ebenenschnitt$:
-\begin{lstlisting}
-      pos = sin(theta);
-      if (last_pos*pos <= 0.0f) {
-          result[k*2] = last_x;
-          result[k*2+1] = last_y;
-          k++;
-      }
-      last_pos = pos;
-\end{lstlisting}
-Dieses Verfahren zeigt bei genauerer Betrachtung aber leichter Ungenauigkeiten. So wird nicht exakt das $(x,y)$ duplet abgebildet bei welchen die Ebene geschnitten wurden, stattdessen wird das $(x,y)$ Duplet bei $\theta_2$ angezeit. Eine Möglichkeit dies zu Optimieren wäre den Mittelwert $(\frac{x_1+x_2}{2}, \frac{y_1 + y_2}{2})$ als Schnittpunkt zu identifizieren.
+Die gezeigten Phasenraumportaits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaree Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} (rechts) sieht man einen Poincareschnitt des Duffing-Oszillators bei $\theta=0$ und das entsprechende Phasenraumdiagramm (links).
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[scale=0.20]{poincare-772}
-	\caption{Poincaré-Schnitt des Duffing Oszillators für $\epsilon=7.72$, $x=3.0$,$ y=4.0$, $\lambda=0.2$, $\beta=1$, $\theta=1$. als Referenz aus dem VORBEREITUNGSHEFT-LITERATUR-S38}
+	\includegraphics[scale=0.40]{duffing-phase-RK-lambda0,04-h0,001}
+	\includegraphics[scale=0.40]{duffing-poincare-2000k-after100k-euler-lambda0,04-eps7,5}
+	\caption{Phasenraumdiagram und Poincaré-Schnitt des Duffing Oszillators für $\epsilon=7.5$, $x=0.21$,$ y=0.02$, $\lambda=0.04$, $\beta=1$, $\theta=1$.}
 	\label{img:poincare-772}
 \end{figure}
+
 \section {LDR-Oszillator}
 Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde (Abbildung \ref{img:schaltskizze})
 \begin{figure}[!htbp]

@@ -13,7 +13,37 @@ import numpy as np
 """
 Kernel to calculate duffing equation and writes (x, y) data to given GLBuffer
 """
-PHASE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
+PHASE_KERNEL = """
+    __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *result)
+    {
+        float h = time / convert_float(iterations);
+        float theta = 0.0f;
+        float t = 0.0f;
+
+
+        float last_x = awp.x;
+        float new_x = awp.x;
+        float last_y = awp.y;
+        for(int i=3; i < (iterations+start_iteration)*3; i += 3) {
+            t = i / (3.0f * iterations) * time;
+            theta = t * omega;
+            new_x = last_x + h * last_y;
+            last_y = last_y + h * (epsilon * cos(theta) - lambda * last_y - beta * new_x * new_x * new_x);
+            last_x = new_x;
+
+            if (i>start_iteration*3) {
+                result[i-start_iteration*3] = last_x;
+                result[i+1-start_iteration*3] = last_y;
+                result[i+2-start_iteration*3] = 0.0f;
+            }
+            
+
+        }
+
+    }
+"""
+
+POINCARE_KERNEL = """#pragma OPENCL EXTENSION cl_khr_fp64 : enable
     __kernel void f(float2 awp, int iterations, int time, float lambda, float beta, float omega, float epsilon, int start_iteration, __global float *result)
     {
         float h = time / convert_float(iterations);
@@ -198,11 +228,14 @@ vec4 f(vec4 x) {
 
 (x_0, y_0) = (0.21, 0.02)
 (x_0, y_0) = (-0.67, 0.02)
+(x_0, y_0) = (3, 4)
 
 (lambd, epsilon) = (0.08, 0.2)
+(lambd, epsilon) = (0.2, 7.72)
+
 length = 2500000
 time = 15000
-start_iteration = 0
+start_iteration = 10000
 
 active_cl_kernel = PHASE_KERNEL
 

@@ -95,6 +95,40 @@ PHASE_KERNEL_RK = """
     }
 """
 
+POINCARE_EULER = """
+    __kernel void f(float x, float y, int iterations, float lambda, float beta, float omega, float epsilon, int start_iteration, float h, __global float *result)
+    {
+        float theta = 0;
+        float t = 0;
+        float last_point = 0.0f;
+        float position = 0.0f;
+
+        float last_x = x;
+        float new_x = x;
+        float last_y = y;
+
+        for(int i=0; i < iterations*2; i += 2) {
+            t = t + h;
+            theta = t * omega;
+            new_x = last_x + h * last_y;
+            last_y = last_y + h * (epsilon * cos(theta) - lambda * last_y - beta * new_x * new_x * new_x);
+            last_x = new_x;
+
+            position = sin(theta);
+            if (i > start_iteration && last_point*position < 0.0f) {
+                result[i] = last_x;
+                result[i+1] = last_y;
+            }else {
+                result[i] = 30.0f;
+                result[i+1] = 30.0f;
+            }
+            
+            last_point = position;
+        }
+
+    }
+"""
+
 POINCARE_RK = """
     __kernel void f(float x, float y, int iterations, float lambda, float beta, float omega, float epsilon, int start_iteration, float h, __global float *result)
     {
@@ -133,12 +167,12 @@ POINCARE_RK = """
 
             position = sin(t);
             if(i > start_iteration && last_point*position < 0.0f) {
-                result[i] = x;
-                result[i+1] = y;
+                result[i-start_iteration*2] = x;
+                result[i+1-start_iteration*2] = y;
             }
             else {
-                result[i] = 0.0f;
-                result[i+1] = 0.0f;
+                result[i-start_iteration*2] = 0.0f;
+                result[i+1-start_iteration*2] = 0.0f;
             }
 
             last_point = position;
@@ -147,25 +181,26 @@ POINCARE_RK = """
     }
 """
 
-active_cl_kernel = PHASE_KERNEL_RK
+active_cl_kernel = POINCARE_EULER
 
-#(x_0, y_0) = (0.21, 0.02) #small 1
+(x_0, y_0) = (0.21, 0.02) #small 1
 #(x_0, y_0) = (0.17, 0.02) #custom
 
 #(x_0, y_0) = (1.05, 0.77) #gone 2
 #(x_0, y_0) = (-0.67, 0.02) #small 3
 #(x_0, y_0) = (-0.46, 0.30) #big 4
 #(x_0, y_0) = (-0.43, 0.12) #small 5
-(x_0, y_0) = (3.0,4.0)
+#(x_0, y_0) = (3.0,4.0)
 
 #(lambd, epsilon) = (0.08, 0.2)
 #(lambd, epsilon) = (0.2, 1.0)
-(lambd, epsilon) = (0.2, 7.2)
+#(lambd, epsilon) = (0.4, 7.5)
+(lambd, epsilon) = (0.04, 7.5)
 
-offset = 300000
-length = 300000
+offset = 100000
+length = 2000000
 
-h = 0.01
+h = 0.05
 
 def calculate_pythone():
     data = numpy.zeros(length, dtype=numpy.float32)
@@ -205,7 +240,7 @@ cl_kernel_params = [
     numpy.float32(h),
 ]
 
-phase_axis = (0.5, 0.5)
+phase_axis = (7.0, 10.0)
 phase_origin = (-0.25, 0.25)
 x_phase_label = "x"
 y_phase_label = "y"
@@ -238,18 +273,23 @@ def update_uniform(self, value):
     if param == 'h':
         cl_domain.cl_params[8] = numpy.float32(value)
         print("h: %f" % cl_domain.cl_params[8])
-    if param == 'offset':
+    elif param == 'offset':
         cl_domain.cl_params[7] = numpy.int32(value)
-    if param == 'x_0':
+    elif param == 'x_0':
         cl_domain.cl_params[0] = numpy.float32(value)
         print("x_0: %f" % cl_domain.cl_params[0])
+    elif param == 'e':
+        cl_domain.cl_params[6] = numpy.float32(value)
+        print("e: %f" % cl_domain.cl_params[8])
     
     cl_domain.calculator.calculateGL(cl_domain.kernel, cl_domain.cl_params, [cl_domain.gl_buffer], (1,))
 
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('h', h, 1)
-uniforms.set_global('x_0', x_0, 10**-2)
+#uniforms.set_global('h', h, 10**-2)
+uniforms.set_global('x_0', x_0, 10**-1)
+uniforms.set_global('e', epsilon, 10**-1)
+uniforms.set_global('y_0', y_0, 10**-1)
 #uniforms.set_global('offset', offset, 100)
 #uniforms.set_global('it_offset', iteration_offset, 1000)
 widget = widget.Uniforms(uniforms, update_callback=update_uniform)
