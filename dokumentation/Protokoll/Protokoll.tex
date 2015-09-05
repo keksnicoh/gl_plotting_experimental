@@ -146,12 +146,12 @@ Wir haben das Konvergenzkriterium
 \mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid < \epsilon
 \end{equation}
 untersucht. 
-Zunächst haben wir den Fall $r=3$ untersucht: Abbildung \ref{fig:log-konv1} (links) trägt den x Wert gegen die Anzahl der Iterationen bei $r=3$ auf. Nach $10^7$ Iterationen haben wir $\epsilon=7.45 \cdot 10^{-5}$ bestimmt.
+Zunächst haben wir den Fall $r=3$ untersucht: Abbildung \ref{fig:log-konv1} (links) trägt $x_n$ gegen $n$ Iterationen bei $r=3$ bei einem Startwert $x=0.4$ auf. Nach $10^7$ Iterationen erhalten wir eine Abweichung vom erwarteten Wert von $\epsilon=7.45 \cdot 10^{-5}$.
 
 
 Als nächstes haben wir $\forall (x_0, r) \in [0,1] \times [0,4]$  berechnet wie groß $\mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid $ ist. 
-In einem 2d Plot (Abbildung \ref{fig:log-konv1}) sind ($x_0$, r) eingefärbt: Je dunkler ($x_0$, r) desto näher liegt $f^{m}_r(x_0)$ an $f^{\infty}_r(x_0)$. 
-Wie zu erwarten ist der Fixpunkt $x=1-\frac{1}{r}$ dunkel eingefärbt (Abbildung \ref{fig:log-konv1} mitte). Der Graph scheint an der $x_0=0.5$ Achse gespiegelt zu sein. Dies hängt damit zusammen, dass $f(x^{spiegel}_{1}\frac{1}{r}) = x_1$. 
+In einem 2d Plot (Abbildung \ref{fig:log-konv1} mitte, rechts) sind ($x_0$, r) eingefärbt: Je dunkler ($x_0$, r) desto näher liegt $f^{m}_r(x_0)$ an $f^{\infty}_r(x_0)$. 
+Wie zu erwarten ist der Fixpunkt $x_1=1-\frac{1}{r}$ dunkel eingefärbt (Abbildung \ref{fig:log-konv1} mitte). Der Graph scheint an der $x_0=0.5$ Achse gespiegelt zu sein. Dies hängt damit zusammen, dass $f(x^{spiegel}_{1}=\frac{1}{r}) = x_1$. 
 Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen und die weißen Bereiche an den Bifurkationspunkten. Je mehr Iterationen durchgeführt werden, desto mehr prägen sich die schwarzen Bereiche aus. Für $r < r_{superattraktiv}$ sind 2 Äste zu sehen, währen bei $r > r_{superattraktiv}$ abhängig von der Anzahl $N$ der Iterationen $2*(N-1)$ Äste zu sehen sind. An den Bifurkationspunkten wiederholt sich das Muster fraktal (Abbildung \ref{fig:log-konv1} rechts). 
 
 \begin{figure}
@@ -159,7 +159,7 @@ Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen un
 \includegraphics[height=150px]{bifurkpunkt}
 \includegraphics[height=150px]{startwert/e0008n2}
 \includegraphics[height=150px]{startwert/zoomed10}
-\caption{Links: Konvergenzverhalten der logistischen Abbildung bei $r=3$. $f^n(x)$ konvergiert kontinuierlich gegen $x=\frac{2}{3}$ (Der Graph wurde um $-\frac{2}{3}$ translatiert). Rechts: Konvergenzverhalten der logsitschen Abbildung. Punktfarbe $F=exp(-\epsilon / \mid f^{10}_r(x_0)-f^{\infty}_r(x_0) \mid)$ mit $\epsilon=0.00004$. sourcecode: prak/bifurk3.py, prak/bifurk-startwert.py}
+\caption{Links: Konvergenzverhalten der logistischen Abbildung bei $r=3$. $f^n(x)$ konvergiert kontinuierlich gegen $x=\frac{2}{3}$ (Der Graph wurde um $-\frac{2}{3}$ translatiert). Mitte: Konvergenzverhalten der logsitschen Abbildung. Punktfarbe $F=exp(-\epsilon / \mid f^{2}_r(x_0)-f^{10000}_r(x_0) \mid)$. Rechts: Punktfarbe $F=exp(-\epsilon / \mid f^{10}_r(x_0)-f^{10000}_r(x_0) \mid)$ mit $\epsilon=0.00004$. sourcecode: prak/bifurk3.py, prak/bifurk-startwert.py}
 \label{fig:log-konv1}
 \end{figure}
 \subsection{Betrachtung von Extremwerten}
@@ -169,7 +169,7 @@ Falls aber gilt $x-x^2 < 0$ dann stellt man fest:
 \begin{equation}
 f^n(x) < ... < f^{2}(x) < f(x) < 0 \forall n \in \mathbb{N} \Rightarrow \lim_{n \rightarrow \infty} f^n(x) = -\infty
 \end{equation}
-Damit dieses Verhalten irgendwann einsetzt muss gelten: $\exists m: f^m(x) > 1$ denn dann ist $f^{m+1}(x) < 0.$ (wegen $x^2 > x \forall x > 1$). 
+Damit dieses Verhalten irgendwann einsetzt muss gelten: $\exists m: f^m(x) > 1$ denn dann ist $f^{m+1}(x) < 0$. 
 
 \begin{equation}
 f(x_0) > 1 \iff x_0-x_0^2 > \frac{1}{r} \iff x_0 = \pm \sqrt{\frac{1}{4}-\frac{1}{r}} + \frac{1}{2}
@@ -214,9 +214,9 @@ Es zeigte sich, dass die Gleichung (\ref{eq:lyapunov-def}) sehr schlechte Ergebn
 Dies liegt daran, dass schon bei kleinen $\epsilon$ die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten in (\ref{eq:lyapunov-def}) keinen Sinn ergibt.
 In Abbildung \ref{fig:lyapunov} (links) haben wir für $r=0.5$ das Konvergenzverhalten von (\ref{eq:lyapunov-def}) mit dem Konvergenzverhalten von (\ref{eq:lyapunov-analytisch}) verglichen. Es ist zu sehen, dass an $N=60$ der Differentialquotient beginnt von der analytischen Formel abzuweichen und schließlich bei $N=125$ divergiert.
 Die Renomierung (\ref{eq:lyapunov-renormiert}) hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
-Der Lyapunov Exponent hat $\lambda(x_0)$ seine Nullstellen dort wo die Abbildung ihre periodenverdoppelnden Stellen hat. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen gegen $-\infty$.
+Der Lyapunov Exponent $\lambda(x_0)$ hat seine Nullstellen dort wo im Bifurkationsdiagramm Periodenverdopplung auftritt. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen gegen $-\infty$.
 Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$.
-Tatsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (QUELLE skript todo).
+Tatsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (Literatur \parencite{versuchmappe}, S. 10).
 Im folgenden ist der OpenGL Quellcode der renomierten Formel des Lyapunov Exponenten gezeigt:
 \begin{lstlisting}
 float g(float r, float x) {
@@ -241,24 +241,24 @@ Für die renormierte und analytische Implementation haben wir untersucht wie sch
     \gamma = exp^{-500 * (\lambda_{N=5}(r,x_0)
     - \lambda_{N=10000}(r,x_0))^2}
 \end{equation}
-In Abbildung \ref{fig:lyapunov} ist das Ergebniss zu sehen: Je dunkler ein Punkt (r, $x_0$) ist, desto besser konvergiert $\lambda(r, x_0)$ ($\gamma \approx 1$). 
+In Abbildung \ref{fig:lyapunov} (mitte, rechts) ist das Ergebniss zu sehen: Je dunkler ein Punkt (r, $x_0$) ist, desto besser konvergiert $\lambda(r, x_0)$ ($\gamma \approx 1$). 
 Es gibt also $x_0$ welche ein sehr schnelles Konvergenzverhalten gegenüber anderen $x_0$ haben. Der oben besprochene Startwert $x_0=0.5$ ist in der rechten Abbildung gut bestätigt, denn hier konvergiert $\lambda(r, x_0)$ nicht. 
 
 \begin{figure}[!htbp]
 \includegraphics[height=160px]{lyapunov-definition-convergence}
 \includegraphics[height=160px]{lyapunov-normiert-xr}
 \includegraphics[height=160px]{lyapunov-analytisch-xr}
-\caption{Analyse des Lyapunov Exponenten. Links: Konvergenz der analytischen Implementation (Punkte) gegen Konvergenz der Definition (Linie, zur besseren visuellen Unterscheidung wurden die diskreten Abbildungspunkte mit Linien verbunden). Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-defintion-convergence.py, prak/lyapunov-rx-convergence.py)}.
+\caption{Analyse des Lyapunov Exponenten. Links: Konvergenz der analytischen Implementation Gleichung \ref{eq:lyapunov-analytisch} (Punkte) gegen Konvergenz der Definition Gleichung \ref{eq:lyapunov-def} (Linie, zur besseren visuellen Unterscheidung wurden die diskreten Abbildungspunkte mit Linien verbunden). Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$ (nach Gleichung \ref{eq:lyapunov-renormiert}). Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-defintion-convergence.py, prak/lyapunov-rx-convergence.py)}.
 \label{fig:lyapunov}
 \end{figure}
  
 \subsubsection{Betrachtung im chaotischen Bereich.}
 In Abbildung \ref{fix:log-detail} ist zu sehen wie der Lyapunov Exponent ab $r=3.56$ nicht mehr stetig konvergiert. 
-Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19*10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs als ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich Konvergenzverhalten an welches aber nicht präzise ist: Falls 
+Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19\cdot10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs als ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich ein Konvergenzverhalten an welches aber nicht präzise ist: Falls 
 \begin{equation}
 \lim_{N \rightarrow \infty} \lambda_N(x) = L
 \end{equation}
-so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in einen Epsilon Schlauch von $\epsilon=0.002$ passt. Dies ist nicht sehr befriedigend angesichts der massiven Iterationslänge.
+so kann man nach $2\cdot10^7$ Iterationen höchstens feststellen, dass der Graph in einen Epsilonschlauch von $\epsilon=0.002$ passt. Dies ist nicht sehr befriedigend angesichts der massiven Iterationslänge.
 
 Für $r=4$ haben wir in Abbildung \ref{fig:lyapunov-chaos} die 3 Varianten (\ref{eq:lyapunov-def}), (\ref{eq:lyapunov-analytisch}), (\ref{eq:lyapunov-renormiert}) miteinander verglichen. Es fällt auf, dass die renormierte Implementation (\ref{eq:lyapunov-renormiert}) schneller konvergiert als die analytische Implementation (\ref{eq:lyapunov-analytisch}). 
 Die Definition (\ref{eq:lyapunov-def}) hingegeben konvergiert gegen den Grenzwert 0 und weicht deutlich von (\ref{eq:lyapunov-renormiert}), (\ref{eq:lyapunov-analytisch}) ab.
@@ -273,24 +273,24 @@ Die Definition (\ref{eq:lyapunov-def}) hingegeben konvergiert gegen den Grenzwer
 
 
 \subsubsection{Vergleich der analytischen und renomierten Implementation}
-Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben. 
+Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller als die analytische Formel gegen 0 konvergiert . An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben. 
 Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
 
 
 \subsection{Feigenbaumkonstante}
-Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen nicht linearen System auf und ist definiert:
-\begin{equation}\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}=\frac{s_i-s_{i+1}}{s_{i+1}-s_{i+2}}\end{equation}
-\begin{equation}\delta = \lim\limits_{i \rightarrow \infty}{\delta_i} = 4.669201609102991\end{equation} 
-(TODO QUELLE https://oeis.org/A006890)
+Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen nicht linearen Systemen auf und ist definiert als:
+\begin{equation}\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}\text{, }\Delta_i=\frac{s_i-s_{i+1}}{s_{i+1}-s_{i+2}}\end{equation}
+\begin{equation}\delta = \lim\limits_{i \rightarrow \infty}{\delta_i}= \lim\limits_{i \rightarrow \infty}{\Delta_i} = 4.669201609102991\end{equation} 
+(Quelle: \parencite{feigenbaum})
 wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stellen sind.
-Also lässt sich die Feigenbaumkonstante mit dem Lyapunov Exponenten bestimmen. 
+Da im Grenzfall $\lim\limits_{i \rightarrow \infty}$ $|\delta_i - \delta_{i+1}|=0$ und $|\Delta_i - \Delta_{i+1}|=0$  lässt sich die Feigenbaumkonstante sowohl mit dem Bifurkationsdiagramm als auch mit dem Lyapunov Exponenten bestimmen. 
 Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimmen. Wir wendeten dabei das folgende Kriterium für Nullstellen an:
 \begin{equation}
 \lambda(x-\epsilon) < \lambda(x) \wedge \lambda(x+\epsilon) < \lambda(x) \wedge |\lambda(x)|<\epsilon
 \end{equation}
 Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung \ref{fig:lya-rauschen}).
 Aufgrund dieser Probleme
-haben wir uns dazu entschieden die superattraktiven Stellen anstelle der Bifurkationspunkte numerisch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegeben Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
+haben wir uns dazu entschieden die superattraktiven Stellen anstelle der Bifurkationspunkte numerisch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegebenen Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
 Ist
 \begin{equation}
 l_2-l_1 \leq 0 
@@ -299,10 +299,10 @@ l_2-l_1 \leq 0
 wandert der Iterationsschritt zum superattraktiven Fall. 
 Dies wird so lange fortgesetzt bis die Bedingung (\ref{eq:bedinung-1}) nicht mehr hält. 
 Es wird nun um $\Delta x$ zurückgegangen und anschließend die Schrittweite $\Delta x \mapsto \frac{\Delta x}{10} $ verkleinert. Nun wird erneut so lange iteriert, bis (\ref{eq:bedinung-1}) nicht mehr hält. 
-Der Vorgang wiederholt sich 8 mal. Anschließend wird $(2*x_0 + \Delta x )/2$ als Ergebniss gespeichert. 
+Der Vorgang wiederholt sich 8 mal. Anschließend wird $\frac{2x_0 + \Delta x}{2}$ als Ergebniss gespeichert. 
 Als nächstes befindet sich der Algorithmus im Anfangspunkt-Modus. Es wird so lange die x-Achse abgetestet bis die Bedingung 
 \begin{equation}
-\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2*\Delta x)
+\lambda(x_0) < \lambda(x_0 + \Delta x) < \lambda(x_0 + 2\Delta x)
 \end{equation}
 nicht mehr erfüllt ist und somit ein neues $x_{start}$ gefunden wurde. Der Suchmodus wird aktiviert  (Quellcode: prak/feigenbaum.py).
 Im folgenden ist die Terminal Ausgabe des Algorithmusses beigelegt:
@@ -322,7 +322,7 @@ delta_0=4.70894301336
 delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
-Somit konnten wir numerisch für $i=2$ eine Feigenbaumkonstante von $\delta_2=4.66295961155$ berechnen. Dieser Wert weicht um 0.12\% vom tatsächlichen Wert ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
+Somit konnten wir numerisch für $i=3$ eine Feigenbaumkonstante von $\delta_3=4.66295961155$ berechnen. Dieser Wert weicht um 0.12\% vom tatsächlichen Wert ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
 \begin{SCfigure}
 \centering
 \includegraphics[height=200px]{lya-rauschen}
@@ -348,12 +348,12 @@ Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung
 
 \section{Sinus Abbildung}
 Die Sinusabbildung ist gegeben durch 
-$$f(x_n)=x_{n+1}=r*sin(x)$$
-Wir haben die bereits implementierten Programme nun auf die Sinus Funktion angewendet. Abbildung \ref{fig:bifurc-sin} zeigt das Bifurkationsdiagramm der Sinusabbildung. Es fällt sofort auf, dass sich die Bildpunkte innerhalb einer Einhüllenden befinden. Betrachtet man die Funktion wird wegen des Bildbereiches des Sinus ($[-1,1]$) sofort klar, dass $\sup_{n \in \mathbb{N}} |f^n(r)| \leq r $ gilt. Bei den Bifurkationsdiagrammen der logistischen Abbildung hatten wir ein festen Startwert $x_0$ gewählt. Für die Sinusabbildung wählten wir als Startwerte die Folge $x_{0,n} = (-1)^n * x_0$ da sonst im Bereich $r \in [0,\pi]$ das Bild des Graphen stets positiv wäre. Auch dieses Phänomen lässt sich mit einfachen Überlegungen erklären: 
-$$sin([0,\pi]) = [0,1] \Rightarrow f([0,\pi]) = [0,\pi] \Rightarrow f^2([0,\pi]) = [0,\pi] \forall r \in [0,\pi]$$
+\begin{equation}f(x_n)=x_{n+1}=r\sin(x)\end{equation}
+Wir haben die bereits implementierten Programme nun auf die Sinus Funktion angewendet. Abbildung \ref{fig:bifurc-sin} zeigt das Bifurkationsdiagramm der Sinusabbildung. Es fällt sofort auf, dass sich die Bildpunkte innerhalb einer Einhüllenden befinden. Betrachtet man die Funktion wird wegen des Bildbereiches des Sinus ($[-1,1]$) sofort klar, dass $\sup_{n \in \mathbb{N}} |f^n(r)| \leq r $ gilt. Bei den Bifurkationsdiagrammen der logistischen Abbildung hatten wir ein festen Startwert $x_0$ gewählt. Für die Sinusabbildung wählten wir als Startwerte die Folge $x_{0,n} = (-1)^nx_0$, da sonst im Bereich $r \in [0,\pi]$ das Bild des Graphen stets positiv wäre. Auch dieses Phänomen lässt sich mit einfachen Überlegungen erklären: 
+\begin{equation}\sin([0,\pi]) = [0,1] \Rightarrow f([0,\pi]) = [0,\pi] \Rightarrow f^2([0,\pi]) = [0,\pi] \forall r \in [0,\pi]\end{equation}
  
-Das Anwenden unseres Algorithmus zur bestimmung der Feigenbaumkonstante lieferte im Vergleich zur logistischen Abbildung keine guten Ergebnisse. Die ersten superattraktiven Stellen $s_i$ ließen sich ohne weiteres bestimmen. Die Abstände $\Delta s$ werden schon nach den ersten 4 Folgegliedern sehr klein und der Lyapunov Exponent beginnt zu "rauschen". 
-Wir entwickelten einen weiteren Algorithmus, welcher nur marginal bessere Ergebnisse nach $s_4$ lieferte. Die Idee des Algorithmusses war es, zunächst den Lyapunov Exponenten Grob für $r\in [0,3.2]$ zu berechnen. 
+Das Anwenden unseres Algorithmus zur bestimmung der Feigenbaumkonstante lieferte im Vergleich zur logistischen Abbildung keine guten Ergebnisse. Die ersten superattraktiven Stellen $s_i$ ließen sich ohne weiteres bestimmen. Die Abstände $\Delta s$ wurden schon nach den ersten 4 Folgegliedern sehr klein und der Lyapunov Exponent beginnt zu "rauschen". 
+Wir entwickelten einen weiteren Algorithmus, welcher nur marginal bessere Ergebnisse nach $s_4$ lieferte. Die Idee des Algorithmusses war es, zunächst den Lyapunov Exponenten grob für $r\in [0,3.2]$ zu berechnen. 
 Die so entstandene Folge $l_i=(x_i, l(x_i))$ wird nun iteriert. Sobald $l_{i,1} < M < 0$ gilt wird $A=l_{i,0}$ gesetzt. Es wird weiter iteriert bis $l_{i,1} > 0$ und schließlich wird das Intervall $[A, l_{i,1}]$ gespeichert. Dies wird bis zum Ende der Folge $l_i$ ausgeführt. 
 Nun wird der Algorithmus für eine tiefere Schranke auf alle ermittelten Intervalle erneut angewendet. 
 Wir fanden so mehrere Hinweise für die nächsten superattraktiven Stellen. 
@@ -367,7 +367,7 @@ $$\delta_2=4.06188990667$$
 $$\delta_3=4.47977878743$$
 $$\delta_4=4.79495059736$$
 
-Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfunktion nicht ab. Auch dies lässt sich auf den Kompakten Bildbereich des Sinus zurückführen. Der Lyapunov Exponent weist ab $r>8$ eine Perdiodizität von $\pi$ auf weshalb weitere Betrachtungen für $r>8$ nicht zielführend erscheinen.
+Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfunktion nicht ab. Auch dies lässt sich auf den kompakten Bildbereich des Sinus zurückführen. Der Lyapunov-Exponent weist ab $r>8$ eine Perdiodizität von $\pi$ auf weshalb weitere Betrachtungen für $r>8$ nicht zielführend erscheinen.
 
 \begin{figure}[!htbp]
 \centering
