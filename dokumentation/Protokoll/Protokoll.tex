@@ -613,16 +613,13 @@ In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erh
 \subsection{Software}
 Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Rahmen des Versuches Entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
 
-Für das generieren der Plotdaten haben wir verschiedene Wege ausprobiert. 
-
-1. OpenGL Shader. Die VBO Objekte werden in Python initialisiert (x,y). Der Vertex- oder Fragmentshader bildet diese Punkte dann direkt ab. Mittels einer Translations- und Skalierungsmatrix können beim bewegen durch die Plotplane die (x,y) so transformiert werden, dass beim zoomen und beim translatieren im Plot stets gleich viele Punkte abgebildet werden. 
-
-2. OpenCL Kernel. Die VBO Objekte werden via OpenCL mit Daten befüllt. 
-
-3. Direktes eingeben von Plotdaten, (z.B. Textfile, Fortran, Python).
-
-Vor allem waren wir von dem Potential der Variante 1. begeistert. Beispielsweise konnte mit einem Fragmentshader Plot sehr einfach eine Abbildung im komplexen Raum farbig visualisiert werden. 
-
+Für das generieren der Plotdaten haben wir verschiedene Wege ausprobiert:
+\begin{enumerate}
+\item OpenGL Shader. Die VBO's werden in Python initialisiert (x,y). Der Vertex- oder Fragmentshader bildet diese Punkte dann direkt ab. Mittels einer Translations- und Skalierungsmatrix können beim bewegen durch die Plotplane die (x,y) so transformiert werden, dass beim zoomen und beim translatieren im Plot stets gleich viele Punkte abgebildet werden. 
+\item OpenCL Kernel. Die VBO's werden via OpenCL mit Daten befüllt. 
+\item Direktes eingeben von Plotdaten, (z.B. Textfile, Fortran, Python).
+\end{enumerate}
+Wir waren von dem Potential der ersten Variante begeistert. Beispielsweise konnte mit einem Fragmentshader Plot sehr einfach eine Abbildung im komplexen Raum farbig visualisiert werden. 
 
 Es zeigte sich, dass die MacBooks mit denen wir arbeiten, keine double percision GPUs verbaut haben. Deshalb waren alle GPU Berechnungen limitiert in der Genauigkeit (Abbildung \ref{fig:bsp-opencl}). Mit einigen Tricks (renormierung) konnten wir die Ergebnisse zwar verbessern, aber beispielsweise lässt sich die Feigenbaumkonstante trotzdem nur sehr schlecht auf der GPU bestimmen.
 
