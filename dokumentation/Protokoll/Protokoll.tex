@@ -91,12 +91,13 @@ Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpu
 Stabilitätsbedingung:
 \begin{equation} |f'(x)|<1 \iff Fixpunkt-stabil \end{equation}
 \begin{equation} |f'(x)|>1 \iff Fixpunkt-instabil \end{equation}
-Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Mit der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt für $x_{0}$:
-$$-1 < r < 1: x_{0} \text{ stabil}$$
-$$r > 1: x_{0} \text{ instabil}$$
-Für $x_{1}=1-\frac{1}{r}$ folgt:
-$$1 < r < 3: x_1 \text{ stabil}$$
-$$r<1 \wedge  r> 3: x_1 \text{ instabil}$$
+Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Mit der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
+\begin{equation}
+-1 < r < 1: x_{0} \text{ stabil}, r > 1: x_{0} \text{ instabil}
+\end{equation}
+\begin{equation}
+1 < r < 3: x_1 \text{ stabil}, r<1 \wedge  r> 3: x_1 \text{ instabil}
+\end{equation}
 Abbildung \ref{fig:log-iteration-behavior} zeigt wie sich die Iteration bei unterschiedlichen Parametern verhalten. Für $r>3$ ist $x_1$ nicht mehr stabil. So lässt sich die Aufspaltung im Bifurkationsdiagramm (Abbildung \ref{fig:bifurkation-sin-nice}) für $r>3$ verstehen. Ebenfalls wurde das Konvergenzverhalten der logisitschen Abbildung gegen $x_1$ geprüft indem von den letzten beiden Werten jeweils der Mittelwert gebildet wurde. Bereits nach 30 Iterationen konnten alle $x_1$ für $1 < r \leq 3$ numerisch bestimmt werden. Ab $r>3$ funktioniert diese Methode nicht mehr, da die beiden Äste im Bifurkationsdiagramm nicht Punktsymmetrisch an $x_1$ spiegeln (Abbildung \ref{fig:log-intermittenz-cycles}). In Abbildung \ref{fig:log-iteration-behavior} ist für den Fall $r=3.113$ ebenfalls zu sehen, dass das Konvergenzverhalten asymmetrisch im Vergleich zum Fall $r=2.878$ ist .
 Im folgenden untersuchen wir den Zweierzyklus $f^2(x)$.
 \begin{equation}x_{n+1}=f_r(x_n)=rx_n(1-x_n)
@@ -144,13 +145,23 @@ Wir haben das Konvergenzkriterium
 \begin{equation}
 \mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid < \epsilon
 \end{equation}
-untersucht. Dabei haben wir für $\forall (x_0, r) \in [0,1] \times [0,4]$  berechnet wie groß $\mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid $ ist. 
-In einem 2d Plot (Abbildung \ref{fig:log-konv1}) haben wir ($x_0$, r) eingefärbt: Je dunkler ($x_0$, r) desto näher liegt $f^{10}_r(x_0)$ an $f^{\infty}_r(x_0)$. Wie zu erwarten, sind um superattraktiven Stellen viele gut konvergierende $x_0$ (schwarze Bereiche) zu finden. An Bifurkationspunkten wiederholt sich das Muster fraktal (Selbstähnlichkeit). 
+untersucht. 
+Zunächst haben wir den Fall $r=3$ untersucht: Abbildung \ref{fig:log-konv1} (links) trägt den x Wert gegen die Anzahl der Iterationen bei $r=3$ auf. Nach $10^7$ Iterationen haben wir $\epsilon=7.45 \cdot 10^{-5}$ bestimmt.
 
-Im weiteren betrachten wir das Konvergenzverhalten der logistischen Abbildung bei $r=3$ und Umgebung. Für r<3 kennen wir bereits den Fixpunkt $x_1=1-\frac{1}{r}$. 
-Abbildung \ref{fig:log-konv1} (links) trägt den x Wert gegen die Anzahl der Iterationen bei $r=3$ auf. Nach $10^7$ Iterationen haben wir $\epsilon=7.45 \cdot 10^{-5}$ bestimmt.
-Der Bereich um den Bifurkationspunkt ist in Abbildung \ref{fig:log-konv1} (rechts) dargestellt. Dabei wurde zunächst OpenCL für die Berechnung verwendet, was zu einem ungenauem Ergebnis führt. Es lässt sich nur Grob ablesen, dass bei ca. $r=3$ der Fixpunkt $x_1$ instabil ist.
 
+Als nächstes haben wir $\forall (x_0, r) \in [0,1] \times [0,4]$  berechnet wie groß $\mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid $ ist. 
+In einem 2d Plot (Abbildung \ref{fig:log-konv1}) sind ($x_0$, r) eingefärbt: Je dunkler ($x_0$, r) desto näher liegt $f^{m}_r(x_0)$ an $f^{\infty}_r(x_0)$. 
+Wie zu erwarten ist der Fixpunkt $x=1-\frac{1}{r}$ dunkel eingefärbt (Abbildung \ref{fig:log-konv1} mitte). Der Graph scheint an der $x_0=0.5$ Achse gespiegelt zu sein. Dies hängt damit zusammen, dass $f(x^{spiegel}_{1}\frac{1}{r}) = x_1$. 
+Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen und die weißen Bereiche an den Bifurkationspunkten. Je mehr Iterationen durchgeführt werden, desto mehr prägen sich die schwarzen Bereiche aus. Für $r < r_{superattraktiv}$ sind 2 Äste zu sehen, währen bei $r > r_{superattraktiv}$ abhängig von der Anzahl $N$ der Iterationen $2*(N-1)$ Äste zu sehen sind. An den Bifurkationspunkten wiederholt sich das Muster fraktal (Abbildung \ref{fig:log-konv1} rechts). 
+
+\begin{figure}
+\centering
+\includegraphics[height=150px]{bifurkpunkt}
+\includegraphics[height=150px]{startwert/e0008n2}
+\includegraphics[height=150px]{startwert/zoomed10}
+\caption{Links: Konvergenzverhalten der logistischen Abbildung bei $r=3$. $f^n(x)$ konvergiert kontinuierlich gegen $x=\frac{2}{3}$ (Der Graph wurde um $-\frac{2}{3}$ translatiert). Rechts: Konvergenzverhalten der logsitschen Abbildung. Punktfarbe $F=exp(-\epsilon / \mid f^{10}_r(x_0)-f^{\infty}_r(x_0) \mid)$ mit $\epsilon=0.00004$. sourcecode: prak/bifurk3.py, prak/bifurk-startwert.py}
+\label{fig:log-konv1}
+\end{figure}
 \subsection{Betrachtung von Extremwerten}
 Das Bifurkationsdiagramm scheint ab $r>4$ zu divergieren. Im folgenden haben wir diesen Bereich näher analysiert. 
 Wegen  $x^2 < x \forall x \in (0,1)$ ist schnell klar, dass sobald $f(I) = [0,1)$ auch $f^n(I) = [0, 1)$. 
@@ -182,13 +193,7 @@ N_ITER=10000 found 1 intervals. Last interval [4.000001,4.999989]
 \end{lstlisting}
 
 Je mehr Iterationen durchgeführt werden, desto mehr Punkte divergieren ab $r \geq 4.000001$ gegen $-\infty$. Dieses Verhalten war nach Gleichung (\ref{eq:extreme-bifurc-final}) zu erwarten. 
-\begin{figure}
-\centering
-\includegraphics[height=220px]{bifurkpunkt}
-\includegraphics[height= 220px]{log-bifurk-xr}
-\caption{Links: Konvergenzverhalten der logistischen Abbildung bei $r=3$. $f^n(x)$ konvergiert kontinuierlich gegen $x=\frac{2}{3}$ (Der Graph wurde um $-\frac{2}{3}$ translatiert). Rechts: Konvergenzverhalten der logsitschen Abbildung. Punktfarbe $F=exp(-\epsilon / \mid f^{10}_r(x_0)-f^{\infty}_r(x_0) \mid)$ mit $\epsilon=0.00004$.}
-\label{fig:log-konv1}
-\end{figure}
+
 \subsection{Lyapunov Exponent}
 Der Lyapunov Exponent beschreibt mit welcher Geschwindigkeit sich zwei naheliegende Punkte voneinander entfernen. 
 Es gibt drei Wege den Lyapunov Exponenten zu implementieren:
@@ -243,31 +248,32 @@ Es gibt also $x_0$ welche ein sehr schnelles Konvergenzverhalten gegenüber ande
 \includegraphics[height=160px]{lyapunov-definition-convergence}
 \includegraphics[height=160px]{lyapunov-normiert-xr}
 \includegraphics[height=160px]{lyapunov-analytisch-xr}
-\caption{Analyse des Lyapunov Exponenten. Links: Konvergenz der analytischen Implementation (Punkte) gegen Konvergenz der Definition (Linie, zur besseren visuellen Unterscheidung wurden die diskreten Abbildungspunkte mit Linien verbunden). Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-defintion-convergence.py, prak/lyapunov-rx-convergence.py)} 
+\caption{Analyse des Lyapunov Exponenten. Links: Konvergenz der analytischen Implementation (Punkte) gegen Konvergenz der Definition (Linie, zur besseren visuellen Unterscheidung wurden die diskreten Abbildungspunkte mit Linien verbunden). Mitte: Kontrollparameter r aufgetragen gegen Definitionsbereich $x_0$. Je dunkler ein Punkt (r, $x_0$) desto besser konvergiert $\lambda(r,x_0)$. Rechts: Analog zur Mittleren Abbildung für die analytische Implementation (sourcecode: prak/lyapunov-defintion-convergence.py, prak/lyapunov-rx-convergence.py)}.
 \label{fig:lyapunov}
 \end{figure}
  
 \subsubsection{Betrachtung im chaotischen Bereich.}
-In Abbildung \ref{fig:lyapunov} ist zu sehen wie der Lyapunov Exponent ab $r=3.56$ nicht mehr stetig konvergiert. 
-Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19*10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs als ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich Konvergenzverhalten an. Dieses ist aber nicht präzise: Falls 
+In Abbildung \ref{fix:log-detail} ist zu sehen wie der Lyapunov Exponent ab $r=3.56$ nicht mehr stetig konvergiert. 
+Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19*10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs als ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich Konvergenzverhalten an welches aber nicht präzise ist: Falls 
 \begin{equation}
 \lim_{N \rightarrow \infty} \lambda_N(x) = L
 \end{equation}
-so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in einen Epsilon Schlauch von $\epsilon=0.002$ passt. Dies ist nicht sehr befriedigend angesichts der massiven Iterationslänge.  
- 
+so kann man nach $2*10^7$ Iterationen höchstens feststellen, dass der Graph in einen Epsilon Schlauch von $\epsilon=0.002$ passt. Dies ist nicht sehr befriedigend angesichts der massiven Iterationslänge.
+
+Für $r=4$ haben wir in Abbildung \ref{fig:lyapunov-chaos} die 3 Varianten (\ref{eq:lyapunov-def}), (\ref{eq:lyapunov-analytisch}), (\ref{eq:lyapunov-renormiert}) miteinander verglichen. Es fällt auf, dass die renormierte Implementation (\ref{eq:lyapunov-renormiert}) schneller konvergiert als die analytische Implementation (\ref{eq:lyapunov-analytisch}). 
+Die Definition (\ref{eq:lyapunov-def}) hingegeben konvergiert gegen den Grenzwert 0 und weicht deutlich von (\ref{eq:lyapunov-renormiert}), (\ref{eq:lyapunov-analytisch}) ab.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[height=150px]{lya378-zoom}
 \includegraphics[height=150px]{lya378}
-\includegraphics[height=150px, width=150px]{lyapunov-analysis-305}
-\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Mitte: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts:  0 bis $19*10^6$ Iterationen.
-Rechts: Vergleich des analytischen(Schwarz) und renormierten(Blau) Iterationsverhalten des Lyapunov Exponenten bei $r=3.05$. Vertikale Linie bei N=700. }
+\includegraphics[height=150px, width=150px]{lyapunov_r4}
+\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Mitte: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts: Vergleich zwischen den Varianten des Lyapunov Exponenten bei $r=4$ bis $N=200$ Iterationen. Die Definition (\ref{eq:lyapunov-def}) konvergiert gegen 0. Rot ist die renormierte Implementation (\ref{eq:lyapunov-renormiert}). sourcecode: prak/lyapunov-definition-convergence.py, prak/lyapunov_r4.py}
 \label{fig:lyapunov-chaos}
 \end{figure}
 
 
 \subsubsection{Vergleich der analytischen und renomierten Implementation}
-Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben (Abbildung \ref{fig:lyapunov-chaos}). 
+Wir haben nun die analytische und die renormierte Implementation des Lyaponovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller gegen 0 konvergiert als die analytische Formel. An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben. 
 Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
 
 
