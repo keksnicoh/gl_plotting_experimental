@@ -64,7 +64,7 @@
 \includegraphics[scale=0.25]{funfunfun} 
 \includegraphics[scale=0.25]{alien} 
 \end{center}
-\abstract{In diesem Protokoll haben wir die Eigenschaften von chaotischen System anhand der logistischen Gleichung, der Sinusabbildung, der Duffing-Gleichung und dem LDR Schwingkreis numerisch bestimmt und analysiert. Ebenfalls haben wir den LDR Schwingkreis in einem Experiment anhand eines analogen Oszilloskopes Untersucht.
+\abstract{In diesem Protokoll haben wir die Eigenschaften von chaotischen Systemen anhand der logistischen Gleichung, der Sinusabbildung, der Duffing-Gleichung und dem LDR Schwingkreis numerisch bestimmt und analysiert. Ebenfalls haben wir den LDR Schwingkreis in einem Experiment anhand eines analogen Oszilloskopes untersucht.
 Alle Plots und Simulationen in diesem Protokoll haben wir im Rahmen des Versuches selber implementiert. Dafür wählten wir als Programmiersprache Python2.7 und nutzten OpenGL4.1 und OpenCL für Visualisierungen und Berechnungen. Der Quellcode ist über github einsehbar: \url{https://github.com/keksnicoh/gl_plotting_experimental}. Bei Abbildungen ist ein entsprechender Quellcodeverweis angegeben. }
 \pagebreak
 \tableofcontents
@@ -87,7 +87,7 @@ Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpu
 Stabilitätsbedingung:
 \begin{equation} |f'(x)|<1 \iff Fixpunkt-stabil \end{equation}
 \begin{equation} |f'(x)|>1 \iff Fixpunkt-instabil \end{equation}
-Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Mit der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
+Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Aus der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
 \begin{equation}
 -1 < r < 1: x_{0} \text{ stabil}, r > 1: x_{0} \text{ instabil}
 \end{equation}
@@ -142,13 +142,13 @@ Wir haben das Konvergenzkriterium
 \mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid < \epsilon
 \end{equation}
 untersucht. 
-Zunächst haben wir den Fall $r=3$ untersucht: Abbildung \ref{fig:log-konv1} (links) trägt $x_n$ gegen $n$ Iterationen bei $r=3$ bei einem Startwert $x=0.4$ auf. Nach $10^7$ Iterationen erhalten wir eine Abweichung vom erwarteten Wert von $\epsilon=7.45 \cdot 10^{-5}$.
+Zunächst haben wir den Fall $r=3$ untersucht: Abbildung \ref{fig:log-konv1} (links) trägt $x_n$ gegen $n$ Iterationen bei einem Startwert $x=0.4$ auf. Nach $10^7$ Iterationen erhalten wir eine Abweichung vom erwarteten Wert von $\epsilon=7.45 \cdot 10^{-5}$.
 
 
 Als nächstes haben wir $\forall (x_0, r) \in [0,1] \times [0,4]$  berechnet wie groß $\mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid $ ist. 
 In einem 2d Plot (Abbildung \ref{fig:log-konv1} mitte, rechts) sind ($x_0$, r) eingefärbt: Je dunkler ($x_0$, r) desto näher liegt $f^{m}_r(x_0)$ an $f^{\infty}_r(x_0)$. 
 Wie zu erwarten ist der Fixpunkt $x_1=1-\frac{1}{r}$ dunkel eingefärbt (Abbildung \ref{fig:log-konv1} mitte). Der Graph scheint an der $x_0=0.5$ Achse gespiegelt zu sein. Dies hängt damit zusammen, dass $f(x^{spiegel}_{1}=\frac{1}{r}) = x_1$. 
-Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen und die weißen Bereiche an den Bifurkationspunkten. Je mehr Iterationen durchgeführt werden, desto mehr prägen sich die schwarzen Bereiche aus. Für $r < r_{superattraktiv}$ sind 2 Äste zu sehen, währen bei $r > r_{superattraktiv}$ abhängig von der Anzahl $N$ der Iterationen $2*(N-1)$ Äste zu sehen sind. An den Bifurkationspunkten wiederholt sich das Muster fraktal (Abbildung \ref{fig:log-konv1} rechts). 
+Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen und die weißen Bereiche an den Bifurkationspunkten. Je mehr Iterationen durchgeführt werden, desto mehr prägen sich die schwarzen Bereiche aus. Für $r < r_{superattraktiv}$ sind 2 Äste zu sehen, während bei $r > r_{superattraktiv}$ abhängig von der Anzahl $N$ der Iterationen $2*(N-1)$ Äste zu sehen sind. An den Bifurkationspunkten wiederholt sich das Muster fraktal (Abbildung \ref{fig:log-konv1} rechts). 
 
 \begin{figure}
 \centering
@@ -250,7 +250,7 @@ Es gibt also $x_0$ welche ein sehr schnelles Konvergenzverhalten gegenüber ande
  
 \subsubsection{Betrachtung im chaotischen Bereich.}
 In Abbildung \ref{fix:log-detail} ist zu sehen wie der Lyapunov Exponent ab $r=3.56$ nicht mehr stetig konvergiert. 
-Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19\cdot10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^7$ Iterationen eher an einen Börsenkurs als ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich ein Konvergenzverhalten an welches aber nicht präzise ist: Falls 
+Der Verdacht liegt nahe, dass nicht genügend Iterationsschritte zur Berechnung ausgeführt wurden also erhöhten wir die Anzahl an Iterationsschritten für die Berechung von $\lambda(x)$. Es zeigte sich allerdings kaum eine Veränderung. Die Frage nach der Konvergenz von $\lambda(x)$ im chaotischen Bereich galt es zu untersuchen: Abbildung \ref{fig:lyapunov-chaos} zeigt das Langzeitverhalten von $\lambda(x)$ über $19\cdot10^6$ Iterationen. $\lambda(x)$ erinnert die ersten $10^6$ Iterationen eher an einen Börsenkurs als an ein Objekt welches gegen einen Grenzwert konvergiert. Erst nach ca. $10^7$ Iterationen deutet sich ein Konvergenzverhalten an welches aber nicht präzise ist: Falls 
 \begin{equation}
 \lim_{N \rightarrow \infty} \lambda_N(x) = L
 \end{equation}
@@ -263,7 +263,7 @@ Die Definition (\ref{eq:lyapunov-def}) hingegeben konvergiert gegen den Grenzwer
 \includegraphics[height=150px]{lya378-zoom}
 \includegraphics[height=150px]{lya378}
 \includegraphics[height=150px, width=150px]{lyapunov_r4}
-\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Mitte: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Rechts: Vergleich zwischen den Varianten des Lyapunov Exponenten bei $r=4$ bis $N=200$ Iterationen. Die Definition (\ref{eq:lyapunov-def}) konvergiert gegen 0. Rot ist die renormierte Implementation (\ref{eq:lyapunov-renormiert}). sourcecode: prak/lyapunov-definition-convergence.py, prak/lyapunov-r4.py}
+\caption{Analytischer(schwarz) und renormierter(grün) Lyapunov Exponent im chaotischen Bereich bei $r=3.78$. Links: Zoom im Bereich 0 bis $80*10^3$ Iterationen. Mitte: Bis $2*10^7$ Iterationen. Rechts: Vergleich zwischen den Varianten des Lyapunov Exponenten bei $r=4$ bis $N=200$ Iterationen. Die Definition (\ref{eq:lyapunov-def}) konvergiert gegen 0. Rot ist die renormierte Implementation (\ref{eq:lyapunov-renormiert}). sourcecode: prak/lyapunov-definition-convergence.py, prak/lyapunov-r4.py}
 \label{fig:lyapunov-chaos}
 \end{figure}
 
@@ -279,12 +279,12 @@ Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen n
 \begin{equation}\delta = \lim\limits_{i \rightarrow \infty}{\delta_i}= \lim\limits_{i \rightarrow \infty}{\Delta_i} = 4.669201609102991\end{equation} 
 (Quelle: \parencite{feigenbaum})
 wobei $s_i, b_i$ die Folgen der superattraktiven und periodenverdoppelden Stellen sind.
-Da im Grenzfall $\lim\limits_{i \rightarrow \infty}$ $|\delta_i - \delta_{i+1}|=0$ und $|\Delta_i - \Delta_{i+1}|=0$  lässt sich die Feigenbaumkonstante sowohl mit dem Bifurkationsdiagramm als auch mit dem Lyapunov Exponenten bestimmen. 
+Da im Grenzfall $\lim\limits_{i \rightarrow \infty}$ $|\delta_i - \delta_{i+1}|=0$ und $\lim\limits_{i \rightarrow \infty} |\Delta_i - \Delta_{i+1}|=0$  lässt sich die Feigenbaumkonstante sowohl mit dem superattraktiven als auch mit dem periodenverdoppelnden Stellen bestimmen. 
 Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimmen. Wir wendeten dabei das folgende Kriterium für Nullstellen an:
 \begin{equation}
 \lambda(x-\epsilon) < \lambda(x) \wedge \lambda(x+\epsilon) < \lambda(x) \wedge |\lambda(x)|<\epsilon
 \end{equation}
-Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren Verfügbaren Rechenleistungen praktikabel war (Abbildung \ref{fig:lya-rauschen}).
+Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren verfügbaren Rechenleistungen praktikabel war (Abbildung \ref{fig:lya-rauschen}).
 Aufgrund dieser Probleme
 haben wir uns dazu entschieden die superattraktiven Stellen anstelle der Bifurkationspunkte numerisch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegebenen Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
 Ist
@@ -318,7 +318,7 @@ delta_0=4.70894301336
 delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
-Somit konnten wir numerisch für $i=3$ eine Feigenbaumkonstante von $\delta_3=4.66295961155$ berechnen. Dieser Wert weicht um 0.12\% vom tatsächlichen Wert ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wird. 
+Somit konnten wir numerisch für $i=3$ eine Feigenbaumkonstante von $\delta_3=4.66295961155$ berechnen. Dieser Wert weicht um 0.12\% vom tatsächlichen Wert ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunov Expontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wurde. 
 \begin{SCfigure}
 \centering
 \includegraphics[height=200px]{lya-rauschen}
@@ -355,7 +355,7 @@ $$\delta_2=4.06188990667$$
 $$\delta_3=4.47977878743$$
 $$\delta_4=4.79495059736$$
 
-Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfunktion nicht ab. Auch dies lässt sich auf den kompakten Bildbereich des Sinus zurückführen. Der Lyapunov-Exponent weist ab $r>8$ eine Perdiodizität von $\pi$ auf weshalb weitere Betrachtungen für $r>8$ nicht zielführend erscheinen.
+Anders als die logistische Abbildung bricht das Bifurkationsdiagramm der Sinusfunktion nicht ab. Dies lässt sich auf den kompakten Bildbereich des Sinus zurückführen. Der Lyapunov-Exponent weist ab $r>8$ eine Perdiodizität von $\pi$ auf weshalb weitere Betrachtungen für $r>8$ nicht zielführend erscheinen.
 
 \begin{figure}[!htbp]
 \centering
@@ -386,11 +386,10 @@ Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\b
 \caption{Phasenraumdiagramm. Links: Schrittweite $h=0.1$ mit Euler-Cauchy. Mitte: Schrittweite $h=0.08$ mit Euler-Cauchy identisch bei $h=0.2$ mit Runge-Kutta. Rechts: Runge-Kutta bei Schrittweite $h=2$}. 
 \label{fig:duffing-awp1}
 \end{figure}
-Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h \approx 0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (mitte). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h=2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
+Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h \approx 0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (mitte). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h \approx 2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
 
-Im weiteren sind alle folgenden Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung implementiert.
-
-Ganz bedeutend ändert sich der Attraktor, bei Variation der Anfangsbedingungen. Variieren wir $x_0$ so bleibt der Attraktor identisch bei $x_0=0.18$, während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
+Im folgenden sind alle Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung implementiert.
+Ganz bedeutend ändert sich der Attraktor bei Variation der Anfangsbedingungen. Variieren wir $x_0$ so bleibt der Attraktor identisch zu $x_0=0.18$ während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
 \newline
 Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfangsbedingungen.
 \begin{figure}[!htbp]
@@ -464,7 +463,7 @@ Unter Verwendung der Parameter:
 
 haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichungen aus  \ref{ssec:theo} gelöst. Dabei sind wir davon ausgegangen, dass für $V_d > -0.6V$ die Diode sperrt.
 \newline
-Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ gelten. Diese oszillierenden Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und Pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
+Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ gelten. Diese oszillierenden Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[height=200px,width=400px]{runge-oszillation-100k-2V}
@@ -512,7 +511,7 @@ Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein andere
 \end{figure}
 
 \subsubsection{Poincaré-Schnitt}
- Im chaotischen Fall können wir wie beim Duffing-Oszillator seltsame Attrakoren ausmachen (vgl. Abbildung \ref{fig:ldr-poin1}).
+ Im chaotischen Fall können wir wie beim Duffing-Oszillator seltsame Attrakoren finden (vgl. Abbildung \ref{fig:ldr-poin1}).
 \begin{figure}[!htbp]
 \includegraphics[scale=0.4]{schwing-v5-euler}
 \includegraphics[scale=0.4]{schwing-v5-euler-poincare}
@@ -527,10 +526,10 @@ Um den Bereich von Chaos und Ordnung zu visualisieren, haben wir im folgenden se
 \caption{Bifurkationsdiagramm mit $4\cdot10^5$ Iterationen pro $V_s$. Von $V_s=0$ bis $V_s=8$ in $0.01$ Schritten. Links: Strom. Rechts: Spannung}
 \label{fig:ldr-bifurc}
 \end{figure}
-Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung. Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung \ref{fig:ldr-poin2} links) finden wir im Bifurkationsdiagramm wieder.
+Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung. Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung \ref{fig::ldr-bifurc} links) finden wir im Bifurkationsdiagramm wieder.
 
 \subsection{ Versuchsaufbau}
-Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Über die Eingänge A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der \ref{fig:ldr-aufbau1} (rechts) zusehen ist.
+Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Mit den Eingängen A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasendiagram darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der \ref{fig:ldr-aufbau1} (rechts) zusehen ist.
 \begin{figure}[!htbp]
 \includegraphics[scale=0.4]{aufbau1}
 \includegraphics[scale=0.38]{aufbau2}
@@ -546,7 +545,7 @@ Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numeri
 \centering
 \includegraphics[scale=0.1]{800khz-5V-oszi}
 \includegraphics[scale=0.11]{800khz-5V-phase}
-\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagram}
+\caption{Eingangsspannung $V_s=5V$ und Resonanzfrequenz von $\omega=800kHz$. Links: Zeitlicher Verlauf von Spannung (oben) und Strom (unten). Rechts: Phasenraumdiagramm}
 \label{fig:ldr-real1}
 \end{figure}
 
@@ -559,9 +558,9 @@ Der aufgebaute Schaltkreis hatte nicht die selbe Konfiguration wie unsere numeri
 \label{fig:ldr-real2}
 \end{figure}
 \subsection { Bifurkationsdiagramm }
-Beim erzeugen des Bifurkationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \label{fig:ldr-aufbau1}). Wir modelierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Parameters $V_s$ darstellt. 
+Beim erzeugen des Bifurkationsdiagrammes haben wir einen anderen Schaltkreis verwendet, dessen Resonanzfrequenz wir auf $\omega=325kHz$ bestimmt haben. Der Versuchsaufbau wurde nun mit einer Gate-Delay Einheit aufgebaut (Abbildung \ref{fig:ldr-aufbau1} rechts). Wir modellierten über den Aux-Out des Funktionsgenerator eine Sägezahnspannung welche später den Definitionsbereich des Parameters $V_s$ darstellt. 
 Zunächst ist dies nicht gelungen. Mit Hilfe des digitalen Oszilloskopes konnten wir dann aber den Verlauf so modelieren, dass  $V_s=0V linear auf V_s=V_{Ausgang}$ ansteigt und perdiodisch wiederholt wird.
-Abbildung \ref{fig:ldr-modellierung} verdeutlicht die Auswirkung auf das Bifurkationsdiagram bei unterschiedlichen Spannungsverläufen.
+Abbildung \ref{fig:ldr-modellierung} verdeutlicht die Auswirkung auf das Bifurkationsdiagram durch unterschiedliche Spannungsverläufe.
 Wir stellten fest, dass das Bifurkationsdiagramm am besten am Oszilloskop zu sehen war, wenn wir den Definitionsbereich von oben nach unten ($V_s=V_{Ausgang} nach V_s=0V$) eingestellt haben (Abbildung \ref{fig:ldr-modellierung} rechts). In dieser Einstellung gab es am wenigsten Artefakte aufgrund der Ungenauigkeit des Funktionsgenerators. Wir erzeugten das Bifurkationsdiagramm zusätzlich mit einer Dreieckspannung (Abbildung \ref{fig:ldr-modellierung} mitte). Wie zu erwarten ergab sich so eine Überlagerung aus den beiden Sägezahnspannungen. 
 \begin{figure}[!htbp]
 \centering
@@ -602,9 +601,9 @@ Bereits bei der Oszillation der Spannung $V_d$ (vgl. Abbildung \ref{fig:ldr-real
 Die gemessenen Bifurkationsdiagrammen ähneln den berechneten Bifurkationsdiagrammen qualitativ.
 
 \section { Zusammenfassung }
-In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erhalten. Angefangen mit der Dreiecksgleichung und der logistischen Abbildung konnten wir bereits mit sehr einfachen Gleichungen Charakteristiken von Chaos beschreiben. Bei komplexeren Problemen wie dem Duffing-Oszillator wurde der Aspekt der Anfangsbedingungen deutlich, welche eine Form des Chaos beschreibt. Bei der Untersuchung des LDR-Schnwingkreis war es dann möglich die Chaos in einem realen System zu beobachten. Dabei waren zwar deutliche Parallelen zu den numerischen Berechnungen ersichtlich aber es wurde auch klar, dass es sich dabei nur um Modelle handelt und zusätzliche Effekte nicht berücksichtigt werden.
+In dem Versuch haben wir einen Einblick in die Welt des mathematischen Chaos erhalten. Angefangen mit der Dreiecksgleichung und der logistischen Abbildung konnten wir bereits mit sehr einfachen Gleichungen Charakteristiken von Chaos beschreiben. Bei komplexeren Problemen wie dem Duffing-Oszillator wurde der Aspekt der Anfangsbedingungen deutlich, welche eine Form des Chaos beschreibt. Bei der Untersuchung des LDR-Schnwingkreis war es dann möglich das Chaos in einem realen System zu beobachten. Dabei waren zwar deutliche Parallelen zu den numerischen Berechnungen ersichtlich aber es wurde auch klar, dass es sich dabei nur um Modelle handelt und zusätzliche Effekte nicht berücksichtigt werden.
 \subsection{Software}
-Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Rahmen des Versuches entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
+Wir haben für alle Grafiken einen eigenen Plotter genutzt. Diesen haben wir im Ramen des Versuches entwickelt. Dabei zeigten sich viele Aspekte welche wir in der nächsten Version des Plotters verbessern müssen.
 
 Für das generieren der Plotdaten haben wir verschiedene Wege ausprobiert:
 \begin{enumerate}

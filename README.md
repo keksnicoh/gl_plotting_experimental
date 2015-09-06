@@ -1,8 +1,14 @@
 OpenGL plotting experiments
 ============================
-Nicolas Heimann
+Nicolas Heimann, Jeese Hinrichsen. 
+repository to get practise writing plotting applications in opengl. 
+within this repo we did a project for our university: TODO final protocol.
 
-Jeese Hinrichsen
+A new repository was started: TODO LINK
+
+Some images:
+
+ 
 
 Logistic map:
 Development on growing Parameter r for equation: x=rx(1-x)

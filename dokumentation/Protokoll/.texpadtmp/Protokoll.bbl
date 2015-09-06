@@ -61,8 +61,8 @@
       \strng{namehash}{9deb01eecefa2169c75659ae27db4e6b}
       \strng{fullhash}{9deb01eecefa2169c75659ae27db4e6b}
       \field{sortinit}{P}
-      \field{labeltitle}{opengl_plot_prototype}
-      \field{title}{opengl_plot_prototype}
+      \field{labeltitle}{opengl plot prototype}
+      \field{title}{opengl plot prototype}
       \verb{url}
       \verb https://github.com/keksnicoh/opengl_plot_prototype.git
       \endverb
