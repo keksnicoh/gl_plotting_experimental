@@ -20,7 +20,8 @@
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
-  
+
+\usepackage{flafter}
 \usepackage[style=numeric]{biblatex}
 \usepackage[babel,german=guillemets]{csquotes}
 \usepackage[toc,page]{appendix}
@@ -393,11 +394,11 @@ Ganz bedeutend ändert sich der Attraktor bei Variation der Anfangsbedingungen. 
 \newline
 Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfangsbedingungen.
 \begin{figure}[!htbp]
-\includegraphics[scale=0.4]{duffing-awp2-500k-nach-500k-h0,01-runge}
-\includegraphics[scale=0.4]{duffing-awp3-500k-nach-500k-h0,01-runge}
-\includegraphics[scale=0.4]{duffing-awp4-500k-nach-500k-h0,01-runge}
-\includegraphics[scale=0.4]{duffing-awp5-500k-nach-500k-h0,01-runge}
-\caption{Phasenraumdiagramm mit Runge-Kutta. Links oben: $x_0=1.05$, $y_0=0.77$. Rechts oben: $x_0=-0.67$, $y_0=0.02$. Links unten: $x_0=-0.46$, $y_0=0.30$. Rechts unten: $x_0=-0.43$, $y_0=0.12$}. 
+\includegraphics[scale=0.20]{duffing-awp2-500k-nach-500k-h0,01-runge}
+\includegraphics[scale=0.20]{duffing-awp3-500k-nach-500k-h0,01-runge}
+\includegraphics[scale=0.20]{duffing-awp4-500k-nach-500k-h0,01-runge}
+\includegraphics[scale=0.20]{duffing-awp5-500k-nach-500k-h0,01-runge}
+\caption{Phasenraumdiagramme mit Runge-Kutta. Von links nach rechts: 1. $x_0=1.05$, $y_0=0.77$. 2. $x_0=-0.67$, $y_0=0.02$. 3. $x_0=-0.46$, $y_0=0.30$. 4. $x_0=-0.43$, $y_0=0.12$}. 
 \label{fig:duffing-allawp}
 \end{figure}
 Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Trotzdem beobachten wir auch weiterhin einen Übergang von Ordnung zu Chaos wenn wir bestimmte Parameter ändern. 
@@ -408,8 +409,8 @@ Ab einem bestimmten $\epsilon$ erhalten wir keinen eindeutigen Attraktor mehr, e
 Die gezeigten Phasenraumportraits sind Projektionen des dreidimensionalen Phasenraums $(x,y,\theta)$ auf die $(x,y)$ Ebene. Der Poincaré-Schnitt ist eine Abbildung aller $(x,y)$ welche eine bestimmte Ebene im Phasenraum schneiden. In Abbildung \ref{img:poincare-772} (rechts) sieht man einen Poincaré-Schnitt des Duffing-Oszillators bei $\theta=0$ und das entsprechende Phasenraumdiagramm (links).
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[scale=0.40]{duffing-phase-RK-lambda0,04-h0,001}
-	\includegraphics[scale=0.40]{duffing-poincare-2000k-after100k-euler-lambda0,04-eps7,5}
+	\includegraphics[scale=0.38]{duffing-phase-RK-lambda0,04-h0,001}
+	\includegraphics[scale=0.38]{duffing-poincare-2000k-after100k-euler-lambda0,04-eps7,5}
 	\caption{Phasenraumdiagram und Poincaré-Schnitt des Duffing Oszillators für $\epsilon=7.5$, $x=0.21$,$ y=0.02$, $\lambda=0.04$, $\beta=1$, $\theta=1$.}
 	\label{img:poincare-772}
 \end{figure}
@@ -418,7 +419,7 @@ Die gezeigten Phasenraumportraits sind Projektionen des dreidimensionalen Phasen
 Im folgenden untersuchen wir einen realen nichtlinearen Schwingkreis. Dieser wurde realisiert indem bei einem LCR-Schwingkreis der Kondensator durch eine Diode ausgetauscht wurde (Abbildung \ref{img:schaltskizze})
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[scale=0.60]{schaltskizze}
+	\includegraphics[scale=0.50]{schaltskizze}
 	\caption{Schaltskizze für nichtlinearen Schwingkreis. Quelle: Versuchsanleitung, S. 43, Uni Hamburg}
 	\label{img:schaltskizze}
 \end{figure}
@@ -474,40 +475,40 @@ Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ g
 Bei einer Anregungsspannung im Grenzfall $V_s < 0.001V$ erhalten wir die Lösungen des angetriebenen gedämpften harmonischen Oszillators, denn bei $V_s \approx 0$ verschwindet der nicht-linearen Term in den Gleichungen. 
 Erhöhen wir die Spannung $V_s>1V$, so finden wir weitere Attraktoren (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (Mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
 \begin{figure}[!htbp]
+\centering
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
 \includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,42V}
-\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$.}
+\caption{Phasenraumdiagramme mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$.}
 \label{fig:ldr-0002}
 \end{figure}
 Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein Maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und anschließend wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} Mitte und rechts).
 \begin{figure}[!htbp]
-\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-20V}
-\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-30V}
-\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere120k-10-9-34V}
-\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=20V$ für $2\cdot10^4$ Zeitschritte, Mitte: $V_s=30V$ für $2\cdot10^4$ Zeitschritte. Rechts: $V_s=34V$ für $1.2\cdot10^5$ Zeitschritte}. 
+\centering
+\includegraphics[scale=0.26]{schwing-runge-nach300k-weitere20k-10-9-20V}
+\includegraphics[scale=0.26]{schwing-runge-nach300k-weitere20k-10-9-30V}
+\includegraphics[scale=0.26]{schwing-runge-nach300k-weitere120k-10-9-34V}
+\caption{Phasenraumdiagramme mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=20V$ für $2\cdot10^4$ Zeitschritte, Mitte: $V_s=30V$ für $2\cdot10^4$ Zeitschritte. Rechts: $V_s=34V$ für $1.2\cdot10^5$ Zeitschritte}. 
 \label{fig:ldr-0003}
 \end{figure}
 \newline
 Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Beispielsweise erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts).
 \begin{figure}[!htbp]
-\includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
-\includegraphics[scale=0.42]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
-\caption{Phasenraumdiagramm mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten für weitere $5\cdot10^4$ Zeitschritte bei einer Schrittweite von $h=10^{-8}$. Links: Wohldefinierter Attraktor. Rechts: Chaos}. 
+\centering
+\includegraphics[scale=0.36]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
+\includegraphics[scale=0.36]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
+\caption{Phasenraumdiagramme mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten für weitere $5\cdot10^4$ Zeitschritte bei einer Schrittweite von $h=10^{-8}$. Links: Wohldefinierter Attraktor. Rechts: Chaos}. 
 \label{fig:ldr-0004}
 \end{figure}
 Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005} und \ref{fig:ldr-0006}) bis hin zum Chaos.
 \begin{figure}[!htbp]
-\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,4V}
-\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-3,6V}
-\caption{Phasenraumdiagramm mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Links: $V_s=3.4V$, Rechts: $V_s=3.6V$}. 
+\centering
+\includegraphics[scale=0.20]{schwing-euler-nach2500k-weitere100k-3,4V}
+\includegraphics[scale=0.20]{schwing-euler-nach2500k-weitere100k-3,6V}
+\includegraphics[scale=0.20]{schwing-euler-nach2500k-weitere100k-4,4V}
+\includegraphics[scale=0.20]{schwing-euler-nach2500k-weitere100k-4,602V}
+\caption{Phasenraumdiagramme mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Von links nach rechts: 1. $V_s=3.4V$, 2. $V_s=3.6V$, 3.$V_s=4.4V$, 4.$V_s=4.602V$ }. 
 \label{fig:ldr-0005}
-\end{figure}
-\begin{figure}[!htbp]
-\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-4,4V}
-\includegraphics[scale=0.42]{schwing-euler-nach2500k-weitere100k-4,602V}
-\caption{Phasenraumdiagramm mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Links: $V_s=4.4V$, Rechts: $V_s=4.602V$}. 
-\label{fig:ldr-0006}
 \end{figure}
 
 \subsubsection{Poincaré-Schnitt}
