@@ -467,21 +467,21 @@ haben wir für unterschiedliche Anregungsspannungen $V_s$ numerisch die Gleichun
 Um sinnvolle Lösungen zu erhalten muss für die Schrittweite $h \geq 10^{-8}$ gelten. Diese oszillierenden Lösungen für den Strom und die Spannung über der Diode sind in Abbildung \ref{fig:ldr-oszi} dargestellt. Strom und Spannung oszillieren mit gleicher Phase und pendeln sich nach gewisser Zeit unabhängig von den Anfangsbedingungen ein.
 \begin{figure}[!htbp]
 \centering
-\includegraphics[height=200px,width=400px]{runge-oszillation-100k-2V}
+\includegraphics[height=180px,width=300px]{runge-oszillation-100k-2V}
 \caption{Oszillation von Strom (schwarz) und Spannung (rot) bei $V_s=2V$ mit Runge-Kutta-Verfahren 4ter Ordnung}. 
 \label{fig:ldr-oszi}
 \end{figure}
 \subsubsection{Phasenraumdiagramme}
-Bei einer Anregungsspannung im Grenzfall $V_s < 0.001V$ erhalten wir die Lösungen des angetriebenen gedämpften harmonischen Oszillators, denn bei $V_s \approx 0$ verschwindet der nicht-linearen Term in den Gleichungen. 
-Erhöhen wir die Spannung $V_s>1V$, so finden wir weitere Attraktoren (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (Mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
+Bei einer Anregungsspannung im Grenzfall $V_s < 0.001V$ erhalten wir die Lösungen des angetriebenen gedämpften harmonischen Oszillators, denn bei $V_s \approx 0$ verschwindet der nicht-linearen Term in den Gleichungen.
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1V}
-\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
-\includegraphics[scale=0.28]{schwing-runge-nach300k-weitere20k-10-9-1,42V}
+\includegraphics[scale=0.26]{schwing-runge-nach300k-weitere20k-10-9-1V}
+\includegraphics[scale=0.26]{schwing-runge-nach300k-weitere20k-10-9-1,2V}
+\includegraphics[scale=0.26]{schwing-runge-nach300k-weitere20k-10-9-1,42V}
 \caption{Phasenraumdiagramme mit Runge-Kutta 4ter Ordnung für $2\cdot10^4$ Zeitschritte nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten und einer Schrittweite von $h=10^{-9}$. Links: $V_s=1V$, Mitte: $V_s=1.2V$. Rechts: $V_s=1.42V$.}
 \label{fig:ldr-0002}
 \end{figure}
+Erhöhen wir die Spannung $V_s>1V$, so finden wir weitere Attraktoren (Abbildung \ref{fig:ldr-0002}). Dabei ist bei $V_s=1V$ (links) die Trajektorie wohl definiert, während bei $V_s=1.2V$ (Mitte) sie sich langsam aufspaltet und bei $V_s=1.42V$ (rechts) auf 2 Pfaden durch den Phasenraum verläuft.
 Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie bei ca. $V_s=20V$ ein Maximum erreichen (Abbildung \ref{fig:ldr-0003} links) und anschließend wieder zusammen gehen und chaotisches verhalten zeigen (Abbildung \ref{fig:ldr-0003} Mitte und rechts).
 \begin{figure}[!htbp]
 \centering
@@ -495,12 +495,11 @@ Je höher $V_s$ wird, desto stärker gehen die Trajektorien auseinander bis sie 
 Nach Änderung des Zeitschrittes $h$ auf $h=10^{-8}$ haben wir sehr unterschiedliche Beobachtungen gemacht. Beispielsweise erhalten wir bei $V_s=9.1300024986267072V$ einen eindeutigen Attraktor (Abbildung \ref{fig:ldr-0004} links) und Chaos bei einer einem Wert $10^{-15}V$ größer (rechts).
 \begin{figure}[!htbp]
 \centering
-\includegraphics[scale=0.36]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
-\includegraphics[scale=0.36]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
+\includegraphics[scale=0.33]{schwing-runge-nach300k-weitere50k-10-8-searching-chaos1}
+\includegraphics[scale=0.33]{schwing-runge-nach300k-weitere50k-10-8-finding-chaos1}
 \caption{Phasenraumdiagramme mit Runge-Kutta 4ter Ordnung nach einer Einschwingzeit von  $3\cdot10^5$ Zeitschritten für weitere $5\cdot10^4$ Zeitschritte bei einer Schrittweite von $h=10^{-8}$. Links: Wohldefinierter Attraktor. Rechts: Chaos}. 
 \label{fig:ldr-0004}
 \end{figure}
-Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005} und \ref{fig:ldr-0006}) bis hin zum Chaos.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.20]{schwing-euler-nach2500k-weitere100k-3,4V}
@@ -510,15 +509,18 @@ Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein andere
 \caption{Phasenraumdiagramme mit Euler-Cauchy-Verfahren nach Einschwingzeit von $2.5\cdot10^6$ Zeitschritten für weitere $10^5$ Zeitschritte. Von links nach rechts: 1. $V_s=3.4V$, 2. $V_s=3.6V$, 3.$V_s=4.4V$, 4.$V_s=4.602V$ }. 
 \label{fig:ldr-0005}
 \end{figure}
-
+Unter Verwendung des Euler-Cauchy-Verfahrens beobachten wir teilweise ein anderes Verhalten. So können wir im Bereich von $V_s=3V$ bis $V_s=4.7V$ mehrere Periodenverdopplungen beobachten (Abbildung \ref{fig:ldr-0005}) bis hin zum Chaos.
+\pagebreak
 \subsubsection{Poincaré-Schnitt}
- Im chaotischen Fall können wir wie beim Duffing-Oszillator seltsame Attrakoren finden (vgl. Abbildung \ref{fig:ldr-poin1}).
+ Im chaotischen Fall können wir wie beim Duffing-Oszillator seltsame Attrakoren finden (vgl. Abbildung \ref{fig:ldr-poin1}). Dabei fällt auf, dass die Trajektorie nur bis $V_d\approx1.4V$ die Ebene bei $\theta=0$ schneiden. Daraus schließen wir, dass die Trajektorie in einer gewissen Periodizität zwischen kleinen $V_d$ und großen $V_d$ oszilliert.
 \begin{figure}[!htbp]
-\includegraphics[scale=0.4]{schwing-v5-euler}
-\includegraphics[scale=0.4]{schwing-v5-euler-poincare}
+\centering
+\includegraphics[scale=0.33]{schwing-v5-euler}
+\includegraphics[scale=0.33]{schwing-v5-euler-poincare}
 \caption{$5\cdot10^5$ Zeitschritte nach einer Einschwingzeit von $\cdot10^5$ Zeitschritten bei $V_s=5V$. Links: Phasenraumdiagramm. Rechts: Poincaré-Schnitt durch $\theta=0$ Ebene}
 \label{fig:ldr-poin1}
 \end{figure}
+
 \subsubsection{Bifurkationsdiagramm-Diagramm}
 Um den Bereich von Chaos und Ordnung zu visualisieren, haben wir im folgenden separat für Strom und Spannung das Bifurkationsdiagramm geplottet. Dabei ist der variierende Parameter die Eingangsspannung $V_s$.
 \begin{figure}[!htbp]
@@ -628,14 +630,7 @@ Nach dem Versuch wurde das Github repository des Versuches nicht mehr weiterentw
 \label{fig:bsp-opencl}
 \end{figure}
 
-
-
-\section{ Literatur }
-\nocite{*}
-\printbibliography
-\pagebreak
 \section{Appendix}
-
 \subsection {Runge-Kutta 4ter Ordnung in 3 Dimensionen}
 Hängt $f$ von mehr als nur x und t ab, so lassen sich weitere Parameter ebenfalls mit der selben Idee variieren.
 Gegeben seien folgende Differentialgleichungen:
@@ -653,6 +648,10 @@ $$l_4 = hg(x_n+hk_3,y_n+hl_3,t+h)$$
 Und schließlich:
 $$y_{n+1} = y_n + \frac{k_1 + 2k_2 + 2k_3 + k_4}{6}$$
 $$x_{n+1} = x_n + \frac{l_1 + 2l_2 + 2l_3 + l_4}{6}$$
+
+\nocite{*}
+\printbibliography
+
 
 
 

@@ -36,28 +36,26 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {4.2.1}Phasenraumdiagramme}{16}{subsubsection.4.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.2}Poincar\IeC {\'e}-Schnitt}{16}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2}Poincar\IeC {\'e}-Schnitt}{18}{subsubsection.4.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.3}Bifurkationsdiagramm-Diagramm}{16}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.3}Bifurkationsdiagramm-Diagramm}{18}{subsubsection.4.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3} Versuchsdurchf\IeC {\"u}hrung }{20}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.3} Versuchsdurchf\IeC {\"u}hrung }{19}{subsection.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.1} Versuchsaufbau}{20}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1} Versuchsaufbau}{19}{subsubsection.4.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2} Oszillation und Phasenraumdiagramm }{20}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2} Oszillation und Phasenraumdiagramm }{19}{subsubsection.4.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4} Bifurkationsdiagramm }{21}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.4} Bifurkationsdiagramm }{20}{subsection.4.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.5} Vermessung der Bifurkationspunkte }{21}{subsection.4.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.6} Auswertung }{22}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.6} Auswertung }{21}{subsection.4.6}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5} Zusammenfassung }{22}{section.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}Software}{23}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.1}Software}{22}{subsection.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6} Literatur }{24}{section.6}
+\contentsline {section}{\numberline {6}Appendix}{23}{section.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Appendix}{25}{section.7}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Runge-Kutta 4ter Ordnung in 3 Dimensionen}{25}{subsection.7.1}
+\contentsline {subsection}{\numberline {6.1}Runge-Kutta 4ter Ordnung in 3 Dimensionen}{23}{subsection.6.1}
