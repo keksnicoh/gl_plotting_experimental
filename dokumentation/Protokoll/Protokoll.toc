@@ -4,7 +4,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Logistische Abbildung}{3}{section.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1}Fixpunkte / Stabilit\IeC {\"a}tsbedigung}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.1}Fixpunkte / Stabilit\IeC {\"a}tsbedingung}{3}{subsection.1.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.2}Konvergenzverhalten}{5}{subsection.1.2}
 \defcounter {refsection}{0}\relax 
@@ -16,7 +16,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {1.4.2}Betrachtung im chaotischen Bereich.}{7}{subsubsection.1.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.4.3}Vergleich der analytischen und renomierten Implementation}{8}{subsubsection.1.4.3}
+\contentsline {subsubsection}{\numberline {1.4.3}Vergleich der analytischen und renormierten Implementation}{8}{subsubsection.1.4.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.5}Feigenbaumkonstante}{9}{subsection.1.5}
 \defcounter {refsection}{0}\relax 
@@ -44,7 +44,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {4.3.1} Versuchsaufbau}{20}{subsubsection.4.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2} Oszillation und Phasenraumdiagram }{20}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2} Oszillation und Phasenraumdiagramm }{20}{subsubsection.4.3.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.4} Bifurkationsdiagramm }{22}{subsection.4.4}
 \defcounter {refsection}{0}\relax 
