@@ -1,11 +1,11 @@
 \BOOKMARK [1][-]{section.1}{Logistische Abbildung}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Fixpunkte / Stabilit\344tsbedigung}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.1}{Fixpunkte / Stabilit\344tsbedingung}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Konvergenzverhalten}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{Betrachtung von Extremwerten}{section.1}% 4
 \BOOKMARK [2][-]{subsection.1.4}{Lyapunov Exponent}{section.1}% 5
 \BOOKMARK [3][-]{subsubsection.1.4.1}{Konvergenzverhalten}{subsection.1.4}% 6
 \BOOKMARK [3][-]{subsubsection.1.4.2}{Betrachtung im chaotischen Bereich.}{subsection.1.4}% 7
-\BOOKMARK [3][-]{subsubsection.1.4.3}{Vergleich der analytischen und renomierten Implementation}{subsection.1.4}% 8
+\BOOKMARK [3][-]{subsubsection.1.4.3}{Vergleich der analytischen und renormierten Implementation}{subsection.1.4}% 8
 \BOOKMARK [2][-]{subsection.1.5}{Feigenbaumkonstante}{section.1}% 9
 \BOOKMARK [1][-]{section.2}{Sinus Abbildung}{}% 10
 \BOOKMARK [1][-]{section.3}{ Duffing-Gleichung}{}% 11
@@ -19,12 +19,11 @@
 \BOOKMARK [3][-]{subsubsection.4.2.3}{Bifurkationsdiagramm-Diagramm}{subsection.4.2}% 19
 \BOOKMARK [2][-]{subsection.4.3}{ Versuchsdurchf\374hrung }{section.4}% 20
 \BOOKMARK [3][-]{subsubsection.4.3.1}{ Versuchsaufbau}{subsection.4.3}% 21
-\BOOKMARK [3][-]{subsubsection.4.3.2}{ Oszillation und Phasenraumdiagram }{subsection.4.3}% 22
+\BOOKMARK [3][-]{subsubsection.4.3.2}{ Oszillation und Phasenraumdiagramm }{subsection.4.3}% 22
 \BOOKMARK [2][-]{subsection.4.4}{ Bifurkationsdiagramm }{section.4}% 23
 \BOOKMARK [2][-]{subsection.4.5}{ Vermessung der Bifurkationspunkte }{section.4}% 24
 \BOOKMARK [2][-]{subsection.4.6}{ Auswertung }{section.4}% 25
 \BOOKMARK [1][-]{section.5}{ Zusammenfassung }{}% 26
 \BOOKMARK [2][-]{subsection.5.1}{Software}{section.5}% 27
-\BOOKMARK [1][-]{section.6}{ Literatur }{}% 28
-\BOOKMARK [1][-]{section.7}{Appendix}{}% 29
-\BOOKMARK [2][-]{subsection.7.1}{Runge-Kutta 4ter Ordnung in 3 Dimensionen}{section.7}% 30
+\BOOKMARK [1][-]{section.6}{Appendix}{}% 28
+\BOOKMARK [2][-]{subsection.6.1}{Runge-Kutta 4ter Ordnung in 3 Dimensionen}{section.6}% 29
