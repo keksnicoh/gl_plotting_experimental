@@ -33,4 +33,5 @@ vec4 f(vec2 pc) {
 
 window = PlotterWindow(axis=(30.0,30.0), origin=(15.0, 15.0), plot_time=True)
 window.plotter.add_graph('bla', graph.Field2d(KERNEL))
+
 window.run()

@@ -74,8 +74,14 @@ $$\textit{Im folgenden bezeichnet }f^2(x) = f(f(x))$$
 
 \section{Logistische Abbildung}
 Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zeigt sich das diese einfache Funktionsvorschrift 
-bereits chaotisches Verhalten an den Tag legt welches wir im folgenden Abschnitt genauer untersucht haben. Zunächst haben 
-wir ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ gegen die Ordinate aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
+bereits chaotisches Verhalten an den Tag legt welches wir im folgenden Abschnitt genauer untersucht haben.
+\newline
+Im folgenden betrachten wir nur $r>0$
+Es sei gezeigt, dass $f^N(x)$ für beliebige $r>0$ divergiert, wenn $x \notin[0,1] $.
+Für $x>1$ folgt $f(x)<0$. Für $x<0$ folgt $f(x)<x\cdot r$.
+Damit gilt $\lim_{N \rightarrow \infty} f^N = -\infty$
+\newline
+Zunächst haben wir ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ gegen die Ordinate aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
 Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Periodenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strukturen feststellen lassen (Bögen, Punkte auf Geraden, freie Bereiche).
 \begin{figure}[!htbp]
 	\centering
@@ -84,8 +90,9 @@ Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ 
 	\label{fig:bifurkation-sin-nice}
 \end{figure}
 \subsection{Fixpunkte / Stabilitätsbedingung}
-Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x)=x$ $\forall n \iff x$ ist Fixpunkt. 
-Stabilitätsbedingung:
+Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpunkt, es gilt: $f^n(x)=x$ $\forall n \iff x$ ist Fixpunkt. Des weiteren unterscheidet man zwischen stabilen und instabilen Fixpunkten. Ist der Fixpunkt stabil so konvergiert $f^n(x)$ für beliebige Anfangswerte bei steigendem $n$ gegen diesen Fixpunkt. Im Fall des instabilen Fixpunktes entfernt sich das Ergebnis nach jeder Iteration vom Fixpunkt.
+\newline
+Stabilitätsbedingung: Sei $x$ ein Fixpunkt, dann gilt
 \begin{equation} |f'(x)|<1 \iff Fixpunkt-stabil \end{equation}
 \begin{equation} |f'(x)|>1 \iff Fixpunkt-instabil \end{equation}
 Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Aus der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
@@ -390,7 +397,7 @@ Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\b
 Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h \approx 0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (Mitte). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h \approx 2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
 
 Im folgenden sind alle Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung implementiert.
-Ganz bedeutend ändert sich der Attraktor bei Variation der Anfangsbedingungen. Variieren wir $x_0$ so bleibt der Attraktor identisch zu $x_0=0.18$ während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
+Ganz bedeutend ändert sich der Attraktor bei Variation der Anfangsbedingungen. Variieren wir lediglich $x_0$ und lassen $y_0=0.02$, bei einer Schrittweite von $h=0.01$, so erhalten wir bei $x_0=0.18$ einen Attraktor wie in  Abbildung \ref{fig:duffing-awp1} (Mitte) während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
 \newline
 Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfangsbedingungen.
 \begin{figure}[!htbp]
@@ -398,7 +405,7 @@ Abbildung \ref{fig:duffing-allawp} zeigt Attraktoren bei unterschiedlichen Anfan
 \includegraphics[scale=0.20]{duffing-awp3-500k-nach-500k-h0,01-runge}
 \includegraphics[scale=0.20]{duffing-awp4-500k-nach-500k-h0,01-runge}
 \includegraphics[scale=0.20]{duffing-awp5-500k-nach-500k-h0,01-runge}
-\caption{Phasenraumdiagramme mit Runge-Kutta. Von links nach rechts: 1. $x_0=1.05$, $y_0=0.77$. 2. $x_0=-0.67$, $y_0=0.02$. 3. $x_0=-0.46$, $y_0=0.30$. 4. $x_0=-0.43$, $y_0=0.12$}. 
+\caption{Phasenraumdiagramme mit Runge-Kutta bei einer Schrittweite von $h=0.01$. Von links nach rechts: 1. $x_0=1.05$, $y_0=0.77$. 2. $x_0=-0.67$, $y_0=0.02$. 3. $x_0=-0.46$, $y_0=0.30$. 4. $x_0=-0.43$, $y_0=0.12$}. 
 \label{fig:duffing-allawp}
 \end{figure}
 Im Fall des Duffing-Oszillators beobachten wir folglich Chaos im Sinne, dass die Attraktoren sich deutlich unterscheiden wenn die Anfangsbedingungen nur marginal verändert werden. Weiterhin erhalten wir einen Übergang von Ordnung zu Chaos wenn wir z.B. die Anregungsamplitude $\epsilon$ ändern. Ganz analog zum Parameter r bei der logistischen Abbildung.
