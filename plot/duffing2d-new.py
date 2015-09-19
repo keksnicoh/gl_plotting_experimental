@@ -181,7 +181,7 @@ POINCARE_RK = """
     }
 """
 
-active_cl_kernel = POINCARE_EULER
+active_cl_kernel = PHASE_KERNEL_RK
 
 (x_0, y_0) = (0.21, 0.02) #small 1
 #(x_0, y_0) = (0.17, 0.02) #custom
@@ -192,15 +192,15 @@ active_cl_kernel = POINCARE_EULER
 #(x_0, y_0) = (-0.43, 0.12) #small 5
 #(x_0, y_0) = (3.0,4.0)
 
-#(lambd, epsilon) = (0.08, 0.2)
+(lambd, epsilon) = (0.08, 0.2)
 #(lambd, epsilon) = (0.2, 1.0)
 #(lambd, epsilon) = (0.4, 7.5)
-(lambd, epsilon) = (0.04, 7.5)
+#(lambd, epsilon) = (0.04, 7.5)
 
 offset = 100000
-length = 2000000
+length = 500000
 
-h = 0.05
+h = 0.01
 
 def calculate_pythone():
     data = numpy.zeros(length, dtype=numpy.float32)

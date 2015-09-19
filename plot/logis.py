@@ -2,7 +2,7 @@ from plotting.app import PlotterWindow
 from plotting import graph, domain, widget
 
 r = 1.0
-x_0 = 0.1
+x_0 = 1
 
 NORMAL = """
 vec4 f(vec4 x) {
@@ -40,7 +40,7 @@ KERNEL = """
 
 
 
-window = PlotterWindow(axis=(1.0,1.0), origin=(0.0,0.0), x_label='x_n', y_label='x_n')
+window = PlotterWindow(axis=(3.0,3.0), origin=(1.5,1.5), x_label='x_n', y_label='x_n')
 
 log_domain = domain.Logistic(1000, x_0, r)
 
@@ -55,7 +55,7 @@ window.plotter.add_graph('Logistische Abbildung2', graph.Discrete2d(axis_domain,
 
 
 uniforms = window.plotter.get_uniform_manager()
-uniforms.set_global('r', r)
+uniforms.set_global('r', r, 0.1)
 #uniforms.set_global('n', 1.0)
 window.add_widget('manipulate', widget.Uniforms(uniforms, update_callback=update_uniform))
 window.run()
