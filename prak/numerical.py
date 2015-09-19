@@ -3,7 +3,7 @@ import numpy
 def iteration(f, l=100):
     data=numpy.zeros(l*2)
     data[0] = 0
-    data[1] = f(0.5)
+    data[1] = 0.2
     for i in range(1, l):
         data[i*2] = i 
         data[i*2 +1] = f(data[i*2 -1])

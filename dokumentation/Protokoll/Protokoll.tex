@@ -76,12 +76,47 @@ $$\textit{Im folgenden bezeichnet }f^2(x) = f(f(x))$$
 Die logistische Abbildung ist gegeben durch $f(x_n)=x_{n+1}=rx_n(1-x_n)$. Es zeigt sich das diese einfache Funktionsvorschrift 
 bereits chaotisches Verhalten an den Tag legt welches wir im folgenden Abschnitt genauer untersucht haben.
 \newline
-Im folgenden betrachten wir nur $r>0$
-Es sei gezeigt, dass $f^N(x)$ für beliebige $r>0$ divergiert, wenn $x \notin[0,1] $.
-Für $x>1$ folgt $f(x)<0$. Für $x<0$ folgt $f(x)<x\cdot r$.
-Damit gilt $\lim_{N \rightarrow \infty} f^N = -\infty$
-\newline
-Zunächst haben wir ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ gegen die Ordinate aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
+Betrachtet man die Folge $x_n$ stellt man fest, dass diese für bestimmt $(x_0, r)$ konvergiert und für andere $(x_0, r)$ nicht konvergiert. In Abbildung \ref{fig:logi-disk} ist die Folge $x_n$ für verschiedene Parameter r visualisiert: 
+\begin{itemize}
+\item Oben links ($r=2.8$): hier deutet sich an, dass $x_n$ eine konvergente Folge ist. Bereits 
+nach wenigen Iterationen ist der Grenzwert erreicht. 
+\item Oben rechts ($r=3.2$): es existiert kein eindeutiger Grenzwert. Vielmehr scheint $x_n$ gegen eine alternierende Folge zu konvergieren.
+\item Unten links ($r=3.45$): es zeigt sich, dass nun 4 bestimmte Werte abwechselnd abgebildet werden.
+\item Unten rechts ($r=3.8$): es ist keine Korrelation zwischen den Folgegliedern zu erkennen.
+\end{itemize}
+Obwohl für $r=3.2$ und $r=3.45$ kein eindeutiger Grenzwert existiert, scheint eine Struktur erkennbar zu sein, denn hier alterniert $x_n$ zwischen verschiedenen Werten in $[0,1]$. 
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=200px]{logi/xn28}
+	\includegraphics[width=200px]{logi/xn32}
+	\includegraphics[width=200px]{logi/xn345}
+	\includegraphics[width=200px]{logi/xn38}
+	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
+	\label{fig:logi-disk}
+\end{figure}
+Die logistische Abbildung ist eine Parabel $\Rightarrow$ $f^n(x)$ ist ein Polynom vom Grad $2n$. 
+In Abbildung \ref{fig:logi-disk} wurde für einen festen Startwert die Folge $x_n$ aufgetragen. Um nun  beliebige Startwerte zu untersuchen haben wir in Abbildung \ref{fig:logi-kont} das Polynom $f^{100}(x)$ vom Grad 200 dargestellt: 
+\begin{itemize}
+\item Oben links($r=2.8$): $f^{100}(x)$ konvergiert gegen eine konstante Funktion $g(x)=c \in \mathbb{R}$.
+\item Oben recht($r=3.05$): $\lim_{N->\infty} f^N(x) \in \{y_0, y_1\} \forall x \in [0,1]$.
+\item Unten links($r=3.45$): $\lim_{N->\infty} f^N(x) \in \{y_0, y_1, y_2, y_3\} \forall x \in [0,1]$.
+\item Unten rechts($r=3.56$): $\lim_{N->\infty} f^N(x) \in \{y_0, y_1, y_2, y_3, y_4, y_5\} \forall x \in [0,1]$.
+\end{itemize}
+Das Langzeitverhalten der Folge $x_n$ hängt also nicht vom Startwert ab. 
+Betrachtet man den Graphen für $r=3.45$ stellt man fest, dass der Graph bei $r=3.05$ in diesem Graph wieder mehrfach wiederzufinden ist. $f^{\infty}$ scheint ein fraktales Objekt zu sein (Selbstänhnlichkeit). 
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=200px]{logi/kurve280}
+	\includegraphics[width=200px]{logi/kurve305}
+	\includegraphics[width=200px]{logi/kurve347}
+	\includegraphics[width=200px]{logi/kurve356}
+	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
+	\label{fig:logi-kont}
+\end{figure}
+
+\subsection{Bifurkationsdiagramm}
+Wir haben ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ gegen die Ordinate aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
 Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Periodenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strukturen feststellen lassen (Bögen, Punkte auf Geraden, freie Bereiche).
 \begin{figure}[!htbp]
 	\centering
