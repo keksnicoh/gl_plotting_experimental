@@ -85,16 +85,16 @@ nach wenigen Iterationen ist der Grenzwert erreicht.
 \item Unten rechts ($r=3.8$): es ist keine Korrelation zwischen den Folgegliedern zu erkennen.
 \end{itemize}
 Obwohl für $r=3.2$ und $r=3.45$ kein eindeutiger Grenzwert existiert, scheint eine Struktur erkennbar zu sein, denn hier alterniert $x_n$ zwischen verschiedenen Werten in $[0,1]$. 
-
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=200px]{logi/xn28}
-	\includegraphics[width=200px]{logi/xn32}
-	\includegraphics[width=200px]{logi/xn345}
-	\includegraphics[width=200px]{logi/xn38}
-	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
+	\includegraphics[width=170px]{logi/xn28}
+	\includegraphics[width=170px]{logi/xn32}
+	\includegraphics[width=170px]{logi/xn345}
+	\includegraphics[width=170px]{logi/xn38}
+	\caption{Logistische Abbildung nach 25 Iteration für den Startwert $x_0=0.2$. Links oben: $r=2.8$, rechts oben: $r_3.2$, links unten: $r=3.45$, rechts unten: $r=3.8$}
 	\label{fig:logi-disk}
 \end{figure}
+\newline
 Die logistische Abbildung ist eine Parabel $\Rightarrow$ $f^n(x)$ ist ein Polynom vom Grad $2n$. 
 In Abbildung \ref{fig:logi-disk} wurde für einen festen Startwert die Folge $x_n$ aufgetragen. Um nun  beliebige Startwerte zu untersuchen haben wir in Abbildung \ref{fig:logi-kont} das Polynom $f^{100}(x)$ vom Grad 200 dargestellt: 
 \begin{itemize}
@@ -111,7 +111,7 @@ Betrachtet man den Graphen für $r=3.45$ stellt man fest, dass der Graph bei $r=
 	\includegraphics[width=200px]{logi/kurve305}
 	\includegraphics[width=200px]{logi/kurve347}
 	\includegraphics[width=200px]{logi/kurve356}
-	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
+	\caption{Logistische Abbildung nach 100 Iterationsschritten für $x_0\in[0,1]$. Links oben: $r=2.8$, rechts oben: $r_3.05$, links unten: $r=3.45$, rechts unten: $r=3.56$}
 	\label{fig:logi-kont}
 \end{figure}
 
