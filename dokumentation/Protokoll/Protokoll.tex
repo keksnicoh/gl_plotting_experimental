@@ -130,7 +130,16 @@ Bildet die Funktion einen Punkt idempotent ab, so handelt es sich um einen Fixpu
 Stabilitätsbedingung: Sei $x$ ein Fixpunkt, dann gilt
 \begin{equation} |f'(x)|<1 \iff Fixpunkt-stabil \end{equation}
 \begin{equation} |f'(x)|>1 \iff Fixpunkt-instabil \end{equation}
-Mit $ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Aus der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
+Dies lässt sich überprüfen, indem man $x$ als Störung des Fixpunktes ausdrückt und linear approximiert. Es sei $x_{n+1} = f(x_n)=f(x^*+\delta)$, wobei $x^*$ ein Fixpunkt von $f(x)$ ist. Dann folgt für die Taylorentwicklung 1ten Grades
+\begin{equation}
+x_{n+1} = f(x^*+\delta)=f(x^*)+f'(x^*)\delta
+\end{equation}
+\begin{equation}
+\Leftrightarrow x_{n+1} - x^* = f'(x^*)\delta = (x_n - x^*)f'(x^*)
+\end{equation}
+Damit $x_n$ tatsächlich gegen $x^*$ konvergiert also $x^*$ ein stabiler Fixpunkt ist, muss $|x_{n+1}-x^*| < |x_n-x^*| \Leftrightarrow |f'(x^*)|<1$
+\newline
+Für die logistische Abbildung haben wir die Fixpunktgleichung$ f(x)=rx(1-x)=x $ folgen die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Aus der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
 \begin{equation}
 -1 < r < 1: x_{0} \text{ stabil}, r > 1: x_{0} \text{ instabil}
 \end{equation}
