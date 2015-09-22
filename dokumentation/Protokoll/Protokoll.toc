@@ -6,58 +6,58 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.1}Bifurkationsdiagramm}{4}{subsection.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2}Fixpunkte / Stabilit\IeC {\"a}tsbedingung}{5}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.2}Fixpunkte / Stabilit\IeC {\"a}tsbedingung}{4}{subsection.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3}Konvergenzverhalten}{7}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.3}Konvergenzverhalten}{6}{subsection.1.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.4}Betrachtung von Extremwerten}{7}{subsection.1.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.5}Lyapunov Exponent}{8}{subsection.1.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.5.1}Konvergenzverhalten}{9}{subsubsection.1.5.1}
+\contentsline {subsubsection}{\numberline {1.5.1}Konvergenzverhalten}{8}{subsubsection.1.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.5.2}Betrachtung im chaotischen Bereich.}{9}{subsubsection.1.5.2}
+\contentsline {subsubsection}{\numberline {1.5.2}Betrachtung im chaotischen Bereich.}{8}{subsubsection.1.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.5.3}Vergleich der analytischen und renormierten Implementation}{10}{subsubsection.1.5.3}
+\contentsline {subsubsection}{\numberline {1.5.3}Vergleich der analytischen und renormierten Implementation}{9}{subsubsection.1.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.6}Feigenbaumkonstante}{11}{subsection.1.6}
+\contentsline {subsection}{\numberline {1.6}Feigenbaumkonstante}{10}{subsection.1.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Sinus Abbildung}{12}{section.2}
+\contentsline {section}{\numberline {2}Sinus Abbildung}{11}{section.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3} Duffing-Gleichung}{14}{section.3}
+\contentsline {section}{\numberline {3} Duffing-Gleichung}{13}{section.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1} Phasenraumdiagramm }{14}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.1} Phasenraumdiagramm }{13}{subsection.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2} Poincareschnitt }{15}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.2} Poincareschnitt }{14}{subsection.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}LDR-Oszillator}{16}{section.4}
+\contentsline {section}{\numberline {4}LDR-Oszillator}{14}{section.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1} Theorie }{16}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1} Theorie }{14}{subsection.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2} Numerische Berechnungen }{17}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.2} Numerische Berechnungen }{15}{subsection.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.1}Phasenraumdiagramme}{18}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1}Phasenraumdiagramme}{17}{subsubsection.4.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.2}Poincar\IeC {\'e}-Schnitt}{20}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2}Poincar\IeC {\'e}-Schnitt}{18}{subsubsection.4.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.3}Bifurkationsdiagramm-Diagramm}{20}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.3}Bifurkationsdiagramm-Diagramm}{18}{subsubsection.4.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3} Versuchsdurchf\IeC {\"u}hrung }{21}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.3} Versuchsdurchf\IeC {\"u}hrung }{19}{subsection.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.1} Versuchsaufbau}{21}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1} Versuchsaufbau}{19}{subsubsection.4.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2} Oszillation und Phasenraumdiagramm }{21}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2} Oszillation und Phasenraumdiagramm }{19}{subsubsection.4.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4} Bifurkationsdiagramm }{22}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.4} Bifurkationsdiagramm }{20}{subsection.4.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5} Vermessung der Bifurkationspunkte }{23}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.5} Vermessung der Bifurkationspunkte }{21}{subsection.4.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.6} Auswertung }{23}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.6} Auswertung }{21}{subsection.4.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5} Zusammenfassung }{24}{section.5}
+\contentsline {section}{\numberline {5} Zusammenfassung }{22}{section.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}Software}{24}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.1}Software}{22}{subsection.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Appendix}{25}{section.6}
+\contentsline {section}{\numberline {6}Appendix}{23}{section.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1}Runge-Kutta 4ter Ordnung in 3 Dimensionen}{25}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.1}Runge-Kutta 4ter Ordnung in 3 Dimensionen}{23}{subsection.6.1}
