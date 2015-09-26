@@ -455,8 +455,8 @@ Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\b
 \caption{Phasenraumdiagramm. Links: Schrittweite $h=0.1$ mit Euler-Cauchy. Mitte: Schrittweite $h=0.08$ mit Euler-Cauchy identisch bei $h=0.2$ mit Runge-Kutta. Rechts: Runge-Kutta bei Schrittweite $h=2$}. 
 \label{fig:duffing-awp1}
 \end{figure}
-Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h \approx 0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (Mitte). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h \approx 2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts.
-
+Für $0.2<h<0.08$ erhalten wir mit dem Euler-Cauchy Verfahren einen anderen Attraktor (Abbildung \ref{fig:duffing-awp1} links) und für $h>0.2$ divergiert die Trajektorie. Bei dem Runge-Kutta-Verfahren können wir $h \approx 0.2$ wählen und erhalten weiterhin einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} (Mitte). Wählen wir noch größere Schrittweiten so beobachten wir plötzlich bei $h \approx 2$ einen Attraktor wie in Abbildung \ref{fig:duffing-awp1} rechts. Es ist offensichtlich, dass eine Schrittweite von $h=2$ keinen Sinn macht, da $x$ und $y$ nie größer als $0.5$ werden. Dennoch ist es erstaunlich, dass es tatsächlich einen Grenzzyklus gibt, der gewisse Ähnlichkeit zu Abbildung \ref{fig:duffing-awp1} links hat. Die weitere Untersuchung dieses Phänomens soll hier nicht fortgesetzt werden.
+\newline
 Im folgenden sind alle Berechnungen in diesem Kapitel mit dem Runge-Kutta-Verfahren 4ter Ordnung implementiert.
 Ganz bedeutend ändert sich der Attraktor bei Variation der Anfangsbedingungen. Variieren wir lediglich $x_0$ und lassen $y_0=0.02$, bei einer Schrittweite von $h=0.01$, so erhalten wir bei $x_0=0.18$ einen Attraktor wie in  Abbildung \ref{fig:duffing-awp1} (Mitte) während wir bei $x_0=0.17$ ein Phasenraumdiagramm ähnlich zu Abbildung \ref{fig:duffing-awp1} (links) erhalten.
 \newline
