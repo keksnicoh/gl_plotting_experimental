@@ -69,6 +69,25 @@ for i in range(0, 22):
     data[i*2+1] = mean(last)
     r_start += 0.05
 
+N_POINTS = 25
+N_ITER   = 15
+A        = 0.6
+f        = lambda r, x: r*x*(1-x)
+data_f     = numpy.zeros(N_POINTS*2)
+tmp_data = numpy.zeros(N_ITER)
+r_min = 2.9
+r_max = 4.0
+dr    = (r_max-r_min)/N_POINTS
+r     = r_min
+for k in range(0, N_POINTS):
+    tmp_data[0] = 0.8
+    for i in range(1, N_ITER-1):
+        tmp_data[i] = A*(f(r, tmp_data[i-1])+tmp_data[i-1])
+    tmp_data[i+1] = f(r, tmp_data[i])
+    data_f[2*k] = r
+    data_f[2*k+1] = tmp_data[N_ITER-1]
+    r += dr
+
 
 imax = 1500
 rn = 1500
@@ -78,8 +97,8 @@ window.plotter.add_graph('iteration', graph.Discrete2d(pydomain, GERADE))
 window.plotter.get_graph('iteration').set_colors(color_min=[0.0,0.0,.0,.1], color_max=[0.0,0.0,0.0,.1])
 window.plotter.get_graph('iteration').set_dotsize(0.0015)
 
-pydomain = domain.Domain(22)
-pydomain.push_data(data)
+pydomain = domain.Domain(N_POINTS)
+pydomain.push_data(data_f)
 window.plotter.add_graph('iteration2', graph.Discrete2d(pydomain, GERADE))
 window.plotter.get_graph('iteration2').set_colors(color_min=[0.0,0.0,.0,1.0], color_max=[0.0,0.0,0.0,1.0])
 window.plotter.get_graph('iteration2').set_dotsize(0.015)

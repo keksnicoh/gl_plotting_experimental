@@ -90,7 +90,8 @@ class Discrete2d(BaseGraph):
     def set_dotsize(self, dotsize):
         """ sets dot size """
         self.shader.uniform('dot_size', dotsize)
-
+        self.shader.uniform('dot_size_x', dotsize)
+        self.shader.uniform('dot_size_y', dotsize)
     def render(self, mat_modelview=None):
         """ renders the graph """
         self.domain.pre_render()

@@ -27,4 +27,6 @@
 \BOOKMARK [1][-]{section.5}{ Zusammenfassung }{}% 27
 \BOOKMARK [2][-]{subsection.5.1}{Software}{section.5}% 28
 \BOOKMARK [1][-]{section.6}{Appendix}{}% 29
-\BOOKMARK [2][-]{subsection.6.1}{Runge-Kutta 4ter Ordnung in 3 Dimensionen}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.1}{Runge-Kutta 4ter Ordnung in 2 Dimensionen}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.2}{Algorithmus zum bestimmen des Bifurkationspunktes}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.3}{Lyapunov renormiert - OpenGL GLSL Quellcode}{section.6}% 32

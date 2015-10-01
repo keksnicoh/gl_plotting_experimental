@@ -1,4 +1,4 @@
-\documentclass[11,5pt, twoside]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -52,9 +52,7 @@
 % for skript letters like H...
 \usepackage{mathrsfs}
 \usepackage{fancyhdr}
-\fancyhf{}
-\fancyfoot[LE,RO]{\thepage}
-\pagestyle{fancy}
+
 \geometry{verbose,a4paper,tmargin=25mm,bmargin=25mm,lmargin=15mm,rmargin=20mm}
 
 \title{Protokoll zum Versuch Nichtlineare Dynamik und Chaos}
@@ -100,6 +98,14 @@ Obwohl für $r=3.2$ und $r=3.45$ kein eindeutiger Grenzwert existiert, scheint e
 	\label{fig:logi-disk}
 \end{figure}
 \newline
+Wir haben nun für $r=3.8$ untersucht wie sich zwei Folgen $x_n$ und $y_n$ entwickelt falls $y_0=x_y+0003$ ist. In Abbildung \ref{fig:kore} ist der Abstand zwischen den Folgegliedern $|x_n-y_n|$ visualisiert. Die ersten 10 Iterationen ist $x_n \approx y_n$. Ab $n>12$ ändert sich der Abstand zwischen den Folgegliedern stets. Eine kleine Änderung des Startwertes $x_0 \rightarrow x_0 + \epsilon$ hat bei $r=3.8$ große Auswirkungen auf den Verlauf der Folge.
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=250px]{logi/kore}
+	\caption{Logistische Abbildung nach 25 Iteration für den Startwert $x_0=0.2$ (rot) und $y_0=0.20003$(schwarz). Zusätzlich als Linie geplottet (zur besseren visuellen Unterscheidbarkeit) der Abstand $|x_n-y_n|$}
+	\label{fig:kore}
+\end{figure}
+
 Die logistische Abbildung ist eine Parabel $\Rightarrow$ $f^n(x)$ ist ein Polynom vom Grad $2n$. 
 In Abbildung \ref{fig:logi-disk} wurde für einen festen Startwert die Folge $x_n$ aufgetragen. Um nun  beliebige Startwerte zu untersuchen haben wir in Abbildung \ref{fig:logi-kont} das Polynom $f^{100}(x)$ vom Grad 200 dargestellt: 
 \begin{itemize}
@@ -109,7 +115,7 @@ In Abbildung \ref{fig:logi-disk} wurde für einen festen Startwert die Folge $x_
 \item Unten rechts($r=3.56$): $\lim_{N->\infty} f^N(x) \in \{y_0, y_1, y_2, y_3, y_4, y_5\} \forall x \in [0,1]$.
 \end{itemize}
 Das Langzeitverhalten der Folge $x_n$ hängt also nicht vom Startwert ab. 
-Betrachtet man den Graphen für $r=3.45$ stellt man fest, dass der Graph bei $r=3.05$ in diesem Graph wieder mehrfach wiederzufinden ist. $f^{\infty}$ scheint ein fraktales Objekt zu sein (Selbstähnlichkeit). 
+Betrachtet man den Graphen für $r=3.45$ stellt man fest, dass der Graph bei $r=3.05$ in diesem Graph wieder mehrfach wiederzufinden ist. $f_r^{\infty}$ scheint für bestimmte Parameter r ein fraktales Objekt zu sein (Selbstähnlichkeit). 
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=200px]{logi/kurve280}
@@ -119,14 +125,17 @@ Betrachtet man den Graphen für $r=3.45$ stellt man fest, dass der Graph bei $r=
 	\caption{Logistische Abbildung nach 100 Iterationsschritten für $x_0\in[0,1]$. Links oben: $r=2.8$, rechts oben: $r_3.05$, links unten: $r=3.45$, rechts unten: $r=3.56$}
 	\label{fig:logi-kont}
 \end{figure}
-
+\newpage
 \subsection{Bifurkationsdiagramm}
 Wir haben ein Bifurkationsdiagramm der logistischen Abbildung erzeugt indem wir den Parameter r gegen Iterationspunkte aufgetragen haben. Dabei fixierten wir jeweils ein r und erzeugten eine Folge $x_0 ... x_{1000}$ von welcher wir $x_{500} ... x_{1000}$ gegen die Ordinate aufgetragen haben (Abbildung \ref{fig:bifurkation-sin-nice}).
-Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Periodenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strukturen feststellen lassen (Bögen, Punkte auf Geraden, freie Bereiche).
+Das Bifurkationsdiagramm lässt sich in mehrere Bereiche unterteilen. Bis $r=3$ laufen die $x_{500}...x_{1000}$ auf den gleichen Fixpunkt zu. An $r=3$ gabelt sich das Diagramm in zwei Äste auf (Periodenverdoppelung). An $r=3.449$ gibt es eine weitere Periodenverdopplung und es ist eine Selbstähnlichkeit mit dem Bereich um $r=3$ zu erkennen (fraktale Strukturen). Ab $r=3.569$ entsteht ein chaotischer Bereich in welchem sich aber noch Strukturen feststellen lassen (Bögen, Punkte auf Geraden, freie Bereiche). 
+In dem Bereich um $r=3.84$ (Abbildung \ref{fig:bifurkation-sin-nice} rechts) findet sich eine zu (Abbildung \ref{fig:bifurkation-sin-nice} links) selbstänliche Struktur. 
+
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[scale=0.30]{bifurkation}
-	\caption{Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py}
+	\includegraphics[width=270px, height=200px]{bifurkation-1}
+	\includegraphics[width=200px, height=200px]{bifurk-zoom-jo}
+	\caption{Links: Bifurkationsdiagramm der logistischen Abbildung im Bereich $r\in[2.6,4]$. sourcecode: prak/birukation-logistisch-no-opt.py. Rechts: Vergrößerung im Bereich $r \in [3.82,3.88]$ im linken Bild rot markiert.}
 	\label{fig:bifurkation-sin-nice}
 \end{figure}
 \subsection{Fixpunkte / Stabilitätsbedingung}
@@ -142,8 +151,10 @@ x_{n+1} = f(x^*+\delta)=f(x^*)+f'(x^*)\delta
 \begin{equation}
 \Leftrightarrow x_{n+1} - x^* = f'(x^*)\delta = (x_n - x^*)f'(x^*)
 \end{equation}
-Damit $x_n$ tatsächlich gegen $x^*$ konvergiert also $x^*$ ein stabiler Fixpunkt ist, muss $|x_{n+1}-x^*| < |x_n-x^*| \Leftrightarrow |f'(x^*)|<1$.
-\newline
+Damit $x_n$ tatsächlich gegen $x^*$ konvergiert also $x^*$ ein stabiler Fixpunkt ist, muss gelten
+\begin{equation}
+|x_{n+1}-x^*| < |x_n-x^*| \Leftrightarrow |f'(x^*)|<1
+\end{equation}
 Für die logistische Abbildung haben wir die Fixpunktgleichung$ f(x)=rx(1-x)=x $. Die Lösungen der Gleichungen sind die Fixpunkte $x_{0}=0$ und $x_{1}=1-\frac{1}{r}$. Aus der Stabilitätsbedingung (wir betrachten $f'(x)=r-2rx$) folgt:
 \begin{equation}
 -1 < r < 1: x_{0} \text{ stabil}, r > 1: x_{0} \text{ instabil}
@@ -151,9 +162,41 @@ Für die logistische Abbildung haben wir die Fixpunktgleichung$ f(x)=rx(1-x)=x $
 \begin{equation}
 1 < r < 3: x_1 \text{ stabil}, r<1 \wedge  r> 3: x_1 \text{ instabil}
 \end{equation}
-Abbildung \ref{fig:log-iteration-behavior} zeigt wie sich die Iteration bei unterschiedlichen Parametern verhalten. Für $r>3$ ist $x_1$ nicht mehr stabil. So lässt sich die Aufspaltung im Bifurkationsdiagramm (Abbildung \ref{fig:bifurkation-sin-nice}) für $r>3$ verstehen. Ebenfalls wurde das Konvergenzverhalten der logistischen Abbildung gegen $x_1$ geprüft indem von den letzten beiden Werten jeweils der Mittelwert gebildet wurde. Bereits nach 30 Iterationen konnten alle $x_1$ für $1 < r \leq 3$ numerisch bestimmt werden. Ab $r>3$ funktioniert diese Methode nicht mehr, da die beiden Äste im Bifurkationsdiagramm nicht Punktsymmetrisch an $x_1$ spiegeln (Abbildung \ref{fig:log-intermittenz-cycles}). In Abbildung \ref{fig:log-iteration-behavior} ist für den Fall $r=3.113$ ebenfalls zu sehen, dass das Konvergenzverhalten asymmetrisch im Vergleich zum Fall $r=2.878$ ist.
-\newline
-Im folgenden untersuchen wir den Zweierzyklus $f^2(x)$. Mit der Fixpunktgleichung $f^2(x)=f(f(x))=x$, bzw. allgemein $f^{n}(x)=f^{n-1}(f(x))=x$ wissen wir, dass ein Fixpunkt von $f^n(x)$ immer auch ein Fixpunkt von $f^{n+1}(x)$ ist. Im Fall der logistischen Abbildung folgt
+Abbildung \ref{fig:log-iteration-behavior} zeigt wie sich die Iteration bei unterschiedlichen Parametern verhalten. Für $r>3$ ist $x_1$ nicht mehr stabil. So lässt sich die Aufspaltung im Bifurkationsdiagramm (Abbildung \ref{fig:bifurkation-sin-nice}) für $r>3$ verstehen.
+Wir haben nun die Fixpunkte des Einerzyklus numerisch bestimmt. Um die Konvergenz zu beschleunigen haben wir die folgende Abbildungsvorschrift angewendet:
+\begin{equation}
+x_0 \in [0,1]; x_{n+1} = \frac{x_n+f(x_n)}{2}
+\end{equation}
+Wir haben die Fixpunkte $x^*$ nach 18 Iterationen numerisch auf $|x^*-f^{15}(x_0)|<10^{-15}$ bestimmen können (Abbildung \ref{fig:log-intermittenz-cycles}). Um zu untersuchen wie schnell dieses Verfahren für bestimmte $x^*$ konvergiert, haben wir den Abstand des Fixpunktes zu dem berechneten Wert $|x^*-x_{10}|$ nach 10 Iterationen berechnet. Tabelle \ref{tab:bla} zeigt, dass um $r=3$ die $x_{10}$ am dichtesten am Grenzwert $x^*$ sind.
+\begin{table}[!htbp]
+\begin{center}
+  \begin{tabular}{ | l | c || c | c | }
+    \hline
+    r  & $|x^*-x_{10}|$ & r  & $|x^*-x_{10}|$ \\ \hline
+    $0.50$ & $1.03$ & $2.60$ & $2.01 10^{-08}$ \\ \hline
+    $0.73$ & $4.33 10^{-01}$ & $2.83$ & $6.66 10^{-11}$ \\ \hline
+    $0.97$ & $1.72 10^{-01}$ & $3.07$ & $1.35 10^{-14}$ \\ \hline
+    $1.20$ & $5.86 10^{-02}$ & $3.30$ & $5.55 10^{-09}$ \\ \hline
+    $1.43$ & $1.62 10^{-02}$ & $3.53$ & $7.02 10^{-07}$ \\ \hline
+    $1.67$ & $3.39 10^{-03}$ & $3.77$ & $1.34 10^{-05}$ \\ \hline
+    $1.90$ & $4.94 10^{-04}$ & &  \\ \hline
+    $2.13$ & $4.14 10^{-05}$ & &  \\ \hline
+  \end{tabular}
+  \caption{Abstand der Folge $x_{10}$ zum Fixpunkt $x^*$ unter Anwendung der Konvergenzbeschleunigung.}
+  \label{tab:bla}
+ \end{center}
+\end{table}
+Der Bifurkationspunkt befindet sicht dort, wo der Fixpunkt weder stabil noch instabil ist:
+\begin{equation}
+x^* \text{ Bifurktionspunkt} \iff |f(x^*)| = 1 \Rightarrow |2-r|=1 \Rightarrow r=3
+\end{equation}
+Im Bereich den Bifurkationspunktes $r=3$ konvergiert die logistische Abbildung ohne die Konvergenzbeschleunigung sehr langsam (Abbildung \ref{fig:log-iteration-behavior}). Allerdings
+zeigte sich bereits in Tabelle \ref{tab:bla}, dass um den Bereich des Bifurkationspunktes die Konverhenzbeschleunigung am besten funktioniert. Mit dem Differenzenquotienten und der Konvergenzbeschleunigung haben wir so den Bifurkationspunkt numerisch effizient bestimmen können (siehe Appendix):
+\begin{equation}
+|r_{analytisch}-r_{numerisch}| < 6 * 10^{-9}
+\end{equation}
+\newpage
+Im folgenden untersuchen wir den Zweierzyklus $f^2(x)$. Mit der Fixpunktgleichung $f(f(x))=x$ wissen wir, dass ein Fixpunkt von $f^n(x)$ immer auch ein Fixpunkt von $f^{n+1}(x)$ ist. Im Fall der logistischen Abbildung folgt
 \begin{equation}
 x_{n+1}=f_r(x_n)=rx_n(1-x_n)
 \Rightarrow x_{n+2}=r^2x_n(1-x_n)(1-rx_n(1-x_n))\end{equation}
@@ -170,9 +213,10 @@ Die Lösung der Gleichung
 \begin{equation}
 1+r-rx-r^2x+r^2x^2=0
 \end{equation}
-führt zu 2 weitern Fixpunkten $x_{3,4}=\frac{\pm\sqrt{r^2-2 r-3}+r+1}{2 r}$.
-Da $x_{3,4} \in \mathbb{R} $, muss $r^2-2 r-3 \geq 0 \Rightarrow r \leq -1 \land r \geq 3$.
-\newline
+führt zu 2 weitern Fixpunkten
+\begin{equation}
+x_{3,4}=\frac{\pm\sqrt{r^2-2 r-3}+r+1}{2 r} \forall r^2-2 r-3 \geq 0 \Rightarrow r \leq -1 \vee r \geq 3
+\end{equation}
 Unter Berücksichtigung der Stabilitätsbedingung folgt
 \begin{equation}
 \frac{d}{dx}f^2(x)=-r^2(2x-1)(2r(x-1)x+1).
@@ -199,7 +243,7 @@ Die logistische Funktion zeigte bei einigen Parametern r Intermittenz (Abbildung
 \centering
 \includegraphics[scale=0.22]{intermittenz}
 \includegraphics[scale=0.15]{analy-periodenv}
-\caption{Logistische Funktion. Links: Intermittenz bei $r=3.80102$. Rechts: Die stabile Lösung des Einerzyklus $x^*$ und die beiden Lösungen des Zweierzyklus $x_{3,4}$. Im Hintergrund das Bifurkationsdiagramm. Die Punkte sind die das Ergebnis der numerischen Berechnung der Fixpunkte $x_1$. Die vertikalen Linien sind an $r=3.0$ und $r=3.44$ und markieren die Stellen wo $|f'(x)|=1$, $|\frac{d}{dx}f^2(x)|=1$ sind. Sourcecode: prak/intermittenz.py, prak/logis-zyklen.py}. 
+\caption{Logistische Funktion. Links: Intermittenz bei $r=3.80102$. Rechts: Die stabile Lösung des Einerzyklus $x^*$ und die beiden Lösungen des Zweierzyklus $x_{3,4}$. Im Hintergrund das Bifurkationsdiagramm. Die Punkte sind das Ergebnis der numerischen Berechnung der Fixpunkte $x_1$. Die vertikalen Linien sind an $r=3.0$ und $r=3.44$ und markieren die Stellen wo $|f'(x)|=1$, $|\frac{d}{dx}f^2(x)|=1$ sind. Sourcecode: prak/intermittenz.py, prak/logis-zyklen.py}. 
 \label{fig:log-intermittenz-cycles}
 \end{figure}
 
@@ -216,7 +260,7 @@ Zunächst haben wir den Fall $r=3$ untersucht: Abbildung \ref{fig:log-konv1} (li
 Als nächstes haben wir $\forall (x_0, r) \in [0,1] \times [0,4]$  berechnet wie groß $\mid f^{\infty}_r(x_0)-f^{m}_r(x_0)\mid $ ist. 
 In einem 2d Plot (Abbildung \ref{fig:log-konv1} Mitte, rechts) sind ($x_0$, r) eingefärbt: Je dunkler ($x_0$, r) desto näher liegt $f^{m}_r(x_0)$ an $f^{\infty}_r(x_0)$. 
 Wie zu erwarten ist der Fixpunkt $x_1=1-\frac{1}{r}$ dunkel eingefärbt (Abbildung \ref{fig:log-konv1} Mitte). Der Graph scheint an der $x_0=0.5$ Achse gespiegelt zu sein. Dies hängt damit zusammen, dass $f(x^{Spiegel}_{1}=\frac{1}{r}) = x_1$. 
-Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen und die weißen Bereiche an den Bifurkationspunkten. Je mehr Iterationen durchgeführt werden, desto mehr prägen sich die schwarzen Bereiche aus. Für $r < r_{superattraktiv}$ sind 2 Äste zu sehen, während bei $r > r_{superattraktiv}$ abhängig von der Anzahl $N$ der Iterationen $2*(N-1)$ Äste zu sehen sind. An den Bifurkationspunkten wiederholt sich das Muster fraktal (Abbildung \ref{fig:log-konv1} rechts). 
+Deutlich zu sehen sind die schwarzen Bereiche um die superattraktiven Stellen und die weißen Bereiche an den Bifurkationspunkten. Je mehr Iterationen durchgeführt werden, desto mehr prägen sich die schwarzen Bereiche aus. Für $r < r_{superattraktiv}$ sind 2 Äste zu sehen, während bei $r > r_{superattraktiv}$ abhängig von der Anzahl $N$ der Iterationen $2(N-1)$ Äste zu sehen sind. An den Bifurkationspunkten wiederholt sich das Muster fraktal (Abbildung \ref{fig:log-konv1} rechts). 
 
 \begin{figure}
 \centering
@@ -246,7 +290,6 @@ Also $\exists x_0 \in \mathbb{R} \forall r > 4: f(x_0) > 1 \Rightarrow f^2(x_0) 
 \label{eq:extreme-bifurc-final}
 \end{equation}
 In prak.iteration-log-extreme.py haben wir nun zu den Anfangsbedingungen $x_0=0.4$, $r \in [3.99999, 4.999989]$, $\Delta r = 0.000001$ überprüft wie viele Punkte r nach n Iterationen gegen $-\infty$ divergieren. Dabei haben $n=1, n=10, n=100, n=1000, n=10000$ Iterationen durchgeführt mit folgendem Ergebnis.
-
 \begin{lstlisting}
 python -m prak.iteration-log-extreme
 nothing at N_ITER=1
@@ -255,7 +298,6 @@ N_ITER=100 found 680 intervals. Last interval [4.072665,4.999989]
 N_ITER=1000 found 17 intervals. Last interval [4.000251,4.999989]
 N_ITER=10000 found 1 intervals. Last interval [4.000001,4.999989]
 \end{lstlisting}
-
 Je mehr Iterationen durchgeführt werden, desto mehr Punkte divergieren ab $r \geq 4.000001$ gegen $-\infty$. Dieses Verhalten war nach Gleichung (\ref{eq:extreme-bifurc-final}) zu erwarten. 
 
 \subsection{Lyapunov Exponent}
@@ -276,28 +318,14 @@ Renormiert
 In Abbildung \ref{fix:log-detail} ist der Lyapunov Exponent der analytischen Implementation gezeigt.
 Es zeigte sich, dass die Gleichung (\ref{eq:lyapunov-def}) sehr schlechte Ergebnisse im Vergleich zu den beiden letzten Methoden (\ref{eq:lyapunov-analytisch}), (\ref{eq:lyapunov-renormiert}) ergibt.
 Dies liegt daran, dass schon bei kleinen $\epsilon$ die Funktionswerte sehr schnell divergieren und somit die Definition des Differenzenquotienten in (\ref{eq:lyapunov-def}) keinen Sinn ergibt.
-In Abbildung \ref{fig:lyapunov} (links) haben wir für $r=0.5$ das Konvergenzverhalten von (\ref{eq:lyapunov-def}) mit dem Konvergenzverhalten von (\ref{eq:lyapunov-analytisch}) verglichen. Es ist zu sehen, dass an $N=60$ der Differentialquotient beginnt von der analytischen Formel abzuweichen und schließlich bei $N=125$ divergiert.
+In Abbildung \ref{fig:lyapunov} (links) haben wir für $r=0.5$ das Konvergenzverhalten von (\ref{eq:lyapunov-def}) mit dem Konvergenzverhalten von (\ref{eq:lyapunov-analytisch}) verglichen. Es ist zu sehen, dass bei $N=60$ der Differenzenquotient beginnt von der analytischen Formel abzuweichen und schließlich bei $N=125$ divergiert.
 Die Renormierung (\ref{eq:lyapunov-renormiert}) hält diesen Abstand in jedem Iterationsschritt klein, weshalb sich der Lyapunov Exponent trotzdem ausrechnen lässt.
 Der Lyapunov Exponent $\lambda(x_0)$ hat seine Nullstellen dort wo im Bifurkationsdiagramm Periodenverdopplung auftritt. Umgekehrt divergiert $\lambda(x_0)$ an den superattraktiven Stellen gegen $-\infty$.
+Im Vergleich wird nun klar warum in Abbildung \ref{fig:log-konv1} große dunkle Bereiche zu finden sind, nämlich genau dort wo superattraktive Stellen sind. 
 Man erhält also Information über das Verhalten der Abbildung für bestimmte $x_0$.
 Tatsächlich kann man den Lyapunov-Exponenten über den mittleren Informationsverlust ausdrücken $\lambda(x_0)=-log(2)*\delta I$ (Literatur \parencite{versuchmappe}, S. 10).
-Im folgenden ist der OpenGL Quellcode der renormierten Formel des Lyapunov Exponenten gezeigt:
-\begin{lstlisting}
-float g(float r, float x) {
-    return r * x * (1-x);
-}
-vec4 f(vec4 x) {
-    float x0 = 0.4;
-    float eps = 0.0001;
-    float n = 10000;
-    float summe = x0;
-    for (int i=1; i < n; i++) {
-        x0 = g(x.x, x0);
-        summe += log(abs(g(x.x, x0+eps)-g(x.x, x0))/eps);
-    }
-    return vec4(x.x, summe/n, 0, 0.5);
-}
-\end{lstlisting}
+In den Appendix ist der OpenGL Quellcode der renormierten Formel des Lyapunov Exponenten beigelegt.
+
 \subsubsection{Konvergenzverhalten}
 Es kann passieren, dass man einen Anfangswert wählt, für welchen der Lyapunov-Exponent kein sinnvolles Ergebnis liefert. Setzt man $x_0=0.5$ so divergiert die analytische Formel, denn $log(f'(x_0))=-\infty$.
 Für die renormierte und analytische Implementation haben wir untersucht wie schnell bestimmte Anfangswerte $x_0$ gegen den Grenzwert $\lambda(x_0)$ streben. Dafür wurde untersucht wie nah $\lambda_{N=5}(r, x_0)$ an $\lambda_{N=1000}(r, x_0)$ ist:
@@ -339,8 +367,7 @@ Die Definition (\ref{eq:lyapunov-def}) hingegeben konvergiert gegen den Grenzwer
 \subsubsection{Vergleich der analytischen und renormierten Implementation}
 Wir haben nun die analytische und die renormierte Implementation des Lyapunovexponenten weiter untersucht. Dabei stellten wir fest, dass bei Stellen mit Periodenverdoppelung die renormierte Formel etwas schneller als die analytische Formel gegen 0 konvergiert . An einer weiteren Stelle ($r=3.05$) ist zu erkennen wie beide Implementationen jeweils von oben (renormiert) und von unten (analytisch) gegen einen gemeinsamen Wert streben. 
 Die Vermutung liegt nahe, dass man mit dem Mittelwert aus beiden Implementationen an solchen stellen wesentlich schneller den Grenzwert bestimmen kann. Es zeigt sich aber, dass dieses Verhalten nicht regelmäßig auftritt weshalb wir es nicht weiter untersucht haben. Nach weiteren Stichproben scheint die analytische Implementation bis zum 500ten Iterationsschritt etwas schneller als die renormierte Implementation zu konvergieren. Beide Versionen zeigten in allen Stichproben $r<3$, dass sie stets gegen den gleichen Grenzwert strebten.
-
-
+\newpage
 \subsection{Feigenbaumkonstante}
 Die Feigenbaumkonstante ist eine universelle Größe. Sie tritt in chaotischen nicht linearen Systemen auf und ist definiert als:
 \begin{equation}\delta_i = \frac{b_i-b_{i+1}}{b_{i+1}-b_{i+2}}\text{, }\Delta_i=\frac{s_i-s_{i+1}}{s_{i+1}-s_{i+2}}\end{equation}
@@ -352,15 +379,7 @@ Als erstes haben wir versucht die Nullstellen des Lyapunov Exponenten zu bestimm
 \begin{equation}
 \lambda(x-\epsilon) < \lambda(x) \wedge \lambda(x+\epsilon) < \lambda(x) \wedge |\lambda(x)|<\epsilon
 \end{equation}
-Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren verfügbaren Rechenleistungen praktikabel war (Abbildung \ref{fig:lya-rauschen}).
-\begin{figure}[!htbp]
-\centering
-\includegraphics[height=200px]{lya-rauschen}
-\caption{Zoom in den Lyapunovexponenten der logistischen Abbildung bei $r=3$ mit 80000 Iterationen. 
-Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung der Spitzen an den Bifurkationspunkten erschwert wird. Sourcecode: prak/lyapunov-superattraktiv.py}. 
-\label{fig:lya-rauschen}
-\end{figure}
-\newline
+Bei genauer Betrachtung des numerisch bestimmten Lyapunov Exponenten zeigten sich große Schwankungen, weshalb dieses Kriterium nicht mit unseren verfügbaren Rechenleistungen praktikabel war (Abbildung 
 Aufgrund dieser Probleme
 haben wir uns dazu entschieden die superattraktiven Stellen anstelle der Bifurkationspunkte numerisch zu bestimmen. Unser Algorithmus startet im Suchmodus bei gegebenen Startwert $x_{start}$ und geht in kleinen Schritten $\Delta x$ die x-Achse ab. In jedem Schritt wird $l_1=\lambda(x_0)$ $l_2=\lambda(x_0 + \Delta x)$ berechnet. 
 Ist
@@ -395,7 +414,14 @@ delta_1=4.68077099865
 delta_2=4.66295961155
 \end{lstlisting}
 Somit konnten wir numerisch für $i=3$ eine Feigenbaumkonstante von $\delta_3=4.66295961155$ berechnen. Dieser Wert weicht um 0.12\% vom tatsächlichen Wert ab. Die Grenzen des Algorithmus sind bereits nach 5 gefunden superattraktiven Stellen erreicht. Ab $r>3.57$ fängt die numerische Implementation des Lyapunovexpontenten an zu "rauschen" (Abbildung \ref{fix:log-detail}). Der Algorithmus kann daher nicht mehr präzise seinen Suchmodus ausführen. Ebenfalls liegen die nächsten superattraktiven Punkte noch dichter zusammen als es für $s_4$, $s_5$ der Fall war, was ebenfalls vom Algorithmus nicht mehr detektiert wurde. 
-
+\ref{fig:lya-rauschen}).
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=250px]{lya-rauschen}
+\caption{Zoom in den Lyapunovexponenten der logistischen Abbildung bei $r=3$ mit 80000 Iterationen. 
+Eine präzise Konvergenz ist nicht zu erkennen wodurch die numerische Bestimmung der Spitzen an den Bifurkationspunkten erschwert wird. Sourcecode: prak/lyapunov-superattraktiv.py}. 
+\label{fig:lya-rauschen}
+\end{figure}
 \begin{figure}[!htbp]
 \centering
 \includegraphics[scale=0.45]{iteration/bifurk-log-lyapunov-periode}
@@ -449,9 +475,9 @@ Im Folgenden lösen wir die Gleichung sowohl mit der Euler-Methode \parencite{wi
 \subsection { Phasenraumdiagramm }
 Im folgenden verwenden wir als Parameter $\epsilon = 0,2$, $\lambda = 0,08$, $\beta = 1$ und $\Omega = 1$ und untersuchen die Unterschiede der verwendeten numerischen Verfahren bei gleichen Anfangswerten. Dazu wählen wir $x_0=0.21$ und $y_0=0.02$ und betrachten das Phasenraumdiagramm bei unterschiedlichen Schrittgrößen $h$. Für kleine Parameter $h$ erhalten wir sowohl bei dem Euler-Cauchy, als auch beim Runge-Kutta Verfahren (Runge-Kutta 4ter Ordnung 3-Dimensional, siehe Appendix) Attraktoren wie in Abbildung \ref{fig:duffing-awp1} (Mitte) dargestellt. 
 \begin{figure}[!htbp]
-\includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,1-euler}
-\includegraphics[scale=0.28]{duffing-awp1-500k-nach-500k-h0,08-euler}
-\includegraphics[scale=0.28]{duffing-awp1-h2-runge-kutta}
+\includegraphics[scale=0.25]{duffing-awp1-500k-nach-500k-h0,1-euler}
+\includegraphics[scale=0.25]{duffing-awp1-500k-nach-500k-h0,08-euler}
+\includegraphics[scale=0.25]{duffing-awp1-h2-runge-kutta}
 \caption{Phasenraumdiagramm. Links: Schrittweite $h=0.1$ mit Euler-Cauchy. Mitte: Schrittweite $h=0.08$ mit Euler-Cauchy identisch bei $h=0.2$ mit Runge-Kutta. Rechts: Runge-Kutta bei Schrittweite $h=2$}. 
 \label{fig:duffing-awp1}
 \end{figure}
@@ -512,6 +538,7 @@ Außerdem gilt
 \begin{equation}\frac{dI}{dt}=\frac{V_s \cos{\theta} - V_d - RI}{L}\end{equation}
 \begin{equation}\frac{d\theta}{dt}=\omega\end{equation}
 Diese Gleichungen lassen sich numerisch lösen.
+\newpage
 \subsection{ Numerische Berechnungen } \label{ssec:num}
 Unter Verwendung der Parameter:
 \begin{center}
@@ -597,8 +624,7 @@ Um den Bereich von Chaos und Ordnung zu visualisieren, haben wir im folgenden se
 \caption{Bifurkationsdiagramm mit $4\cdot10^5$ Iterationen pro $V_s$. Von $V_s=0$ bis $V_s=8$ in $0.01$ Schritten. Links: Strom. Rechts: Spannung}
 \label{fig:ldr-bifurc}
 \end{figure}
-Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung. Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung \ref{fig::ldr-bifurc} links) finden wir im Bifurkationsdiagramm wieder.
-\pagebreak
+Bei $V_s\approx1.4$ beobachten wir sowohl beim Strom als auch bei der Spannung eine Periodenverdopplung. Dies passt mit unserer Beobachtung des Attraktors bei $V_s=1.42$ (Abbildung \ref{fig:ldr-0002} rechts) zusammen. Auch das Chaotische Verhalten bei $V_s=7$ (Abbildung \ref{fig:ldr-bifurc} links) finden wir im Bifurkationsdiagramm wieder.
 \subsection { Versuchsdurchführung }
 \subsubsection{ Versuchsaufbau}
 Für die Messung an einem realen LDR-Schwingkreis haben wir zunächst einen Messaufbau wie in Abbildung \ref{fig:ldr-aufbau1} (links) verwendet. Mit den Eingängen A und B des Oszilloskop konnten wir Strom und Spannung über der Diode einzeln und als Phasenraumdiagramm darstellen. Ferner haben wir einen Gate-Delay Generator verwendet der Abbildung \ref{fig:ldr-aufbau1} (rechts) zusehen ist.
@@ -716,6 +742,71 @@ Und schließlich:
 $$y_{n+1} = y_n + \frac{k_1 + 2k_2 + 2k_3 + k_4}{6}$$
 $$x_{n+1} = x_n + \frac{l_1 + 2l_2 + 2l_3 + l_4}{6}$$
 
+\newpage
+\subsection{Algorithmus zum bestimmen des Bifurkationspunktes}
+Sourcecode: prak/konvergenz.py
+\begin{lstlisting}
+import numpy 
+
+N_POINTS = 10000
+N_ITER   = 15
+X0       = 0.8
+A        = 0.5
+f        = lambda r, x: r*x*(1-x)
+EPS      = 0.00000001
+DEPTH    = 8
+R_MIN    = 0.0
+R_MAX    = 4.0
+
+data_f     = numpy.zeros(N_POINTS)
+data_df    = numpy.zeros(N_POINTS)
+tmp_data   = numpy.zeros(N_ITER) 
+tmp_bifurk = numpy.zeros(DEPTH)
+
+r_min = R_MIN
+r_max = R_MAX
+r_len = r_max-r_min
+eps   = EPS
+
+for j in range(0, DEPTH):
+    r  = r_min
+    eps *= -1
+    dr = r_len/N_POINTS
+    for k in range(0, N_POINTS):
+        tmp_data[0] = X0
+        for i in range(1, N_ITER):
+            tmp_data[i] = A*(f(r, tmp_data[i-1])+tmp_data[i-1])
+        data_f[k] = tmp_data[N_ITER-1]
+        data_df[k] = numpy.abs((f(r,data_f[k])-f(r,data_f[k]+eps))/eps)
+        if k > 0 and (data_df[k] > 1 and data_df[k-1] < 1 or data_df[k-1] > 1 and data_df[k] < 1):
+            tmp_bifurk[j] = r+eps/2
+            r_len /= 10
+            r_min = max(r_min, tmp_bifurk[j]-r_len/2)
+            r_max = min(r_max, tmp_bifurk[j]+r_len/2)
+            break
+        r += dr
+
+bifurk = (tmp_bifurk[DEPTH-1]+tmp_bifurk[DEPTH-2])/2
+print(bifurk) # 2.99999999322
+\end{lstlisting}
+\newpage
+\subsection{Lyapunov renormiert - OpenGL GLSL Quellcode}
+\begin{lstlisting}
+float g(float r, float x) {
+    return r * x * (1-x);
+}
+vec4 f(vec4 x) {
+    float x0 = 0.4;
+    float eps = 0.0001;
+    float n = 10000;
+    float summe = x0;
+    for (int i=1; i < n; i++) {
+        x0 = g(x.x, x0);
+        summe += log(abs(g(x.x, x0+eps)-g(x.x, x0))/eps);
+    }
+    return vec4(x.x, summe/n, 0, 0.5);
+}
+\end{lstlisting}
 \nocite{*}
 \printbibliography
 
